@@ -526,4 +526,12 @@
         }
     }
 
+    .icon-toolbar {
+        font-size: 20px;
+        color: #fff;
+        position: relative;
+        bottom: -2px;
+        left: -2px;
+    }
+
 </style>

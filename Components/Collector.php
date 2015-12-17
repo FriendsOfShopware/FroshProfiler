@@ -5,6 +5,7 @@ namespace Shopware\Profiler\Components;
 use Shopware\Profiler\Components\Collectors\CollectorInterface;
 use Shopware\Profiler\Components\Collectors\ConfigCollector;
 use Shopware\Profiler\Components\Collectors\DBCollector;
+use Shopware\Profiler\Components\Collectors\EventCollector;
 use Shopware\Profiler\Components\Collectors\GeneralCollector;
 use Shopware\Profiler\Components\Collectors\PHPCollector;
 use Shopware\Profiler\Components\Collectors\SmartyCollector;
@@ -21,8 +22,9 @@ class Collector {
                 new PHPCollector(),
                 new UserCollector(),
                 new SmartyCollector(),
+                new EventCollector(),
                 new DBCollector(),
-                new ConfigCollector()
+                new ConfigCollector(),
             ];
 
             $this->collectors = Enlight()->Events()->filter('Profiler_onCollectCollectors', $this->collectors);

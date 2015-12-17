@@ -20,7 +20,7 @@
                 <b>PHP version</b>
                 <span>
                     {$sProfiler.php.version}
-                    &nbsp; <a href="{url controller=Profiler action=Phpinfo}">View phpinfo()</a>
+                    &nbsp; <a href="{url controller=Profiler action=php}">View phpinfo()</a>
                 </span>
             </div>
 

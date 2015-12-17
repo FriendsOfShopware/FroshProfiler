@@ -49,9 +49,11 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     public function install()
     {
         $this->subscribeEvent(
-            "Enlight_Controller_Front_DispatchLoopStartup",
+            "Enlight_Controller_Front_StartDispatch",
             "onStartDispatch"
         );
+
+        $this->registerController('Frontend', 'Profiler');
 
         return array(
             'success'         => true,
@@ -68,8 +70,13 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
             new Shopware\Profiler\Subscriber\Collector($this),
             new \Shopware\Profiler\Subscriber\Service($this)
         );
-        foreach( $subscribers as $subscriber )
-            $this->Application()->Events()->addSubscriber( $subscriber );
+
+        foreach($subscribers as $subscriber) {
+            $this->Application()->Events()->addSubscriber($subscriber);
+        }
+
+        $this->initCustomEventManager();
+        $this->initDatabaseProfiler();
     }
 
     public function afterInit()
@@ -83,5 +90,23 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     public function uninstall()
     {
         return true;
+    }
+
+    private function initCustomEventManager()
+    {
+        $event = new \Shopware\Profiler\Components\Event\EventManager($this->Application()->Events());
+        Shopware()->Container()->set('profiler.event_manager', $event);
+        Shopware()->setEventManager($event);
+    }
+
+    private function initDatabaseProfiler()
+    {
+        // Zend DB Profiler
+        Shopware()->Db()->setProfiler(new Zend_Db_Profiler(true));
+
+        // Doctrine Profiler
+        $logger = new \Doctrine\DBAL\Logging\DebugStack();
+        $logger->enabled = true;
+        Shopware()->Models()->getConfiguration()->setSQLLogger($logger);
     }
 }

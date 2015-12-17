@@ -2,6 +2,7 @@
 
 {block name="frontend_index_header_css_screen" append}
     {include file="@Profiler/css.tpl"}
+    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 {/block}
 
 {block name="frontend_index_header_javascript_jquery" append}
