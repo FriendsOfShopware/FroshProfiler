@@ -1,4 +1,5 @@
 <?php
+
 namespace Shopware\Profiler\Components\Collectors;
 
 class PHPCollector implements CollectorInterface
@@ -8,22 +9,24 @@ class PHPCollector implements CollectorInterface
         return 'PHP';
     }
 
-    public function collect(\Enlight_Controller_Action $controller) {
+    public function collect(\Enlight_Controller_Action $controller)
+    {
         return [
             'php' => [
-                'memory_limit' => ini_get('memory_limit'),
-                'used_memory' => memory_get_usage(),
-                'version' => phpversion(),
-                'xdebug' => extension_loaded('xdebug'),
-                'accel' => extension_loaded('accel'),
-                'env' => Shopware()->Environment(),
-                'sapi' => php_sapi_name(),
-                'shopware_version' => \Shopware::VERSION
-            ]
+                'memory_limit'     => ini_get('memory_limit'),
+                'used_memory'      => memory_get_usage(),
+                'version'          => phpversion(),
+                'xdebug'           => extension_loaded('xdebug'),
+                'accel'            => extension_loaded('accel'),
+                'env'              => Shopware()->Environment(),
+                'sapi'             => php_sapi_name(),
+                'shopware_version' => \Shopware::VERSION,
+            ],
         ];
     }
 
-    public function getToolbarTemplate() {
+    public function getToolbarTemplate()
+    {
         return '@Profiler/toolbar/php.tpl';
     }
 }

@@ -2,33 +2,32 @@
 
 class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugin_Bootstrap
 {
-    private $plugin_info = array(
-        'version'     => "1.0.3",
-        'label'       => "Profiler",
+    private $plugin_info = [
+        'version'     => '1.0.3',
+        'label'       => 'Profiler',
         'source'      => null,
         'changes'     => null,
         'license'     => null,
-        'revision'    => null
-    );
+        'revision'    => null,
+    ];
 
-    private $plugin_capabilities = array(
+    private $plugin_capabilities = [
         'install' => true,
         'update'  => true,
-        'enable'  => true
-    );
+        'enable'  => true,
+    ];
 
-    private $invalidateCacheArray = array(
-        "proxy",
-        "frontend",
-        "backend",
-        "template",
-        "config"
-    );
-
+    private $invalidateCacheArray = [
+        'proxy',
+        'frontend',
+        'backend',
+        'template',
+        'config',
+    ];
 
     public function getVersion()
     {
-        return "1.0.0";
+        return '1.0.0';
     }
 
     public function getLabel()
@@ -49,29 +48,28 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     public function install()
     {
         $this->subscribeEvent(
-            "Enlight_Controller_Front_StartDispatch",
-            "onStartDispatch"
+            'Enlight_Controller_Front_StartDispatch',
+            'onStartDispatch'
         );
 
         $this->registerController('Frontend', 'Profiler');
 
-        return array(
+        return [
             'success'         => true,
-            'invalidateCache' => $this->invalidateCacheArray
-        );
+            'invalidateCache' => $this->invalidateCacheArray,
+        ];
     }
-
 
     public function onStartDispatch()
     {
         define('STARTTIME', microtime(true));
 
-        $subscribers = array(
+        $subscribers = [
             new Shopware\Profiler\Subscriber\Collector($this),
-            new \Shopware\Profiler\Subscriber\Service($this)
-        );
+            new \Shopware\Profiler\Subscriber\Service($this),
+        ];
 
-        foreach($subscribers as $subscriber) {
+        foreach ($subscribers as $subscriber) {
             $this->Application()->Events()->addSubscriber($subscriber);
         }
 

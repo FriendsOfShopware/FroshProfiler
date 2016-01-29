@@ -30,39 +30,37 @@ class DBCollector implements CollectorInterface
 
         $this->getAllQuerys();
 
-
         $result = [
             'db' => [
                 'totalQueries' => $totalQueriesZend + $totalQueriesDoctrine,
-                'queryTime' => $this->executeTime
-            ]
+                'queryTime'    => $this->executeTime,
+            ],
         ];
 
         return $result;
     }
 
-    public function getToolbarTemplate() {
+    public function getToolbarTemplate()
+    {
         return '@Profiler/toolbar/db.tpl';
     }
 
     private function getAllQuerys()
     {
-        foreach($this->doctrineProfiler->queries as $query)
-        {
+        foreach ($this->doctrineProfiler->queries as $query) {
             $this->executedQuerys[] = [
-                'sql' => $query['sql'],
-                'params' => $query['params'],
-                'execution' => $query['executionMS']
+                'sql'       => $query['sql'],
+                'params'    => $query['params'],
+                'execution' => $query['executionMS'],
             ];
             $this->executeTime += $query['executionMS'];
         }
 
-        foreach($this->zendProfiler->getQueryProfiles() as $queryProfile)
-        {
+        foreach ($this->zendProfiler->getQueryProfiles() as $queryProfile) {
             $this->executedQuerys[] = [
-                'sql' => $queryProfile->getQuery(),
-                'params' => $queryProfile->getQueryParams(),
-                'execution' => $queryProfile->getElapsedSecs()
+                'sql'       => $queryProfile->getQuery(),
+                'params'    => $queryProfile->getQueryParams(),
+                'execution' => $queryProfile->getElapsedSecs(),
             ];
         }
     }
