@@ -1,12 +1,15 @@
 <?php
+
 namespace Shopware\Profiler\Components\Event;
 
-class EventManager extends \Enlight_Event_EventManager {
+class EventManager extends \Enlight_Event_EventManager
+{
     protected $eventsAmount = 0;
     protected $calledEvents = [];
 
     /**
      * EventManager constructor.
+     *
      * @param \Enlight_Event_EventManager $eventManager
      */
     public function __construct($eventManager)
@@ -20,7 +23,7 @@ class EventManager extends \Enlight_Event_EventManager {
     {
         $this->calledEvents[] = [
             $event,
-            $eventArgs
+            $eventArgs,
         ];
 
         return parent::notify($event, $eventArgs);
@@ -30,7 +33,7 @@ class EventManager extends \Enlight_Event_EventManager {
     {
         $this->calledEvents[] = [
             $event,
-            $eventArgs
+            $eventArgs,
         ];
 
         return parent::notifyUntil($event, $eventArgs);
@@ -40,7 +43,7 @@ class EventManager extends \Enlight_Event_EventManager {
     {
         $this->calledEvents[] = [
             $event,
-            $eventArgs
+            $eventArgs,
         ];
 
         return parent::filter($event, $value, $eventArgs);
@@ -49,6 +52,7 @@ class EventManager extends \Enlight_Event_EventManager {
     public function addListener($eventName, $listener, $priority = 0)
     {
         $this->eventsAmount++;
+
         return parent::addListener($eventName, $listener, $priority);
     }
 

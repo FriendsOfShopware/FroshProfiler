@@ -13,18 +13,19 @@ class UserCollector implements CollectorInterface
     {
         $result = [
             'user' => [
-                'loggedin' => Shopware()->Session()->offsetGet('sUserId')
-            ]
+                'loggedin' => Shopware()->Session()->offsetGet('sUserId'),
+            ],
         ];
 
-        if(!empty($result['user']['loggedin'])) {
+        if (!empty($result['user']['loggedin'])) {
             $result['user'] = array_merge($result['user'], Shopware()->Modules()->Admin()->sGetUserData());
         }
 
         return $result;
     }
 
-    public function getToolbarTemplate() {
+    public function getToolbarTemplate()
+    {
         return '@Profiler/toolbar/user.tpl';
     }
 }

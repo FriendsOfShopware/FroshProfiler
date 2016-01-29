@@ -4,19 +4,20 @@ namespace Shopware\Profiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
-class Collector implements SubscriberInterface{
+class Collector implements SubscriberInterface
+{
     /** @var  \Shopware_Plugins_Core_Profiler_Bootstrap */
     private $bootstrap;
-
 
     public function __construct($bootstrap)
     {
         $this->bootstrap = $bootstrap;
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         return [
-            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend'
+            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend',
         ];
     }
 
@@ -31,7 +32,7 @@ class Collector implements SubscriberInterface{
         $view->sProfiler = Shopware()->Container()->get('profiler.collector')->collectInformation($controller);
         $view->sProfilerCollectors = Shopware()->Container()->get('profiler.collector')->getCollectors();
 
-        $view->addTemplateDir($this->bootstrap->Path() . '/Views');
+        $view->addTemplateDir($this->bootstrap->Path().'/Views');
         $view->extendsTemplate('@Profiler/index.tpl');
     }
 }

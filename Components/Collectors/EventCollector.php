@@ -3,17 +3,15 @@
  * Created by PhpStorm.
  * User: shyim
  * Date: 17.12.15
- * Time: 13:58
+ * Time: 13:58.
  */
-
 namespace Shopware\Profiler\Components\Collectors;
-
 
 class EventCollector implements CollectorInterface
 {
     public function getName()
     {
-        return "Events";
+        return 'Events';
     }
 
     public function collect(\Enlight_Controller_Action $controller)
@@ -23,9 +21,9 @@ class EventCollector implements CollectorInterface
 
         return [
            'events' => [
-               'eventAmount' => $pluginEventManager->getEventAmount(),
-               'calledEvents' => $pluginEventManager->getCalledEvents()
-           ]
+               'eventAmount'  => $pluginEventManager->getEventAmount(),
+               'calledEvents' => $pluginEventManager->getCalledEvents(),
+           ],
         ];
     }
 

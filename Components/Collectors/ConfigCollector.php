@@ -13,14 +13,15 @@ class ConfigCollector implements CollectorInterface
     {
         $result = [
             'config' => [
-                Shopware()->getOptions()
-            ]
+                Shopware()->getOptions(),
+            ],
         ];
 
         return $result;
     }
 
-    public function getToolbarTemplate() {
+    public function getToolbarTemplate()
+    {
         return '@Profiler/toolbar/config.tpl';
     }
 }

@@ -11,12 +11,13 @@ use Shopware\Profiler\Components\Collectors\PHPCollector;
 use Shopware\Profiler\Components\Collectors\SmartyCollector;
 use Shopware\Profiler\Components\Collectors\UserCollector;
 
-class Collector {
+class Collector
+{
     private $collectors = [];
 
     public function getCollectors()
     {
-        if(empty($this->collectors)) {
+        if (empty($this->collectors)) {
             $this->collectors = [
                 new GeneralCollector(),
                 new PHPCollector(),
@@ -39,8 +40,8 @@ class Collector {
 
         $collectors = $this->getCollectors();
 
-        foreach($collectors as $collector) {
-            if($collector instanceof CollectorInterface) {
+        foreach ($collectors as $collector) {
+            if ($collector instanceof CollectorInterface) {
                 $result = array_merge($result, $collector->collect($controller));
             }
         }
