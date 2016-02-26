@@ -49,7 +49,8 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     {
         $this->subscribeEvent(
             'Enlight_Controller_Front_StartDispatch',
-            'onStartDispatch'
+            'onStartDispatch',
+            -500
         );
 
         $this->registerController('Frontend', 'Profiler');

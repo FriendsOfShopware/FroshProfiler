@@ -301,7 +301,6 @@
     .sf-toolbar-block:hover .sf-toolbar-info {
         display: block;
         padding: 10px;
-        max-width: 480px;
         max-height: 480px;
         word-wrap: break-word;
         overflow: hidden;

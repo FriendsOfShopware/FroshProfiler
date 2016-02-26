@@ -1,0 +1,11 @@
+{
+  "name": "shyim/shopware-profiler",
+  "type": "shopware-core-plugin",
+  "description": "",
+  "extra": {
+    "installer-name": "Profiler"
+  },
+  "require": {
+    "composer/installers": "^1.0"
+  }
+}
