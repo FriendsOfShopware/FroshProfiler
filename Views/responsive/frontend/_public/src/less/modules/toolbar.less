@@ -8,16 +8,13 @@
   position: fixed;
   right: 0;
   z-index: 99999;
-}
-
-.sf-minitoolbar a {
-  display: block;
-}
-
-.sf-minitoolbar svg,
-.sf-minitoolbar img {
-  max-height: 24px;
-  max-width: 24px;
+  a {
+    display: block;
+  }
+  svg, img {
+    max-height: 24px;
+    max-width: 24px;
+  }
 }
 
 .sf-toolbarreset * {
@@ -56,14 +53,19 @@
 .sf-toolbarreset .hide-button {
   background: #444;
   cursor: pointer;
-  display: block;
   position: absolute;
   top: 0;
   right: 0;
   width: 36px;
   height: 36px;
-  cursor: pointer;
   text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  i {
+    font-size: 24px;
+    color: #fff;
+  }
 }
 
 .sf-toolbarreset .hide-button svg {

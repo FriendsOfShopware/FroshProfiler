@@ -20,14 +20,14 @@
                 <b>PHP version</b>
                 <span>
                     {$sProfiler.php.version}
-                    &nbsp; <a href="{url controller=Profiler action=php}">View phpinfo()</a>
+                    &nbsp; <a href="{url controller=Profiler action=php}" target="_blank">View phpinfo()</a>
                 </span>
             </div>
 
             <div class="sf-toolbar-info-piece sf-toolbar-info-php-ext">
                 <b>PHP Extensions</b>
                 <span class="sf-toolbar-status {if $sProfiler.php.xdebug}sf-toolbar-status-green{else}sf-toolbar-status-red{/if}">xdebug</span>
-                <span class="sf-toolbar-status {if $sProfiler.php.xdebug}sf-toolbar-status-green{else}sf-toolbar-status-red{/if}">accel</span>
+                <span class="sf-toolbar-status {if $sProfiler.php.accel}sf-toolbar-status-green{else}sf-toolbar-status-red{/if}">accel</span>
             </div>
 
             <div class="sf-toolbar-info-piece">
