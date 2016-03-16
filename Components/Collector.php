@@ -2,6 +2,7 @@
 
 namespace Shopware\Profiler\Components;
 
+use Doctrine\Common\Util\Debug;
 use Shopware\Profiler\Components\Collectors\CollectorInterface;
 use Shopware\Profiler\Components\Collectors\ConfigCollector;
 use Shopware\Profiler\Components\Collectors\DBCollector;
@@ -47,5 +48,23 @@ class Collector
         }
 
         return $result;
+    }
+
+    public function saveCollectInformation($information)
+    {
+        $id = uniqid();
+
+        Shopware()->Container()->get('profiler.cache')->save($id, $information);
+
+        $indexArray = Shopware()->Container()->get('profiler.cache')->fetch('index');
+        if(empty($indexArray)) {
+            $indexArray = [];
+        }
+
+        $indexArray[$id] = array_merge($information['request'], $information['response']);
+
+        Shopware()->Container()->get('profiler.cache')->save('index', $indexArray);
+
+        return $id;
     }
 }

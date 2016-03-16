@@ -1,5 +1,5 @@
 <div class="sf-toolbar-block sf-toolbar-block-request sf-toolbar-status-normal">
-    <a>
+    <a href="{url controller=Profiler action=detail id=$sProfilerID}">
         <div class="sf-toolbar-icon"><span class="sf-toolbar-status sf-toolbar-status-green">200</span>
             <span class="sf-toolbar-label">@</span>
             <span class="sf-toolbar-value sf-toolbar-info-piece-additional">{controllerName}</span>
@@ -8,17 +8,17 @@
     <div class="sf-toolbar-info">
         <div class="sf-toolbar-info-piece">
             <b>HTTP status</b>
-            <span>{$sProfiler.response->getHttpResponseCode()}</span>
+            <span>{$sProfiler.response.httpResponse}</span>
         </div>
         <div class="sf-toolbar-info-piece">
             <b>Controller</b>
                 <span>
-                    Shopware_Controllers_{$sProfiler.request->getModuleName()|ucfirst}_{$sProfiler.request->getControllerName()|ucfirst}&nbsp;::&nbsp;{controllerAction}
+                    Shopware_Controllers_{$sProfiler.request.moduleName|ucfirst}_{$sProfiler.request.controllerName|ucfirst}&nbsp;::&nbsp;{$sProfiler.request.actionName|ucfirst}
                 </span>
         </div>
         <div class="sf-toolbar-info-piece">
             <b>Controller class</b>
-            <span>Shopware_Controllers_{$sProfiler.request->getModuleName()|ucfirst} _{$sProfiler.request->getControllerName()|ucfirst}</span>
+            <span>Shopware_Controllers_{$sProfiler.request.moduleName|ucfirst} _{$sProfiler.request.controllerName|ucfirst}</span>
         </div>
         <div class="sf-toolbar-info-piece">
             <b>Is logged in?</b>

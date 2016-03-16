@@ -3,6 +3,7 @@
 namespace Shopware\Profiler\Components\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
 
 class EventManager extends \Enlight_Event_EventManager
@@ -29,7 +30,7 @@ class EventManager extends \Enlight_Event_EventManager
      */
     public function notify($event, $eventArgs = null)
     {
-        $this->calledEvents[] = ['notify', $event, $eventArgs];
+        $this->calledEvents[] = ['notify', $event, Debug::dump($eventArgs, 2, true, false)];
 
         return $this->parentEventManager->notify($event, $eventArgs);
     }
@@ -43,7 +44,7 @@ class EventManager extends \Enlight_Event_EventManager
      */
     public function filter($event, $value, $eventArgs = null)
     {
-        $this->calledEvents[] = ['filter', $event, $eventArgs];
+        $this->calledEvents[] = ['filter', $event, Debug::dump($eventArgs, 2, true, false)];
 
         return $this->parentEventManager->filter($event, $value, $eventArgs);
     }
@@ -56,7 +57,7 @@ class EventManager extends \Enlight_Event_EventManager
      */
     public function notifyUntil($event, $eventArgs = null)
     {
-        $this->calledEvents[] = ['notifyUntil', $event, $eventArgs];
+        $this->calledEvents[] = ['notifyUntil', $event, Debug::dump($eventArgs, 2, true, false)];
 
         return $this->parentEventManager->notifyUntil($event, $eventArgs);
     }

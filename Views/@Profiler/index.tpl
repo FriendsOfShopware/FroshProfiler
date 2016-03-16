@@ -1,7 +1,6 @@
 {extends file="parent:frontend/index/index.tpl"}
 
 {block name="frontend_index_header_css_screen" append}
-    {include file="@Profiler/css.tpl"}
     <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 {/block}
 
@@ -36,11 +35,7 @@
 
             return (get_as_float) ? now : (Math.round((now - s) * 1000) / 1000) + ' ' + s;
         }
-
         $profilerStartTime = $('[data-profiler-start-time]');
-        $profilerStartTime.html(
-                (Math.floor((microtime(true) -  parseFloat($profilerStartTime.data('profiler-start-time'))) * 100) / 100).toString()
-        );
-
+        $profilerStartTime.html((Math.floor((microtime(true) -  parseFloat($profilerStartTime.data('profiler-start-time'))) * 100) / 100).toString());
     </script>
 {/block}

@@ -1,5 +1,7 @@
 <?php
 
+use Shopware\Components\Theme\LessDefinition;
+
 class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugin_Bootstrap
 {
     private $plugin_info = [
@@ -47,10 +49,19 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
 
     public function install()
     {
+        if(version_compare(Shopware::VERSION, '5', '<')) {
+            throw new Exception("Only Shopware 5 upper is supported");
+        }
+
         $this->subscribeEvent(
             'Enlight_Controller_Front_StartDispatch',
             'onStartDispatch',
             -500
+        );
+
+        $this->subscribeEvent(
+            'Theme_Compiler_Collect_Plugin_Less',
+            'addLessFiles'
         );
 
         $this->registerController('Frontend', 'Profiler');
@@ -89,6 +100,19 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     public function uninstall()
     {
         return true;
+    }
+
+    public function addLessFiles()
+    {
+        $less = new LessDefinition(
+            array(),
+            array(
+                __DIR__ . '/Views/responsive/frontend/_public/src/less/all.less'
+            ),
+            __DIR__
+        );
+
+        return new Doctrine\Common\Collections\ArrayCollection(array($less));
     }
 
     private function initCustomEventManager()

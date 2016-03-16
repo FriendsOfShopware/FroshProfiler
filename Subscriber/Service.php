@@ -2,7 +2,10 @@
 
 namespace Shopware\Profiler\Subscriber;
 
+use Doctrine\Common\Cache\FilesystemCache;
 use Enlight\Event\SubscriberInterface;
+use Shopware\Plugins\Local\Core\Profiler\Components\Helper\CacheHelper;
+use Shopware\Profiler\Components\Collector;
 use Shopware\Profiler\Components\SmartyExtensions;
 
 class Service implements SubscriberInterface
@@ -20,6 +23,7 @@ class Service implements SubscriberInterface
         return [
             'Enlight_Bootstrap_InitResource_profiler.smarty_extensions' => 'onInitSmartyExtensions',
             'Enlight_Bootstrap_InitResource_profiler.collector'         => 'onInitCollectorService',
+            'Enlight_Bootstrap_InitResource_profiler.cache'             => 'onInitCacheService',
         ];
     }
 
@@ -30,6 +34,11 @@ class Service implements SubscriberInterface
 
     public function onInitCollectorService()
     {
-        return new \Shopware\Profiler\Components\Collector();
+        return new Collector();
+    }
+
+    public function onInitCacheService()
+    {
+        return new FilesystemCache($this->bootstrap->Path() . 'ProfilerCache');
     }
 }
