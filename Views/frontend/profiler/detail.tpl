@@ -31,11 +31,17 @@
 
     <div id="content" class="container">
         <div id="main">
-            {if $sPanel == 'request'}
-                {include file="frontend/profiler/tabs/request.tpl"}
-            {elseif $sPanel == 'logs'}
-                {include file="frontend/profiler/tabs/logs.tpl"}
-            {/if}
+            <div id="collector-wrapper">
+                <div id="collector-content">
+                    {if $sPanel == 'request'}
+                        {include file="frontend/profiler/tabs/request.tpl"}
+                    {elseif $sPanel == 'logs'}
+                        {include file="frontend/profiler/tabs/logs.tpl"}
+                    {elseif $sPanel == 'config'}
+                        {include file="frontend/profiler/tabs/config.tpl"}
+                    {/if}
+                </div>
+            </div>
             {include file="frontend/profiler/sidebar.tpl"}
         </div>
     </div>

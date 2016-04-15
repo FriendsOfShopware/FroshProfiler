@@ -37,6 +37,7 @@ class GeneralCollector implements CollectorInterface
             'logs' => $this->getLogs(),
             'server' => $_SERVER,
             'startTime' => STARTTIME,
+            'bundles' => $this->getBundles()
         ];
     }
 
@@ -44,23 +45,44 @@ class GeneralCollector implements CollectorInterface
     {
         return '@Profiler/toolbar/general.tpl';
     }
-    
+
     public function getLogs()
     {
         $logs = [];
-        
-        if(Shopware()->Container()->has('corelogger')) {
+
+        if (Shopware()->Container()->has('corelogger')) {
             $logs = array_merge(Shopware()->Container()->get('corelogger')->getLoggedMessages(), $logs);
         }
 
-        if(Shopware()->Container()->has('pluginlogger')) {
+        if (Shopware()->Container()->has('pluginlogger')) {
             $logs = array_merge(Shopware()->Container()->get('pluginlogger')->getLoggedMessages(), $logs);
         }
 
-        if(Shopware()->Container()->has('debuglogger')) {
+        if (Shopware()->Container()->has('debuglogger')) {
             $logs = array_merge(Shopware()->Container()->get('debuglogger')->getLoggedMessages(), $logs);
         }
 
         return $logs;
+    }
+
+    public function getBundles()
+    {
+        $bundles = Shopware()->Container()->get('cache')->load('LoadedBundles');
+
+        if (empty($bundles)) {
+            $bundles = [];
+            $bundleDir = Shopware()->Container()->getParameter('kernel.root_dir') . '/engine/Shopware/Bundle/';
+            $folderContent = scandir($bundleDir);
+
+            foreach ($folderContent as $item) {
+                if ($item != '.' && $item != '..') {
+                    $bundles[] = [$item, $bundleDir . $item];
+                }
+            }
+
+            Shopware()->Container()->get('cache')->save($bundles, 'LoadedBundles');
+        }
+
+        return $bundles;
     }
 }
