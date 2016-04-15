@@ -34,6 +34,7 @@ class GeneralCollector implements CollectorInterface
                 'meta' => Shopware()->Db()->fetchRow('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [Shopware()->Session()->get('sessionId')]),
                 'data' => $_SESSION['Shopware']
             ],
+            'logs' => $this->getLogs(),
             'server' => $_SERVER,
             'startTime' => STARTTIME,
         ];
@@ -42,5 +43,24 @@ class GeneralCollector implements CollectorInterface
     public function getToolbarTemplate()
     {
         return '@Profiler/toolbar/general.tpl';
+    }
+    
+    public function getLogs()
+    {
+        $logs = [];
+        
+        if(Shopware()->Container()->has('corelogger')) {
+            $logs = array_merge(Shopware()->Container()->get('corelogger')->getLoggedMessages(), $logs);
+        }
+
+        if(Shopware()->Container()->has('pluginlogger')) {
+            $logs = array_merge(Shopware()->Container()->get('pluginlogger')->getLoggedMessages(), $logs);
+        }
+
+        if(Shopware()->Container()->has('debuglogger')) {
+            $logs = array_merge(Shopware()->Container()->get('debuglogger')->getLoggedMessages(), $logs);
+        }
+
+        return $logs;
     }
 }

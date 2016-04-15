@@ -1,6 +1,6 @@
 <div id="sidebar">
     <ul id="menu-profiler">
-        <li class="request selected">
+        <li class="request{if $sPanel == "request"} selected{/if}">
             <a href="{url controller=Profiler action=detail id=$sId panel=request}">
                 <span class="label">
                     <span class="icon">
@@ -39,7 +39,7 @@
                 </span>
             </a>
         </li>
-        <li class="exception ">
+        <li class="exception">
             <a href="{url controller=Profiler action=detail id=$sId panel=exception}">
                 <span class="label disabled">
                     <span class="icon">
@@ -63,9 +63,9 @@
                 </span>
             </a>
         </li>
-        <li class="logger">
-            <a href="{url controller=Profiler action=detail id=$sId panel=logger}">
-                <span class="label disabled">
+        <li class="logger{if $sPanel == "logs"} selected{/if}">
+            <a href="{url controller=Profiler action=detail id=$sId panel=logs}">
+                <span class="label">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M21,4v13.8c0,2.7-2.5,5.2-5.2,5.2H6c-0.6,0-1-0.4-1-1s0.4-1,1-1h9.8c1.6,0,3.2-1.7,3.2-3.2V4

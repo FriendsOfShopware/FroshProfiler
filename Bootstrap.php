@@ -1,6 +1,9 @@
 <?php
 
 use Shopware\Components\Theme\LessDefinition;
+use Shopware\Profiler\Subscriber\Collector;
+use Shopware\Profiler\Subscriber\Decorator;
+use Shopware\Profiler\Subscriber\Service;
 
 class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugin_Bootstrap
 {
@@ -77,8 +80,9 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
         define('STARTTIME', microtime(true));
 
         $subscribers = [
-            new Shopware\Profiler\Subscriber\Collector($this),
-            new \Shopware\Profiler\Subscriber\Service($this),
+            new Collector($this),
+            new Service($this),
+            new Decorator($this)
         ];
 
         foreach ($subscribers as $subscriber) {
