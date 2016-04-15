@@ -17,7 +17,9 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
             ]);
         }
 
+        $this->View()->sId = $this->Request()->get('id');
         $this->View()->sDetail = $detail;
+        $this->View()->sPanel = $this->Request()->getParam('panel', 'request');
     }
 
     public function phpAction()

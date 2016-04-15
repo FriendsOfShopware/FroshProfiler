@@ -13,7 +13,8 @@ class GeneralCollector implements CollectorInterface
     {
         return [
             'response' => [
-                'httpResponse' => $controller->Response()->getHttpResponseCode()
+                'httpResponse' => $controller->Response()->getHttpResponseCode(),
+                'headers' => $controller->Response()->getHeaders()
             ],
             'request' => [
                 'moduleName' => $controller->Request()->getModuleName(),
@@ -21,10 +22,19 @@ class GeneralCollector implements CollectorInterface
                 'actionName' => $controller->Request()->getActionName(),
                 'httpMethod' => $controller->Request()->getMethod(),
                 'params' => $controller->Request()->getParams(),
+                'get' => $controller->Request()->getQuery(),
+                'post' => $controller->Request()->getPost(),
+                'cookies' => $controller->Request()->getCookie(),
                 'uri' => $controller->Request()->getRequestUri(),
+                'url' => 'http://' . Shopware()->Shop()->getHost() . Shopware()->Shop()->getBaseUrl() . $controller->Request()->getRequestUri(),
                 'ip' => $controller->Request()->getClientIp(),
                 'time' => time()
             ],
+            'session' => [
+                'meta' => Shopware()->Db()->fetchRow('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [Shopware()->Session()->get('sessionId')]),
+                'data' => $_SESSION['Shopware']
+            ],
+            'server' => $_SERVER,
             'startTime' => STARTTIME,
         ];
     }

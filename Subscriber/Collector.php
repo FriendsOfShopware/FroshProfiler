@@ -17,7 +17,7 @@ class Collector implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend',
+            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend'
         ];
     }
 
