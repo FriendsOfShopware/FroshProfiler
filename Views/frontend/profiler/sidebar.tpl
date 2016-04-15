@@ -101,7 +101,7 @@
         </li>
         <li class="twig">
             <a href="{url controller=Profiler action=detail id=$sId panel=template}">
-                <span class="label disabled">
+                <span class="label{if $sPanel == "template"} selected{/if}">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M20.1,1H3.9C2.3,1,1,2.3,1,3.9v16.3C1,21.7,2.3,23,3.9,23h16.3c1.6,0,2.9-1.3,2.9-2.9V3.9

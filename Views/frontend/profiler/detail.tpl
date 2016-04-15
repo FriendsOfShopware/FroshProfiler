@@ -33,13 +33,7 @@
         <div id="main">
             <div id="collector-wrapper">
                 <div id="collector-content">
-                    {if $sPanel == 'request'}
-                        {include file="frontend/profiler/tabs/request.tpl"}
-                    {elseif $sPanel == 'logs'}
-                        {include file="frontend/profiler/tabs/logs.tpl"}
-                    {elseif $sPanel == 'config'}
-                        {include file="frontend/profiler/tabs/config.tpl"}
-                    {/if}
+                    {include file="frontend/profiler/tabs/$sPanel.tpl"}
                 </div>
             </div>
             {include file="frontend/profiler/sidebar.tpl"}

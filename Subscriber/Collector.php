@@ -32,7 +32,7 @@ class Collector implements SubscriberInterface
 
         $view = $controller->View();
 
-        Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($view->Engine());
+        Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($view->Engine(), $this->bootstrap);
         $view->sProfiler = Shopware()->Container()->get('profiler.collector')->collectInformation($controller);
         $view->sProfilerCollectors = Shopware()->Container()->get('profiler.collector')->getCollectors();
         $view->sProfilerID = Shopware()->Container()->get('profiler.collector')->saveCollectInformation($view->sProfiler);
