@@ -5,7 +5,7 @@ namespace Shopware\Profiler\Subscriber;
 use Doctrine\Common\Cache\FilesystemCache;
 use Enlight\Event\SubscriberInterface;
 use Shopware\Plugins\Local\Core\Profiler\Components\Helper\CacheHelper;
-use Shopware\Profiler\Components\Collector;
+use Shopware\Profiler\Components\Collector as ProfilerCollector;
 use Shopware\Profiler\Components\SmartyExtensions;
 
 class Service implements SubscriberInterface
@@ -34,7 +34,7 @@ class Service implements SubscriberInterface
 
     public function onInitCollectorService()
     {
-        return new Collector();
+        return new ProfilerCollector();
     }
 
     public function onInitCacheService()
