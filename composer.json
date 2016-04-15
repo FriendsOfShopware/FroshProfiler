@@ -1,7 +1,9 @@
 {
   "name": "shyim/shopware-profiler",
   "type": "shopware-core-plugin",
-  "description": "",
+  "keywords": ["shopware", "profiling", "plugin"],
+  "description": "Profiling for Shopware",
+  "license": "MIT",
   "extra": {
     "installer-name": "Profiler"
   },
