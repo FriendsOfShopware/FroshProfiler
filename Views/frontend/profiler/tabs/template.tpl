@@ -1,3 +1,38 @@
+<h2>Smarty Metrics</h2>
+<div class="metrics">
+    <div class="metric">
+        <span class="value">{$sDetail.template.renderTime|number_format:2} <span class="unit">s</span></span>
+        <span class="label">Render time</span>
+    </div>
+    <div class="metric">
+        <span class="value">{$sDetail.template.templateCalls}</span>
+        <span class="label">Template calls</span>
+    </div>
+
+    <div class="metric">
+        <span class="value">{$sDetail.template.blockCalls}</span>
+        <span class="label">Block calls</span>
+    </div>
+</div>
+
+<h2>Rendered Templates</h2>
+<table class="">
+    <thead>
+        <tr>
+            <th scope="col" class="key">Template Name</th>
+            <th scope="col">Render Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from=$sDetail.template.renderedTemplates key=template item=count}
+            <tr>
+                <td>{$template}</td>
+                <td>{$count}</td>
+            </tr>
+        {/foreach}
+    </tbody>
+</table>
+
 <h2>Template Attributes</h2>
 <table class="">
     <thead>

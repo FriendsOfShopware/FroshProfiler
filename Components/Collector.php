@@ -50,10 +50,8 @@ class Collector
         return $result;
     }
 
-    public function saveCollectInformation($information)
+    public function saveCollectInformation($id, $information)
     {
-        $id = uniqid();
-
         Shopware()->Container()->get('profiler.cache')->save($id, $information);
 
         $indexArray = Shopware()->Container()->get('profiler.cache')->fetch('index');

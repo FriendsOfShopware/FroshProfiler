@@ -30,6 +30,8 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
         'config',
     ];
 
+    private $sysPluginsDir = '';
+
     public function getVersion()
     {
         return '1.0.0';
@@ -79,6 +81,14 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     {
         require_once $this->Path() . '/vendor/autoload.php';
         define('STARTTIME', round(microtime(true) * 1000));
+
+        $uri = Shopware()->Container()->get('front')->Request()->getRequestUri();
+        if(!strstr($uri, '/backend') && !strstr($uri, '/widgets') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
+            /**
+             * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
+             */
+            define('SMARTY_SYSPLUGINS_DIR', $this->Path() . 'Components/Smarty/sysplugins/');
+        }
 
         $subscribers = [
             new Collector($this),
