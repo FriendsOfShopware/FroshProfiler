@@ -14,6 +14,7 @@ class SmartyExtensions
         if (!$this->hasPlugins) {
             $template_Manager->registerPlugin('modifier', 'convertMemory', [$this, 'convertMemory']);
             $template_Manager->registerPlugin('modifier', 'dump', [$this, 'dump']);
+            $template_Manager->registerPlugin('modifier', 'sqlFormat', [$this, 'sqlFormat']);
             $this->hasPlugins = true;
         }
     }
@@ -30,5 +31,10 @@ class SmartyExtensions
         $dumper = new HtmlDumper();
         $cloner = new VarCloner();
         return $dumper->dump($cloner->cloneVar($var));
+    }
+
+    public function sqlFormat($var)
+    {
+        return \SqlFormatter::format($var);
     }
 }

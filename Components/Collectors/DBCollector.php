@@ -34,6 +34,7 @@ class DBCollector implements CollectorInterface
             'db' => [
                 'totalQueries' => $totalQueriesZend + $totalQueriesDoctrine,
                 'queryTime'    => $this->executeTime,
+                'sqls' => $this->executedQuerys
             ],
         ];
 

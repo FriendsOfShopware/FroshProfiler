@@ -364,7 +364,6 @@
 
 
         .container {
-            max-width: 1300px;
             padding-right: 15px;
         }
         #content {
