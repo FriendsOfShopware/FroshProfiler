@@ -1,5 +1,5 @@
 <div class="sf-toolbar-block sf-toolbar-block-config sf-toolbar-status-normal sf-toolbar-block-right">
-    <a>
+    <a href="{url controller=Profiler action=detail id=$sProfilerID panel=config}">
         <div class="sf-toolbar-icon">
             <span class="sf-toolbar-label">
                 <img src="{link file="@Profiler/_public/img/logo.png"}">

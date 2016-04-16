@@ -1,5 +1,5 @@
 <div class="sf-toolbar-block sf-toolbar-block-twig sf-toolbar-status-normal ">
-    <a>
+    <a href="{url controller=Profiler action=detail id=$sProfilerID panel=template}">
         <div class="sf-toolbar-icon">
             <span class="ion-clipboard icon-toolbar"></span>
             <span class="sf-toolbar-value">Template</span>
