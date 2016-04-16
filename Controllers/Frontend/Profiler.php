@@ -9,7 +9,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
     public function detailAction()
     {
-        Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($this->View()->Engine(), Shopware()->Container()->get('profiler'));
+        Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($this->View()->Engine());
         $detail = Shopware()->Container()->get('profiler.cache')->fetch($this->Request()->get('id'));
 
         if(empty($detail)) {

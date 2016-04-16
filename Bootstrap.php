@@ -78,8 +78,7 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
     public function onStartDispatch()
     {
         require_once $this->Path() . '/vendor/autoload.php';
-        define('STARTTIME', microtime(true));
-        Shopware()->Container()->set('profiler', $this);
+        define('STARTTIME', round(microtime(true) * 1000));
 
         $subscribers = [
             new Collector($this),

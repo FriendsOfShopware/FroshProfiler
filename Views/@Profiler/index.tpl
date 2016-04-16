@@ -16,13 +16,10 @@
         </a>
     </div>
     <script>
-        function microtime(get_as_float) {
-            var now = new Date().getTime() / 1000;
-            var s = parseInt(now, 10);
-
-            return (get_as_float) ? now : (Math.round((now - s) * 1000) / 1000) + ' ' + s;
+        function microtime() {
+            return new Date().getTime();
         }
         $profilerStartTime = $('[data-profiler-start-time]');
-        $profilerStartTime.html((Math.floor((microtime(true) - parseFloat($profilerStartTime.data('profiler-start-time'))) * 100) / 100).toString());
+        $profilerStartTime.html(((microtime() - parseFloat($profilerStartTime.data('profiler-start-time'))) / 1000).toString());
     </script>
 {/block}

@@ -7,12 +7,10 @@ use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 class SmartyExtensions
 {
-    private $bootstrap;
     private $hasPlugins = false;
 
-    public function addPlugins(\Enlight_Template_Manager $template_Manager, \Shopware_Components_Plugin_Bootstrap $bootstrap)
+    public function addPlugins(\Enlight_Template_Manager $template_Manager)
     {
-        $this->bootstrap = $bootstrap;
         if (!$this->hasPlugins) {
             $template_Manager->registerPlugin('modifier', 'convertMemory', [$this, 'convertMemory']);
             $template_Manager->registerPlugin('modifier', 'dump', [$this, 'dump']);
