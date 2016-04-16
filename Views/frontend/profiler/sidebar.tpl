@@ -99,9 +99,9 @@
                 </span>
             </a>
         </li>
-        <li class="twig">
+        <li class="twig{if $sPanel == "template"} selected{/if}">
             <a href="{url controller=Profiler action=detail id=$sId panel=template}">
-                <span class="label{if $sPanel == "template"} selected{/if}">
+                <span class="label">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M20.1,1H3.9C2.3,1,1,2.3,1,3.9v16.3C1,21.7,2.3,23,3.9,23h16.3c1.6,0,2.9-1.3,2.9-2.9V3.9
@@ -113,9 +113,9 @@
                 </span>
             </a>
         </li>
-        <li class="doctrine">
+        <li class="doctrine{if $sPanel == "db"} selected{/if}">
             <a href="{url controller=Profiler action=detail id=$sId panel=db}">
-                <span class="label{if $sPanel == "db"} selected{/if}">
+                <span class="label">
                     <span class="icon">
                         <svg version="1.1"xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M5,8h14c1.7,0,3-1.3,3-3s-1.3-3-3-3H5C3.3,2,2,3.3,2,5S3.3,8,5,8z M18,3.6c0.8,0,1.5,0.7,1.5,1.5S18.8,6.6,18,6.6s-1.5-0.7-1.5-1.5S17.2,3.6,18,3.6z M19,9H5c-1.7,0-3,1.3-3,3s1.3,3,3,3h14c1.7,0,3-1.3,3-3S20.7,9,19,9z M18,13.6
@@ -138,9 +138,9 @@
                 </span>
             </a>
         </li>
-        <li class="config">
+        <li class="config{if $sPanel == "config"} selected{/if}">
             <a href="{url controller=Profiler action=detail id=$sId panel=config}">
-                <span class="label{if $sPanel == "config"} selected{/if}">
+                <span class="label">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M11,5.1C11,3.4,9.6,2,7.9,2H5.1C3.4,2,2,3.4,2,5.1v12.9C2,19.6,3.4,21,5.1,21h2.9c1.7,0,3.1-1.4,3.1-3.1V5.1z M5.2,4h2.7C8.4,4,9,4.8,9,5.3V11H4V5.3C4,4.8,4.6,4,5.2,4z M22,5.1C22,3.4,20.6,2,18.9,2h-2.9C14.4,2,13,3.4,13,5.1v12.9c0,1.7,1.4,3.1,3.1,3.1h2.9c1.7,0,3.1-1.4,3.1-3.1V5.1z M16,4h2.8C19.4,4,20,4.8,20,5.3V8h-5V5.3C15,4.8,15.5,4,16,4z"/>
