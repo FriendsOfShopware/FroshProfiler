@@ -153,11 +153,11 @@
                 <tbody>
                 <tr>
                     <th scope="row">Last used</th>
-                    <td>{$sDetail.session.modified}</td>
+                    <td>{$sDetail.session.meta.modified|date_format:"Y-m-d H:i:s"}</td>
                 </tr>
                 <tr>
                     <th scope="row">Lifetime</th>
-                    <td>{$sDetail.session.expiry}</td>
+                    <td>{$sDetail.session.meta.expiry}</td>
                 </tr>
                 </tbody>
             </table>
