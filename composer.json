@@ -10,6 +10,6 @@
   "require": {
     "composer/installers": "^1.0",
     "symfony/var-dumper": "^3.0",
-    "jdorn/sql-formatter": "dev-master"
+    "jdorn/sql-formatter": "^v1.2.17"
   }
 }
