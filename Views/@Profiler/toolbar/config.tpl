@@ -4,7 +4,7 @@
             <span class="sf-toolbar-label">
                 <img src="{link file="@Profiler/_public/img/logo.png"}">
             </span>
-            <span class="sf-toolbar-value">{$sProfiler.php.shopware_version}</span>
+            <span class="sf-toolbar-value">{if $sProfiler.php.shopware_version == '___VERSION___'}Git Version{else}{$sProfiler.php.shopware_version}{/if}</span>
         </div>
     </a>
     <div class="sf-toolbar-info">

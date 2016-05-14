@@ -13,7 +13,7 @@ class ConfigCollector implements CollectorInterface
     {
         $result = [
             'config' => [
-                Shopware()->getOptions(),
+                Shopware()->Container()->getParameterBag()->all(),
             ],
         ];
 

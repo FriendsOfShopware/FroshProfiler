@@ -30,7 +30,11 @@ class EventManager extends \Enlight_Event_EventManager
      */
     public function notify($event, $eventArgs = null)
     {
-        $this->calledEvents[] = ['notify', $event, Debug::dump($eventArgs, 2, true, false)];
+        $this->calledEvents[] = [
+            'type' => 'notify',
+            'name' => $event,
+            'args' => Debug::dump($eventArgs, 2, true, false)
+        ];
 
         return $this->parentEventManager->notify($event, $eventArgs);
     }
@@ -40,13 +44,21 @@ class EventManager extends \Enlight_Event_EventManager
      * @param mixed $value
      * @param null $eventArgs
      * @return mixed
-     * @throws Enlight_Event_Exception
+     * @throws \Enlight_Event_Exception
      */
     public function filter($event, $value, $eventArgs = null)
     {
-        $this->calledEvents[] = ['filter', $event, Debug::dump($eventArgs, 2, true, false)];
+        $afterValue = $this->parentEventManager->filter($event, $value, $eventArgs);
 
-        return $this->parentEventManager->filter($event, $value, $eventArgs);
+        $this->calledEvents[] = [
+            'type' => 'filter',
+            'name' => $event,
+            'args' => Debug::dump($eventArgs, 2, true, false),
+            'old' => (is_object($value) ? Debug::dump($value, 2, true, false) : $value),
+            'new' => (is_object($afterValue) ? Debug::dump($afterValue, 2, true, false) : $afterValue)
+        ];
+
+        return $afterValue;
     }
 
     /**
@@ -57,9 +69,15 @@ class EventManager extends \Enlight_Event_EventManager
      */
     public function notifyUntil($event, $eventArgs = null)
     {
-        $this->calledEvents[] = ['notifyUntil', $event, Debug::dump($eventArgs, 2, true, false)];
+        $cancel = $this->parentEventManager->notifyUntil($event, $eventArgs);
+        $this->calledEvents[] = [
+            'type' => 'notifyUntil',
+            'name' => $event,
+            'args' => Debug::dump($eventArgs, 2, true, false),
+            'cancel' => (is_object($cancel) ? Debug::dump($cancel, 2, true, false) : $cancel)
+        ];
 
-        return $this->parentEventManager->notifyUntil($event, $eventArgs);
+        return $cancel;
     }
 
     /**
@@ -76,7 +94,7 @@ class EventManager extends \Enlight_Event_EventManager
      */
     public function addSubscriber(SubscriberInterface $subscriber)
     {
-        $this->parentEventManager->addSubscriber($subscriber);
+        return $this->parentEventManager->addSubscriber($subscriber);
     }
 
     /**

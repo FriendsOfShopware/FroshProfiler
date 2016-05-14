@@ -30,8 +30,6 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
         'config',
     ];
 
-    private $sysPluginsDir = '';
-
     public function getVersion()
     {
         return '1.0.0';
@@ -54,8 +52,8 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
 
     public function install()
     {
-        if(version_compare(Shopware::VERSION, '5', '<')) {
-            throw new Exception("Only Shopware 5 upper is supported");
+        if(!$this->assertMinimumVersion('5')) {
+            throw new Exception("Only Shopware 5 and upper is supported");
         }
 
         $this->subscribeEvent(
@@ -74,6 +72,26 @@ class Shopware_Plugins_Core_Profiler_Bootstrap extends Shopware_Components_Plugi
         return [
             'success'         => true,
             'invalidateCache' => $this->invalidateCacheArray,
+        ];
+    }
+
+    public function enable()
+    {
+        return [
+            'success'         => true,
+            'invalidateCache' => [
+                'theme'
+            ]
+        ];
+    }
+
+    public function disable()
+    {
+        return [
+            'success'         => true,
+            'invalidateCache' => [
+                'theme'
+            ]
         ];
     }
 

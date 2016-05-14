@@ -18,7 +18,7 @@
 
 <div class="metrics">
     <div class="metric">
-        <span class="value">{$sDetail.php.shopware_version}</span>
+        <span class="value">{if $sDetail.php.shopware_version == '___VERSION___'}Git Version{else}{$sDetail.php.shopware_version}{/if}</span>
         <span class="label">Shopware version</span>
     </div>
 
