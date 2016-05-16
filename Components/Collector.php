@@ -2,11 +2,11 @@
 
 namespace Shopware\Profiler\Components;
 
-use Doctrine\Common\Util\Debug;
 use Shopware\Profiler\Components\Collectors\CollectorInterface;
 use Shopware\Profiler\Components\Collectors\ConfigCollector;
 use Shopware\Profiler\Components\Collectors\DBCollector;
 use Shopware\Profiler\Components\Collectors\EventCollector;
+use Shopware\Profiler\Components\Collectors\ExceptionCollector;
 use Shopware\Profiler\Components\Collectors\GeneralCollector;
 use Shopware\Profiler\Components\Collectors\PHPCollector;
 use Shopware\Profiler\Components\Collectors\SmartyCollector;
@@ -27,6 +27,7 @@ class Collector
                 new EventCollector(),
                 new DBCollector(),
                 new ConfigCollector(),
+                new ExceptionCollector()
             ];
 
             $this->collectors = Enlight()->Events()->filter('Profiler_onCollectCollectors', $this->collectors);

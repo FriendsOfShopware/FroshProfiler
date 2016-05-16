@@ -34,7 +34,7 @@ class Collector implements SubscriberInterface
         /** @var \Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
 
-        if (strtolower($controller->Request()->getControllerName()) == 'profiler' || strtolower($controller->Request()->getControllerName()) == 'error') {
+        if (strtolower($controller->Request()->getControllerName()) == 'profiler') {
             return;
         }
 

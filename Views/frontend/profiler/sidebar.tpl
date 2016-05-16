@@ -41,7 +41,7 @@
         </li>
         <li class="exception">
             <a href="{url controller=Profiler action=detail id=$sId panel=exception}">
-                <span class="label disabled">
+                <span class="label{if empty($sDetail.exception)} disabled{/if}">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M23.5,9.5c0-0.2-1.2,0.2-1.6,0.2c0,0,0,0,0,0c0.1-0.3,0.3-0.6,0.4-0.8C23,7.4,22,6.6,21,7.5
