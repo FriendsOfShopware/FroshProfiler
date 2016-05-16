@@ -79,9 +79,9 @@
                 </span>
             </a>
         </li>
-        <li class="events ">
+        <li class="events">
             <a href="{url controller=Profiler action=detail id=$sId panel=events}">
-                <span class="label disabled">
+                <span class="label">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
                             <path fill="#AAAAAA" d="M19.2,20.8c0.4,0.7,0.1,1.6-0.6,2c-0.2,0.1-0.5,0.2-0.7,0.2c-0.5,0-1-0.3-1.3-0.8l-3.7-6.7
