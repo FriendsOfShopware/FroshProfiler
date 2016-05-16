@@ -12,6 +12,18 @@ class SmartyCollector implements CollectorInterface
     public function collect(\Enlight_Controller_Action $controller)
     {
         $smarty = $controller->View()->Engine();
+        $assigns = $controller->View()->getAssign();
+
+        /**
+         * Clear Assigns, to fix cannot serialize pdo instances errors
+         */
+        unset($assigns['Shopware']);
+        unset($assigns['Controller']);
+        unset($assigns['Shop']);
+        unset($assigns['Locale']);
+        unset($assigns['sProfiler']);
+        unset($assigns['sProfilerCollectors']);
+        unset($assigns['sProfilerID']);
 
         $result = [
             'template' => [
@@ -20,7 +32,7 @@ class SmartyCollector implements CollectorInterface
                 'template_dir' => $smarty->getTemplateDir(),
                 'plugin_dir'   => $smarty->getPluginsDir(),
                 'template'     => explode('|', $controller->View()->Template()->template_resource),
-                'vars'         => $controller->View()->getAssign(),
+                'vars'         => $assigns,
                 'start_time'   => $smarty->start_time,
             ],
         ];

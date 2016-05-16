@@ -45,7 +45,7 @@ class Collector implements SubscriberInterface
         $view->sProfilerCollectors = Shopware()->Container()->get('profiler.collector')->getCollectors();
         $view->sProfilerID = uniqid();
         Shopware()->Container()->set('profileId', $view->sProfilerID);
-        Shopware()->Container()->set('profileData', $view->sProfiler);
+        Shopware()->Container()->set('profileController', $controller);
 
         $view->addTemplateDir($this->bootstrap->Path() . '/Views');
         $view->extendsTemplate('@Profiler/index.tpl');
@@ -79,7 +79,7 @@ class Collector implements SubscriberInterface
     public function onDispatchLoopShutdown()
     {
         if (Shopware()->Container()->has('profileId')) {
-            $profileData = Shopware()->Container()->get('profileData');
+            $profileData = Shopware()->Container()->get('profiler.collector')->collectInformation(Shopware()->Container()->get('profileController'));
             $profileData['template']['renderedTemplates'] = $this->renderedTemplates;
             $profileData['template']['blockCalls'] = $this->blockCalls;
             $profileData['template']['templateCalls'] = $this->templateCalls;
