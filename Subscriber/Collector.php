@@ -55,10 +55,14 @@ class Collector implements SubscriberInterface
     {
         $this->templateCalls++;
         $name = $this->normalizePath($eventArgs->get('name'));
-        if(!isset($this->renderedTemplates[$name])) {
-            $this->renderedTemplates[$name] = 1;
-        } else {
-            $this->renderedTemplates[$name]++;
+
+        // Ignore Profiler Templates in Profiling Result
+        if (!strstr($name, '@Profiler') && !strstr($name, 'frontend/profiler/')) {
+            if(!isset($this->renderedTemplates[$name])) {
+                $this->renderedTemplates[$name] = 1;
+            } else {
+                $this->renderedTemplates[$name]++;
+            }
         }
     }
 
