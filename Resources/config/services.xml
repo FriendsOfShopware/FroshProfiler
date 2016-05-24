@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Custom Services -->
+        <service id="profiler.smarty_extensions" class="ShopwarePlugins\Profiler\Components\SmartyExtensions"/>
+        <service id="profiler.collector" class="ShopwarePlugins\Profiler\Components\Collector"/>
+        <service id="profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
+            <argument type="string">%profiler.cache_dir%</argument>
+        </service>
+
+        <!-- Event Subscriber -->
+        <service id="profiler.subscriber.collector" class="ShopwarePlugins\Profiler\Subscriber\Collector">
+            <argument type="service" id="service_container" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+        <service id="profiler.subscriber.assets" class="ShopwarePlugins\Profiler\Subscriber\Assets">
+            <argument type="service" id="service_container" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+        <service id="profiler.subscriber.controller_profiler" class="ShopwarePlugins\Profiler\Subscriber\ProfilerController">
+            <argument type="service" id="service_container" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+
+        <!-- Decorations -->
+        <service decorates="pluginlogger" id="profiler.decoration.pluginlogger" class="ShopwarePlugins\Profiler\Components\Logger">
+            <argument type="service" id="profiler.decoration.pluginlogger.inner"/>
+            <argument type="string">Pluginlogger</argument>
+        </service>
+        <service decorates="corelogger" id="profiler.decoration.corelogger" class="ShopwarePlugins\Profiler\Components\Logger">
+            <argument type="service" id="profiler.decoration.corelogger.inner"/>
+            <argument type="string">Corelogger</argument>
+        </service>
+        <service decorates="debuglogger" id="profiler.decoration.debuglogger" class="ShopwarePlugins\Profiler\Components\Logger">
+            <argument type="service" id="profiler.decoration.debuglogger.inner"/>
+            <argument type="string">Debuglogger</argument>
+        </service>
+        <service decorates="events" id="profiler.event_manager" class="ShopwarePlugins\Profiler\Components\Event\EventManager">
+            <argument type="service" id="service_container"/>
+        </service>
+    </services>
+</container>

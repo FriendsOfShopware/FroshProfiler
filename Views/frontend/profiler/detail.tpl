@@ -1,6 +1,7 @@
 {extends file="frontend/profiler/layout.tpl"}
 
 {block name="content"}
+    {debug}
     <div id="summary">
         <div class="status {if $sDetail.response.httpResponse == 200}status-success{else}status-error{/if}">
             <div class="container">

@@ -1,22 +1,15 @@
 <?php
 
-namespace Shopware\Profiler\Subscriber;
+namespace ShopwarePlugins\Profiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
 class Collector implements SubscriberInterface
 {
-    /** @var  \Shopware_Plugins_Core_Profiler_Bootstrap */
-    private $bootstrap;
     private $renderedTemplates = [];
     private $templateCalls = 0;
     private $blockCalls = 0;
     private $renderTime = 0;
-
-    public function __construct($bootstrap)
-    {
-        $this->bootstrap = $bootstrap;
-    }
 
     public static function getSubscribedEvents()
     {
@@ -41,14 +34,8 @@ class Collector implements SubscriberInterface
         $view = $controller->View();
 
         Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($view->Engine());
-        $view->sProfiler = Shopware()->Container()->get('profiler.collector')->collectInformation($controller);
-        $view->sProfilerCollectors = Shopware()->Container()->get('profiler.collector')->getCollectors();
-        $view->sProfilerID = uniqid();
-        Shopware()->Container()->set('profileId', $view->sProfilerID);
+        Shopware()->Container()->set('profileId', uniqid());
         Shopware()->Container()->set('profileController', $controller);
-
-        $view->addTemplateDir($this->bootstrap->Path() . '/Views');
-        $view->extendsTemplate('@Profiler/index.tpl');
     }
 
     public function onRender(\Enlight_Event_EventArgs $eventArgs)
@@ -79,16 +66,13 @@ class Collector implements SubscriberInterface
     public function onDispatchLoopShutdown()
     {
         if (Shopware()->Container()->has('profileId')) {
-            $profileData = Shopware()->Container()->get('profiler.collector')->collectInformation(Shopware()->Container()->get('profileController'));
-            $profileData['template']['renderedTemplates'] = $this->renderedTemplates;
-            $profileData['template']['blockCalls'] = $this->blockCalls;
-            $profileData['template']['templateCalls'] = $this->templateCalls;
-            $profileData['template']['renderTime'] = $this->renderTime;
+            $profileData = [];
+            $profileData['renderedTemplates'] = $this->renderedTemplates;
+            $profileData['blockCalls'] = $this->blockCalls;
+            $profileData['templateCalls'] = $this->templateCalls;
+            $profileData['renderTime'] = $this->renderTime;
 
-            Shopware()->Container()->get('profiler.collector')->saveCollectInformation(
-                Shopware()->Container()->get('profileId'),
-                $profileData
-            );
+            Shopware()->Container()->set('profileData.template', $profileData);
         }
     }
 

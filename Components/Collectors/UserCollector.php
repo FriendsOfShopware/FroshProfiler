@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopware\Profiler\Components\Collectors;
+namespace ShopwarePlugins\Profiler\Components\Collectors;
 
 class UserCollector implements CollectorInterface
 {

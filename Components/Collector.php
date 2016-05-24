@@ -1,16 +1,16 @@
 <?php
 
-namespace Shopware\Profiler\Components;
+namespace ShopwarePlugins\Profiler\Components;
 
-use Shopware\Profiler\Components\Collectors\CollectorInterface;
-use Shopware\Profiler\Components\Collectors\ConfigCollector;
-use Shopware\Profiler\Components\Collectors\DBCollector;
-use Shopware\Profiler\Components\Collectors\EventCollector;
-use Shopware\Profiler\Components\Collectors\ExceptionCollector;
-use Shopware\Profiler\Components\Collectors\GeneralCollector;
-use Shopware\Profiler\Components\Collectors\PHPCollector;
-use Shopware\Profiler\Components\Collectors\SmartyCollector;
-use Shopware\Profiler\Components\Collectors\UserCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\CollectorInterface;
+use ShopwarePlugins\Profiler\Components\Collectors\ConfigCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\DBCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\EventCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\ExceptionCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\GeneralCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\PHPCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\SmartyCollector;
+use ShopwarePlugins\Profiler\Components\Collectors\UserCollector;
 
 class Collector
 {
