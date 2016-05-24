@@ -1,6 +1,6 @@
 <?php
 
-namespace ShopwarePlugins\Profiler\Components\Collectors;
+namespace Profiler\Components\Collectors;
 
 class SmartyCollector implements CollectorInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace ShopwarePlugins\Profiler\Subscriber;
+namespace Profiler\Subscriber;
 
 
 use Enlight\Event\SubscriberInterface;

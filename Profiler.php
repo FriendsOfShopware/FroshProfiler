@@ -1,14 +1,14 @@
 <?php
 
-namespace ShopwarePlugins\Profiler;
+namespace Profiler;
 
 use Doctrine\DBAL\Logging\DebugStack;
 use Enlight\Event\SubscriberInterface;
-use Shopware\Components\DependencyInjection\Compiler\EventListenerCompilerPass;
-use Shopware\Components\DependencyInjection\Compiler\EventSubscriberCompilerPass;
 use Shopware\Components\Plugin;
-use ShopwarePlugins\Profiler\Subscriber\Decorator;
-use ShopwarePlugins\Profiler\Subscriber\Service;
+use Profiler\Components\CompilerPass\EventListenerCompilerPass;
+use Profiler\Components\CompilerPass\EventSubscriberCompilerPass;
+use Profiler\Subscriber\Decorator;
+use Profiler\Subscriber\Service;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class Profiler extends Plugin implements SubscriberInterface

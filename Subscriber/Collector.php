@@ -1,6 +1,6 @@
 <?php
 
-namespace ShopwarePlugins\Profiler\Subscriber;
+namespace Profiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
@@ -63,14 +63,41 @@ class Collector implements SubscriberInterface
         $this->renderTime = $eventArgs->get('time');
     }
 
-    public function onDispatchLoopShutdown()
+    public function onDispatchLoopShutdown(\Enlight_Event_EventArgs $args)
     {
         if (Shopware()->Container()->has('profileId')) {
-            $profileData = [];
-            $profileData['renderedTemplates'] = $this->renderedTemplates;
-            $profileData['blockCalls'] = $this->blockCalls;
-            $profileData['templateCalls'] = $this->templateCalls;
-            $profileData['renderTime'] = $this->renderTime;
+            /** @var \Enlight_Controller_Response_ResponseHttp $response */
+            $response = $args->get('response');
+
+            $profileTemplate = [];
+            $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
+            $profileTemplate['blockCalls'] = $this->blockCalls;
+            $profileTemplate['templateCalls'] = $this->templateCalls;
+            $profileTemplate['renderTime'] = $this->renderTime;
+
+            if (Shopware()->Container()->has('front') && Shopware()->Container()->has('profileId')) {
+                $profileData = Shopware()->Container()->get('profiler.collector')->collectInformation(Shopware()->Container()->get('profileController'));
+                $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
+
+                Shopware()->Container()->get('profiler.collector')->saveCollectInformation(
+                    Shopware()->Container()->get('profileId'),
+                    $profileData
+                );
+
+                $view = Shopware()->Container()->get('template');
+
+                $view->assign('sProfiler', $profileData);
+                $view->assign('sProfilerCollectors', Shopware()->Container()->get('profiler.collector')->getCollectors());
+                $view->assign('sProfilerID', Shopware()->Container()->get('profileId'));
+
+                $view->addTemplateDir(Shopware()->Container()->getParameter('profiler.plugin_dir') . 'Views/');
+                $profileTemplate = $view->fetch('@Profiler/index.tpl');
+
+                $content = $response->getBody();
+
+                $content = str_replace('</body>', $profileTemplate . '</body>', $content);
+                $response->setBody($content);
+            }
 
             Shopware()->Container()->set('profileData.template', $profileData);
         }

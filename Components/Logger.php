@@ -1,5 +1,5 @@
 <?php
-namespace ShopwarePlugins\Profiler\Components;
+namespace Profiler\Components;
 
 use Shopware\Components\Logger as BaseLogger;
 

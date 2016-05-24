@@ -1,5 +1,5 @@
 <?php
-namespace ShopwarePlugins\Profiler\Subscriber;
+namespace Profiler\Subscriber;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Enlight\Event\SubscriberInterface;

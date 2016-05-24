@@ -5,7 +5,7 @@
  * Date: 17.12.15
  * Time: 13:58.
  */
-namespace ShopwarePlugins\Profiler\Components\Collectors;
+namespace Profiler\Components\Collectors;
 
 class EventCollector implements CollectorInterface
 {
@@ -16,7 +16,7 @@ class EventCollector implements CollectorInterface
 
     public function collect(\Enlight_Controller_Action $controller)
     {
-        /** @var \ShopwarePlugins\Profiler\Components\Event\EventManager $pluginEventManager */
+        /** @var \Profiler\Components\Event\EventManager $pluginEventManager */
         $pluginEventManager = Shopware()->Container()->get('profiler.event_manager');
 
         return [

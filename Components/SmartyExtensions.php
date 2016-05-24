@@ -1,6 +1,6 @@
 <?php
 
-namespace ShopwarePlugins\Profiler\Components;
+namespace Profiler\Components;
 
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;

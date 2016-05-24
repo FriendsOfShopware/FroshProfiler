@@ -1,16 +1,16 @@
 <?php
 
-namespace ShopwarePlugins\Profiler\Components;
+namespace Profiler\Components;
 
-use ShopwarePlugins\Profiler\Components\Collectors\CollectorInterface;
-use ShopwarePlugins\Profiler\Components\Collectors\ConfigCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\DBCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\EventCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\ExceptionCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\GeneralCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\PHPCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\SmartyCollector;
-use ShopwarePlugins\Profiler\Components\Collectors\UserCollector;
+use Profiler\Components\Collectors\CollectorInterface;
+use Profiler\Components\Collectors\ConfigCollector;
+use Profiler\Components\Collectors\DBCollector;
+use Profiler\Components\Collectors\EventCollector;
+use Profiler\Components\Collectors\ExceptionCollector;
+use Profiler\Components\Collectors\GeneralCollector;
+use Profiler\Components\Collectors\PHPCollector;
+use Profiler\Components\Collectors\SmartyCollector;
+use Profiler\Components\Collectors\UserCollector;
 
 class Collector
 {
@@ -30,7 +30,7 @@ class Collector
                 new ExceptionCollector()
             ];
 
-            $this->collectors = Enlight()->Events()->filter('Profiler_onCollectCollectors', $this->collectors);
+            $this->collectors = Shopware()->Events()->filter('Profiler_onCollectCollectors', $this->collectors);
         }
 
         return $this->collectors;
