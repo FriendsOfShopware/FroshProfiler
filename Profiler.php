@@ -3,7 +3,6 @@
 namespace Profiler;
 
 use Doctrine\DBAL\Logging\DebugStack;
-use Enlight\Event\SubscriberInterface;
 use Shopware\Components\Plugin;
 use Profiler\Components\CompilerPass\EventListenerCompilerPass;
 use Profiler\Components\CompilerPass\EventSubscriberCompilerPass;
@@ -11,7 +10,7 @@ use Profiler\Subscriber\Decorator;
 use Profiler\Subscriber\Service;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class Profiler extends Plugin implements SubscriberInterface
+class Profiler extends Plugin
 {
     public static function getSubscribedEvents()
     {
