@@ -31,10 +31,10 @@ class Profiler extends Plugin
     public function onStartDispatch()
     {
         require_once $this->getPath() . '/vendor/autoload.php';
-        define('STARTTIME', round(microtime(true) * 1000));
+        define('STARTTIME', microtime(true));
 
         $uri = Shopware()->Container()->get('front')->Request()->getRequestUri();
-        if(!strstr($uri, '/backend') && !strstr($uri, '/widgets') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
+        if(!strstr($uri, '/backend') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
             /**
              * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
              */

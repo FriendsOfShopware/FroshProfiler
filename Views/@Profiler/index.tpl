@@ -9,10 +9,3 @@
         <i class="ion-close-round"></i>
     </a>
 </div>
-<script>
-    function microtime() {
-        return new Date().getTime();
-    }
-    $profilerStartTime = $('[data-profiler-start-time]');
-    $profilerStartTime.html(((microtime() - parseFloat($profilerStartTime.data('profiler-start-time'))) / 1000).toString());
-</script>

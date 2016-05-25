@@ -31,10 +31,14 @@ class Collector implements SubscriberInterface
             return;
         }
 
+        $profileId = uniqid();
+
         $view = $controller->View();
+        $view->addTemplateDir(Shopware()->Container()->getParameter('profiler.plugin_dir') . '/Views');
+        $view->assign('sProfilerID', $profileId);
 
         Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($view->Engine());
-        Shopware()->Container()->set('profileId', uniqid());
+        Shopware()->Container()->set('profileId', $profileId);
         Shopware()->Container()->set('profileController', $controller);
     }
 
@@ -43,13 +47,10 @@ class Collector implements SubscriberInterface
         $this->templateCalls++;
         $name = $this->normalizePath($eventArgs->get('name'));
 
-        // Ignore Profiler Templates in Profiling Result
-        if (!strstr($name, '@Profiler') && !strstr($name, 'frontend/profiler/')) {
-            if(!isset($this->renderedTemplates[$name])) {
-                $this->renderedTemplates[$name] = 1;
-            } else {
-                $this->renderedTemplates[$name]++;
-            }
+        if(!isset($this->renderedTemplates[$name])) {
+            $this->renderedTemplates[$name] = 1;
+        } else {
+            $this->renderedTemplates[$name]++;
         }
     }
 
@@ -89,6 +90,7 @@ class Collector implements SubscriberInterface
                 $view->assign('sProfiler', $profileData);
                 $view->assign('sProfilerCollectors', Shopware()->Container()->get('profiler.collector')->getCollectors());
                 $view->assign('sProfilerID', Shopware()->Container()->get('profileId'));
+                $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
                 $view->addTemplateDir(Shopware()->Container()->getParameter('profiler.plugin_dir') . 'Views/');
                 $profileTemplate = $view->fetch('@Profiler/index.tpl');
@@ -98,8 +100,6 @@ class Collector implements SubscriberInterface
                 $content = str_replace('</body>', $profileTemplate . '</body>', $content);
                 $response->setBody($content);
             }
-
-            Shopware()->Container()->set('profileData.template', $profileData);
         }
     }
 

@@ -1,6 +1,6 @@
 <div class="sf-toolbar-block sf-toolbar-block-request sf-toolbar-status-normal">
     <a href="{url controller=Profiler action=detail id=$sProfilerID}">
-        <div class="sf-toolbar-icon"><span class="sf-toolbar-status sf-toolbar-status-green">200</span>
+        <div class="sf-toolbar-icon"><span class="sf-toolbar-status {if $sProfiler.response.httpResponse == 200}sf-toolbar-status-green{else}sf-toolbar-status-red{/if}">{$sProfiler.response.httpResponse}</span>
             <span class="sf-toolbar-label">@</span>
             <span class="sf-toolbar-value sf-toolbar-info-piece-additional">{controllerName}</span>
         </div>
@@ -31,14 +31,14 @@
         <div class="sf-toolbar-icon">
             <span class="ion-clock icon-toolbar"></span>
 
-            <span class="sf-toolbar-value" data-profiler-start-time="{$sProfiler.startTime}"></span>
+            <span class="sf-toolbar-value">{$sProfilerTime}</span>
             <span class="sf-toolbar-label">s</span>
         </div>
     </a>
     <div class="sf-toolbar-info">
         <div class="sf-toolbar-info-piece">
             <b>Total time</b>
-            <span data-profiler-start-time="{$sProfiler.startTime}"></span>
+            <span>{$sProfiler.startTime}</span>
             <span>s</span>
         </div>
     </div>
