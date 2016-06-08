@@ -22,9 +22,9 @@ class ShyimProfiler extends Plugin
     public function build(ContainerBuilder $container)
     {
         $container->setParameter('shyim_profiler.plugin_dir', $this->getPath() . '/');
-        $container->setParameter('shyim_profiler.cache_dir', $this->getPath() . '/ProfilerCache');
+
         parent::build($container);
-        
+
         $container->addCompilerPass(new EventListenerCompilerPass());
         $container->addCompilerPass(new EventSubscriberCompilerPass());
     }
