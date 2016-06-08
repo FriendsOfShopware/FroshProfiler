@@ -1,5 +1,5 @@
 <?php
-namespace Profiler\Subscriber;
+namespace ShyimProfiler\Subscriber;
 
 
 use Enlight\Event\SubscriberInterface;
@@ -16,9 +16,9 @@ class ProfilerController implements SubscriberInterface
     public function onProfilerController()
     {
         Shopware()->Template()->addTemplateDir(
-            Shopware()->Container()->getParameter('profiler.plugin_dir') . 'Views/'
+            Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . 'Views/'
         );
 
-        return Shopware()->Container()->getParameter('profiler.plugin_dir') . 'Controllers/Frontend/Profiler.php';
+        return Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . 'Controllers/Frontend/Profiler.php';
     }
 }

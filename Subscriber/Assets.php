@@ -1,5 +1,5 @@
 <?php
-namespace Profiler\Subscriber;
+namespace ShyimProfiler\Subscriber;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Enlight\Event\SubscriberInterface;
@@ -19,7 +19,7 @@ class Assets implements SubscriberInterface
         $less = new LessDefinition(
             [],
             [
-                Shopware()->Container()->getParameter('profiler.plugin_dir') . '/Views/frontend/_public/src/less/all.less'
+                Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Views/frontend/_public/src/less/all.less'
             ],
             __DIR__
         );

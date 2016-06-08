@@ -5,40 +5,40 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- Custom Services -->
-        <service id="profiler.smarty_extensions" class="Profiler\Components\SmartyExtensions"/>
-        <service id="profiler.collector" class="Profiler\Components\Collector"/>
-        <service id="profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
-            <argument type="string">%profiler.cache_dir%</argument>
+        <service id="shyim_profiler.smarty_extensions" class="ShyimProfiler\Components\SmartyExtensions"/>
+        <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector"/>
+        <service id="shyim_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
+            <argument type="string">%shyim_profiler.cache_dir%</argument>
         </service>
 
         <!-- Event Subscriber -->
-        <service id="profiler.subscriber.collector" class="Profiler\Subscriber\Collector">
+        <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />
             <tag name="shopware.event_subscriber" />
         </service>
-        <service id="profiler.subscriber.assets" class="Profiler\Subscriber\Assets">
+        <service id="shyim_profiler.subscriber.assets" class="ShyimProfiler\Subscriber\Assets">
             <argument type="service" id="service_container" />
             <tag name="shopware.event_subscriber" />
         </service>
-        <service id="profiler.subscriber.controller_profiler" class="Profiler\Subscriber\ProfilerController">
+        <service id="shyim_profiler.subscriber.controller_profiler" class="ShyimProfiler\Subscriber\ProfilerController">
             <argument type="service" id="service_container" />
             <tag name="shopware.event_subscriber" />
         </service>
 
         <!-- Decorations -->
-        <service decorates="pluginlogger" id="profiler.decoration.pluginlogger" class="Profiler\Components\Logger">
-            <argument type="service" id="profiler.decoration.pluginlogger.inner"/>
+        <service decorates="pluginlogger" id="shyim_profiler.decoration.pluginlogger" class="ShyimProfiler\Components\Logger">
+            <argument type="service" id="shyim_profiler.decoration.pluginlogger.inner"/>
             <argument type="string">Pluginlogger</argument>
         </service>
-        <service decorates="corelogger" id="profiler.decoration.corelogger" class="Profiler\Components\Logger">
-            <argument type="service" id="profiler.decoration.corelogger.inner"/>
+        <service decorates="corelogger" id="shyim_profiler.decoration.corelogger" class="ShyimProfiler\Components\Logger">
+            <argument type="service" id="shyim_profiler.decoration.corelogger.inner"/>
             <argument type="string">Corelogger</argument>
         </service>
-        <service decorates="debuglogger" id="profiler.decoration.debuglogger" class="Profiler\Components\Logger">
-            <argument type="service" id="profiler.decoration.debuglogger.inner"/>
+        <service decorates="debuglogger" id="shyim_profiler.decoration.debuglogger" class="ShyimProfiler\Components\Logger">
+            <argument type="service" id="shyim_profiler.decoration.debuglogger.inner"/>
             <argument type="string">Debuglogger</argument>
         </service>
-        <service decorates="events" id="profiler.event_manager" class="Profiler\Components\Event\EventManager">
+        <service decorates="events" id="shyim_profiler.event_manager" class="ShyimProfiler\Components\Event\EventManager">
             <argument type="service" id="service_container"/>
         </service>
     </services>
