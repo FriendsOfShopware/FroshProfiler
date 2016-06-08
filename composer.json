@@ -1,14 +1,9 @@
 {
   "name": "shyim/shopware-profiler",
-  "type": "shopware-core-plugin",
   "keywords": ["shopware", "profiling", "plugin"],
   "description": "Profiling for Shopware",
   "license": "MIT",
-  "extra": {
-    "installer-name": "Profiler"
-  },
   "require": {
-    "composer/installers": "^1.0",
     "symfony/var-dumper": "^3.0",
     "jdorn/sql-formatter": "^v1.2.17"
   }
