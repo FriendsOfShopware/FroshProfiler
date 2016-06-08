@@ -1,16 +1,16 @@
 <?php
 
-namespace Profiler;
+namespace ShyimProfiler;
 
 use Doctrine\DBAL\Logging\DebugStack;
 use Shopware\Components\Plugin;
-use Profiler\Components\CompilerPass\EventListenerCompilerPass;
-use Profiler\Components\CompilerPass\EventSubscriberCompilerPass;
-use Profiler\Subscriber\Decorator;
-use Profiler\Subscriber\Service;
+use ShyimProfiler\Components\CompilerPass\EventListenerCompilerPass;
+use ShyimProfiler\Components\CompilerPass\EventSubscriberCompilerPass;
+use ShyimProfiler\Subscriber\Decorator;
+use ShyimProfiler\Subscriber\Service;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class Profiler extends Plugin
+class ShyimProfiler extends Plugin
 {
     public static function getSubscribedEvents()
     {
@@ -21,9 +21,10 @@ class Profiler extends Plugin
 
     public function build(ContainerBuilder $container)
     {
-        $container->setParameter('profiler.plugin_dir', $this->getPath() . '/');
-        $container->setParameter('profiler.cache_dir', $this->getPath() . '/ProfilerCache');
+        $container->setParameter('shyim_profiler.plugin_dir', $this->getPath() . '/');
+        $container->setParameter('shyim_profiler.cache_dir', $this->getPath() . '/ProfilerCache');
         parent::build($container);
+        
         $container->addCompilerPass(new EventListenerCompilerPass());
         $container->addCompilerPass(new EventSubscriberCompilerPass());
     }

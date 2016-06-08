@@ -1,5 +1,5 @@
 <?php
-namespace Profiler\Components\CompilerPass;
+namespace ShyimProfiler\Components\CompilerPass;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -13,12 +13,12 @@ class EventSubscriberCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('profiler.event_manager')) {
+        if (!$container->hasDefinition('shyim_profiler.event_manager')) {
             return;
         }
 
         $definition = $container->getDefinition(
-            'profiler.event_manager'
+            'shyim_profiler.event_manager'
         );
 
         $taggedServices = $container->findTaggedServiceIds(

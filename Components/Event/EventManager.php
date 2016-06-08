@@ -1,6 +1,6 @@
 <?php
 
-namespace Profiler\Components\Event;
+namespace ShyimProfiler\Components\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Util\Debug;

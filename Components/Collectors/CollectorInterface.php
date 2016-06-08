@@ -1,6 +1,6 @@
 <?php
 
-namespace Profiler\Components\Collectors;
+namespace ShyimProfiler\Components\Collectors;
 
 interface CollectorInterface
 {

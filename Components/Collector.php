@@ -1,16 +1,16 @@
 <?php
 
-namespace Profiler\Components;
+namespace ShyimProfiler\Components;
 
-use Profiler\Components\Collectors\CollectorInterface;
-use Profiler\Components\Collectors\ConfigCollector;
-use Profiler\Components\Collectors\DBCollector;
-use Profiler\Components\Collectors\EventCollector;
-use Profiler\Components\Collectors\ExceptionCollector;
-use Profiler\Components\Collectors\GeneralCollector;
-use Profiler\Components\Collectors\PHPCollector;
-use Profiler\Components\Collectors\SmartyCollector;
-use Profiler\Components\Collectors\UserCollector;
+use ShyimProfiler\Components\Collectors\CollectorInterface;
+use ShyimProfiler\Components\Collectors\ConfigCollector;
+use ShyimProfiler\Components\Collectors\DBCollector;
+use ShyimProfiler\Components\Collectors\EventCollector;
+use ShyimProfiler\Components\Collectors\ExceptionCollector;
+use ShyimProfiler\Components\Collectors\GeneralCollector;
+use ShyimProfiler\Components\Collectors\PHPCollector;
+use ShyimProfiler\Components\Collectors\SmartyCollector;
+use ShyimProfiler\Components\Collectors\UserCollector;
 
 class Collector
 {
@@ -53,16 +53,16 @@ class Collector
 
     public function saveCollectInformation($id, $information)
     {
-        Shopware()->Container()->get('profiler.cache')->save($id, $information);
+        Shopware()->Container()->get('shyim_profiler.cache')->save($id, $information);
 
-        $indexArray = Shopware()->Container()->get('profiler.cache')->fetch('index');
+        $indexArray = Shopware()->Container()->get('shyim_profiler.cache')->fetch('index');
         if(empty($indexArray)) {
             $indexArray = [];
         }
 
         $indexArray[$id] = array_merge($information['request'], $information['response']);
 
-        Shopware()->Container()->get('profiler.cache')->save('index', $indexArray);
+        Shopware()->Container()->get('shyim_profiler.cache')->save('index', $indexArray);
 
         return $id;
     }

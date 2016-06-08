@@ -1,6 +1,6 @@
 <?php
 
-namespace Profiler\Subscriber;
+namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
@@ -34,10 +34,10 @@ class Collector implements SubscriberInterface
         $profileId = uniqid();
 
         $view = $controller->View();
-        $view->addTemplateDir(Shopware()->Container()->getParameter('profiler.plugin_dir') . '/Views');
+        $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Views');
         $view->assign('sProfilerID', $profileId);
 
-        Shopware()->Container()->get('profiler.smarty_extensions')->addPlugins($view->Engine());
+        Shopware()->Container()->get('shyim_profiler.smarty_extensions')->addPlugins($view->Engine());
         Shopware()->Container()->set('profileId', $profileId);
         Shopware()->Container()->set('profileController', $controller);
     }
@@ -77,10 +77,10 @@ class Collector implements SubscriberInterface
             $profileTemplate['renderTime'] = $this->renderTime;
 
             if (Shopware()->Container()->has('front') && Shopware()->Container()->has('profileId')) {
-                $profileData = Shopware()->Container()->get('profiler.collector')->collectInformation(Shopware()->Container()->get('profileController'));
+                $profileData = Shopware()->Container()->get('shyim_profiler.collector')->collectInformation(Shopware()->Container()->get('profileController'));
                 $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
 
-                Shopware()->Container()->get('profiler.collector')->saveCollectInformation(
+                Shopware()->Container()->get('shyim_profiler.collector')->saveCollectInformation(
                     Shopware()->Container()->get('profileId'),
                     $profileData
                 );
@@ -88,11 +88,11 @@ class Collector implements SubscriberInterface
                 $view = Shopware()->Container()->get('template');
 
                 $view->assign('sProfiler', $profileData);
-                $view->assign('sProfilerCollectors', Shopware()->Container()->get('profiler.collector')->getCollectors());
+                $view->assign('sProfilerCollectors', Shopware()->Container()->get('shyim_profiler.collector')->getCollectors());
                 $view->assign('sProfilerID', Shopware()->Container()->get('profileId'));
                 $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
-                $view->addTemplateDir(Shopware()->Container()->getParameter('profiler.plugin_dir') . 'Views/');
+                $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . 'Views/');
                 $profileTemplate = $view->fetch('@Profiler/index.tpl');
 
                 $content = $response->getBody();
