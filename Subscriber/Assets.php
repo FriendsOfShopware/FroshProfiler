@@ -19,7 +19,7 @@ class Assets implements SubscriberInterface
         $less = new LessDefinition(
             [],
             [
-                Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Views/frontend/_public/src/less/all.less'
+                Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/frontend/_public/src/less/all.less'
             ],
             __DIR__
         );

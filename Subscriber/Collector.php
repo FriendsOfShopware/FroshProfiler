@@ -34,7 +34,7 @@ class Collector implements SubscriberInterface
         $profileId = uniqid();
 
         $view = $controller->View();
-        $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Views');
+        $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views');
         $view->assign('sProfilerID', $profileId);
 
         Shopware()->Container()->get('shyim_profiler.smarty_extensions')->addPlugins($view->Engine());
@@ -92,7 +92,7 @@ class Collector implements SubscriberInterface
                 $view->assign('sProfilerID', Shopware()->Container()->get('profileId'));
                 $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
-                $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . 'Views/');
+                $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
                 $profileTemplate = $view->fetch('@Profiler/index.tpl');
 
                 $content = $response->getBody();
