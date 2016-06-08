@@ -4,9 +4,15 @@ namespace ShyimProfiler\Subscriber;
 use Doctrine\Common\Collections\ArrayCollection;
 use Enlight\Event\SubscriberInterface;
 use Shopware\Components\Theme\LessDefinition;
+use Shopware\Components\DependencyInjection\Container;
 
 class Assets implements SubscriberInterface
 {
+    /**
+     * @var Container
+     */
+    private $container;
+
     public static function getSubscribedEvents()
     {
         return [
@@ -14,12 +20,20 @@ class Assets implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
     public function addLessFiles()
     {
         $less = new LessDefinition(
             [],
             [
-                Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/frontend/_public/src/less/all.less'
+                $this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/frontend/_public/src/less/all.less'
             ],
             __DIR__
         );

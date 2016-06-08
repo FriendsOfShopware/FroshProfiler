@@ -11,7 +11,12 @@
     <services>
         <!-- Custom Services -->
         <service id="shyim_profiler.smarty_extensions" class="ShyimProfiler\Components\SmartyExtensions"/>
-        <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector"/>
+
+        <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector">
+            <argument type="service" id="events" />
+            <argument type="service" id="shyim_profiler.cache" />
+        </service>
+
         <service id="shyim_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
             <argument type="string">%shyim_profiler.cache_dir%</argument>
         </service>

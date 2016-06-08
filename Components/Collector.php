@@ -2,6 +2,7 @@
 
 namespace ShyimProfiler\Components;
 
+use Doctrine\Common\Cache\CacheProvider;
 use ShyimProfiler\Components\Collectors\CollectorInterface;
 use ShyimProfiler\Components\Collectors\ConfigCollector;
 use ShyimProfiler\Components\Collectors\DBCollector;
@@ -14,7 +15,26 @@ use ShyimProfiler\Components\Collectors\UserCollector;
 
 class Collector
 {
+    /**
+     * @var CollectorInterface
+     */
     private $collectors = [];
+
+    /**
+     * @var Enlight_Event_EventManager
+     */
+    private $events;
+
+    /**
+     * @var CacheProvider
+     */
+    private $cache;
+
+    public function __construct(\Enlight_Event_EventManager $events, CacheProvider $cache)
+    {
+        $this->events = $events;
+        $this->cache = $cache;
+    }
 
     public function getCollectors()
     {
@@ -30,7 +50,7 @@ class Collector
                 new ExceptionCollector()
             ];
 
-            $this->collectors = Shopware()->Events()->filter('Profiler_onCollectCollectors', $this->collectors);
+            $this->collectors = $this->events->filter('Profiler_onCollectCollectors', $this->collectors);
         }
 
         return $this->collectors;
@@ -53,16 +73,16 @@ class Collector
 
     public function saveCollectInformation($id, $information)
     {
-        Shopware()->Container()->get('shyim_profiler.cache')->save($id, $information);
+        $this->cache->save($id, $information);
 
-        $indexArray = Shopware()->Container()->get('shyim_profiler.cache')->fetch('index');
-        if(empty($indexArray)) {
+        $indexArray = $this->cache->fetch('index');
+        if (empty($indexArray)) {
             $indexArray = [];
         }
 
         $indexArray[$id] = array_merge($information['request'], $information['response']);
 
-        Shopware()->Container()->get('shyim_profiler.cache')->save('index', $indexArray);
+        $this->cache->save('index', $indexArray);
 
         return $id;
     }
