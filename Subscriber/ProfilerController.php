@@ -1,11 +1,16 @@
 <?php
 namespace ShyimProfiler\Subscriber;
 
-
 use Enlight\Event\SubscriberInterface;
+use Shopware\Components\DependencyInjection\Container;
 
 class ProfilerController implements SubscriberInterface
 {
+    /**
+     * @var Container
+     */
+    private $container;
+
     public static function getSubscribedEvents()
     {
         return [
@@ -13,12 +18,20 @@ class ProfilerController implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
     public function onProfilerController()
     {
-        Shopware()->Template()->addTemplateDir(
-            Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/'
+        $this->container->get('template')->addTemplateDir(
+            $this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/'
         );
 
-        return Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Controllers/Frontend/Profiler.php';
+        return $this->container->getParameter('shyim_profiler.plugin_dir') . '/Controllers/Frontend/Profiler.php';
     }
 }

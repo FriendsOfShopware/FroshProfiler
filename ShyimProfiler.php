@@ -34,7 +34,7 @@ class ShyimProfiler extends Plugin
         require_once $this->getPath() . '/vendor/autoload.php';
         define('STARTTIME', microtime(true));
 
-        $uri = Shopware()->Container()->get('front')->Request()->getRequestUri();
+        $uri = $this->container->get('front')->Request()->getRequestUri();
         if(!strstr($uri, '/backend') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
             /**
              * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
@@ -48,11 +48,11 @@ class ShyimProfiler extends Plugin
     private function initDatabaseProfiler()
     {
         // Zend DB Profiler
-        Shopware()->Db()->setProfiler(new \Zend_Db_Profiler(true));
+        $this->container->get('db')->setProfiler(new \Zend_Db_Profiler(true));
 
         // Doctrine Profiler
         $logger = new DebugStack();
         $logger->enabled = true;
-        Shopware()->Models()->getConfiguration()->setSQLLogger($logger);
+        $this->container->get('models')->getConfiguration()->setSQLLogger($logger);
     }
 }

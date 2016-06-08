@@ -3,9 +3,15 @@
 namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
+use Shopware\Components\DependencyInjection\Container;
 
 class Collector implements SubscriberInterface
 {
+    /**
+     * @var Container
+     */
+    private $container;
+
     private $renderedTemplates = [];
     private $templateCalls = 0;
     private $blockCalls = 0;
@@ -22,6 +28,14 @@ class Collector implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
     public function onPostDispatchFrontend(\Enlight_Event_EventArgs $args)
     {
         /** @var \Enlight_Controller_Action $controller */
@@ -34,12 +48,12 @@ class Collector implements SubscriberInterface
         $profileId = uniqid();
 
         $view = $controller->View();
-        $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views');
+        $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views');
         $view->assign('sProfilerID', $profileId);
 
-        Shopware()->Container()->get('shyim_profiler.smarty_extensions')->addPlugins($view->Engine());
-        Shopware()->Container()->set('profileId', $profileId);
-        Shopware()->Container()->set('profileController', $controller);
+        $this->container->get('shyim_profiler.smarty_extensions')->addPlugins($view->Engine());
+        $this->container->set('profileId', $profileId);
+        $this->container->set('profileController', $controller);
     }
 
     public function onRender(\Enlight_Event_EventArgs $eventArgs)
@@ -66,7 +80,7 @@ class Collector implements SubscriberInterface
 
     public function onDispatchLoopShutdown(\Enlight_Event_EventArgs $args)
     {
-        if (Shopware()->Container()->has('profileId')) {
+        if ($this->container->has('profileId')) {
             /** @var \Enlight_Controller_Response_ResponseHttp $response */
             $response = $args->get('response');
 
@@ -76,23 +90,23 @@ class Collector implements SubscriberInterface
             $profileTemplate['templateCalls'] = $this->templateCalls;
             $profileTemplate['renderTime'] = $this->renderTime;
 
-            if (Shopware()->Container()->has('front') && Shopware()->Container()->has('profileId')) {
-                $profileData = Shopware()->Container()->get('shyim_profiler.collector')->collectInformation(Shopware()->Container()->get('profileController'));
+            if ($this->container->has('front') && $this->container->has('profileId')) {
+                $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->container->get('profileController'));
                 $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
 
-                Shopware()->Container()->get('shyim_profiler.collector')->saveCollectInformation(
-                    Shopware()->Container()->get('profileId'),
+                $this->container->get('shyim_profiler.collector')->saveCollectInformation(
+                    $this->container->get('profileId'),
                     $profileData
                 );
 
-                $view = Shopware()->Container()->get('template');
+                $view = $this->container->get('template');
 
                 $view->assign('sProfiler', $profileData);
-                $view->assign('sProfilerCollectors', Shopware()->Container()->get('shyim_profiler.collector')->getCollectors());
-                $view->assign('sProfilerID', Shopware()->Container()->get('profileId'));
+                $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
+                $view->assign('sProfilerID', $this->container->get('profileId'));
                 $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
-                $view->addTemplateDir(Shopware()->Container()->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
+                $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
                 $profileTemplate = $view->fetch('@Profiler/index.tpl');
 
                 $content = $response->getBody();
