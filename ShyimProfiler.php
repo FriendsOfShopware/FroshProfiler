@@ -4,10 +4,10 @@ namespace ShyimProfiler;
 
 use Doctrine\DBAL\Logging\DebugStack;
 use Shopware\Components\Plugin;
+use Shopware\Components\Plugin\Context\ActivateContext;
+use Shopware\Components\Plugin\Context\InstallContext;
 use ShyimProfiler\Components\CompilerPass\EventListenerCompilerPass;
 use ShyimProfiler\Components\CompilerPass\EventSubscriberCompilerPass;
-use ShyimProfiler\Subscriber\Decorator;
-use ShyimProfiler\Subscriber\Service;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ShyimProfiler extends Plugin
@@ -18,6 +18,12 @@ class ShyimProfiler extends Plugin
             'Enlight_Controller_Front_StartDispatch' => 'onStartDispatch'
         ];
     }
+
+    public function activate(ActivateContext $context)
+    {
+        $context->scheduleClearCache(InstallContext::CACHE_LIST_FRONTEND);
+    }
+
 
     public function build(ContainerBuilder $container)
     {
