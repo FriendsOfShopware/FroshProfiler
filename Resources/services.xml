@@ -21,6 +21,12 @@
             <argument type="string">%shyim_profiler.cache_dir%</argument>
         </service>
 
+        <service id="shyim_profiler.block_annotator" class="ShyimProfiler\Components\BlockAnnotator">
+            <argument type="service" id="shyim_profiler.block_splitter" />
+        </service>
+
+        <service id="shyim_profiler.block_splitter" class="ShyimProfiler\Components\BlockSplitter" />
+
         <!-- Event Subscriber -->
         <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />
