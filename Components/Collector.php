@@ -21,7 +21,7 @@ class Collector
     private $collectors = [];
 
     /**
-     * @var Enlight_Event_EventManager
+     * @var \Enlight_Event_EventManager
      */
     private $events;
 
