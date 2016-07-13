@@ -12,6 +12,8 @@ class Collector implements SubscriberInterface
      */
     private $container;
 
+    private $templateDirConfigured = false;
+
     private $renderedTemplates = [];
     private $templateCalls = 0;
     private $blockCalls = 0;
@@ -171,9 +173,12 @@ class Collector implements SubscriberInterface
      */
     private function reconfigureTemplateDirs(\Enlight_Template_Manager $templateManager)
     {
-        $compileDir = $templateManager->getCompileDir() . 'blocks/';
-        $cacheDir = $templateManager->getTemplateDir() . 'blocks/';
-        $templateManager->setCompileDir($compileDir);
-        $templateManager->setCacheDir($cacheDir);
+        if (!$this->templateDirConfigured) {
+            $compileDir = $templateManager->getCompileDir() . 'blocks/';
+            $cacheDir = $templateManager->getCacheDir() . 'blocks/';
+            $templateManager->setCompileDir($compileDir);
+            $templateManager->setCacheDir($cacheDir);
+            $this->templateDirConfigured = true;
+        }
     }
 }
