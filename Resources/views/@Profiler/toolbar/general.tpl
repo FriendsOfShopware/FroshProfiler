@@ -38,7 +38,7 @@
     <div class="sf-toolbar-info">
         <div class="sf-toolbar-info-piece">
             <b>Total time</b>
-            <span>{$sProfiler.startTime}</span>
+            <span>{$sProfilerTime}</span>
             <span>s</span>
         </div>
     </div>

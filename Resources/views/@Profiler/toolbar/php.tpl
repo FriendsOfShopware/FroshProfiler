@@ -13,7 +13,7 @@
 
         <div class="sf-toolbar-info-piece">
             <b>PHP memory limit</b>
-            <span>{$sProfiler.php.memory_limit}</span>
+            <span>{$sProfiler.php.memory_limit|convertMemory}</span>
         </div>
     </div>
 </div>
