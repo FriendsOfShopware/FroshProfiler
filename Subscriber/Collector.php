@@ -22,7 +22,7 @@ class Collector implements SubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        $events = [
+        return [
             'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend',
             'Profiler_Smarty_Render' => 'onRender',
             'Profiler_Smarty_Render_Block' => 'onRenderBlock',
@@ -31,8 +31,6 @@ class Collector implements SubscriberInterface
             'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
             'Enlight_Controller_Action_PreDispatch_Widgets' => 'onPreDispatch'
         ];
-
-        return $events;
     }
 
     /**
