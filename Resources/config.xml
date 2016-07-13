@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../engine/Shopware/Components/Plugin/schema/config.xsd">
+    <elements>
+        <element type="boolean">
+            <name>frontendblocks</name>
+            <label>Show smarty blocks as HTML comments on page source code</label>
+            <label lang="de">Zeige Smarty Blöcke als HTML Kommentare an</label>
+            <value>1</value>
+        </element>
+    </elements>
+</config>

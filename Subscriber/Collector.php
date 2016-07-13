@@ -11,6 +11,7 @@ class Collector implements SubscriberInterface
      * @var Container
      */
     private $container;
+    private $config = [];
 
     private $templateDirConfigured = false;
 
@@ -21,7 +22,7 @@ class Collector implements SubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return [
+        $events = [
             'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend',
             'Profiler_Smarty_Render' => 'onRender',
             'Profiler_Smarty_Render_Block' => 'onRenderBlock',
@@ -30,6 +31,8 @@ class Collector implements SubscriberInterface
             'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
             'Enlight_Controller_Action_PreDispatch_Widgets' => 'onPreDispatch'
         ];
+
+        return $events;
     }
 
     /**
@@ -38,6 +41,7 @@ class Collector implements SubscriberInterface
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->config = $this->container->get('shopware.plugin.config_reader')->getByPluginName('ShyimProfiler');
     }
 
     public function onPostDispatchFrontend(\Enlight_Event_EventArgs $args)
@@ -140,9 +144,14 @@ class Collector implements SubscriberInterface
      * PreDispatch callback for widget and frontend requests
      *
      * @param \Enlight_Event_EventArgs $args
+     * @return bool
      */
     public function onPreDispatch(\Enlight_Event_EventArgs $args)
     {
+        if (!$this->config['frontendblocks']) {
+            return false;
+        }
+
         /** @var $controller \Enlight_Controller_Action */
         $controller = $args->getSubject();
         $view = $controller->View();
