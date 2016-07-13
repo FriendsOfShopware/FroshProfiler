@@ -21,7 +21,7 @@ class ShyimProfiler extends Plugin
 
     public function activate(ActivateContext $context)
     {
-        $context->scheduleClearCache(InstallContext::CACHE_LIST_FRONTEND);
+        $context->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
     }
 
 
