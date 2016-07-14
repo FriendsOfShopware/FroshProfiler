@@ -151,7 +151,7 @@ class Collector implements SubscriberInterface
     public function onPreDispatch(\Enlight_Event_EventArgs $args)
     {
         if (!$this->config['frontendblocks']) {
-            return false;
+            return;
         }
 
         /** @var $controller \Enlight_Controller_Action */

@@ -25,7 +25,7 @@ class Logger extends BaseLogger
 
     public function addRecord($level, $message, array $context = array())
     {
-        $this->messages[($level) > 100 ? 'OTHER': 'DEBUG'][] = [static::getLevelName($level), $message, $context, time(), $this->channelName];
+        $this->messages[$level > 100 ? 'OTHER': 'DEBUG'][] = [static::getLevelName($level), $message, $context, time(), $this->channelName];
 
         return $this->parentLogger->addRecord($level, $message, $context);
     }

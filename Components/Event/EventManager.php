@@ -44,8 +44,8 @@ class EventManager extends ContainerAwareEventManager
             'type' => 'filter',
             'name' => $event,
             'args' => Debug::dump($eventArgs, 2, true, false),
-            'old' => (is_object($value) ? Debug::dump($value, 2, true, false) : $value),
-            'new' => (is_object($afterValue) ? Debug::dump($afterValue, 2, true, false) : $afterValue)
+            'old' => is_object($value) ? Debug::dump($value, 2, true, false) : $value,
+            'new' => is_object($afterValue) ? Debug::dump($afterValue, 2, true, false) : $afterValue
         ];
 
         return $afterValue;
@@ -64,7 +64,7 @@ class EventManager extends ContainerAwareEventManager
             'type' => 'notifyUntil',
             'name' => $event,
             'args' => Debug::dump($eventArgs, 2, true, false),
-            'cancel' => (is_object($cancel) ? Debug::dump($cancel, 2, true, false) : $cancel)
+            'cancel' => is_object($cancel) ? Debug::dump($cancel, 2, true, false) : $cancel
         ];
 
         return $cancel;
