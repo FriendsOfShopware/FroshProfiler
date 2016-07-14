@@ -59,7 +59,6 @@ class BlockSplitter
         usort($closedStack, array($this, 'sortByChildren'));
 
         return $closedStack;
-
     }
 
     /**
@@ -87,7 +86,7 @@ class BlockSplitter
 
         if ($a == $b) {
             return 0;
-        };
+        }
 
         return $a < $b ? 1 : -1;
     }

@@ -12,7 +12,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         Shopware()->Container()->get('shyim_profiler.smarty_extensions')->addPlugins($this->View()->Engine());
         $detail = Shopware()->Container()->get('shyim_profiler.cache')->fetch($this->Request()->get('id'));
 
-        if(empty($detail)) {
+        if (empty($detail)) {
             $this->redirect([
                 'action' => 'index'
             ]);

@@ -41,7 +41,7 @@ class ShyimProfiler extends Plugin
         define('STARTTIME', microtime(true));
 
         $uri = $this->container->get('front')->Request()->getRequestUri();
-        if(!strstr($uri, '/backend') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
+        if (!strstr($uri, '/backend') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
             /**
              * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
              */

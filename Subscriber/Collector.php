@@ -67,7 +67,7 @@ class Collector implements SubscriberInterface
         $this->templateCalls++;
         $name = $this->normalizePath($eventArgs->get('name'));
 
-        if(!isset($this->renderedTemplates[$name])) {
+        if (!isset($this->renderedTemplates[$name])) {
             $this->renderedTemplates[$name] = 1;
         } else {
             $this->renderedTemplates[$name]++;
@@ -86,51 +86,55 @@ class Collector implements SubscriberInterface
 
     public function onDispatchLoopShutdown(\Enlight_Event_EventArgs $args)
     {
-        if ($this->container->has('profileId')) {
-            /** @var \Enlight_Controller_Response_ResponseHttp $response */
-            $response = $args->get('response');
-
-            $profileTemplate = [];
-            $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
-            $profileTemplate['blockCalls'] = $this->blockCalls;
-            $profileTemplate['templateCalls'] = $this->templateCalls;
-            $profileTemplate['renderTime'] = $this->renderTime;
-
-            if ($this->container->has('front') && $this->container->has('profileId')) {
-                $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->container->get('profileController'));
-                $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
-
-                $this->container->get('shyim_profiler.collector')->saveCollectInformation(
-                    $this->container->get('profileId'),
-                    $profileData
-                );
-
-                $view = $this->container->get('template');
-
-                $view->assign('sProfiler', $profileData);
-                $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
-                $view->assign('sProfilerID', $this->container->get('profileId'));
-                $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
-
-                $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
-                $profileTemplate = $view->fetch('@Profiler/index.tpl');
-
-                $content = $response->getBody();
-
-                $content = str_replace('</body>', $profileTemplate . '</body>', $content);
-                $response->setBody($content);
-            }
+        if (!$this->container->has('profileId')) {
+            return;
         }
+
+        if (!$this->container->has('front')) {
+            return;
+        }
+
+        /** @var \Enlight_Controller_Response_ResponseHttp $response */
+        $response = $args->get('response');
+
+        $profileTemplate = [];
+        $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
+        $profileTemplate['blockCalls'] = $this->blockCalls;
+        $profileTemplate['templateCalls'] = $this->templateCalls;
+        $profileTemplate['renderTime'] = $this->renderTime;
+
+        $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->container->get('profileController'));
+        $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
+
+        $this->container->get('shyim_profiler.collector')->saveCollectInformation(
+            $this->container->get('profileId'),
+            $profileData
+        );
+
+        $view = $this->container->get('template');
+
+        $view->assign('sProfiler', $profileData);
+        $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
+        $view->assign('sProfilerID', $this->container->get('profileId'));
+        $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
+
+        $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
+        $profileTemplate = $view->fetch('@Profiler/index.tpl');
+
+        $content = $response->getBody();
+
+        $content = str_replace('</body>', $profileTemplate . '</body>', $content);
+        $response->setBody($content);
     }
 
     private function normalizePath($path)
     {
-        if(strstr($path, 'frontend')) {
+        if (strstr($path, 'frontend')) {
             $pos = strpos($path, 'frontend');
             $path = substr($path, $pos);
         }
 
-        if(strstr($path, 'widgets')) {
+        if (strstr($path, 'widgets')) {
             $pos = strpos($path, 'widgets');
             $path = substr($path, $pos);
         }
@@ -147,7 +151,7 @@ class Collector implements SubscriberInterface
     public function onPreDispatch(\Enlight_Event_EventArgs $args)
     {
         if (!$this->config['frontendblocks']) {
-            return false;
+            return;
         }
 
         /** @var $controller \Enlight_Controller_Action */
