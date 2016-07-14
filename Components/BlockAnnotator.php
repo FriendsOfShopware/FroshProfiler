@@ -36,7 +36,6 @@ class BlockAnnotator
     public function annotate($template)
     {
         foreach ($this->blockSplitter->split($template) as $block) {
-
             if (in_array($block['name'], $this->blacklist)) {
                 continue;
             }
@@ -46,7 +45,6 @@ class BlockAnnotator
             $end = "<!-- BLOCK END {$info} -->";
 
             $template = str_replace($block['content'], $block['beginBlock'] . $start . $block['contentOnly']. $end . $block['endBlock'], $template);
-
         }
 
         return $template;

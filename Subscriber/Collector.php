@@ -67,7 +67,7 @@ class Collector implements SubscriberInterface
         $this->templateCalls++;
         $name = $this->normalizePath($eventArgs->get('name'));
 
-        if(!isset($this->renderedTemplates[$name])) {
+        if (!isset($this->renderedTemplates[$name])) {
             $this->renderedTemplates[$name] = 1;
         } else {
             $this->renderedTemplates[$name]++;
@@ -125,12 +125,12 @@ class Collector implements SubscriberInterface
 
     private function normalizePath($path)
     {
-        if(strstr($path, 'frontend')) {
+        if (strstr($path, 'frontend')) {
             $pos = strpos($path, 'frontend');
             $path = substr($path, $pos);
         }
 
-        if(strstr($path, 'widgets')) {
+        if (strstr($path, 'widgets')) {
             $pos = strpos($path, 'widgets');
             $path = substr($path, $pos);
         }

@@ -59,7 +59,6 @@ class BlockSplitter
         usort($closedStack, array($this, 'sortByChildren'));
 
         return $closedStack;
-
     }
 
     /**

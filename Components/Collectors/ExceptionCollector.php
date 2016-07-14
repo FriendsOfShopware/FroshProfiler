@@ -1,7 +1,6 @@
 <?php
 namespace ShyimProfiler\Components\Collectors;
 
-
 class ExceptionCollector implements CollectorInterface
 {
     public function getName()
