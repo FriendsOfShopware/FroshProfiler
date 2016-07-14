@@ -22,7 +22,7 @@ class PHPCollector implements CollectorInterface
                 'ioncube'          => extension_loaded('ioncube'),
                 'opcache'          => extension_loaded('opcache'),
                 'httpcache'        => Shopware()->Container()->get('kernel')->isHttpCacheEnabled(),
-                'env'              => Shopware()->Environment(),
+                'env'              => Shopware()->Container()->get('kernel')->getEnvironment(),
                 'sapi'             => php_sapi_name(),
                 'shopware_version' => \Shopware::VERSION,
             ],
