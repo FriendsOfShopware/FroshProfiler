@@ -5,7 +5,8 @@ namespace ShyimProfiler\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Shopware\Components\DependencyInjection\Container;
 
-class BlockAnnotation implements SubscriberInterface {
+class BlockAnnotation implements SubscriberInterface
+{
 
     /**
      * @var Container
