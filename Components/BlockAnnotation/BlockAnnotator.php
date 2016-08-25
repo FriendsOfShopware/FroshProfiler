@@ -1,11 +1,11 @@
 <?php
 
-namespace ShyimProfiler\Components;
+namespace ShyimProfiler\Components\BlockAnnotation;
 
 /**
  * BlockAnnotator annotates smarty block with HTML comments, so you can tell which content belongs to which block
  *
- * @package ShyimProfiler\Components
+ * @package ShyimProfiler\Components\BlockAnnotation
  * @author Daniel Nögel <d.noegel@shopware.com>
  */
 class BlockAnnotator

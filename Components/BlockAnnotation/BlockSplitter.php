@@ -1,11 +1,11 @@
 <?php
 
-namespace ShyimProfiler\Components;
+namespace ShyimProfiler\Components\BlockAnnotation;
 
 /**
  * BlockSplitter splits a given template string into smarty blocks.
  *
- * @package ShyimProfiler\Components
+ * @package ShyimProfiler\Components\BlockAnnotation
  * @author Daniel Nögel <d.noegel@shopware.com>
  */
 class BlockSplitter

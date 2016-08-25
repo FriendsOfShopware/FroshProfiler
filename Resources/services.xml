@@ -21,11 +21,11 @@
             <argument type="string">%shyim_profiler.cache_dir%</argument>
         </service>
 
-        <service id="shyim_profiler.block_annotator" class="ShyimProfiler\Components\BlockAnnotator">
+        <service id="shyim_profiler.block_annotator" class="ShyimProfiler\Components\BlockAnnotation\BlockAnnotator">
             <argument type="service" id="shyim_profiler.block_splitter" />
         </service>
 
-        <service id="shyim_profiler.block_splitter" class="ShyimProfiler\Components\BlockSplitter" />
+        <service id="shyim_profiler.block_splitter" class="ShyimProfiler\Components\BlockAnnotation\BlockSplitter" />
 
         <!-- Event Subscriber -->
         <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
@@ -39,6 +39,10 @@
         <service id="shyim_profiler.subscriber.controller_profiler" class="ShyimProfiler\Subscriber\ProfilerController">
             <argument type="service" id="service_container" />
             <tag name="shopware.event_subscriber" />
+        </service>
+        <service id="shyim_profiler.subscriber.block_annotation" class="ShyimProfiler\Subscriber\BlockAnnotation">
+            <argument type="service" id="service_container"/>
+            <tag name="shopware.event_subscriber"/>
         </service>
 
         <!-- Decorations -->
