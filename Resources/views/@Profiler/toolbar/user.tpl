@@ -17,7 +17,7 @@
             </div>
             <div class="sf-toolbar-info-piece">
                 <b>Customernumber:</b>
-                <span>{$sProfiler.user.billingaddress.customernumber}</span>
+                <span>{$sProfiler.user.additional.user.customernumber}</span>
             </div>
         </div>
     {/if}
