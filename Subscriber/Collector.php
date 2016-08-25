@@ -2,6 +2,7 @@
 
 namespace ShyimProfiler\Subscriber;
 
+use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
 use Shopware\Components\DependencyInjection\Container;
 
@@ -16,6 +17,7 @@ class Collector implements SubscriberInterface
     private $templateDirConfigured = false;
 
     private $renderedTemplates = [];
+    private $mails = [];
     private $templateCalls = 0;
     private $blockCalls = 0;
     private $renderTime = 0;
@@ -29,7 +31,8 @@ class Collector implements SubscriberInterface
             'Profiler_Smarty_RenderTime' => 'onRenderTime',
             'Enlight_Controller_Front_DispatchLoopShutdown' => 'onDispatchLoopShutdown',
             'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
-            'Enlight_Controller_Action_PreDispatch_Widgets' => 'onPreDispatch'
+            'Enlight_Controller_Action_PreDispatch_Widgets' => 'onPreDispatch',
+            'Enlight_Components_Mail_Send' => 'onSendMails'
         ];
     }
 
@@ -105,6 +108,7 @@ class Collector implements SubscriberInterface
 
         $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->container->get('profileController'));
         $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
+        $profileData['mails'] = $this->mails;
 
         $this->container->get('shyim_profiler.collector')->saveCollectInformation(
             $this->container->get('profileId'),
@@ -175,6 +179,32 @@ class Collector implements SubscriberInterface
     public function preFilter($source, $template)
     {
         return $this->container->get('shyim_profiler.block_annotator')->annotate($source);
+    }
+
+    /**
+     * Collect mails
+     * @param \Enlight_Event_EventArgs $args
+     */
+    public function onSendMails(\Enlight_Event_EventArgs $args)
+    {
+        /** @var \Enlight_Components_Mail $mail */
+        $mail = $args->get('mail');
+        $context = $this->container->get('templatemail')->getStringCompiler()->getContext();
+
+        /**
+         * Remove some objects
+         */
+        unset($context['sConfig']);
+
+        $this->mails[] = [
+            'from' => $mail->getFrom(),
+            'fromName' => $mail->getFromName(),
+            'to' => $mail->getTo(),
+            'subject' => $mail->getSubject(),
+            'bodyPlain' => $mail->getPlainBodyText(),
+            'bodyHtml' => $mail->getPlainBody(),
+            'context' => $context
+        ];
     }
 
     /**

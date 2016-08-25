@@ -34,6 +34,17 @@
                     }
                 })
             }
+
+            var btnWindow = document.querySelectorAll('.btn-window');
+
+            for (i = 0; i < btnWindow.length; i++) {
+                btnWindow[i].addEventListener('click', function (event) {
+                    event.preventDefault();
+
+
+                    window.open(event.srcElement.getAttribute('href'), '', 'width=800,height=700')
+                })
+            }
         </script>
     </body>
 </html>
