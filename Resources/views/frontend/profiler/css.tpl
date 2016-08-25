@@ -620,6 +620,11 @@
             vertical-align: baseline;
             white-space: nowrap;
         }
+
+        #menu-profiler li a[disabled] {
+            pointer-events: none;
+            cursor: default;
+        }
         #menu-profiler li a span.count span {
             font-size: 12px;
 
