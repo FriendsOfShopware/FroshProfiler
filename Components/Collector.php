@@ -71,18 +71,24 @@ class Collector
         return $result;
     }
 
-    public function saveCollectInformation($id, $information)
+    public function saveCollectInformation($id, $information, $subrequets = false)
     {
-        $this->cache->save($id, $information);
+        if ($subrequets) {
+            $data = $this->cache->fetch($id);
+            $data['subrequest'][] = $information;
+            $this->cache->save($id, $data);
+        } else {
+            $this->cache->save($id, $information);
 
-        $indexArray = $this->cache->fetch('index');
-        if (empty($indexArray)) {
-            $indexArray = [];
+            $indexArray = $this->cache->fetch('index');
+            if (empty($indexArray)) {
+                $indexArray = [];
+            }
+
+            $indexArray[$id] = array_merge($information['request'], $information['response']);
+
+            $this->cache->save('index', $indexArray);
         }
-
-        $indexArray[$id] = array_merge($information['request'], $information['response']);
-
-        $this->cache->save('index', $indexArray);
 
         return $id;
     }

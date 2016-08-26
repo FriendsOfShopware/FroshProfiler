@@ -21,7 +21,8 @@ class Collector implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatchFrontend',
+            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
+            'Enlight_Controller_Action_PostDispatch_Widgets' => 'onPostDispatch',
             'Profiler_Smarty_Render' => 'onRender',
             'Profiler_Smarty_Render_Block' => 'onRenderBlock',
             'Profiler_Smarty_RenderTime' => 'onRenderTime',
@@ -38,16 +39,20 @@ class Collector implements SubscriberInterface
         $this->container = $container;
     }
 
-    public function onPostDispatchFrontend(\Enlight_Event_EventArgs $args)
+    public function onPostDispatch(\Enlight_Event_EventArgs $args)
     {
         /** @var \Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
 
-        if (strtolower($controller->Request()->getControllerName()) == 'profiler') {
+        if (strtolower($controller->Request()->getControllerName()) == 'profiler' || $this->container->has('profileId')) {
             return;
         }
 
-        $profileId = uniqid();
+        if ($controller->Request()->getModuleName() == 'frontend') {
+            $profileId = uniqid();
+        } else {
+            $profileId = $controller->Request()->getHeader('X-Profiler');
+        }
 
         $view = $controller->View();
         $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views');
@@ -93,35 +98,40 @@ class Collector implements SubscriberInterface
         /** @var \Enlight_Controller_Response_ResponseHttp $response */
         $response = $args->get('response');
 
+        /** @var \Enlight_Controller_Action $controller */
+        $controller = $this->container->get('profileController');
+
         $profileTemplate = [];
         $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
         $profileTemplate['blockCalls'] = $this->blockCalls;
         $profileTemplate['templateCalls'] = $this->templateCalls;
         $profileTemplate['renderTime'] = $this->renderTime;
 
-        $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->container->get('profileController'));
+        $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($controller);
         $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
         $profileData['mails'] = $this->mails;
 
         $this->container->get('shyim_profiler.collector')->saveCollectInformation(
             $this->container->get('profileId'),
-            $profileData
+            $profileData,
+            $controller->Request()->getModuleName() == 'widgets'
         );
 
-        $view = $this->container->get('template');
+        if ($controller->Request()->getModuleName() == 'frontend') {
+            $view = $this->container->get('template');
+            $view->assign('sProfiler', $profileData);
+            $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
+            $view->assign('sProfilerID', $this->container->get('profileId'));
+            $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
-        $view->assign('sProfiler', $profileData);
-        $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
-        $view->assign('sProfilerID', $this->container->get('profileId'));
-        $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
+            $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
+            $profileTemplate = $view->fetch('@Profiler/index.tpl');
 
-        $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
-        $profileTemplate = $view->fetch('@Profiler/index.tpl');
+            $content = $response->getBody();
 
-        $content = $response->getBody();
-
-        $content = str_replace('</body>', $profileTemplate . '</body>', $content);
-        $response->setBody($content);
+            $content = str_replace('</body>', $profileTemplate . '</body>', $content);
+            $response->setBody($content);
+        }
     }
 
     private function normalizePath($path)

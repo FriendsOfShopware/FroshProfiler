@@ -9,3 +9,11 @@
         <i class="ion-close-round"></i>
     </a>
 </div>
+<script type="application/javascript">
+    var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
+
+    window.CSRF._ajaxBeforeSend = function (event, request) {
+        ajaxBeforeSend.apply(window.CSRF, [event, request]);
+        request.setRequestHeader('X-Profiler', '{$sProfilerID}');
+    };
+</script>
