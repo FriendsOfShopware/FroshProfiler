@@ -40,7 +40,7 @@
             </a>
         </li>
         <li class="exception">
-            <a href="{url controller=Profiler action=detail id=$sId panel=exception}" disabled="disabled">
+            <a href="{url controller=Profiler action=detail id=$sId panel=exception}">
                 <span class="label{if empty($sDetail.exception)} disabled{/if}">
                     <span class="icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">

@@ -26,7 +26,7 @@ class GeneralCollector implements CollectorInterface
                 'post' => $controller->Request()->getPost(),
                 'cookies' => $controller->Request()->getCookie(),
                 'uri' => $controller->Request()->getRequestUri(),
-                'url' => 'http://' . Shopware()->Shop()->getHost() . Shopware()->Shop()->getBaseUrl() . $controller->Request()->getRequestUri(),
+                'url' => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . Shopware()->Shop()->getHost() . Shopware()->Shop()->getBaseUrl() . $controller->Request()->getRequestUri(),
                 'ip' => $controller->Request()->getClientIp(),
                 'time' => time()
             ],
