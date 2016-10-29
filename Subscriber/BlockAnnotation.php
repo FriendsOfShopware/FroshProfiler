@@ -3,15 +3,32 @@
 namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
+use Enlight_Controller_Front;
 use Shopware\Components\DependencyInjection\Container;
+use Shopware\Components\Plugin\CachedConfigReader;
+use Shopware_Components_Config;
+use ShyimProfiler\Components\BlockAnnotation\BlockAnnotator;
 
 class BlockAnnotation implements SubscriberInterface
 {
     /**
-     * @var Container
+     * @var Shopware_Components_Config
      */
-    private $container;
-    private $config = [];
+    private $config;
+
+    /**
+     * @var BlockAnnotator
+     */
+    private $blockAnnotator;
+
+    /**
+     * @var array
+     */
+    private $pluginConfig = [];
+
+    /**
+     * @var bool
+     */
     private $templateDirConfigured = false;
 
     public static function getSubscribedEvents()
@@ -23,16 +40,24 @@ class BlockAnnotation implements SubscriberInterface
     }
 
     /**
-     * @param Container $container
+     * @param Shopware_Components_Config $config
+     * @param CachedConfigReader $cachedConfigReader
+     * @param BlockAnnotator $blockAnnotator
+     * @param Enlight_Controller_Front $front
      */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-        $this->config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
+    public function __construct(
+        Shopware_Components_Config $config,
+        CachedConfigReader $cachedConfigReader,
+        BlockAnnotator $blockAnnotator,
+        Enlight_Controller_Front $front
+    ){
+        $this->config = $config;
+        $this->blockAnnotator = $blockAnnotator;
+        $this->pluginConfig = $cachedConfigReader->getByPluginName('ShyimProfiler');
 
         // Disable frontend blocks, if ip is not whitelisted
-        if (!empty($this->config['whitelistIP']) && !in_array(Shopware()->Front()->Request()->getClientIp(), explode("\n", $this->config['whitelistIP']))) {
-            $this->config['frontendblocks'] = false;
+        if (!empty($this->pluginConfig['whitelistIP']) && !in_array($front->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']))) {
+            $this->pluginConfig['frontendblocks'] = false;
         }
     }
 
@@ -44,7 +69,7 @@ class BlockAnnotation implements SubscriberInterface
      */
     public function onPreDispatch(\Enlight_Event_EventArgs $args)
     {
-        if (!$this->config['frontendblocks']) {
+        if (!$this->pluginConfig['frontendblocks']) {
             return;
         }
 
@@ -54,8 +79,9 @@ class BlockAnnotation implements SubscriberInterface
 
         // set own caching dirs
         $this->reconfigureTemplateDirs($view->Engine());
+
         // configure shopware to not strip HTML comments
-        Shopware()->Config()->offsetSet('sSEOREMOVECOMMENTS', false);
+        $this->config->offsetSet('sSEOREMOVECOMMENTS', false);
         $view->Engine()->registerFilter('pre', array($this, 'preFilter'));
     }
 
@@ -68,7 +94,7 @@ class BlockAnnotation implements SubscriberInterface
      */
     public function preFilter($source, $template)
     {
-        return $this->container->get('shyim_profiler.block_annotator')->annotate($source);
+        return $this->blockAnnotator->annotate($source);
     }
 
     /**

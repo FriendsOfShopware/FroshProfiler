@@ -3,6 +3,7 @@
 namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
+use Enlight_Controller_Action;
 use Shopware\Components\DependencyInjection\Container;
 
 class Collector implements SubscriberInterface
@@ -17,11 +18,40 @@ class Collector implements SubscriberInterface
      */
     private $pluginConfig;
 
+    /**
+     * @var array
+     */
     private $renderedTemplates = [];
+
+    /**
+     * @var array
+     */
     private $mails = [];
+
+    /**
+     * @var int
+     */
     private $templateCalls = 0;
+
+    /**
+     * @var int
+     */
     private $blockCalls = 0;
+
+    /**
+     * @var int
+     */
     private $renderTime = 0;
+
+    /**
+     * @var string
+     */
+    private $profileId;
+
+    /**
+     * @var Enlight_Controller_Action
+     */
+    private $profileController;
 
     public static function getSubscribedEvents()
     {
@@ -47,10 +77,10 @@ class Collector implements SubscriberInterface
 
     public function onPostDispatch(\Enlight_Event_EventArgs $args)
     {
-        /** @var \Enlight_Controller_Action $controller */
+        /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
 
-        if (strtolower($controller->Request()->getControllerName()) == 'profiler' || $this->container->has('profileId')) {
+        if (strtolower($controller->Request()->getControllerName()) == 'profiler' || $this->profileId) {
             return;
         }
 
@@ -65,8 +95,8 @@ class Collector implements SubscriberInterface
         $view->assign('sProfilerID', $profileId);
 
         $this->container->get('shyim_profiler.smarty_extensions')->addPlugins($view->Engine());
-        $this->container->set('profileId', $profileId);
-        $this->container->set('profileController', $controller);
+        $this->profileId = $profileId;
+        $this->profileController = $controller;
     }
 
     public function onRender(\Enlight_Event_EventArgs $eventArgs)
@@ -93,19 +123,9 @@ class Collector implements SubscriberInterface
 
     public function onDispatchLoopShutdown(\Enlight_Event_EventArgs $args)
     {
-        if (!$this->container->has('profileId')) {
+        if (empty($this->profileId) || !$this->container->has('front')) {
             return;
         }
-
-        if (!$this->container->has('front')) {
-            return;
-        }
-
-        /** @var \Enlight_Controller_Response_ResponseHttp $response */
-        $response = $args->get('response');
-
-        /** @var \Enlight_Controller_Action $controller */
-        $controller = $this->container->get('profileController');
 
         $profileTemplate = [];
         $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
@@ -113,7 +133,7 @@ class Collector implements SubscriberInterface
         $profileTemplate['templateCalls'] = $this->templateCalls;
         $profileTemplate['renderTime'] = $this->renderTime;
 
-        $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($controller);
+        $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->profileController);
         $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
         $profileData['mails'] = $this->mails;
 
@@ -121,21 +141,24 @@ class Collector implements SubscriberInterface
 
         if (empty($this->pluginConfig['whitelistIP']) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
             $this->container->get('shyim_profiler.collector')->saveCollectInformation(
-                $this->container->get('profileId'),
+                $this->profileId,
                 $profileData,
-                $controller->Request()->getModuleName() == 'widgets'
+                $this->profileController->Request()->getModuleName() == 'widgets'
             );
         }
 
-        if ($controller->Request()->getModuleName() == 'frontend' && (empty($this->pluginConfig['whitelistIP']) || $isIPWhitelisted)) {
+        if ($this->profileController->Request()->getModuleName() == 'frontend' && (empty($this->pluginConfig['whitelistIP']) || $isIPWhitelisted)) {
             $view = $this->container->get('template');
             $view->assign('sProfiler', $profileData);
             $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
-            $view->assign('sProfilerID', $this->container->get('profileId'));
+            $view->assign('sProfilerID', $this->profileId);
             $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
             $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
             $profileTemplate = $view->fetch('@Profiler/index.tpl');
+
+            /** @var \Enlight_Controller_Response_ResponseHttp $response */
+            $response = $args->get('response');
 
             $content = $response->getBody();
 
