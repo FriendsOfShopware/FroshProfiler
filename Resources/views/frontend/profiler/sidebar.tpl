@@ -126,6 +126,13 @@
                 </span>
             </a>
         </li>
+        <li class="subrequest{if $sPanel == "subrequest"} selected{/if}">
+            <a href="{url controller=Profiler action=detail id=$sId panel=subrequest}">
+                <span class="label{if $sDetail.subrequest|count == 0} disabled{/if}">
+                    <strong>Subrequest ({$sDetail.subrequest|count})</strong>
+                </span>
+            </a>
+        </li>
         <li class="swiftmailer{if $sPanel == "mailer"} selected{/if}">
             <a href="{url controller=Profiler action=detail id=$sId panel=mailer}">
                 <span class="label{if $sDetail.mails|count == 0} disabled{/if}">

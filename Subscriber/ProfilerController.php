@@ -46,9 +46,7 @@ class ProfilerController implements SubscriberInterface
 
     public function onProfilerController()
     {
-        $this->template->addTemplateDir(
-            $this->viewDir
-        );
+        $this->template->addTemplateDir($this->viewDir);
 
         return $this->pluginDir . '/Controllers/Frontend/Profiler.php';
     }
