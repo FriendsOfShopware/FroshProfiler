@@ -12,6 +12,11 @@ class Collector implements SubscriberInterface
      */
     private $container;
 
+    /**
+     * @var array
+     */
+    private $pluginConfig;
+
     private $renderedTemplates = [];
     private $mails = [];
     private $templateCalls = 0;
@@ -37,6 +42,7 @@ class Collector implements SubscriberInterface
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->pluginConfig = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
     }
 
     public function onPostDispatch(\Enlight_Event_EventArgs $args)
@@ -111,13 +117,17 @@ class Collector implements SubscriberInterface
         $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
         $profileData['mails'] = $this->mails;
 
-        $this->container->get('shyim_profiler.collector')->saveCollectInformation(
-            $this->container->get('profileId'),
-            $profileData,
-            $controller->Request()->getModuleName() == 'widgets'
-        );
+        $isIPWhitelisted = in_array(Shopware()->Front()->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
-        if ($controller->Request()->getModuleName() == 'frontend') {
+        if (empty($this->pluginConfig['whitelistIP']) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
+            $this->container->get('shyim_profiler.collector')->saveCollectInformation(
+                $this->container->get('profileId'),
+                $profileData,
+                $controller->Request()->getModuleName() == 'widgets'
+            );
+        }
+
+        if ($controller->Request()->getModuleName() == 'frontend' && (empty($this->pluginConfig['whitelistIP']) || $isIPWhitelisted)) {
             $view = $this->container->get('template');
             $view->assign('sProfiler', $profileData);
             $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());

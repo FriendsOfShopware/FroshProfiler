@@ -7,7 +7,6 @@ use Shopware\Components\DependencyInjection\Container;
 
 class BlockAnnotation implements SubscriberInterface
 {
-
     /**
      * @var Container
      */
@@ -29,7 +28,12 @@ class BlockAnnotation implements SubscriberInterface
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->config = $this->container->get('shopware.plugin.config_reader')->getByPluginName('ShyimProfiler');
+        $this->config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
+
+        // Disable frontend blocks, if ip is not whitelisted
+        if (!empty($this->config['whitelistIP']) && !in_array(Shopware()->Front()->Request()->getClientIp(), explode("\n", $this->config['whitelistIP']))) {
+            $this->config['frontendblocks'] = false;
+        }
     }
 
     /**

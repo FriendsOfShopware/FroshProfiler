@@ -8,5 +8,19 @@
             <label lang="de">Zeige Smarty Blöcke als HTML Kommentare an</label>
             <value>1</value>
         </element>
+        <element type="textarea">
+            <name>whitelistIP</name>
+            <label>Whitelist for Toolbar</label>
+            <label lang="de">Whitelist für die Toolbar</label>
+            <options>
+                <helpText>Multiple IPs with a line break</helpText>
+            </options>
+        </element>
+        <element type="boolean">
+            <name>whitelistIPProfile</name>
+            <label>Profile when Toolbar is disabled with IP Whitelist</label>
+            <label lang="de">Profile trotz, dass die Toolbar ausgeblendet ist via IP</label>
+            <value>1</value>
+        </element>
     </elements>
 </config>
