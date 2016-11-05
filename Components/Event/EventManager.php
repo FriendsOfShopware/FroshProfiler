@@ -20,11 +20,13 @@ class EventManager extends ContainerAwareEventManager
      */
     public function notify($event, $eventArgs = null)
     {
-        $this->calledEvents[] = [
-            'type' => 'notify',
-            'name' => $event,
-            'args' => Debug::dump($eventArgs, 2, true, false)
-        ];
+        if (!strstr($event, 'Profiler_')) {
+            $this->calledEvents[] = [
+                'type' => 'notify',
+                'name' => $event,
+                'args' => Debug::dump($eventArgs, 2, true, false)
+            ];
+        }
 
         return parent::notify($event, $eventArgs);
     }
