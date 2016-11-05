@@ -80,7 +80,11 @@ class Collector implements SubscriberInterface
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
 
-        if (strtolower($controller->Request()->getControllerName()) == 'profiler' || $this->profileId) {
+        if (
+            strtolower($controller->Request()->getControllerName()) == 'profiler' ||
+            strtolower($controller->Request()->getControllerName()) == 'media' ||
+            $this->profileId
+        ) {
             return;
         }
 
