@@ -32,9 +32,8 @@ class Assets implements SubscriberInterface
         $less = new LessDefinition(
             [],
             [
-                $this->viewDir . '/frontend/_public/src/less/all.less'
-            ],
-            __DIR__
+                $this->viewDir . '/frontend/_public/src/less/toolbar.less'
+            ]
         );
 
         return new ArrayCollection([$less]);
