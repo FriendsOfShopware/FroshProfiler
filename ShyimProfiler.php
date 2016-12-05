@@ -37,7 +37,10 @@ class ShyimProfiler extends Plugin
 
     public function onStartDispatch()
     {
-        require_once $this->getPath() . '/vendor/autoload.php';
+        if (file_exists($this->getPath() . '/vendor/autoload.php')) {
+            require_once $this->getPath() . '/vendor/autoload.php';
+        }
+
         define('STARTTIME', microtime(true));
 
         $uri = $this->container->get('front')->Request()->getRequestUri();
