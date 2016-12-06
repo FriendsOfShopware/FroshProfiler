@@ -1,16 +1,18 @@
 # Profiling
-Profiling for Shopware
+Profiling for Shopware  
 Required Minimum Shopware Version 5.2
 
 # Installation
+
+## Zip Installation package for the Shopware Plugin Manager
+
+* Download the [latest plugin version](https://github.com/shyim/shopware-profiler/releases/latest/) (e.g. `ShyimProfiler-1.0.5.zip`)
+* Upload and install plugin using Plugin Manager
+
 ## Git Version
 * Checkout Plugin in `/custom/plugins/ShyimProfiler`
 * Change to Directory and run `composer install` to install the dependencies
 * Install the Plugin with the Plugin Manager
-
-## Installation package
-* Download [latest plugin version](https://github.com/shyim/shopware-profiler/releases/download/1.0.4/ShyimProfiler.zip)
-* Upload and install plugin using Plugin Manager
 
 ## Install with composer
 * Change to your root Installation of shopware
