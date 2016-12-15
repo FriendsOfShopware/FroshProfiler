@@ -3,6 +3,7 @@
 namespace ShyimProfiler\Components;
 
 use Doctrine\Common\Cache\CacheProvider;
+use Monolog\Formatter\NormalizerFormatter;
 use ShyimProfiler\Components\Collectors\CollectorInterface;
 use ShyimProfiler\Components\Collectors\ConfigCollector;
 use ShyimProfiler\Components\Collectors\DBCollector;
@@ -30,10 +31,16 @@ class Collector
      */
     private $cache;
 
+    /**
+     * @var NormalizerFormatter
+     */
+    private $normalizer;
+
     public function __construct(\Enlight_Event_EventManager $events, CacheProvider $cache)
     {
         $this->events = $events;
         $this->cache = $cache;
+        $this->normalizer = new NormalizerFormatter();
     }
 
     public function getCollectors()
@@ -73,6 +80,8 @@ class Collector
 
     public function saveCollectInformation($id, $information, $subrequets = false)
     {
+        $information = $this->normalizer->format($information);
+
         if ($subrequets) {
             $data = $this->cache->fetch($id);
             $data['subrequest'][] = $information;
