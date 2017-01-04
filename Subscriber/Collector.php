@@ -57,12 +57,12 @@ class Collector implements SubscriberInterface
     {
         return [
             'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
-            'Enlight_Controller_Action_PostDispatch_Widgets' => 'onPostDispatch',
-            'Profiler_Smarty_Render' => 'onRender',
-            'Profiler_Smarty_Render_Block' => 'onRenderBlock',
-            'Profiler_Smarty_RenderTime' => 'onRenderTime',
-            'Enlight_Controller_Front_DispatchLoopShutdown' => 'onDispatchLoopShutdown',
-            'Enlight_Components_Mail_Send' => 'onSendMails'
+            'Enlight_Controller_Action_PostDispatch_Widgets'  => 'onPostDispatch',
+            'Profiler_Smarty_Render'                          => 'onRender',
+            'Profiler_Smarty_Render_Block'                    => 'onRenderBlock',
+            'Profiler_Smarty_RenderTime'                      => 'onRenderTime',
+            'Enlight_Controller_Front_DispatchLoopShutdown'   => 'onDispatchLoopShutdown',
+            'Enlight_Components_Mail_Send'                    => 'onSendMails',
         ];
     }
 
@@ -105,19 +105,19 @@ class Collector implements SubscriberInterface
 
     public function onRender(\Enlight_Event_EventArgs $eventArgs)
     {
-        $this->templateCalls++;
+        ++$this->templateCalls;
         $name = $this->normalizePath($eventArgs->get('name'));
 
         if (!isset($this->renderedTemplates[$name])) {
             $this->renderedTemplates[$name] = 1;
         } else {
-            $this->renderedTemplates[$name]++;
+            ++$this->renderedTemplates[$name];
         }
     }
 
     public function onRenderBlock()
     {
-        $this->blockCalls++;
+        ++$this->blockCalls;
     }
 
     public function onRenderTime(\Enlight_Event_EventArgs $eventArgs)
@@ -187,7 +187,8 @@ class Collector implements SubscriberInterface
     }
 
     /**
-     * Collect mails
+     * Collect mails.
+     *
      * @param \Enlight_Event_EventArgs $args
      */
     public function onSendMails(\Enlight_Event_EventArgs $args)
@@ -196,19 +197,19 @@ class Collector implements SubscriberInterface
         $mail = $args->get('mail');
         $context = $this->container->get('templatemail')->getStringCompiler()->getContext();
 
-        /**
+        /*
          * Remove some objects
          */
         unset($context['sConfig']);
 
         $this->mails[] = [
-            'from' => $mail->getFrom(),
-            'fromName' => $mail->getFromName(),
-            'to' => $mail->getTo(),
-            'subject' => $mail->getSubject(),
+            'from'      => $mail->getFrom(),
+            'fromName'  => $mail->getFromName(),
+            'to'        => $mail->getTo(),
+            'subject'   => $mail->getSubject(),
             'bodyPlain' => $mail->getPlainBodyText(),
-            'bodyHtml' => $mail->getPlainBody(),
-            'context' => $context
+            'bodyHtml'  => $mail->getPlainBody(),
+            'context'   => $context,
         ];
     }
 }

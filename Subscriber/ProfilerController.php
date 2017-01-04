@@ -1,9 +1,9 @@
 <?php
+
 namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager;
-use Shopware\Components\DependencyInjection\Container;
 
 class ProfilerController implements SubscriberInterface
 {
@@ -25,7 +25,7 @@ class ProfilerController implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Dispatcher_ControllerPath_Frontend_Profiler' => 'onProfilerController'
+            'Enlight_Controller_Dispatcher_ControllerPath_Frontend_Profiler' => 'onProfilerController',
         ];
     }
 
@@ -38,7 +38,7 @@ class ProfilerController implements SubscriberInterface
         $pluginDir,
         $viewDir,
         Enlight_Template_Manager $template
-    ){
+    ) {
         $this->pluginDir = $pluginDir;
         $this->viewDir = $viewDir;
         $this->template = $template;

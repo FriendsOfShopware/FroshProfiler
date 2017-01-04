@@ -23,13 +23,14 @@ class SmartyExtensions
     {
         $unit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
-        return @round($size / pow(1024, $i = floor(log($size, 1024))), 2).' '.$unit[$i];
+        return @round($size / pow(1024, $i = floor(log($size, 1024))), 2) . ' ' . $unit[$i];
     }
 
     public function dump($var)
     {
         $dumper = new HtmlDumper();
         $cloner = new VarCloner();
+
         return $dumper->dump($cloner->cloneVar($var));
     }
 

@@ -37,7 +37,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
         if (empty($detail)) {
             $this->redirect([
-                'action' => 'index'
+                'action' => 'index',
             ]);
         }
 

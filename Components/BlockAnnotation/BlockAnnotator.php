@@ -3,9 +3,8 @@
 namespace ShyimProfiler\Components\BlockAnnotation;
 
 /**
- * BlockAnnotator annotates smarty block with HTML comments, so you can tell which content belongs to which block
+ * BlockAnnotator annotates smarty block with HTML comments, so you can tell which content belongs to which block.
  *
- * @package ShyimProfiler\Components\BlockAnnotation
  * @author Daniel Nögel <d.noegel@shopware.com>
  */
 class BlockAnnotator
@@ -21,16 +20,18 @@ class BlockAnnotator
     }
 
     /**
-     * Do not append block info to blacklisted blocks (e.g. JS, CSS)
+     * Do not append block info to blacklisted blocks (e.g. JS, CSS).
+     *
      * @var array
      */
     protected $blacklist = array(
         'frontend_index_header_title',
-        'frontend_index_body_classes'
+        'frontend_index_body_classes',
     );
 
     /**
      * @param string $template
+     *
      * @return string
      */
     public function annotate($template)
@@ -44,7 +45,7 @@ class BlockAnnotator
             $start = "<!-- BLOCK BEGIN {$info} -->";
             $end = "<!-- BLOCK END {$info} -->";
 
-            $template = str_replace($block['content'], $block['beginBlock'] . $start . $block['contentOnly']. $end . $block['endBlock'], $template);
+            $template = str_replace($block['content'], $block['beginBlock'] . $start . $block['contentOnly'] . $end . $block['endBlock'], $template);
         }
 
         return $template;

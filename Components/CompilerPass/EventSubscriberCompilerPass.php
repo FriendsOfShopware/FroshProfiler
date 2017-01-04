@@ -1,4 +1,5 @@
 <?php
+
 namespace ShyimProfiler\Components\CompilerPass;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -6,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 /**
  * @category  Shopware
- * @package   Shopware\Components\DependencyInjection\Compiler
+ *
  * @copyright Copyright (c) shopware AG (http://www.shopware.de)
  */
 class EventSubscriberCompilerPass implements CompilerPassInterface

@@ -15,7 +15,7 @@ class ShyimProfiler extends Plugin
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Front_StartDispatch' => 'onStartDispatch'
+            'Enlight_Controller_Front_StartDispatch' => 'onStartDispatch',
         ];
     }
 
@@ -44,7 +44,7 @@ class ShyimProfiler extends Plugin
 
         $uri = $this->container->get('front')->Request()->getRequestUri();
         if (strpos($uri, '/backend') === false && strpos($uri, '/api') === false && strpos($uri, 'Profiler') === false) {
-            /**
+            /*
              * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
              */
             define('SMARTY_SYSPLUGINS_DIR', $this->getPath() . '/Components/Smarty/sysplugins/');

@@ -14,7 +14,7 @@ class SmartyCollector implements CollectorInterface
         $smarty = $controller->View()->Engine();
         $assigns = $controller->View()->getAssign();
 
-        /**
+        /*
          * Clear Assigns, to fix cannot serialize pdo instances errors
          */
         unset($assigns['Shopware']);

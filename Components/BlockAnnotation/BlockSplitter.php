@@ -5,7 +5,6 @@ namespace ShyimProfiler\Components\BlockAnnotation;
 /**
  * BlockSplitter splits a given template string into smarty blocks.
  *
- * @package ShyimProfiler\Components\BlockAnnotation
  * @author Daniel Nögel <d.noegel@shopware.com>
  */
 class BlockSplitter
@@ -14,9 +13,10 @@ class BlockSplitter
     const BLOCK_END = '(?P<close>{/block})';
 
     /**
-     * Split $template into smary blocks and return an array with info about all the blocks
+     * Split $template into smary blocks and return an array with info about all the blocks.
      *
      * @param $template
+     *
      * @return array
      */
     public function split($template)
@@ -62,11 +62,12 @@ class BlockSplitter
     }
 
     /**
-     * Will to a substr() - and automatically takes care of transforming the absolute $end to a relative $length
+     * Will to a substr() - and automatically takes care of transforming the absolute $end to a relative $length.
      *
      * @param $string
      * @param $start
      * @param $end
+     *
      * @return string
      */
     private function sliceString($string, $start, $end)
@@ -77,6 +78,7 @@ class BlockSplitter
     /**
      * @param $a
      * @param $b
+     *
      * @return int
      */
     private function sortByChildren($a, $b)
