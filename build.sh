@@ -1,17 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-lastTag=$(git tag | tail -n 1)
-customTag=$1
+commit=$1
+if [ -z ${commit} ]; then
+    commit=$(git tag | tail -n 1)
+    if [ -z ${commit} ]; then
+        commit="master";
+    fi
+fi
 
-if [ "$customTag" != "" ]; then lastTag=$customTag; fi
-if [ "$lastTag" = "" ]; then lastTag="master"; fi
+# Remove old release
+rm -rf ShyimProfiler ShyimProfiler-*.zip
 
-rm -f ShyimProfiler-${lastTag}.zip
-rm -rf ShyimProfiler
+# Build new release
 mkdir -p ShyimProfiler
-git archive $lastTag | tar -x -C ShyimProfiler
-
-cd ShyimProfiler
-composer install --no-dev -n -o
-cd ../
-zip -r ShyimProfiler-${lastTag}.zip ShyimProfiler
+git archive ${commit} | tar -x -C ShyimProfiler
+composer install --no-dev -n -o -d ShyimProfiler
+zip -r ShyimProfiler-${commit}.zip ShyimProfiler
