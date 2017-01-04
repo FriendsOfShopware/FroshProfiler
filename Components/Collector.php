@@ -54,7 +54,7 @@ class Collector
                 new EventCollector(),
                 new DBCollector(),
                 new ConfigCollector(),
-                new ExceptionCollector()
+                new ExceptionCollector(),
             ];
 
             $this->collectors = $this->events->filter('Profiler_onCollectCollectors', $this->collectors);

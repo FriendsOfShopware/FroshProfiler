@@ -14,30 +14,30 @@ class GeneralCollector implements CollectorInterface
         return [
             'response' => [
                 'httpResponse' => $controller->Response()->getHttpResponseCode(),
-                'headers' => $controller->Response()->getHeaders()
+                'headers'      => $controller->Response()->getHeaders(),
             ],
             'request' => [
-                'moduleName' => $controller->Request()->getModuleName(),
+                'moduleName'     => $controller->Request()->getModuleName(),
                 'controllerName' => $controller->Request()->getControllerName(),
-                'actionName' => $controller->Request()->getActionName(),
-                'httpMethod' => $controller->Request()->getMethod(),
-                'params' => $controller->Request()->getParams(),
-                'get' => $controller->Request()->getQuery(),
-                'post' => $controller->Request()->getPost(),
-                'cookies' => $controller->Request()->getCookie(),
-                'uri' => $controller->Request()->getRequestUri(),
-                'url' => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . Shopware()->Shop()->getHost() . Shopware()->Shop()->getBaseUrl() . $controller->Request()->getRequestUri(),
-                'ip' => $controller->Request()->getClientIp(),
-                'time' => time()
+                'actionName'     => $controller->Request()->getActionName(),
+                'httpMethod'     => $controller->Request()->getMethod(),
+                'params'         => $controller->Request()->getParams(),
+                'get'            => $controller->Request()->getQuery(),
+                'post'           => $controller->Request()->getPost(),
+                'cookies'        => $controller->Request()->getCookie(),
+                'uri'            => $controller->Request()->getRequestUri(),
+                'url'            => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . Shopware()->Shop()->getHost() . Shopware()->Shop()->getBaseUrl() . $controller->Request()->getRequestUri(),
+                'ip'             => $controller->Request()->getClientIp(),
+                'time'           => time(),
             ],
             'session' => [
                 'meta' => Shopware()->Db()->fetchRow('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [Shopware()->Session()->get('sessionId')]),
-                'data' => $_SESSION['Shopware']
+                'data' => $_SESSION['Shopware'],
             ],
-            'logs' => $this->getLogs(),
-            'server' => $_SERVER,
+            'logs'      => $this->getLogs(),
+            'server'    => $_SERVER,
             'startTime' => STARTTIME,
-            'bundles' => $this->getBundles()
+            'bundles'   => $this->getBundles(),
         ];
     }
 

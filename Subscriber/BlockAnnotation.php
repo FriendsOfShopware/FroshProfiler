@@ -4,7 +4,6 @@ namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Front;
-use Shopware\Components\DependencyInjection\Container;
 use Shopware\Components\Plugin\CachedConfigReader;
 use Shopware_Components_Config;
 use ShyimProfiler\Components\BlockAnnotation\BlockAnnotator;
@@ -35,22 +34,22 @@ class BlockAnnotation implements SubscriberInterface
     {
         return [
             'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
-            'Enlight_Controller_Action_PreDispatch_Widgets' => 'onPreDispatch',
+            'Enlight_Controller_Action_PreDispatch_Widgets'  => 'onPreDispatch',
         ];
     }
 
     /**
      * @param Shopware_Components_Config $config
-     * @param CachedConfigReader $cachedConfigReader
-     * @param BlockAnnotator $blockAnnotator
-     * @param Enlight_Controller_Front $front
+     * @param CachedConfigReader         $cachedConfigReader
+     * @param BlockAnnotator             $blockAnnotator
+     * @param Enlight_Controller_Front   $front
      */
     public function __construct(
         Shopware_Components_Config $config,
         CachedConfigReader $cachedConfigReader,
         BlockAnnotator $blockAnnotator,
         Enlight_Controller_Front $front
-    ){
+    ) {
         $this->config = $config;
         $this->blockAnnotator = $blockAnnotator;
         $this->pluginConfig = $cachedConfigReader->getByPluginName('ShyimProfiler');
@@ -62,9 +61,10 @@ class BlockAnnotation implements SubscriberInterface
     }
 
     /**
-     * PreDispatch callback for widget and frontend requests
+     * PreDispatch callback for widget and frontend requests.
      *
      * @param \Enlight_Event_EventArgs $args
+     *
      * @return bool
      */
     public function onPreDispatch(\Enlight_Event_EventArgs $args)
@@ -86,10 +86,11 @@ class BlockAnnotation implements SubscriberInterface
     }
 
     /**
-     * Smarty preFilter callback. Modify template and return
+     * Smarty preFilter callback. Modify template and return.
      *
      * @param $source
      * @param $template
+     *
      * @return mixed
      */
     public function preFilter($source, $template)
@@ -98,7 +99,7 @@ class BlockAnnotation implements SubscriberInterface
     }
 
     /**
-     * Set own template directory
+     * Set own template directory.
      *
      * @param $templateManager
      */

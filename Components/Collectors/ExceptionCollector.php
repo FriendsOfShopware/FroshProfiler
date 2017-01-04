@@ -1,4 +1,5 @@
 <?php
+
 namespace ShyimProfiler\Components\Collectors;
 
 class ExceptionCollector implements CollectorInterface
@@ -14,7 +15,7 @@ class ExceptionCollector implements CollectorInterface
 
         if ($error && isset($error->exception)) {
             return [
-                'exception' => $error->exception
+                'exception' => $error->exception,
             ];
         }
 
@@ -23,6 +24,6 @@ class ExceptionCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return null;
+        return;
     }
 }

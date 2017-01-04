@@ -5,6 +5,7 @@
  * Date: 17.12.15
  * Time: 13:58.
  */
+
 namespace ShyimProfiler\Components\Collectors;
 
 class EventCollector implements CollectorInterface

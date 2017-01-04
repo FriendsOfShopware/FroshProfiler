@@ -1,4 +1,5 @@
 <?php
+
 namespace ShyimProfiler\Subscriber;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,7 +16,7 @@ class Assets implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Theme_Compiler_Collect_Plugin_Less' => 'addLessFiles'
+            'Theme_Compiler_Collect_Plugin_Less' => 'addLessFiles',
         ];
     }
 
@@ -32,7 +33,7 @@ class Assets implements SubscriberInterface
         $less = new LessDefinition(
             [],
             [
-                $this->viewDir . '/frontend/_public/src/less/all.less'
+                $this->viewDir . '/frontend/_public/src/less/all.less',
             ],
             $this->viewDir . '/frontend/_public/src/less'
         );
