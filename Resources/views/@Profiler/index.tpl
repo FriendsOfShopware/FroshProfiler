@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <div class="sf-toolbarreset clear-fix">
     {foreach from=$sProfilerCollectors item=sProfilerCollector}
         {if !empty($sProfilerCollector->getToolbarTemplate())}
