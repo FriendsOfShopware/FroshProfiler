@@ -25,7 +25,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         $id = $this->Request()->get('id');
         $subrequest = null;
 
-        if (strstr($id, '|')) {
+        if (strpos($id, '|') !== false) {
             list($id, $subrequest) = explode('|', $id);
         }
 

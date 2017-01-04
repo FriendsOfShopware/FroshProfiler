@@ -20,7 +20,7 @@ class EventManager extends ContainerAwareEventManager
      */
     public function notify($event, $eventArgs = null)
     {
-        if (!strstr($event, 'Profiler_')) {
+        if (strpos($event, 'Profiler_') === false) {
             $this->calledEvents[] = [
                 'type' => 'notify',
                 'name' => $event,

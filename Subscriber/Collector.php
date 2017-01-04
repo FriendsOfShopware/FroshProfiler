@@ -173,12 +173,12 @@ class Collector implements SubscriberInterface
 
     private function normalizePath($path)
     {
-        if (strstr($path, 'frontend')) {
+        if (strpos($path, 'frontend') !== false) {
             $pos = strpos($path, 'frontend');
             $path = substr($path, $pos);
         }
 
-        if (strstr($path, 'widgets')) {
+        if (strpos($path, 'widgets') !== false) {
             $pos = strpos($path, 'widgets');
             $path = substr($path, $pos);
         }

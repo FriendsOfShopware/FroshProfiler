@@ -24,7 +24,6 @@ class ShyimProfiler extends Plugin
         $context->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
     }
 
-
     public function build(ContainerBuilder $container)
     {
         $container->setParameter('shyim_profiler.plugin_dir', $this->getPath());
@@ -44,7 +43,7 @@ class ShyimProfiler extends Plugin
         define('STARTTIME', microtime(true));
 
         $uri = $this->container->get('front')->Request()->getRequestUri();
-        if (!strstr($uri, '/backend') && !strstr($uri, '/api') && !strstr($uri, 'Profiler')) {
+        if (strpos($uri, '/backend') === false && strpos($uri, '/api') === false && strpos($uri, 'Profiler') === false) {
             /**
              * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
              */
