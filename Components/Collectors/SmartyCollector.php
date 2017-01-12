@@ -2,6 +2,8 @@
 
 namespace ShyimProfiler\Components\Collectors;
 
+use Enlight_Exception;
+
 class SmartyCollector implements CollectorInterface
 {
     public function getName()
@@ -31,11 +33,15 @@ class SmartyCollector implements CollectorInterface
                 'compile_dir'  => $smarty->getCompileDir(),
                 'template_dir' => $smarty->getTemplateDir(),
                 'plugin_dir'   => $smarty->getPluginsDir(),
-                'template'     => explode('|', $controller->View()->Template()->template_resource),
                 'vars'         => $assigns,
                 'start_time'   => $smarty->start_time,
             ],
         ];
+
+        // Catch "Template was not loaded failure" Exception
+        try {
+            $result['template']['template'] = explode('|', $controller->View()->Template()->template_resource);
+        } catch (Enlight_Exception $e) {}
 
         return $result;
     }
