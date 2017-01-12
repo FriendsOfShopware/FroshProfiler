@@ -6,7 +6,7 @@ Required Minimum Shopware Version 5.2
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/shyim/shopware-profiler/releases/latest/) (e.g. `ShyimProfiler-1.0.5.zip`)
+* Download the [latest plugin version](https://github.com/shyim/shopware-profiler/releases/latest/) (e.g. `ShyimProfiler-1.0.6.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version
