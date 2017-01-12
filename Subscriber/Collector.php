@@ -4,7 +4,9 @@ namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Action;
+use Enlight_Controller_Response_ResponseHttp;
 use Shopware\Components\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Response;
 
 class Collector implements SubscriberInterface
 {
@@ -131,6 +133,12 @@ class Collector implements SubscriberInterface
             return;
         }
 
+        /** @var Enlight_Controller_Response_ResponseHttp $response */
+        $response = $args->get('response');
+
+        /** @var Response $symfonyResponse */
+        $symfonyResponse = $this->container->get('kernel')->transformEnlightResponseToSymfonyResponse($response);
+
         $profileTemplate = [];
         $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
         $profileTemplate['blockCalls'] = $this->blockCalls;
@@ -140,6 +148,7 @@ class Collector implements SubscriberInterface
         $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->profileController);
         $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
         $profileData['mails'] = $this->mails;
+        $profileData['response']['headers'] = $symfonyResponse->headers->all();
 
         $isIPWhitelisted = in_array(Shopware()->Front()->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
@@ -160,9 +169,6 @@ class Collector implements SubscriberInterface
 
             $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
             $profileTemplate = $view->fetch('@Profiler/index.tpl');
-
-            /** @var \Enlight_Controller_Response_ResponseHttp $response */
-            $response = $args->get('response');
 
             $content = $response->getBody();
 

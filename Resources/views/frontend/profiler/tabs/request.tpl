@@ -128,7 +128,7 @@
                 {foreach from=$sDetail.response.headers key=key item=value}
                     <tr>
                         <td>{$key}</td>
-                        <td>{$value}</td>
+                        <td>{$value|@implode:" "}</td>
                     </tr>
                 {/foreach}
                 </tbody>
