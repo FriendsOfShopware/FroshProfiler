@@ -1,16 +1,13 @@
 <?php
 
-
 namespace ShyimProfiler\Components\CompilerPass;
-
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class ProfilerCollectorCompilerPass
+ * Class ProfilerCollectorCompilerPass.
  *
- * @package ShyimProfiler\Components\CompilerPass
  * @author Soner Sayakci <s.sayakci@gmail.com>
  */
 class ProfilerCollectorCompilerPass implements CompilerPassInterface
