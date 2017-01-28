@@ -66,21 +66,30 @@
             <argument type="service" id="service_container" />
             <tag name="shopware.event_subscriber" />
         </service>
+
         <service id="shyim_profiler.subscriber.assets" class="ShyimProfiler\Subscriber\Assets">
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber" />
         </service>
+
         <service id="shyim_profiler.subscriber.controller_profiler" class="ShyimProfiler\Subscriber\ProfilerController">
             <argument type="string">%shyim_profiler.plugin_dir%</argument>
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <argument type="service" id="template" />
             <tag name="shopware.event_subscriber" />
         </service>
+
         <service id="shyim_profiler.subscriber.block_annotation" class="ShyimProfiler\Subscriber\BlockAnnotation">
             <argument type="service" id="config"/>
             <argument type="service" id="shopware.plugin.cached_config_reader"/>
             <argument type="service" id="shyim_profiler.block_annotator"/>
             <argument type="service" id="front"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="shyim_profiler.subscriber.cache" class="ShyimProfiler\Subscriber\CacheSubscriber">
+            <argument type="string">%shyim_profiler.cache_dir%</argument>
+            <argument type="string">%shyim_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
