@@ -150,7 +150,7 @@ class Collector implements SubscriberInterface
         $profileData['mails'] = $this->mails;
         $profileData['response']['headers'] = $symfonyResponse->headers->all();
 
-        $isIPWhitelisted = in_array(Shopware()->Front()->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
+        $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
         if (empty($this->pluginConfig['whitelistIP']) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
             $this->container->get('shyim_profiler.collector')->saveCollectInformation(
