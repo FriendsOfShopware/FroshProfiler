@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">ShyimProfiler</label>
     <label lang="en">ShyimProfiler</label>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <copyright>Shyim</copyright>
     <license>MIT</license>
     <link>https://github.com/shyim/shopware-profiler</link>
