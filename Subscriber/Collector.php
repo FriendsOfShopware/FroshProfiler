@@ -143,7 +143,6 @@ class Collector implements SubscriberInterface
             $symfonyResponse = new Response();
         }
 
-
         $profileTemplate = [];
         $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
         $profileTemplate['blockCalls'] = $this->blockCalls;

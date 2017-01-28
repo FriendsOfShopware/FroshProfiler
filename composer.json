@@ -11,5 +11,8 @@
     "symfony/var-dumper": "^3.0",
     "jdorn/sql-formatter": "^v1.2.17",
     "composer/installers": "~1.0"
+  },
+  "scripts": {
+    "test": "phpunit -c tests"
   }
 }
