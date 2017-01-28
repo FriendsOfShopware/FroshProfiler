@@ -302,7 +302,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         }
 
         $endTime = microtime(true);
-        Enlight()->Events()->notify('Profiler_Smarty_RenderTime', new Enlight_Event_EventArgs([
+        Shopware()->Container()->get('events')->notify('Profiler_Smarty_RenderTime', new Enlight_Event_EventArgs([
             'time' => $endTime - $startTime
         ]));
         // display or fetch

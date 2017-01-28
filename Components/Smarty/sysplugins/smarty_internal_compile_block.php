@@ -50,7 +50,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
      * @return boolean true
      */
     public function compile($args, $compiler) {
-        Enlight()->Events()->notify('Profiler_Smarty_Render_Block');
+        Shopware()->Container()->get('events')->notify('Profiler_Smarty_Render_Block');
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $save = array($_attr, $compiler->parser->current_buffer, $compiler->nocache, $compiler->smarty->merge_compiled_includes, $compiler->merged_templates, $compiler->smarty->merged_templates_func, $compiler->template->properties, $compiler->template->has_nocache_code);

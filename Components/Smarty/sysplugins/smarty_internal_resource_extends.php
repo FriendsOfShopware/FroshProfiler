@@ -33,7 +33,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
     */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
     {
-        Enlight()->Events()->notify('Profiler_Smarty_Render', new Enlight_Event_EventArgs(['name' => $source->name]));
+        Shopware()->Container()->get('events')->notify('Profiler_Smarty_Render', new Enlight_Event_EventArgs(['name' => $source->name]));
         $uid = '';
         $sources = array();
         $components = explode('|', $source->name);
