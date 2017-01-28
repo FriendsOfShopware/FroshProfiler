@@ -8,7 +8,7 @@
     "installer-name": "ShyimProfiler"
   },
   "require": {
-    "symfony/var-dumper": "^3.0",
+    "symfony/var-dumper": "^3.2",
     "jdorn/sql-formatter": "^v1.2.17",
     "composer/installers": "~1.0"
   },
