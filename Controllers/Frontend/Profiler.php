@@ -17,7 +17,9 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
     public function indexAction()
     {
-        $this->View()->sIndex = $this->cache->fetch('index');
+        $index = $this->cache->fetch('index');
+
+        $this->View()->sIndex = empty($index) ? [] : $index;
     }
 
     public function detailAction()
