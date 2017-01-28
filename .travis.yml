@@ -4,7 +4,6 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - nightly
 
 sudo: false
 
@@ -40,7 +39,18 @@ before_script:
 script:
   - composer test
 
+after_success:
+  - ./build.sh
+
 matrix:
   allow_failures:
-    - env: SHOPWARE_VERSION="5.3"
-    - php: nightly
+  - env: SHOPWARE_VERSION="5.3"
+  - php: nightly
+
+deploy:
+  provider: releases
+  api_key:
+    secure: MeucPO3N0fd0DNM12uYUEkwkDkMl58fCFI3t0T9k+z/34GkypQ6qOEfx8ZFAwKtpUpQC+iTvqsIMhRhEoQlI7AtTvIgETIhWIVwtT+TPf+N0BlRr0UhxN0IXdra2d7TrRPxWIYXW5CYdWkptu4kf1fpT+hvKMwUbcJsbRY6DOnPnxRDTeo2VcYzRhpM+44dQXz9UoD1/2GQBXOXieSZb2g4YGnBumVTxt4yR8omiQCuE7S0DXmI9HIDtjSbzREUdxkuO3hpA2t7QX1K5L0OJfJWjttH27jeg9snSijVWuesaIgdIyWUMtt7I2W4CbrH7wh97n/iTx4tyARF12jLqc5qw1jFw9mIwP/dVaM8+CbjhT7+Y937E2bEYnoqJkgaXvJan92SqfnsyOwE2k/LX8TASxpx1QrYPab0kI/xjoBol+TLDxTlx7ruWNStve0CDARfaaL/GK8FJxHPB/e7xIkR4gWBR2Rm4tHP61t8/Wczv7Jgp+Vx19vU2M6lG8Wi8zrj3xTF60v3zOMwJ/9IGcHR6G9zSdj1TMTkqL69+ZzY+KbLTKr3/zxwUZdOMTyN+PgLT/pSy5Sr4287/xD+La5MfFGU2tNntv8JTlg8qO+mCGLW8Cg/DWOtURL9R3AC5hjibr1QD7gHUxmeAQTDExSbuhrMr0VU+cV4EL0uInYI=
+  file: ShyimProfiler.zip
+  on:
+    repo: shyim/shopware-profiler

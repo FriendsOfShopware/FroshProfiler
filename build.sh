@@ -15,4 +15,4 @@ rm -rf ShyimProfiler ShyimProfiler-*.zip
 mkdir -p ShyimProfiler
 git archive ${commit} | tar -x -C ShyimProfiler
 composer install --no-dev -n -o -d ShyimProfiler
-zip -r ShyimProfiler-${commit}.zip ShyimProfiler
+zip -r ShyimProfiler.zip ShyimProfiler
