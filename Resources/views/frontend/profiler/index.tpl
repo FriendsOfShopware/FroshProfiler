@@ -35,7 +35,7 @@
                                 </td>
                                 <td class="text-small">
                                     <span class="nowrap">{$sItem.time|date:'d-m-Y'}</span>
-                                    <span class="nowrap newline">{$sItem.time|date:'h:M:s'}</span>
+                                    <span class="nowrap newline">{$sItem.time|date:'H:m:s'}</span>
                                 </td>
                                 <td class="nowrap"><a href="{url controller=Profiler action=detail id=$sKey}">{$sKey}</a>
                                 </td>
