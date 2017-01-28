@@ -28,6 +28,39 @@
 
         <service id="shyim_profiler.block_splitter" class="ShyimProfiler\Components\BlockAnnotation\BlockSplitter" />
 
+        <!-- Collectors -->
+        <service id="shyim_profiler.collectors.general" class="ShyimProfiler\Components\Collectors\GeneralCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.php" class="ShyimProfiler\Components\Collectors\PHPCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.user" class="ShyimProfiler\Components\Collectors\UserCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.smarty" class="ShyimProfiler\Components\Collectors\SmartyCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.event" class="ShyimProfiler\Components\Collectors\EventCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.db" class="ShyimProfiler\Components\Collectors\DBCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.config" class="ShyimProfiler\Components\Collectors\ConfigCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="shyim_profiler.collectors.exception" class="ShyimProfiler\Components\Collectors\ExceptionCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
         <!-- Event Subscriber -->
         <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />

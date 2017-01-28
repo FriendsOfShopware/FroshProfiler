@@ -3,26 +3,19 @@
 namespace ShyimProfiler\Components;
 
 use Doctrine\Common\Cache\CacheProvider;
+use Enlight_Event_EventManager;
 use Monolog\Formatter\NormalizerFormatter;
 use ShyimProfiler\Components\Collectors\CollectorInterface;
-use ShyimProfiler\Components\Collectors\ConfigCollector;
-use ShyimProfiler\Components\Collectors\DBCollector;
-use ShyimProfiler\Components\Collectors\EventCollector;
-use ShyimProfiler\Components\Collectors\ExceptionCollector;
-use ShyimProfiler\Components\Collectors\GeneralCollector;
-use ShyimProfiler\Components\Collectors\PHPCollector;
-use ShyimProfiler\Components\Collectors\SmartyCollector;
-use ShyimProfiler\Components\Collectors\UserCollector;
 
 class Collector
 {
     /**
-     * @var CollectorInterface
+     * @var CollectorInterface[]
      */
     private $collectors = [];
 
     /**
-     * @var \Enlight_Event_EventManager
+     * @var Enlight_Event_EventManager
      */
     private $events;
 
@@ -36,30 +29,30 @@ class Collector
      */
     private $normalizer;
 
-    public function __construct(\Enlight_Event_EventManager $events, CacheProvider $cache)
+    public function __construct(Enlight_Event_EventManager $events, CacheProvider $cache)
     {
         $this->events = $events;
         $this->cache = $cache;
         $this->normalizer = new NormalizerFormatter();
     }
 
+    /**
+     * @param CollectorInterface $collector
+     *
+     * @author Soner Sayakci <s.sayakci@gmail.com>
+     */
+    public function addCollector(CollectorInterface $collector)
+    {
+        $this->collectors[] = $collector;
+    }
+
+    /**
+     * @return CollectorInterface[]
+     *
+     * @author Soner Sayakci <s.sayakci@gmail.com>
+     */
     public function getCollectors()
     {
-        if (empty($this->collectors)) {
-            $this->collectors = [
-                new GeneralCollector(),
-                new PHPCollector(),
-                new UserCollector(),
-                new SmartyCollector(),
-                new EventCollector(),
-                new DBCollector(),
-                new ConfigCollector(),
-                new ExceptionCollector(),
-            ];
-
-            $this->collectors = $this->events->filter('Profiler_onCollectCollectors', $this->collectors);
-        }
-
         return $this->collectors;
     }
 
@@ -67,9 +60,7 @@ class Collector
     {
         $result = [];
 
-        $collectors = $this->getCollectors();
-
-        foreach ($collectors as $collector) {
+        foreach ($this->collectors as $collector) {
             if ($collector instanceof CollectorInterface) {
                 $result = array_merge($result, $collector->collect($controller));
             }
