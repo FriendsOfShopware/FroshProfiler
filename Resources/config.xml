@@ -22,5 +22,11 @@
             <label lang="de">Profile trotz, dass die Toolbar ausgeblendet ist via IP</label>
             <value>1</value>
         </element>
+        <element type="number">
+            <name>maxProfiles</name>
+            <label>Max amount profiles, which should be saved</label>
+            <value>50</value>
+            <description>You can disable it with 0 amount</description>
+        </element>
     </elements>
 </config>

@@ -16,6 +16,7 @@
         <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector">
             <argument type="service" id="events" />
             <argument type="service" id="shyim_profiler.cache" />
+            <argument type="service" id="shopware.plugin.cached_config_reader"/>
         </service>
 
         <service id="shyim_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">

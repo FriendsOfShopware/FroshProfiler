@@ -5,6 +5,7 @@ namespace ShyimProfiler\Components;
 use Doctrine\Common\Cache\CacheProvider;
 use Enlight_Event_EventManager;
 use Monolog\Formatter\NormalizerFormatter;
+use Shopware\Components\Plugin\CachedConfigReader;
 use ShyimProfiler\Components\Collectors\CollectorInterface;
 
 class Collector
@@ -29,11 +30,17 @@ class Collector
      */
     private $normalizer;
 
-    public function __construct(Enlight_Event_EventManager $events, CacheProvider $cache)
+    /**
+     * @var array
+     */
+    private $pluginConfig;
+
+    public function __construct(Enlight_Event_EventManager $events, CacheProvider $cache, CachedConfigReader $configReader)
     {
         $this->events = $events;
         $this->cache = $cache;
         $this->normalizer = new NormalizerFormatter();
+        $this->pluginConfig = $configReader->getByPluginName('ShyimProfiler');
     }
 
     /**
@@ -86,6 +93,18 @@ class Collector
             }
 
             $indexArray[$id] = array_merge($information['request'], $information['response']);
+
+            if (count($indexArray) > $this->pluginConfig['maxProfiles'] && !empty($this->pluginConfig['maxProfiles'])) {
+                $deleteProfiles = count($indexArray) - $this->pluginConfig['maxProfiles'];
+
+                foreach ($indexArray as $key => $item) {
+                    if ($deleteProfiles == 0) {break;}
+
+                    $this->cache->delete($key);
+                    unset($indexArray[$key]);
+                    $deleteProfiles--;
+                }
+            }
 
             $this->cache->save('index', $indexArray);
         }
