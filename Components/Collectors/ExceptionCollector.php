@@ -2,6 +2,8 @@
 
 namespace ShyimProfiler\Components\Collectors;
 
+use Enlight_Controller_Action;
+
 class ExceptionCollector implements CollectorInterface
 {
     public function getName()
@@ -9,7 +11,7 @@ class ExceptionCollector implements CollectorInterface
         return 'exception';
     }
 
-    public function collect(\Enlight_Controller_Action $controller)
+    public function collect(Enlight_Controller_Action $controller)
     {
         $error = $controller->Request()->getParam('error_handler');
 

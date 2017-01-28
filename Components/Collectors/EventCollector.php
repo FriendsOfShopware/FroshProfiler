@@ -8,22 +8,36 @@
 
 namespace ShyimProfiler\Components\Collectors;
 
+use Enlight_Controller_Action;
+use ShyimProfiler\Components\Event\EventManager;
+
 class EventCollector implements CollectorInterface
 {
+    private $eventManager;
+
+    /**
+     * EventCollector constructor.
+     *
+     * @param EventManager $eventManager
+     *
+     * @author Soner Sayakci <s.sayakci@gmail.com>
+     */
+    public function __construct(EventManager $eventManager)
+    {
+        $this->eventManager = $eventManager;
+    }
+
     public function getName()
     {
         return 'Events';
     }
 
-    public function collect(\Enlight_Controller_Action $controller)
+    public function collect(Enlight_Controller_Action $controller)
     {
-        /** @var \ShyimProfiler\Components\Event\EventManager $pluginEventManager */
-        $pluginEventManager = Shopware()->Container()->get('shyim_profiler.event_manager');
-
         return [
            'events' => [
-               'eventAmount'  => $pluginEventManager->getEventAmount(),
-               'calledEvents' => $pluginEventManager->getCalledEvents(),
+               'eventAmount'  => $this->eventManager->getEventAmount(),
+               'calledEvents' => $this->eventManager->getCalledEvents(),
            ],
         ];
     }

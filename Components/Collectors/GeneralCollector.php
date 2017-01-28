@@ -2,14 +2,34 @@
 
 namespace ShyimProfiler\Components\Collectors;
 
+use Enlight_Controller_Action;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 class GeneralCollector implements CollectorInterface
 {
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * GeneralCollector constructor.
+     *
+     * @param ContainerInterface $container
+     *
+     * @author Soner Sayakci <s.sayakci@gmail.com>
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     public function getName()
     {
         return 'General';
     }
 
-    public function collect(\Enlight_Controller_Action $controller)
+    public function collect(Enlight_Controller_Action $controller)
     {
         return [
             'response' => [
@@ -26,12 +46,12 @@ class GeneralCollector implements CollectorInterface
                 'post'           => $controller->Request()->getPost(),
                 'cookies'        => $controller->Request()->getCookie(),
                 'uri'            => $controller->Request()->getRequestUri(),
-                'url'            => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . Shopware()->Shop()->getHost() . Shopware()->Shop()->getBaseUrl() . $controller->Request()->getRequestUri(),
+                'url'            => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $this->container->get('Shop')->getHost() . $this->container->get('Shop')->getBaseUrl() . $controller->Request()->getRequestUri(),
                 'ip'             => $controller->Request()->getClientIp(),
                 'time'           => time(),
             ],
             'session' => [
-                'meta' => Shopware()->Db()->fetchRow('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [Shopware()->Session()->get('sessionId')]),
+                'meta' => $this->container->get('dbal_connection')->fetchAssoc('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [$this->container->get('session')->get('sessionId')]),
                 'data' => $_SESSION['Shopware'],
             ],
             'logs'      => $this->getLogs(),
@@ -50,16 +70,16 @@ class GeneralCollector implements CollectorInterface
     {
         $logs = [];
 
-        if (Shopware()->Container()->has('corelogger')) {
-            $logs = array_merge(Shopware()->Container()->get('corelogger')->getLoggedMessages(), $logs);
+        if ($this->container->has('corelogger')) {
+            $logs = array_merge($this->container->get('corelogger')->getLoggedMessages(), $logs);
         }
 
-        if (Shopware()->Container()->has('pluginlogger')) {
-            $logs = array_merge(Shopware()->Container()->get('pluginlogger')->getLoggedMessages(), $logs);
+        if ($this->container->has('pluginlogger')) {
+            $logs = array_merge($this->container->get('pluginlogger')->getLoggedMessages(), $logs);
         }
 
-        if (Shopware()->Container()->has('debuglogger')) {
-            $logs = array_merge(Shopware()->Container()->get('debuglogger')->getLoggedMessages(), $logs);
+        if ($this->container->has('debuglogger')) {
+            $logs = array_merge($this->container->get('debuglogger')->getLoggedMessages(), $logs);
         }
 
         return $logs;
@@ -67,11 +87,11 @@ class GeneralCollector implements CollectorInterface
 
     public function getBundles()
     {
-        $bundles = Shopware()->Container()->get('cache')->load('LoadedBundles');
+        $bundles = $this->container->get('cache')->load('LoadedBundles');
 
         if (empty($bundles)) {
             $bundles = [];
-            $bundleDir = Shopware()->Container()->getParameter('kernel.root_dir') . '/engine/Shopware/Bundle/';
+            $bundleDir = $this->container->getParameter('kernel.root_dir') . '/engine/Shopware/Bundle/';
             $folderContent = scandir($bundleDir);
 
             foreach ($folderContent as $item) {
@@ -80,7 +100,7 @@ class GeneralCollector implements CollectorInterface
                 }
             }
 
-            Shopware()->Container()->get('cache')->save($bundles, 'LoadedBundles');
+            $this->container->get('cache')->save($bundles, 'LoadedBundles');
         }
 
         return $bundles;

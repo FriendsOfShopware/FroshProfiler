@@ -2,6 +2,7 @@
 
 namespace ShyimProfiler\Components\Collectors;
 
+use Enlight_Controller_Action;
 use Enlight_Exception;
 
 class SmartyCollector implements CollectorInterface
@@ -11,7 +12,7 @@ class SmartyCollector implements CollectorInterface
         return 'Smarty';
     }
 
-    public function collect(\Enlight_Controller_Action $controller)
+    public function collect(Enlight_Controller_Action $controller)
     {
         $smarty = $controller->View()->Engine();
         $assigns = $controller->View()->getAssign();

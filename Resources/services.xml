@@ -31,14 +31,18 @@
 
         <!-- Collectors -->
         <service id="shyim_profiler.collectors.general" class="ShyimProfiler\Components\Collectors\GeneralCollector" public="false">
+            <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
         <service id="shyim_profiler.collectors.php" class="ShyimProfiler\Components\Collectors\PHPCollector" public="false">
+            <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
         <service id="shyim_profiler.collectors.user" class="ShyimProfiler\Components\Collectors\UserCollector" public="false">
+            <argument type="service" id="service_container"/>
+
             <tag name="profiler.collector"/>
         </service>
 
@@ -47,14 +51,18 @@
         </service>
 
         <service id="shyim_profiler.collectors.event" class="ShyimProfiler\Components\Collectors\EventCollector" public="false">
+            <argument type="service" id="shyim_profiler.event_manager"/>
             <tag name="profiler.collector"/>
         </service>
 
         <service id="shyim_profiler.collectors.db" class="ShyimProfiler\Components\Collectors\DBCollector" public="false">
+            <argument type="service" id="db"/>
+            <argument type="service" id="models"/>
             <tag name="profiler.collector"/>
         </service>
 
         <service id="shyim_profiler.collectors.config" class="ShyimProfiler\Components\Collectors\ConfigCollector" public="false">
+            <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
