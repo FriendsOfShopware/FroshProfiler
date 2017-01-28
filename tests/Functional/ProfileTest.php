@@ -41,7 +41,6 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
 
         $this->assertTrue($this->cache->contains($id));
         $this->assertArrayHasKey($id, $index);
-
     }
 
     public function testProfileContent()

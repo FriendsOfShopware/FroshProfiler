@@ -22,13 +22,14 @@
  * our trademarks remain entirely with us.
  */
 use Shopware\Models\Shop\Shop;
-require __DIR__.'/../../../../../autoload.php';
+
+require __DIR__ . '/../../../../../autoload.php';
 
 class TestKernel extends \Shopware\Kernel
 {
     protected function getConfigPath()
     {
-        return __DIR__.'/config.php';
+        return __DIR__ . '/config.php';
     }
     /**
      * Static method to start boot kernel without leaving local scope in test helper.
