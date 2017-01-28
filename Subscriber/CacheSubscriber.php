@@ -30,7 +30,7 @@ class CacheSubscriber implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatch_Backend_Cache' => 'onPostDispatchBackendCache',
+            'Enlight_Controller_Action_PostDispatch_Backend_Cache'       => 'onPostDispatchBackendCache',
             'Enlight_Controller_Action_PostDispatch_Backend_Performance' => 'onPostDispatchBackendPerformance',
         ];
     }

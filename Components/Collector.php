@@ -98,7 +98,9 @@ class Collector
                 $deleteProfiles = count($indexArray) - $this->pluginConfig['maxProfiles'];
 
                 foreach ($indexArray as $key => $item) {
-                    if ($deleteProfiles == 0) {break;}
+                    if ($deleteProfiles == 0) {
+                        break;
+                    }
 
                     $this->cache->delete($key);
                     unset($indexArray[$key]);
