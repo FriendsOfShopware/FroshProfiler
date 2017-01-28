@@ -23,7 +23,7 @@
             for (var i = 0; i < collapseFields.length; i++) {
                 collapseFields[i].addEventListener('click', function (event) {
                     event.preventDefault();
-                    var toggleDiv = document.getElementById(event.srcElement.getAttribute('data-toggle-div'));
+                    var toggleDiv = document.getElementById(event.target.getAttribute('data-toggle-div'));
 
                     if (toggleDiv) {
                         if (toggleDiv.style.display == 'block') {
@@ -42,7 +42,7 @@
                     event.preventDefault();
 
 
-                    window.open(event.srcElement.getAttribute('href'), '', 'width=800,height=700')
+                    window.open(event.target.getAttribute('href'), '', 'width=800,height=700')
                 })
             }
         </script>
