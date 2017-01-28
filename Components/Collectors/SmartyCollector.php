@@ -41,7 +41,8 @@ class SmartyCollector implements CollectorInterface
         // Catch "Template was not loaded failure" Exception
         try {
             $result['template']['template'] = explode('|', $controller->View()->Template()->template_resource);
-        } catch (Enlight_Exception $e) {}
+        } catch (Enlight_Exception $e) {
+        }
 
         return $result;
     }
