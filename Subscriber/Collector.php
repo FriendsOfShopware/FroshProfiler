@@ -136,8 +136,13 @@ class Collector implements SubscriberInterface
         /** @var Enlight_Controller_Response_ResponseHttp $response */
         $response = $args->get('response');
 
-        /** @var Response $symfonyResponse */
-        $symfonyResponse = $this->container->get('kernel')->transformEnlightResponseToSymfonyResponse($response);
+        if ($response instanceof Enlight_Controller_Response_ResponseHttp) {
+            /** @var Response $symfonyResponse */
+            $symfonyResponse = $this->container->get('kernel')->transformEnlightResponseToSymfonyResponse($response);
+        } else {
+            $symfonyResponse = new Response();
+        }
+
 
         $profileTemplate = [];
         $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
