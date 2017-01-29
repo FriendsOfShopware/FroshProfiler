@@ -7,12 +7,10 @@
     <parameters>
         <parameter key="shyim_profiler.cache_dir">%kernel.cache_dir%/ShyimProfiler</parameter>
         <parameter key="shyim_profiler.view_dir">%shyim_profiler.plugin_dir%/Resources/views</parameter>
+        <parameter key="shyim_profiler.smarty_dir">%shyim_profiler.plugin_dir%/Resources/smarty</parameter>
     </parameters>
 
     <services>
-        <!-- Custom Services -->
-        <service id="shyim_profiler.smarty_extensions" class="ShyimProfiler\Components\SmartyExtensions"/>
-
         <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector">
             <argument type="service" id="events" />
             <argument type="service" id="shyim_profiler.cache" />

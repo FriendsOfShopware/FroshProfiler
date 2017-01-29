@@ -100,7 +100,6 @@ class Collector implements SubscriberInterface
         $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views');
         $view->assign('sProfilerID', $profileId);
 
-        $this->container->get('shyim_profiler.smarty_extensions')->addPlugins($view->Engine());
         $this->profileId = $profileId;
         $this->profileController = $controller;
     }

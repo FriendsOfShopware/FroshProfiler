@@ -13,7 +13,6 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
     public function preDispatch()
     {
         $this->cache = $this->get('shyim_profiler.cache');
-        $this->get('shyim_profiler.smarty_extensions')->addPlugins($this->View()->Engine());
     }
 
     public function indexAction()

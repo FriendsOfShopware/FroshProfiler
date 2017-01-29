@@ -8,6 +8,7 @@ use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
+use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
 use ShyimProfiler\Components\CompilerPass\EventListenerCompilerPass;
 use ShyimProfiler\Components\CompilerPass\EventSubscriberCompilerPass;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
@@ -49,6 +50,7 @@ class ShyimProfiler extends Plugin
         $container->addCompilerPass(new EventListenerCompilerPass());
         $container->addCompilerPass(new EventSubscriberCompilerPass());
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
+        $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
     }
 
     public function onStartDispatch()
