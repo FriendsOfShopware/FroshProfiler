@@ -5,6 +5,7 @@ namespace ShyimProfiler\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Action;
 use Enlight_Controller_Response_ResponseHttp;
+use Enlight_Event_EventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -77,7 +78,7 @@ class Collector implements SubscriberInterface
         $this->pluginConfig = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
     }
 
-    public function onPostDispatch(\Enlight_Event_EventArgs $args)
+    public function onPostDispatch(Enlight_Event_EventArgs $args)
     {
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
@@ -90,10 +91,10 @@ class Collector implements SubscriberInterface
             return;
         }
 
-        if ($controller->Request()->getModuleName() == 'frontend') {
-            $profileId = uniqid();
-        } else {
+        if ($controller->Request()->getHeader('X-Profiler')) {
             $profileId = $controller->Request()->getHeader('X-Profiler');
+        } else {
+            $profileId = uniqid();
         }
 
         $view = $controller->View();
@@ -104,7 +105,7 @@ class Collector implements SubscriberInterface
         $this->profileController = $controller;
     }
 
-    public function onRender(\Enlight_Event_EventArgs $eventArgs)
+    public function onRender(Enlight_Event_EventArgs $eventArgs)
     {
         ++$this->templateCalls;
         $name = $this->normalizePath($eventArgs->get('name'));
@@ -121,12 +122,12 @@ class Collector implements SubscriberInterface
         ++$this->blockCalls;
     }
 
-    public function onRenderTime(\Enlight_Event_EventArgs $eventArgs)
+    public function onRenderTime(Enlight_Event_EventArgs $eventArgs)
     {
         $this->renderTime = $eventArgs->get('time');
     }
 
-    public function onDispatchLoopShutdown(\Enlight_Event_EventArgs $args)
+    public function onDispatchLoopShutdown(Enlight_Event_EventArgs $args)
     {
         if (empty($this->profileId) || !$this->container->has('front')) {
             return;
@@ -159,7 +160,7 @@ class Collector implements SubscriberInterface
             $this->container->get('shyim_profiler.collector')->saveCollectInformation(
                 $this->profileId,
                 $profileData,
-                $this->profileController->Request()->getModuleName() == 'widgets'
+                $this->profileController->Request()->getHeader('X-Profiler')
             );
         }
 
@@ -198,9 +199,9 @@ class Collector implements SubscriberInterface
     /**
      * Collect mails.
      *
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      */
-    public function onSendMails(\Enlight_Event_EventArgs $args)
+    public function onSendMails(Enlight_Event_EventArgs $args)
     {
         /** @var \Enlight_Components_Mail $mail */
         $mail = $args->get('mail');
