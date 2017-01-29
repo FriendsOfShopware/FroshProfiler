@@ -46,7 +46,7 @@ class Collector
         CacheProvider $cache,
         CachedConfigReader $configReader,
         Connection $connection
-    ){
+    ) {
         $this->events = $events;
         $this->cache = $cache;
         $this->normalizer = new NormalizerFormatter();
