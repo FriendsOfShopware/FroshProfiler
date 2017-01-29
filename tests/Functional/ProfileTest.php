@@ -15,12 +15,18 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
      */
     private $pluginConfig;
 
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    private $connection;
+
     public function setUp()
     {
         parent::setUp();
 
         $this->pluginConfig = Shopware()->Container()->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
         $this->cache = Shopware()->Container()->get('shyim_profiler.cache');
+        $this->connection = Shopware()->Container()->get('dbal_connection');
         $this->dispatch('/');
     }
 
@@ -37,10 +43,9 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
     public function testProfileSaved()
     {
         $id = $this->View()->getAssign('sProfilerID');
-        $index = $this->cache->fetch('index');
 
         $this->assertTrue($this->cache->contains($id));
-        $this->assertArrayHasKey($id, $index);
+        $this->assertTrue($this->connection->fetchColumn('SELECT 1 FROM s_plugin_profiler WHERE token = ?', [$id]) == 1);
     }
 
     public function testProfileContent()

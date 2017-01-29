@@ -36,6 +36,7 @@ class TestKernel extends \Shopware\Kernel
      */
     public static function start()
     {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $kernel = new self('testing', true);
         $kernel->boot();
         $container = $kernel->getContainer();
