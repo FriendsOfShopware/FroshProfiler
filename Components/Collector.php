@@ -41,13 +41,17 @@ class Collector
      */
     private $pluginConfig;
 
-    public function __construct(Enlight_Event_EventManager $events, CacheProvider $cache, CachedConfigReader $configReader)
-    {
+    public function __construct(
+        Enlight_Event_EventManager $events,
+        CacheProvider $cache,
+        CachedConfigReader $configReader,
+        Connection $connection
+    ){
         $this->events = $events;
         $this->cache = $cache;
         $this->normalizer = new NormalizerFormatter();
         $this->pluginConfig = $configReader->getByPluginName('ShyimProfiler');
-        $this->connection = Shopware()->Container()->get('dbal_connection');
+        $this->connection = $connection;
     }
 
     /**
