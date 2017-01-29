@@ -1,10 +1,18 @@
 {literal}
     <style>
+
+
         html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0;font-size:2em}mark{color:#000;background:#ff0}small{font-size:80%}sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{height:0;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{margin:0;font:inherit;color:inherit}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver}legend{padding:0;border:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 
+        html, body  {
+            height: 100%;
+            width: 100%;
+        }
         body {
             background-color: #F9F9F9;
             color: #222;
+            display: flex;
+            flex-direction: column;
             font-family: Helvetica, Arial, sans-serif;
             font-size: 14px;
             line-height: 1.4;
@@ -99,6 +107,7 @@
         }
         .btn-sm svg {
             height: 16px;
+            width: 16px;
             vertical-align: middle;
         }
         .btn-link {
@@ -109,6 +118,7 @@
             outline: none;
             border: 0;
             padding: 0;
+            cursor: pointer;
         }
         .btn-link:hover {
             text-decoration: underline;
@@ -219,12 +229,12 @@
         .label.status-error   { background: #B0413E; color: #FFF; }
 
         .metrics {
-            margin: 1em 0;
+            margin: 1em 0 0;
             overflow: auto;
         }
         .metrics .metric {
             float: left;
-            margin-right: 1em;
+            margin: 0 1em 1em 0;
         }
 
         .metric {
@@ -278,6 +288,11 @@
             padding-left: 4px;
             vertical-align: middle;
         }
+
+        .metric-divider {
+            float: left;
+            margin: 0 1em;
+            min-height: 1px; }
 
         .card {
             background: #FFF; border: 1px solid #E0E0E0; box-shadow: 0px 0px 1px rgba(128, 128, 128, .2);;
@@ -364,18 +379,37 @@
 
 
         .container {
+            max-width: 1300px;
             padding-right: 15px;
         }
+        #header {
+            flex: 0 0 auto;
+        }
+        #header .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        #summary {
+            flex: 0 0 auto;
+        }
         #content {
-            min-height: 1024px;
-            overflow: hidden;
+            height: 100%;
+        }
+        #main {
+            display: flex;
+            flex-direction: row-reverse;
+            min-height: 100%;
+        }
+        #sidebar {
+            flex: 0 0 220px;
         }
         #collector-wrapper {
-            float: left;
-            width: 100%;
+            flex: 0 1 100%;
+            min-width: 0;
         }
         #collector-content {
-            margin: 0 0 30px 220px;
+            margin: 0 0 30px 0;
             padding: 14px 0 14px 20px;
         }
 
@@ -391,7 +425,6 @@
             color: #FFF;
             font-weight: normal;
             font-size: 21px;
-            float: left;
             margin: 0;
             padding: 10px 10px 8px;
         }
@@ -400,6 +433,7 @@
         }
         #header h1 svg {
             height: 40px;
+            width: 40px;
             margin-top: -4px;
             vertical-align: middle;
         }
@@ -407,7 +441,6 @@
             fill: #FFF;
         }
         #header .search {
-            float: right;
             padding-top: 11px;
         }
         #header .search input {
@@ -469,9 +502,10 @@
         #sidebar {
             background: #444;
             color: #CCC;
-            float: left;
-            margin-bottom: -99999px;     margin-left: -100%;
-            padding-bottom: 99999px;     width: 220px;
+            padding-bottom: 30px;
+            position: relative;
+            width: 220px;
+            z-index: 9999;
         }
         #sidebar .module {
             padding: 10px;
@@ -500,7 +534,7 @@
             margin-left: 5px;
         }
         #sidebar #sidebar-shortcuts .btn {
-            padding: .5em .6em;
+            padding: .5em;
         }
 
         #sidebar-search .form-group:first-of-type {
@@ -540,11 +574,11 @@
         #menu-profiler {
             margin: 0;
             padding: 0;
+            list-style-type: none;
         }
         #menu-profiler li {
             position: relative;
             margin-bottom: 0;
-            width: 220px;
         }
         #menu-profiler li a {
             border: solid transparent;
@@ -619,11 +653,6 @@
             text-align: center;
             vertical-align: baseline;
             white-space: nowrap;
-        }
-
-        #menu-profiler li a[disabled] {
-            pointer-events: none;
-            cursor: default;
         }
         #menu-profiler li a span.count span {
             font-size: 12px;
@@ -856,17 +885,13 @@
         }
 
         @media (max-width: 768px) {
-            #collector-content {
-                margin-left: 50px;
-            }
-
             #sidebar {
-                width: 50px;
-                overflow-y: hidden;
-                transition: width 200ms ease-out;
+                flex-basis: 50px;
+                overflow-x: hidden;
+                transition: flex-basis 200ms ease-out;
             }
             #sidebar:hover, #sidebar.expanded {
-                width: 220px;
+                flex-basis: 220px;
             }
 
             #sidebar-search {

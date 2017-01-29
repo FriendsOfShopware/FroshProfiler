@@ -65,6 +65,8 @@ class CacheSubscriber implements SubscriberInterface
 
             if (!empty($cacheParams['profiler'])) {
                 $this->clearDirectory($this->cacheDir);
+
+                $subject->get('dbal_connection')->executeQuery('TRUNCATE TABLE s_plugin_profiler');
             }
         }
     }
