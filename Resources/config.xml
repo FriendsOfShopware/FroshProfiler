@@ -8,6 +8,12 @@
             <label lang="de">Zeige Smarty Blöcke als HTML Kommentare an</label>
             <value>1</value>
         </element>
+        <element type="boolean">
+            <name>frontendblocksTemplate</name>
+            <label>Show template file in html comment</label>
+            <label lang="de">Zeige Template Pfad im HTML Kommentar</label>
+            <value>1</value>
+        </element>
         <element type="textarea">
             <name>whitelistIP</name>
             <label>Whitelist for Toolbar</label>

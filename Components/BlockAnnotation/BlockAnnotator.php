@@ -14,6 +14,11 @@ class BlockAnnotator
      */
     private $blockSplitter;
 
+    /**
+     * BlockAnnotator constructor.
+     *
+     * @param BlockSplitter $blockSplitter
+     */
     public function __construct(BlockSplitter $blockSplitter)
     {
         $this->blockSplitter = $blockSplitter;
@@ -30,24 +35,31 @@ class BlockAnnotator
     );
 
     /**
-     * @param string $template
-     *
+     * @param $source
+     * @param $template
+     * @param $pluginConfig
      * @return string
      */
-    public function annotate($template)
+    public function annotate($source, $template, $pluginConfig)
     {
-        foreach ($this->blockSplitter->split($template) as $block) {
+        foreach ($this->blockSplitter->split($source) as $block) {
             if (in_array($block['name'], $this->blacklist)) {
                 continue;
             }
 
+            $file = '';
+
+            if ($pluginConfig['frontendblocksTemplate']) {
+                $file = ', File: ' . $template->template_resource;
+            }
+
             $info = $block['name'];
-            $start = "<!-- BLOCK BEGIN {$info} -->";
+            $start = "<!-- BLOCK BEGIN {$info}{$file} -->";
             $end = "<!-- BLOCK END {$info} -->";
 
-            $template = str_replace($block['content'], $block['beginBlock'] . $start . $block['contentOnly'] . $end . $block['endBlock'], $template);
+            $source = str_replace($block['content'], $block['beginBlock'] . $start . $block['contentOnly'] . $end . $block['endBlock'], $source);
         }
 
-        return $template;
+        return $source;
     }
 }

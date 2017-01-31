@@ -95,7 +95,7 @@ class BlockAnnotation implements SubscriberInterface
      */
     public function preFilter($source, $template)
     {
-        return $this->blockAnnotator->annotate($source);
+        return $this->blockAnnotator->annotate($source, $template, $this->pluginConfig);
     }
 
     /**
