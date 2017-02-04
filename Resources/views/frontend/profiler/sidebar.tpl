@@ -1,7 +1,7 @@
 <div id="sidebar">
     <ul id="menu-profiler">
         <li class="request{if $sPanel == "request"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=request}">
+            <a href="{url controller=profiler action=detail id=$sId panel=request}">
                 <span class="label">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/request.svg"}
@@ -11,7 +11,7 @@
             </a>
         </li>
         <li class="time">
-            <a href="{url controller=Profiler action=detail id=$sId panel=time}" disabled="disabled">
+            <a href="{url controller=profiler action=detail id=$sId panel=time}" disabled="disabled">
                 <span class="label disabled">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/time.svg"}
@@ -21,7 +21,7 @@
             </a>
         </li>
         <li class="exception">
-            <a href="{url controller=Profiler action=detail id=$sId panel=exception}">
+            <a href="{url controller=profiler action=detail id=$sId panel=exception}">
                 <span class="label{if empty($sDetail.exception)} disabled{/if}">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/exception.svg"}
@@ -31,7 +31,7 @@
             </a>
         </li>
         <li class="logger{if $sPanel == "logs"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=logs}">
+            <a href="{url controller=profiler action=detail id=$sId panel=logs}">
                 <span class="label">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/logger.svg"}
@@ -41,7 +41,7 @@
             </a>
         </li>
         <li class="events">
-            <a href="{url controller=Profiler action=detail id=$sId panel=events}">
+            <a href="{url controller=profiler action=detail id=$sId panel=events}">
                 <span class="label">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/event.svg"}
@@ -51,7 +51,7 @@
             </a>
         </li>
         <li class="twig{if $sPanel == "template"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=template}">
+            <a href="{url controller=profiler action=detail id=$sId panel=template}">
                 <span class="label">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/template.svg"}
@@ -61,7 +61,7 @@
             </a>
         </li>
         <li class="doctrine{if $sPanel == "db"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=db}">
+            <a href="{url controller=profiler action=detail id=$sId panel=db}">
                 <span class="label">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/database.svg"}
@@ -71,7 +71,7 @@
             </a>
         </li>
         <li class="subrequest{if $sPanel == "subrequest"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=subrequest}">
+            <a href="{url controller=profiler action=detail id=$sId panel=subrequest}">
                 <span class="label{if $sDetail.subrequest|count == 0} disabled{/if}">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/ajax.svg"}
@@ -81,7 +81,7 @@
             </a>
         </li>
         <li class="swiftmailer{if $sPanel == "mailer"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=mailer}">
+            <a href="{url controller=profiler action=detail id=$sId panel=mailer}">
                 <span class="label{if $sDetail.mails|count == 0} disabled{/if}">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/mailer.svg"}
@@ -91,7 +91,7 @@
             </a>
         </li>
         <li class="config{if $sPanel == "config"} selected{/if}">
-            <a href="{url controller=Profiler action=detail id=$sId panel=config}">
+            <a href="{url controller=profiler action=detail id=$sId panel=config}">
                 <span class="label">
                     <span class="icon">
                         {fetchSvg file="frontend/_public/src/svg/config.svg"}

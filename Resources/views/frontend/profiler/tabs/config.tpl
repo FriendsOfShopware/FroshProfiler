@@ -68,7 +68,7 @@
 </div>
 
 <p>
-    <a href="{url controller=Profiler action=php}">View full PHP configuration</a>
+    <a href="{url controller=profiler action=php}">View full PHP configuration</a>
 </p>
 
 <h2>Enabled Bundles <small>({$sDetail.bundles|count})</small></h2>

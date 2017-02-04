@@ -17,7 +17,7 @@
                 <td>{$sSubrequest.request.controllerName|ucfirst}</td>
                 <td>{$sSubrequest.request.actionName|ucfirst}</td>
                 <td>
-                    <a href="{url controller=Profiler action=detail id=$sId|cat:'|':$key}" class="btn">Open Subprofile</a>
+                    <a href="{url controller=profiler action=detail id=$sId|cat:'|':$key}" class="btn">Open Subprofile</a>
                 </td>
             </tr>
         {/foreach}

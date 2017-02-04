@@ -44,7 +44,7 @@
                                     <span class="nowrap">{$sItem.time|date:'F'}</span>
                                     <span class="nowrap newline">{$sItem.time|date:'H:m:s'}</span>
                                 </td>
-                                <td class="nowrap"><a href="{url controller=Profiler action=detail id=$sItem.token}">{$sItem.token}</a>
+                                <td class="nowrap"><a href="{url controller=profiler action=detail id=$sItem.token}">{$sItem.token}</a>
                                 </td>
                             </tr>
                         {/foreach}

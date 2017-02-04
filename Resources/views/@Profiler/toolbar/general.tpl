@@ -1,5 +1,5 @@
 <div class="sf-toolbar-block sf-toolbar-block-request sf-toolbar-status-normal">
-    <a href="{url controller=Profiler action=detail id=$sProfilerID}">
+    <a href="{url controller=profiler action=detail id=$sProfilerID}">
         <div class="sf-toolbar-icon"><span class="sf-toolbar-status {if $sProfiler.response.httpResponse == 200}sf-toolbar-status-green{else}sf-toolbar-status-red{/if}">{$sProfiler.response.httpResponse}</span>
             <span class="sf-toolbar-label">@</span>
             <span class="sf-toolbar-value sf-toolbar-info-piece-additional">{controllerName}</span>
