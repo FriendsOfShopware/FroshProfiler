@@ -5,7 +5,7 @@
         {/if}
     {/foreach}
     <a class="hide-button" title="Close Toolbar" onclick="document.querySelector('.sf-toolbarreset').remove();">
-        <i class="ion-close-round"></i>
+        {fetchSvg file="frontend/_public/src/svg/close.svg"}
     </a>
 </div>
 <script type="application/javascript">

@@ -1,7 +1,7 @@
 <div class="sf-toolbar-block sf-toolbar-block-time sf-toolbar-status-normal">
     <a>
         <div class="sf-toolbar-icon">
-            <span class="ion-wrench icon-toolbar"></span>
+            {fetchSvg file="frontend/_public/src/svg/memory.svg"}
             <span class="sf-toolbar-value">{$sProfiler.php.used_memory|convertMemory}</span>
         </div>
     </a>

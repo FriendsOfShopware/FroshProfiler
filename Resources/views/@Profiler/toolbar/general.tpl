@@ -29,7 +29,7 @@
 <div class="sf-toolbar-block sf-toolbar-block-time sf-toolbar-status-normal">
     <a>
         <div class="sf-toolbar-icon">
-            <span class="ion-clock icon-toolbar"></span>
+            {fetchSvg file="frontend/_public/src/svg/time.svg"}
 
             <span class="sf-toolbar-value">{$sProfilerTime}</span>
             <span class="sf-toolbar-label">s</span>

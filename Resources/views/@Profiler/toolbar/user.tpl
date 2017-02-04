@@ -1,7 +1,7 @@
 <div class="sf-toolbar-block sf-toolbar-block-security sf-toolbar-status-normal">
     <a>
         <div class="sf-toolbar-icon">
-            <span class="ion-person icon-toolbar"></span>
+            {fetchSvg file="frontend/_public/src/svg/person.svg"}
             <span class="sf-toolbar-value">{if !empty($sProfiler.user.loggedin)}{$sProfiler.user.billingaddress.firstname} {$sProfiler.user.billingaddress.lastname}{else}Guest{/if}</span>
         </div>
     </a>
