@@ -50,7 +50,7 @@ class BlockAnnotator
             $file = '';
 
             if ($pluginConfig['frontendblocksTemplate']) {
-                $file = ', File: ' . $template->template_resource;
+                $file = ', File: ' . $template->_current_file;
             }
 
             $info = $block['name'];
