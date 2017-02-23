@@ -51,7 +51,7 @@
         </service>
 
         <service id="shyim_profiler.collectors.event" class="ShyimProfiler\Components\Collectors\EventCollector" public="false">
-            <argument type="service" id="shyim_profiler.event_manager"/>
+            <argument type="service" id="events"/>
             <tag name="profiler.collector"/>
         </service>
 
@@ -114,9 +114,6 @@
         <service decorates="debuglogger" id="shyim_profiler.decoration.debuglogger" class="ShyimProfiler\Components\Logger">
             <argument type="service" id="shyim_profiler.decoration.debuglogger.inner"/>
             <argument type="string">Debuglogger</argument>
-        </service>
-        <service decorates="events" id="shyim_profiler.event_manager" class="ShyimProfiler\Components\Event\EventManager">
-            <argument type="service" id="service_container"/>
         </service>
     </services>
 </container>
