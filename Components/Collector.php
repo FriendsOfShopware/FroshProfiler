@@ -114,7 +114,7 @@ class Collector
 
                 $deleteProfileQuery = $this->connection->createQueryBuilder()
                     ->from('s_plugin_profiler')
-                    ->orderBy('time ASC')
+                    ->orderBy('time', 'ASC')
                     ->setMaxResults($deleteProfiles)
                     ->addSelect('token')
                     ->execute()
