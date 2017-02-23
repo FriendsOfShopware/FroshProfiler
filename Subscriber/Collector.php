@@ -86,6 +86,7 @@ class Collector implements SubscriberInterface
         if (
             strtolower($controller->Request()->getControllerName()) == 'profiler' ||
             strtolower($controller->Request()->getControllerName()) == 'media' ||
+            strtolower($controller->Request()->getControllerName()) == 'csrftoken' ||
             $this->profileId
         ) {
             return;
