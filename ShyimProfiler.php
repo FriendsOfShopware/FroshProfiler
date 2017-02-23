@@ -8,9 +8,7 @@ use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
-use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
-use ShyimProfiler\Components\CompilerPass\EventListenerCompilerPass;
-use ShyimProfiler\Components\CompilerPass\EventSubscriberCompilerPass;
+use ShyimProfiler\Components\CompilerPass\CustomEventService;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use ShyimProfiler\Models\Profile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -47,8 +45,7 @@ class ShyimProfiler extends Plugin
 
         parent::build($container);
 
-        $container->addCompilerPass(new EventListenerCompilerPass());
-        $container->addCompilerPass(new EventSubscriberCompilerPass());
+        $container->addCompilerPass(new CustomEventService());
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
     }

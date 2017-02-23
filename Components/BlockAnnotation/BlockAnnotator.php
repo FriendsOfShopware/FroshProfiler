@@ -29,10 +29,16 @@ class BlockAnnotator
      *
      * @var array
      */
-    protected $blacklist = array(
+    protected $blacklist = [
         'frontend_index_header_title',
         'frontend_index_body_classes',
-    );
+        'frontend_robots_txt',
+        'frontend_robots_txt_user_agent',
+        'frontend_robots_txt_disallows',
+        'frontend_robots_txt_allows',
+        'frontend_robots_txt_sitemap',
+        'frontend_robots_txt_sitemap_mobile'
+    ];
 
     /**
      * @param $source

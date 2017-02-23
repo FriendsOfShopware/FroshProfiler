@@ -1,4 +1,8 @@
 # Profiling
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shyim/shopware-profiler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shyim/shopware-profiler/?branch=master)
+[![Travis CI](https://api.travis-ci.org/shyim/shopware-profiler.svg?branch=master)](https://travis-ci.org/shyim/shopware-profiler)
+
 Profiling for Shopware  
 Required Minimum Shopware Version 5.2
 
