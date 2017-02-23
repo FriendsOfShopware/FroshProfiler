@@ -8,6 +8,7 @@ use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
+use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
 use ShyimProfiler\Components\CompilerPass\CustomEventService;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use ShyimProfiler\Models\Profile;
