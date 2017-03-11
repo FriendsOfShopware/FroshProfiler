@@ -10,10 +10,12 @@
     </a>
 </div>
 <script type="application/javascript">
-    var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
+    if (window.CSRF) {
+        var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
 
-    window.CSRF._ajaxBeforeSend = function (event, request) {
-        ajaxBeforeSend.apply(window.CSRF, [event, request]);
-        request.setRequestHeader('X-Profiler', '{$sProfilerID}');
-    };
+        window.CSRF._ajaxBeforeSend = function (event, request) {
+            ajaxBeforeSend.apply(window.CSRF, [event, request]);
+            request.setRequestHeader('X-Profiler', '{$sProfilerID}');
+        };
+    }
 </script>
