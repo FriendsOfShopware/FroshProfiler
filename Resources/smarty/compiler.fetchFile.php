@@ -1,6 +1,6 @@
 <?php
 
-function smarty_compiler_fetchSvg($params, Smarty $smarty)
+function smarty_compiler_fetchFile($params, Smarty $smarty)
 {
     $params['file'] = str_replace('"', '', $params['file']);
     foreach ($smarty->getTemplateDir() as $folder) {

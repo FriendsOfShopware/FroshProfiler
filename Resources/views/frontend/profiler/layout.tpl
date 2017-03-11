@@ -12,7 +12,7 @@
     <div id="header">
         <div class="container">
             <h1>
-                {fetchSvg file="@Toolbar/_resources/svg/symfony.svg"}
+                {fetchFile file="@Toolbar/_resources/svg/symfony.svg"}
                 Symfony <span>Profiler</span>
             </h1>
         </div>

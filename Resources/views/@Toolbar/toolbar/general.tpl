@@ -29,7 +29,7 @@
 <div class="sf-toolbar-block sf-toolbar-block-time sf-toolbar-status-normal">
     <a>
         <div class="sf-toolbar-icon">
-            {fetchSvg file="@Toolbar/_resources/svg/time.svg"}
+            {fetchFile file="@Toolbar/_resources/svg/time.svg"}
 
             <span class="sf-toolbar-value">{$sProfilerTime}</span>
             <span class="sf-toolbar-label">s</span>

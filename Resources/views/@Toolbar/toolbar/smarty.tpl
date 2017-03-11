@@ -1,7 +1,7 @@
 <div class="sf-toolbar-block sf-toolbar-block-twig sf-toolbar-status-normal ">
     <a href="{url controller=profiler action=detail id=$sProfilerID panel=template}">
         <div class="sf-toolbar-icon">
-            {fetchSvg file="@Toolbar/_resources/svg/template.svg"}
+            {fetchFile file="@Toolbar/_resources/svg/template.svg"}
             <span class="sf-toolbar-value">Template</span>
         </div>
     </a>

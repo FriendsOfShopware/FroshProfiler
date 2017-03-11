@@ -2,7 +2,7 @@
     <a href="{url controller=profiler action=detail id=$sProfilerID panel=config}">
         <div class="sf-toolbar-icon">
             <span class="sf-toolbar-label">
-                {fetchSvg file="@Toolbar/_resources/svg/shopware.svg"}
+                {fetchFile file="@Toolbar/_resources/svg/shopware.svg"}
             </span>
             <span class="sf-toolbar-value">{if $sProfiler.php.shopware_version == '___VERSION___'}Git Version{else}{$sProfiler.php.shopware_version}{/if}</span>
         </div>
