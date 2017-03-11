@@ -4,7 +4,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=request}">
                 <span class="label">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/request.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/request.svg"}
                     </span>
                 <strong>Request / Response</strong>
                 </span>
@@ -14,7 +14,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=time}" disabled="disabled">
                 <span class="label disabled">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/time.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/time.svg"}
                     </span>
                     <strong>Performance</strong>
                 </span>
@@ -24,7 +24,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=exception}">
                 <span class="label{if empty($sDetail.exception)} disabled{/if}">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/exception.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/exception.svg"}
                     </span>
                     <strong>Exception</strong>
                 </span>
@@ -34,7 +34,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=logs}">
                 <span class="label">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/logger.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/logger.svg"}
                     </span>
                     <strong>Logs</strong>
                 </span>
@@ -44,7 +44,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=events}">
                 <span class="label">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/event.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/event.svg"}
                     </span>
                 <strong>Events</strong>
                 </span>
@@ -54,7 +54,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=template}">
                 <span class="label">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/template.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/template.svg"}
                     </span>
                     <strong>Smarty</strong>
                 </span>
@@ -64,7 +64,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=db}">
                 <span class="label">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/database.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/database.svg"}
                     </span>
                     <strong>Database</strong>
                 </span>
@@ -74,7 +74,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=subrequest}">
                 <span class="label{if $sDetail.subrequest|count == 0} disabled{/if}">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/ajax.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/ajax.svg"}
                     </span>
                     <strong>Subrequest ({$sDetail.subrequest|count})</strong>
                 </span>
@@ -84,7 +84,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=mailer}">
                 <span class="label{if $sDetail.mails|count == 0} disabled{/if}">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/mailer.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/mailer.svg"}
                     </span>
                     <strong>E-Mails ({$sDetail.mails|count})</strong>
                 </span>
@@ -94,7 +94,7 @@
             <a href="{url controller=profiler action=detail id=$sId panel=config}">
                 <span class="label">
                     <span class="icon">
-                        {fetchSvg file="frontend/_public/src/svg/config.svg"}
+                        {fetchSvg file="@Toolbar/_resources/svg/config.svg"}
                     </span>
                     <strong>Configuration</strong>
                 </span>

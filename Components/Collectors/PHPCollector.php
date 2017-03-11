@@ -44,6 +44,6 @@ class PHPCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/php.tpl';
+        return '@Toolbar/toolbar/php.tpl';
     }
 }

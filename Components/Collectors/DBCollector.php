@@ -71,7 +71,7 @@ class DBCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/db.tpl';
+        return '@Toolbar/toolbar/db.tpl';
     }
 
     private function getAllQuerys()

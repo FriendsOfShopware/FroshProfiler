@@ -50,6 +50,6 @@ class SmartyCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/smarty.tpl';
+        return '@Toolbar/toolbar/smarty.tpl';
     }
 }

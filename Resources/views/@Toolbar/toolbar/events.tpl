@@ -1,7 +1,7 @@
 <div class="sf-toolbar-block sf-toolbar-block-db sf-toolbar-status-normal">
     <a href="{url controller=profiler action=detail id=$sProfilerID panel=events}">
         <div class="sf-toolbar-icon">
-            {fetchSvg file="frontend/_public/src/svg/event.svg"}
+            {fetchSvg file="@Toolbar/_resources/svg/event.svg"}
             <span class="sf-toolbar-value">Events</span>
         </div>
     </a>

@@ -63,7 +63,7 @@ class GeneralCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/general.tpl';
+        return '@Toolbar/toolbar/general.tpl';
     }
 
     public function getLogs()

@@ -57,7 +57,7 @@
                     <div class="shortcuts">
                         <a href="#" class="visible-small">
                             <span class="icon">
-                                {fetchSvg file="frontend/_public/src/svg/symfony.svg"}
+                                {fetchSvg file="@Toolbar/_resources/svg/symfony.svg"}
                             </span>
                         </a>
 

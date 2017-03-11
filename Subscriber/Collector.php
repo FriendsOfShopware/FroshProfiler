@@ -173,7 +173,7 @@ class Collector implements SubscriberInterface
             $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
             $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
-            $profileTemplate = $view->fetch('@Profiler/index.tpl');
+            $profileTemplate = $view->fetch('@Toolbar/index.tpl');
 
             $content = $response->getBody();
 

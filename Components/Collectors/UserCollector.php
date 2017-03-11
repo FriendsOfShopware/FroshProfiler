@@ -39,6 +39,6 @@ class UserCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/user.tpl';
+        return '@Toolbar/toolbar/user.tpl';
     }
 }

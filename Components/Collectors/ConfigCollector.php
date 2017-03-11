@@ -35,6 +35,6 @@ class ConfigCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/config.tpl';
+        return '@Toolbar/toolbar/config.tpl';
     }
 }

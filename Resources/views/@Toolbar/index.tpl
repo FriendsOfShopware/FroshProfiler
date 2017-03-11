@@ -1,3 +1,4 @@
+<style>{fetchSvg file="@Toolbar/_resources/css/toolbar.css"}</style>
 <div class="sf-toolbarreset clear-fix">
     {foreach from=$sProfilerCollectors item=sProfilerCollector}
         {if !empty($sProfilerCollector->getToolbarTemplate())}
@@ -5,7 +6,7 @@
         {/if}
     {/foreach}
     <a class="hide-button" title="Close Toolbar" onclick="document.querySelector('.sf-toolbarreset').remove();">
-        {fetchSvg file="frontend/_public/src/svg/close.svg"}
+        {fetchSvg file="@Toolbar/_resources/svg/close.svg"}
     </a>
 </div>
 <script type="application/javascript">

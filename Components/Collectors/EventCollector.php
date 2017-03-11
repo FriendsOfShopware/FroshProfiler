@@ -44,6 +44,6 @@ class EventCollector implements CollectorInterface
 
     public function getToolbarTemplate()
     {
-        return '@Profiler/toolbar/events.tpl';
+        return '@Toolbar/toolbar/events.tpl';
     }
 }

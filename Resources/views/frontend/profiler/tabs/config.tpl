@@ -1,8 +1,8 @@
 {function name=getActiveIcon var=false}
     {if $var}
-        {fetchSvg file="frontend/_public/src/svg/yes.svg"}
+        {fetchSvg file="@Toolbar/_resources/svg/yes.svg"}
     {else}
-        {fetchSvg file="frontend/_public/src/svg/no.svg"}
+        {fetchSvg file="@Toolbar/_resources/svg/no.svg"}
     {/if}
 {/function}
 
