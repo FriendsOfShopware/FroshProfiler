@@ -34,5 +34,10 @@
             <value>50</value>
             <description>You can disable it with 0 amount</description>
         </element>
+        <element type="number">
+            <name>dumpDepth</name>
+            <label>Depth of vardump in profiler detail</label>
+            <value>20</value>
+        </element>
     </elements>
 </config>
