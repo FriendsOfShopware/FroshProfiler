@@ -14,7 +14,7 @@
         var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
 
         window.CSRF._ajaxBeforeSend = function (event, request) {
-            ajaxBeforeSend.apply(window.CSRF, [event, request]);
+            ajaxBeforeSend.apply(window.CSRF, arguments);
             request.setRequestHeader('X-Profiler', '{$sProfilerID}');
         };
     }
