@@ -49,7 +49,7 @@ class BlockAnnotator
     public function annotate($source, $template, $pluginConfig)
     {
         foreach ($this->blockSplitter->split($source) as $block) {
-            if (in_array($block['name'], $this->blacklist)) {
+            if (in_array($block['name'], $this->blacklist) || strpos($block['name'], '/attributes') !== false) {
                 continue;
             }
 
