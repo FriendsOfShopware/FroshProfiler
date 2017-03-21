@@ -2,7 +2,7 @@
 
 commit=$1
 if [ -z ${commit} ]; then
-    commit=$(git tag | tail -n 1)
+    commit=$(git tag --sort=-creatordate | head -1)
     if [ -z ${commit} ]; then
         commit="master";
     fi
