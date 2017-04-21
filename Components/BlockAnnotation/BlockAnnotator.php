@@ -49,7 +49,9 @@ class BlockAnnotator
     public function annotate($source, $template, $pluginConfig)
     {
         foreach ($this->blockSplitter->split($source) as $block) {
-            if (in_array($block['name'], $this->blacklist) || strpos($block['name'], '/attributes') !== false) {
+            if (in_array($block['name'], $this->blacklist) ||
+                strpos($block['name'], '/attributes') !== false ||
+                strpos($block['name'], 'frontend_index_search_similar_results_') !== false) {
                 continue;
             }
 
