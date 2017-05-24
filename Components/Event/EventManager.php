@@ -6,11 +6,43 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
 use Shopware\Components\ContainerAwareEventManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class EventManager extends ContainerAwareEventManager
 {
+    /**
+     * @var int
+     */
     protected $eventsAmount = 0;
+
+    /**
+     * @var array
+     */
     protected $calledEvents = [];
+
+    /**
+     * @var bool
+     */
+    private $xdebugInstalled = false;
+
+    /**
+     * @var int
+     */
+    private $xdebugDepth = 0;
+
+    /**
+     * EventManager constructor.
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+        $this->xdebugInstalled = extension_loaded('xdebug');
+
+        if ($this->xdebugInstalled) {
+            $this->xdebugDepth = ini_get('xdebug.var_display_max_depth');
+        }
+    }
 
     /**
      * @param string $event
@@ -26,7 +58,7 @@ class EventManager extends ContainerAwareEventManager
             $this->calledEvents[] = [
                 'type' => 'notify',
                 'name' => $event,
-                'args' => Debug::dump($eventArgs, 2, true, false),
+                'args' => $this->dump($eventArgs)
             ];
         }
 
@@ -49,9 +81,9 @@ class EventManager extends ContainerAwareEventManager
         $this->calledEvents[] = [
             'type' => 'filter',
             'name' => $event,
-            'args' => Debug::dump($eventArgs, 2, true, false),
-            'old'  => is_object($value) ? Debug::dump($value, 2, true, false) : $value,
-            'new'  => is_object($afterValue) ? Debug::dump($afterValue, 2, true, false) : $afterValue,
+            'args' => $this->dump($eventArgs),
+            'old'  => is_object($value) ? $this->dump($value) : $value,
+            'new'  => is_object($afterValue) ? $this->dump($afterValue) : $afterValue,
         ];
 
         return $afterValue;
@@ -71,8 +103,8 @@ class EventManager extends ContainerAwareEventManager
         $this->calledEvents[] = [
             'type'   => 'notifyUntil',
             'name'   => $event,
-            'args'   => Debug::dump($eventArgs, 2, true, false),
-            'cancel' => is_object($cancel) ? Debug::dump($cancel, 2, true, false) : $cancel,
+            'args'   => $this->dump($eventArgs),
+            'cancel' => is_object($cancel) ? $this->dump($cancel) : $cancel,
         ];
 
         return $cancel;
@@ -148,13 +180,33 @@ class EventManager extends ContainerAwareEventManager
         }
     }
 
+    /**
+     * @return int
+     */
     public function getEventAmount()
     {
         return $this->eventsAmount;
     }
 
+    /**
+     * @return array
+     */
     public function getCalledEvents()
     {
         return $this->calledEvents;
+    }
+
+    /**
+     * @param $argument
+     * @return string
+     */
+    private function dump($argument)
+    {
+        $value = Debug::dump($argument, 2, true, false);
+        if ($this->xdebugInstalled) {
+            ini_set('xdebug.var_display_max_depth', $this->xdebugDepth);
+        }
+
+        return $value;
     }
 }
