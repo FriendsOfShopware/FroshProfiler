@@ -1,6 +1,7 @@
 <?php
 
 namespace ShyimProfiler\Subscriber;
+
 use Doctrine\DBAL\Logging\DebugStack;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
