@@ -6,8 +6,13 @@ use Doctrine\DBAL\Logging\DebugStack;
 use Enlight_Components_Db_Adapter_Pdo_Mysql;
 use Enlight_Controller_Action;
 use Shopware\Components\Model\ModelManager;
+use ShyimProfiler\Components\Struct\Profile;
 use Zend_Db_Profiler;
 
+/**
+ * Class DBCollector
+ * @package ShyimProfiler\Components\Collectors
+ */
 class DBCollector implements CollectorInterface
 {
     /**
@@ -35,8 +40,6 @@ class DBCollector implements CollectorInterface
      *
      * @param Enlight_Components_Db_Adapter_Pdo_Mysql $db
      * @param ModelManager                            $modelManager
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function __construct(Enlight_Components_Db_Adapter_Pdo_Mysql $db, ModelManager $modelManager)
     {
@@ -44,13 +47,19 @@ class DBCollector implements CollectorInterface
         $this->doctrineProfiler = $modelManager->getConfiguration()->getSQLLogger();
     }
 
-
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'Database';
     }
 
-    public function collect(Enlight_Controller_Action $controller)
+    /**
+     * @param Enlight_Controller_Action $controller
+     * @param Profile $profile
+     */
+    public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
         $totalQueriesZend = $this->zendProfiler->getTotalNumQueries();
         $totalQueriesDoctrine = count($this->doctrineProfiler->queries);
@@ -58,22 +67,24 @@ class DBCollector implements CollectorInterface
 
         $this->getAllQuerys();
 
-        $result = [
-            'db' => [
-                'totalQueries' => $totalQueriesZend + $totalQueriesDoctrine,
-                'queryTime'    => $this->executeTime,
-                'sqls'         => $this->executedQuerys,
-            ],
-        ];
-
-        return $result;
+        $profile->setDbQueries([
+            'totalQueries' => $totalQueriesZend + $totalQueriesDoctrine,
+            'queryTime'    => $this->executeTime,
+            'sqls'         => $this->executedQuerys,
+        ]);
     }
 
+    /**
+     * @return string
+     */
     public function getToolbarTemplate()
     {
         return '@Toolbar/toolbar/db.tpl';
     }
 
+    /**
+     * @return void
+     */
     private function getAllQuerys()
     {
         foreach ($this->doctrineProfiler->queries as $query) {

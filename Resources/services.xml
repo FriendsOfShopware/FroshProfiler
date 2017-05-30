@@ -16,6 +16,7 @@
             <argument type="service" id="shyim_profiler.cache" />
             <argument type="service" id="shopware.plugin.cached_config_reader"/>
             <argument type="service" id="dbal_connection"/>
+            <argument type="service" id="shyim_profiler.current.profile"/>
         </service>
 
         <service id="shyim_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
@@ -72,6 +73,7 @@
         <!-- Event Subscriber -->
         <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />
+            <argument type="service" id="shyim_profiler.current.profile"/>
             <tag name="shopware.event_subscriber" />
         </service>
 
@@ -95,6 +97,8 @@
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
+
+        <service id="shyim_profiler.current.profile" class="ShyimProfiler\Components\Struct\Profile"/>
 
         <!-- Decorations -->
         <service decorates="pluginlogger" id="shyim_profiler.decoration.pluginlogger" class="ShyimProfiler\Components\Logger">

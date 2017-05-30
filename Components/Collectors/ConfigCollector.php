@@ -3,36 +3,49 @@
 namespace ShyimProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use ShyimProfiler\Components\Struct\Profile;
+use Symfony\Component\DependencyInjection\Container;
 
+/**
+ * Class ConfigCollector
+ * @package ShyimProfiler\Components\Collectors
+ */
 class ConfigCollector implements CollectorInterface
 {
     /**
-     * @var ContainerInterface
+     * @var Container
      */
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    /**
+     * ConfigCollector constructor.
+     * @param Container $container
+     */
+    public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'Config';
     }
 
-    public function collect(Enlight_Controller_Action $controller)
+    /**
+     * @param Enlight_Controller_Action $controller
+     * @param Profile $profile
+     */
+    public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
-        $result = [
-            'config' => [
-                $this->container->getParameterBag()->all(),
-            ],
-        ];
-
-        return $result;
+        $profile->setConfig($this->container->getParameterBag()->all());
     }
 
+    /**
+     * @return string
+     */
     public function getToolbarTemplate()
     {
         return '@Toolbar/toolbar/config.tpl';

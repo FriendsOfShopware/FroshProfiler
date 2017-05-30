@@ -3,8 +3,13 @@
 namespace ShyimProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
+use ShyimProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class GeneralCollector
+ * @package ShyimProfiler\Components\Collectors
+ */
 class GeneralCollector implements CollectorInterface
 {
     /**
@@ -24,14 +29,21 @@ class GeneralCollector implements CollectorInterface
         $this->container = $container;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'General';
     }
 
-    public function collect(Enlight_Controller_Action $controller)
+    /**
+     * @param Enlight_Controller_Action $controller
+     * @param Profile $profile
+     */
+    public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
-        return [
+        $profile->setAttributes([
             'response' => [
                 'httpResponse' => $controller->Response()->getHttpResponseCode(),
                 'headers'      => $controller->Response()->getHeaders(),
@@ -46,7 +58,7 @@ class GeneralCollector implements CollectorInterface
                 'post'           => $controller->Request()->getPost(),
                 'cookies'        => $controller->Request()->getCookie(),
                 'uri'            => $controller->Request()->getRequestUri(),
-                'url'            => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $this->container->get('Shop')->getHost() . $this->container->get('Shop')->getBaseUrl() . $controller->Request()->getRequestUri(),
+                'url'            => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $this->container->get('shop')->getHost() . $this->container->get('shop')->getBaseUrl() . $controller->Request()->getRequestUri(),
                 'ip'             => $controller->Request()->getClientIp(),
                 'time'           => time(),
             ],
@@ -58,14 +70,20 @@ class GeneralCollector implements CollectorInterface
             'server'    => $_SERVER,
             'startTime' => STARTTIME,
             'bundles'   => $this->getBundles(),
-        ];
+        ]);
     }
 
+    /**
+     * @return string
+     */
     public function getToolbarTemplate()
     {
         return '@Toolbar/toolbar/general.tpl';
     }
 
+    /**
+     * @return array
+     */
     public function getLogs()
     {
         $logs = [];
@@ -85,6 +103,9 @@ class GeneralCollector implements CollectorInterface
         return $logs;
     }
 
+    /**
+     * @return array|false|mixed
+     */
     public function getBundles()
     {
         $bundles = $this->container->get('cache')->load('LoadedBundles');

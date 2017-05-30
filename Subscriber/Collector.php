@@ -6,11 +6,21 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Action;
 use Enlight_Controller_Response_ResponseHttp;
 use Enlight_Event_EventArgs;
+use ShyimProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class Collector
+ * @package ShyimProfiler\Subscriber
+ */
 class Collector implements SubscriberInterface
 {
+    /**
+     * @var Profile
+     */
+    private $profile;
+
     /**
      * @var ContainerInterface
      */
@@ -22,48 +32,18 @@ class Collector implements SubscriberInterface
     private $pluginConfig;
 
     /**
-     * @var array
-     */
-    private $renderedTemplates = [];
-
-    /**
-     * @var array
-     */
-    private $mails = [];
-
-    /**
-     * @var int
-     */
-    private $templateCalls = 0;
-
-    /**
-     * @var int
-     */
-    private $blockCalls = 0;
-
-    /**
-     * @var int
-     */
-    private $renderTime = 0;
-
-    /**
-     * @var string
-     */
-    private $profileId;
-
-    /**
      * @var Enlight_Controller_Action
      */
     private $profileController;
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [
             'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
             'Enlight_Controller_Action_PostDispatch_Widgets'  => 'onPostDispatch',
-            'Profiler_Smarty_Render'                          => 'onRender',
-            'Profiler_Smarty_Render_Block'                    => 'onRenderBlock',
-            'Profiler_Smarty_RenderTime'                      => 'onRenderTime',
             'Enlight_Controller_Front_DispatchLoopShutdown'   => 'onDispatchLoopShutdown',
             'Enlight_Components_Mail_Send'                    => 'onSendMails',
         ];
@@ -72,10 +52,11 @@ class Collector implements SubscriberInterface
     /**
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, Profile $profile)
     {
         $this->container = $container;
         $this->pluginConfig = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
+        $this->profile = $profile;
     }
 
     public function onPostDispatch(Enlight_Event_EventArgs $args)
@@ -87,7 +68,7 @@ class Collector implements SubscriberInterface
             strtolower($controller->Request()->getControllerName()) == 'profiler' ||
             strtolower($controller->Request()->getControllerName()) == 'media' ||
             strtolower($controller->Request()->getControllerName()) == 'csrftoken' ||
-            $this->profileId
+            $this->profile->getId()
         ) {
             return;
         }
@@ -98,39 +79,13 @@ class Collector implements SubscriberInterface
             $profileId = uniqid();
         }
 
-        $view = $controller->View();
-        $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views');
-        $view->assign('sProfilerID', $profileId);
-
-        $this->profileId = $profileId;
+        $this->profile->setId($profileId);
         $this->profileController = $controller;
-    }
-
-    public function onRender(Enlight_Event_EventArgs $eventArgs)
-    {
-        ++$this->templateCalls;
-        $name = $this->normalizePath($eventArgs->get('name'));
-
-        if (!isset($this->renderedTemplates[$name])) {
-            $this->renderedTemplates[$name] = 1;
-        } else {
-            ++$this->renderedTemplates[$name];
-        }
-    }
-
-    public function onRenderBlock()
-    {
-        ++$this->blockCalls;
-    }
-
-    public function onRenderTime(Enlight_Event_EventArgs $eventArgs)
-    {
-        $this->renderTime = $eventArgs->get('time');
     }
 
     public function onDispatchLoopShutdown(Enlight_Event_EventArgs $args)
     {
-        if (empty($this->profileId) || !$this->container->has('front')) {
+        if ($this->profile->getId() === null || !$this->container->has('front')) {
             return;
         }
 
@@ -144,22 +99,14 @@ class Collector implements SubscriberInterface
             $symfonyResponse = new Response();
         }
 
-        $profileTemplate = [];
-        $profileTemplate['renderedTemplates'] = $this->renderedTemplates;
-        $profileTemplate['blockCalls'] = $this->blockCalls;
-        $profileTemplate['templateCalls'] = $this->templateCalls;
-        $profileTemplate['renderTime'] = $this->renderTime;
-
         $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->profileController);
-        $profileData['template'] = array_merge($profileData['template'], $profileTemplate);
-        $profileData['mails'] = $this->mails;
         $profileData['response']['headers'] = $symfonyResponse->headers->all();
 
         $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
         if (empty($this->pluginConfig['whitelistIP']) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
             $this->container->get('shyim_profiler.collector')->saveCollectInformation(
-                $this->profileId,
+                $this->profile->getId(),
                 $profileData,
                 $this->profileController->Request()->getHeader('X-Profiler')
             );
@@ -169,7 +116,7 @@ class Collector implements SubscriberInterface
             $view = $this->container->get('template');
             $view->assign('sProfiler', $profileData);
             $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
-            $view->assign('sProfilerID', $this->profileId);
+            $view->assign('sProfilerID', $this->profile->getId());
             $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
 
             $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
@@ -180,21 +127,6 @@ class Collector implements SubscriberInterface
             $content = str_replace('</body>', $profileTemplate . '</body>', $content);
             $response->setBody($content);
         }
-    }
-
-    private function normalizePath($path)
-    {
-        if (strpos($path, 'frontend') !== false) {
-            $pos = strpos($path, 'frontend');
-            $path = substr($path, $pos);
-        }
-
-        if (strpos($path, 'widgets') !== false) {
-            $pos = strpos($path, 'widgets');
-            $path = substr($path, $pos);
-        }
-
-        return $path;
     }
 
     /**
@@ -213,7 +145,7 @@ class Collector implements SubscriberInterface
          */
         unset($context['sConfig']);
 
-        $this->mails[] = [
+        $this->profile->addMail([
             'from'      => $mail->getFrom(),
             'fromName'  => $mail->getFromName(),
             'to'        => $mail->getTo(),
@@ -221,6 +153,6 @@ class Collector implements SubscriberInterface
             'bodyPlain' => $mail->getPlainBodyText(),
             'bodyHtml'  => $mail->getPlainBody(),
             'context'   => $context,
-        ];
+        ]);
     }
 }

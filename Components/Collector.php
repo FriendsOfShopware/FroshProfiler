@@ -4,11 +4,17 @@ namespace ShyimProfiler\Components;
 
 use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\DBAL\Connection;
+use Enlight_Controller_Action;
 use Enlight_Event_EventManager;
 use Monolog\Formatter\NormalizerFormatter;
 use Shopware\Components\Plugin\CachedConfigReader;
 use ShyimProfiler\Components\Collectors\CollectorInterface;
+use ShyimProfiler\Components\Struct\Profile;
 
+/**
+ * Class Collector
+ * @package ShyimProfiler\Components
+ */
 class Collector
 {
     /**
@@ -41,17 +47,24 @@ class Collector
      */
     private $pluginConfig;
 
+    /**
+     * @var Profile
+     */
+    private $profile;
+
     public function __construct(
         Enlight_Event_EventManager $events,
         CacheProvider $cache,
         CachedConfigReader $configReader,
-        Connection $connection
+        Connection $connection,
+        Profile $profile
     ) {
         $this->events = $events;
         $this->cache = $cache;
         $this->normalizer = new NormalizerFormatter();
         $this->pluginConfig = $configReader->getByPluginName('ShyimProfiler');
         $this->connection = $connection;
+        $this->profile = $profile;
     }
 
     /**
@@ -74,17 +87,19 @@ class Collector
         return $this->collectors;
     }
 
-    public function collectInformation(\Enlight_Controller_Action $controller)
+    /**
+     * @param Enlight_Controller_Action $controller
+     * @return array
+     */
+    public function collectInformation(Enlight_Controller_Action $controller)
     {
-        $result = [];
-
         foreach ($this->collectors as $collector) {
             if ($collector instanceof CollectorInterface) {
-                $result = array_merge($result, $collector->collect($controller));
+                $collector->collect($controller, $this->profile);
             }
         }
 
-        return $result;
+        return $this->profile->jsonSerialize();
     }
 
     public function saveCollectInformation($id, $information, $subrequets = false)
