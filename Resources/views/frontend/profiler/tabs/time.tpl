@@ -5,10 +5,20 @@
         <span class="label">Request Time</span>
     </div>
     <div class="metric">
+        <span class="value">{$sDetail.db.queryTime|number_format:2} <span class="unit">ms</span></span>
+        <span class="label">SQL Time</span>
+    </div>
+    <div class="metric">
+        <span class="value">{$sDetail.db.totalQueries}</span>
+        <span class="label">Total Queries</span>
+    </div>
+    <div class="metric">
         <span class="value">{$sDetail.php.used_memory|convertMemory}</span>
         <span class="label">Memory Usage</span>
     </div>
 </div>
+
+<h2>Event Chart</h2>
 
 <canvas id="canvas"></canvas>
 

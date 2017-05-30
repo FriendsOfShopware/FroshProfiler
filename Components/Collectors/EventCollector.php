@@ -53,7 +53,7 @@ class EventCollector implements CollectorInterface
             }
         }
 
-        usort($eventsTimes, function($a, $b) {
+        usort($eventsTimes, function ($a, $b) {
             return ($a['duration'] > $b['duration']) ? -1 : 1;
         });
 
