@@ -8,6 +8,7 @@ use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
+use Shopware\Components\Plugin\Context\UpdateContext;
 use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
 use ShyimProfiler\Components\CompilerPass\CustomEventService;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
@@ -18,25 +19,49 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
+/**
+ * Class ShyimProfiler
+ * @package ShyimProfiler
+ */
 class ShyimProfiler extends Plugin
 {
+    /**
+     * @param ActivateContext $context
+     */
     public function activate(ActivateContext $context)
     {
         $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
     }
 
+    /**
+     * @param InstallContext $context
+     */
     public function install(InstallContext $context)
     {
-        parent::install($context);
         $this->installSchema();
     }
 
+    /**
+     * @param UpdateContext $context
+     */
+    public function update(UpdateContext $context)
+    {
+        parent::update($context);
+        $this->installSchema();
+    }
+
+    /**
+     * @param UninstallContext $context
+     */
     public function uninstall(UninstallContext $context)
     {
         parent::uninstall($context);
         $this->uninstallSchema();
     }
 
+    /**
+     * @param ContainerBuilder $container
+     */
     public function build(ContainerBuilder $container)
     {
         $container->setParameter('shyim_profiler.plugin_dir', $this->getPath());
@@ -50,7 +75,6 @@ class ShyimProfiler extends Plugin
 
     /**
      * Install or update profile table
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     private function installSchema()
     {
@@ -61,7 +85,6 @@ class ShyimProfiler extends Plugin
 
     /**
      * Remove profile table
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     private function uninstallSchema()
     {
