@@ -146,11 +146,6 @@ class Collector implements SubscriberInterface
         $mail = $args->get('mail');
         $context = $this->container->get('templatemail')->getStringCompiler()->getContext();
 
-        /*
-         * Remove some objects
-         */
-        unset($context['sConfig']);
-
         $this->profile->addMail([
             'from'      => $mail->getFrom(),
             'fromName'  => $mail->getFromName(),
