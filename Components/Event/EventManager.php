@@ -8,6 +8,10 @@ use Enlight\Event\SubscriberInterface;
 use Shopware\Components\ContainerAwareEventManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class EventManager
+ * @package ShyimProfiler\Components\Event
+ */
 class EventManager extends ContainerAwareEventManager
 {
     /**
@@ -54,13 +58,11 @@ class EventManager extends ContainerAwareEventManager
      */
     public function notify($event, $eventArgs = null)
     {
-        if (strpos($event, 'Profiler_') === false) {
-            $this->calledEvents[] = [
-                'type' => 'notify',
-                'name' => $event,
-                'args' => $this->dump($eventArgs)
-            ];
-        }
+        $this->calledEvents[] = [
+            'type' => 'notify',
+            'name' => $event,
+            'args' => $this->dump($eventArgs)
+        ];
 
         return parent::notify($event, $eventArgs);
     }
