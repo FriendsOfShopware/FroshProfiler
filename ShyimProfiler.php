@@ -14,15 +14,12 @@ use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use ShyimProfiler\Models\Profile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
 class ShyimProfiler extends Plugin
 {
-    public static function getSubscribedEvents()
-    {
-        return [
-            'Enlight_Controller_Front_StartDispatch' => 'onStartDispatch',
-        ];
-    }
-
     public function activate(ActivateContext $context)
     {
         $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
@@ -49,36 +46,6 @@ class ShyimProfiler extends Plugin
         $container->addCompilerPass(new CustomEventService());
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
-    }
-
-    public function onStartDispatch()
-    {
-        if (file_exists($this->getPath() . '/vendor/autoload.php')) {
-            require_once $this->getPath() . '/vendor/autoload.php';
-        }
-
-        define('STARTTIME', microtime(true));
-
-        $uri = $this->container->get('front')->Request()->getRequestUri();
-        if (strpos($uri, '/backend') === false && strpos($uri, '/api') === false && strpos($uri, 'Profiler') === false) {
-            /*
-             * Set a custom SYSPLUGINS Path, to disable default smarty autoloading
-             */
-            define('SMARTY_SYSPLUGINS_DIR', $this->getPath() . '/Components/Smarty/sysplugins/');
-        }
-
-        $this->initDatabaseProfiler();
-    }
-
-    private function initDatabaseProfiler()
-    {
-        // Zend DB Profiler
-        $this->container->get('db')->setProfiler(new \Zend_Db_Profiler(true));
-
-        // Doctrine Profiler
-        $logger = new DebugStack();
-        $logger->enabled = true;
-        $this->container->get('models')->getConfiguration()->setSQLLogger($logger);
     }
 
     /**

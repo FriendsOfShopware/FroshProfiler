@@ -8,6 +8,7 @@
         <parameter key="shyim_profiler.cache_dir">%kernel.cache_dir%/ShyimProfiler</parameter>
         <parameter key="shyim_profiler.view_dir">%shyim_profiler.plugin_dir%/Resources/views</parameter>
         <parameter key="shyim_profiler.smarty_dir">%shyim_profiler.plugin_dir%/Resources/smarty</parameter>
+        <parameter key="shyim_profiler.smarty_default_plugin_dir">%shyim_profiler.plugin_dir%/Components/Smarty/sysplugins/</parameter>
     </parameters>
 
     <services>
@@ -96,6 +97,15 @@
             <argument type="string">%shyim_profiler.cache_dir%</argument>
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="shyim_profiler.subscriber.database_profiler" class="ShyimProfiler\Subscriber\DatabaseProfiler">
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="shyim_profiler.subscriber.smarty_profiler" class="ShyimProfiler\Subscriber\SmartyProfiler">
+            <tag name="shopware.event_subscriber"/>
+            <argument>%shyim_profiler.smarty_default_plugin_dir%</argument>
         </service>
 
         <service id="shyim_profiler.current.profile" class="ShyimProfiler\Components\Struct\Profile"/>
