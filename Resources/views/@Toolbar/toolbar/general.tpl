@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="sf-toolbar-block sf-toolbar-block-time sf-toolbar-status-normal">
-    <a>
+    <a href="{url controller=profiler action=detail id=$sProfilerID panel=time}">
         <div class="sf-toolbar-icon">
             {fetchFile file="@Toolbar/_resources/svg/time.svg"}
 

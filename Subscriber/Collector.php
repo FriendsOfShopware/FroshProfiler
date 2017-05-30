@@ -107,6 +107,7 @@ class Collector implements SubscriberInterface
 
         $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->profileController);
         $profileData['response']['headers'] = $symfonyResponse->headers->all();
+        $profileData['profileTime'] = round(microtime(true) - STARTTIME, 3);
 
         $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
@@ -123,7 +124,7 @@ class Collector implements SubscriberInterface
             $view->assign('sProfiler', $profileData);
             $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
             $view->assign('sProfilerID', $this->profile->getId());
-            $view->assign('sProfilerTime', round(microtime(true) - STARTTIME, 3));
+            $view->assign('sProfilerTime', $profileData['profileTime']);
 
             $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
             $profileTemplate = $view->fetch('@Toolbar/index.tpl');

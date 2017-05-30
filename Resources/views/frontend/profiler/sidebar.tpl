@@ -10,8 +10,8 @@
                 </span>
             </a>
         </li>
-        <li class="time">
-            <a href="{url controller=profiler action=detail id=$sId panel=time}" disabled="disabled">
+        <li class="time{if $sPanel == "time"} selected{/if}">
+            <a href="{url controller=profiler action=detail id=$sId panel=time}">
                 <span class="label disabled">
                     <span class="icon">
                         {fetchFile file="@Toolbar/_resources/svg/time.svg"}
@@ -20,7 +20,7 @@
                 </span>
             </a>
         </li>
-        <li class="exception">
+        <li class="exception{if $sPanel == "exception"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=exception}">
                 <span class="label{if empty($sDetail.exception)} disabled{/if}">
                     <span class="icon">
@@ -40,7 +40,7 @@
                 </span>
             </a>
         </li>
-        <li class="events">
+        <li class="events{if $sPanel == "events"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=events}">
                 <span class="label">
                     <span class="icon">

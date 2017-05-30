@@ -1,6 +1,16 @@
-<div style="position: relative">
-    <canvas id="canvas"></canvas>
+<h2>Performance Metrics</h2>
+<div class="metrics">
+    <div class="metric">
+        <span class="value">{$sDetail.profileTime|number_format:2} <span class="unit">s</span></span>
+        <span class="label">Request Time</span>
+    </div>
+    <div class="metric">
+        <span class="value">{$sDetail.php.used_memory|convertMemory}</span>
+        <span class="label">Memory Usage</span>
+    </div>
 </div>
+
+<canvas id="canvas"></canvas>
 
 <script>
     window.onload = function () {
