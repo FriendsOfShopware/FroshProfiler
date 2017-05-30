@@ -249,9 +249,9 @@ class EventManager extends ContainerAwareEventManager
             $lis = $listener->getListener();
             $eventName = null;
             if ($listener instanceof Enlight_Event_Handler_Default) {
-                $eventName = $event . '|' . get_class($lis[0]) . ':' . $lis[1];
+                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
             } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
-                $eventName = $event . '|' . get_class($listener->Plugin()) . ':' . $lis;
+                $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
             }
             if ($eventName) {
                 $this->watch->start($eventName);
@@ -287,9 +287,9 @@ class EventManager extends ContainerAwareEventManager
             $lis = $listener->getListener();
             $eventName = null;
             if ($listener instanceof Enlight_Event_Handler_Default) {
-                $eventName = $event . '|' . get_class($lis[0]) . ':' . $lis[1];
+                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
             } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
-                $eventName = $event . '|' . get_class($listener->Plugin()) . ':' . $lis;
+                $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
             }
             if ($eventName) {
                 $this->watch->start($eventName);
