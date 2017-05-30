@@ -51,6 +51,9 @@ class ProfilerController implements SubscriberInterface
         $this->template = $template;
     }
 
+    /**
+     * @return string
+     */
     public function onProfilerController()
     {
         $this->template->addTemplateDir($this->viewDir);
