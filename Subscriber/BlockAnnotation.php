@@ -4,10 +4,16 @@ namespace ShyimProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Front;
+use Enlight_Event_EventArgs;
+use Enlight_Template_Manager;
 use Shopware\Components\Plugin\CachedConfigReader;
 use Shopware_Components_Config;
 use ShyimProfiler\Components\BlockAnnotation\BlockAnnotator;
 
+/**
+ * Class BlockAnnotation
+ * @package ShyimProfiler\Subscriber
+ */
 class BlockAnnotation implements SubscriberInterface
 {
     /**
@@ -30,6 +36,9 @@ class BlockAnnotation implements SubscriberInterface
      */
     private $templateDirConfigured = false;
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -63,11 +72,11 @@ class BlockAnnotation implements SubscriberInterface
     /**
      * PreDispatch callback for widget and frontend requests.
      *
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      *
      * @return bool
      */
-    public function onPreDispatch(\Enlight_Event_EventArgs $args)
+    public function onPreDispatch(Enlight_Event_EventArgs $args)
     {
         if (!$this->pluginConfig['frontendblocks']) {
             return;
@@ -103,7 +112,7 @@ class BlockAnnotation implements SubscriberInterface
      *
      * @param $templateManager
      */
-    private function reconfigureTemplateDirs(\Enlight_Template_Manager $templateManager)
+    private function reconfigureTemplateDirs(Enlight_Template_Manager $templateManager)
     {
         if (!$this->templateDirConfigured) {
             $compileDir = $templateManager->getCompileDir() . 'blocks/';

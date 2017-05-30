@@ -37,7 +37,7 @@ class UserCollector implements CollectorInterface
     /**
      * @param Enlight_Controller_Action $controller
      * @param Profile $profile
-     * @return array
+     * @return void
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -45,13 +45,16 @@ class UserCollector implements CollectorInterface
             'loggedin' => $this->container->get('session')->offsetGet('sUserId'),
         ];
 
-        if (!empty($result['user']['loggedin'])) {
-            $result['user'] = array_merge($result['user'], $this->container->get('Modules')->Admin()->sGetUserData());
+        if (!empty($result['loggedin'])) {
+            $result = array_merge($result, $this->container->get('Modules')->Admin()->sGetUserData());
         }
 
-        return $result;
+        $profile->setUser($result);
     }
 
+    /**
+     * @return string
+     */
     public function getToolbarTemplate()
     {
         return '@Toolbar/toolbar/user.tpl';

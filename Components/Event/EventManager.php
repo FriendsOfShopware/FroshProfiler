@@ -49,12 +49,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param string $event
-     * @param null   $eventArgs
-     *
-     * @return \Enlight_Event_EventArgs|null
-     *
-     * @throws \Enlight_Event_Exception
+     * {@inheritdoc}
      */
     public function notify($event, $eventArgs = null)
     {
@@ -68,13 +63,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param string $event
-     * @param mixed  $value
-     * @param null   $eventArgs
-     *
-     * @return mixed
-     *
-     * @throws \Enlight_Event_Exception
+     * {@inheritdoc}
      */
     public function filter($event, $value, $eventArgs = null)
     {
@@ -92,12 +81,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param string $event
-     * @param null   $eventArgs
-     *
-     * @return \Enlight_Event_EventArgs|null
-     *
-     * @throws \Enlight_Exception
+     * {@inheritdoc}
      */
     public function notifyUntil($event, $eventArgs = null)
     {
@@ -113,7 +97,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param SubscriberInterface $subscriber
+     * {@inheritdoc}
      */
     public function addSubscriber(SubscriberInterface $subscriber)
     {
@@ -131,11 +115,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $eventName
-     * @param $listener
-     * @param int $priority
-     *
-     * @return \Enlight_Event_EventManager
+     * {@inheritdoc}
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
@@ -145,13 +125,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $event
-     * @param ArrayCollection $collection
-     * @param null            $eventArgs
-     *
-     * @return ArrayCollection|null
-     *
-     * @throws \Enlight_Event_Exception
+     * {@inheritdoc}
      */
     public function collect($event, ArrayCollection $collection, $eventArgs = null)
     {
@@ -159,9 +133,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param \Enlight_Event_Handler $handler
-     *
-     * @return \Enlight_Event_EventManager
+     * {@inheritdoc}
      */
     public function registerListener(\Enlight_Event_Handler $handler)
     {
@@ -171,7 +143,7 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param \Enlight_Event_Subscriber $subscriber
+     * {@inheritdoc}
      */
     public function registerSubscriber(\Enlight_Event_Subscriber $subscriber)
     {

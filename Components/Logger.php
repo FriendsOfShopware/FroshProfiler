@@ -4,12 +4,32 @@ namespace ShyimProfiler\Components;
 
 use Shopware\Components\Logger as BaseLogger;
 
+/**
+ * Class Logger
+ * @package ShyimProfiler\Components
+ */
 class Logger extends BaseLogger
 {
+    /**
+     * @var BaseLogger
+     */
     private $parentLogger;
+
+    /**
+     * @var string
+     */
     private $channelName;
+
+    /**
+     * @var array
+     */
     private $messages = [];
 
+    /**
+     * Logger constructor.
+     * @param BaseLogger $parentLogger
+     * @param array|\Monolog\Handler\HandlerInterface[] $channelName
+     */
     public function __construct(BaseLogger $parentLogger, $channelName)
     {
         $this->channelName = ucfirst($channelName);
@@ -19,12 +39,20 @@ class Logger extends BaseLogger
         $this->messages['OTHER'] = [];
     }
 
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     */
     public function __call($name, $arguments)
     {
         return call_user_func_array([$this->parentLogger, $name], $arguments);
     }
 
-    public function addRecord($level, $message, array $context = array())
+    /**
+     * {@inheritdoc}
+     */
+    public function addRecord($level, $message, array $context = [])
     {
         $this->messages[$level > 100 ? 'OTHER' : 'DEBUG'][] = [static::getLevelName($level), $message, $context, time(), $this->channelName];
 
@@ -32,109 +60,72 @@ class Logger extends BaseLogger
     }
 
     /**
-     * Adds a log record at the DEBUG level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addDebug($message, array $context = array())
+    public function addDebug($message, array $context = [])
     {
         return $this->addRecord(static::DEBUG, $message, $context);
     }
 
     /**
-     * Adds a log record at the INFO level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addInfo($message, array $context = array())
+    public function addInfo($message, array $context = [])
     {
         return $this->addRecord(static::INFO, $message, $context);
     }
 
     /**
-     * Adds a log record at the NOTICE level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addNotice($message, array $context = array())
+    public function addNotice($message, array $context = [])
     {
         return $this->addRecord(static::NOTICE, $message, $context);
     }
 
     /**
-     * Adds a log record at the WARNING level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addWarning($message, array $context = array())
+    public function addWarning($message, array $context = [])
     {
         return $this->addRecord(static::WARNING, $message, $context);
     }
 
     /**
-     * Adds a log record at the ERROR level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addError($message, array $context = array())
+    public function addError($message, array $context = [])
     {
         return $this->addRecord(static::ERROR, $message, $context);
     }
 
     /**
-     * Adds a log record at the CRITICAL level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addCritical($message, array $context = array())
+    public function addCritical($message, array $context = [])
     {
         return $this->addRecord(static::CRITICAL, $message, $context);
     }
 
     /**
-     * Adds a log record at the ALERT level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addAlert($message, array $context = array())
+    public function addAlert($message, array $context = [])
     {
         return $this->addRecord(static::ALERT, $message, $context);
     }
 
     /**
-     * Adds a log record at the EMERGENCY level.
-     *
-     * @param string $message The log message
-     * @param array  $context The log context
-     *
-     * @return bool Whether the record has been processed
+     * {@inheritdoc}
      */
-    public function addEmergency($message, array $context = array())
+    public function addEmergency($message, array $context = [])
     {
         return $this->addRecord(static::EMERGENCY, $message, $context);
     }
 
+    /**
+     * @return array
+     */
     public function getLoggedMessages()
     {
         return $this->messages;

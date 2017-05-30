@@ -22,7 +22,7 @@ class ExceptionCollector implements CollectorInterface
     /**
      * @param Enlight_Controller_Action $controller
      * @param Profile $profile
-     * @return array
+     * @return void
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -33,6 +33,9 @@ class ExceptionCollector implements CollectorInterface
         }
     }
 
+    /**
+     * @return void
+     */
     public function getToolbarTemplate()
     {
         return;

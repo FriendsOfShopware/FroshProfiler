@@ -9,6 +9,10 @@ use RecursiveIteratorIterator;
 use Shopware_Controllers_Backend_Cache;
 use Shopware_Controllers_Backend_Performance;
 
+/**
+ * Class CacheSubscriber
+ * @package ShyimProfiler\Subscriber
+ */
 class CacheSubscriber implements SubscriberInterface
 {
     /**
@@ -21,12 +25,20 @@ class CacheSubscriber implements SubscriberInterface
      */
     private $templateDir;
 
+    /**
+     * CacheSubscriber constructor.
+     * @param string $cacheDir
+     * @param string $templateDir
+     */
     public function __construct($cacheDir, $templateDir)
     {
         $this->cacheDir = $cacheDir;
         $this->templateDir = $templateDir;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -35,7 +47,10 @@ class CacheSubscriber implements SubscriberInterface
         ];
     }
 
-    public function onPostDispatchBackendPerformance(\Enlight_Event_EventArgs $args)
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
+    public function onPostDispatchBackendPerformance(Enlight_Event_EventArgs $args)
     {
         /** @var Shopware_Controllers_Backend_Performance $subject */
         $subject = $args->getSubject();
@@ -46,6 +61,9 @@ class CacheSubscriber implements SubscriberInterface
         }
     }
 
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
     public function onPostDispatchBackendCache(Enlight_Event_EventArgs $args)
     {
         /** @var Shopware_Controllers_Backend_Cache $subject */

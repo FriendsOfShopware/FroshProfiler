@@ -3,6 +3,9 @@
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Query\QueryBuilder;
 
+/**
+ * Class Shopware_Controllers_Frontend_Profiler
+ */
 class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 {
     /**
@@ -10,11 +13,17 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
      */
     private $cache;
 
+    /**
+     * {@inheritdoc}
+     */
     public function preDispatch()
     {
         $this->cache = $this->get('shyim_profiler.cache');
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $query = $this->buildListQuery();
@@ -35,6 +44,9 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
+    /**
+     * @return void
+     */
     public function detailAction()
     {
         $id = $this->Request()->get('id');
@@ -61,12 +73,18 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         $this->View()->sPanel = $this->Request()->getParam('panel', 'request');
     }
 
+    /**
+     * @return void
+     */
     public function phpAction()
     {
         phpinfo();
         die();
     }
 
+    /**
+     * @return void
+     */
     public function mailAction()
     {
         $mode = $this->Request()->getParam('mode', 'bodyHtml');
@@ -81,6 +99,9 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
+    /**
+     * @return QueryBuilder
+     */
     private function buildListQuery()
     {
         /** @var QueryBuilder $queryBuilder */

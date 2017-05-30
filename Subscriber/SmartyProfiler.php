@@ -35,6 +35,9 @@ class SmartyProfiler implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
     public function onInitTemplate(Enlight_Event_EventArgs $args)
     {
         if (!empty($_SERVER['REQUEST_URI'])) {

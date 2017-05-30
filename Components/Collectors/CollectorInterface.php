@@ -5,6 +5,10 @@ namespace ShyimProfiler\Components\Collectors;
 use Enlight_Controller_Action;
 use ShyimProfiler\Components\Struct\Profile;
 
+/**
+ * Interface CollectorInterface
+ * @package ShyimProfiler\Components\Collectors
+ */
 interface CollectorInterface
 {
     /**

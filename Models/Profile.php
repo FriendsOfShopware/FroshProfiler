@@ -60,8 +60,6 @@ class Profile extends ModelEntity
 
     /**
      * @param string $token
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function setToken($token)
     {
@@ -78,8 +76,6 @@ class Profile extends ModelEntity
 
     /**
      * @param int $status
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function setStatus($status)
     {
@@ -87,7 +83,7 @@ class Profile extends ModelEntity
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getIp()
     {
@@ -95,9 +91,7 @@ class Profile extends ModelEntity
     }
 
     /**
-     * @param int $ip
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
+     * @param string $ip
      */
     public function setIp($ip)
     {
@@ -114,8 +108,6 @@ class Profile extends ModelEntity
 
     /**
      * @param int $method
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function setMethod($method)
     {
@@ -132,8 +124,6 @@ class Profile extends ModelEntity
 
     /**
      * @param int $url
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function setUrl($url)
     {
@@ -150,8 +140,6 @@ class Profile extends ModelEntity
 
     /**
      * @param DateTime $time
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function setTime($time)
     {

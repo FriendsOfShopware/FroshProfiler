@@ -7,15 +7,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class ProfilerCollectorCompilerPass.
- *
- * @author Soner Sayakci <s.sayakci@gmail.com>
  */
 class ProfilerCollectorCompilerPass implements CompilerPassInterface
 {
     /**
      * @param ContainerBuilder $container
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function process(ContainerBuilder $container)
     {

@@ -52,6 +52,14 @@ class Collector
      */
     private $profile;
 
+    /**
+     * Collector constructor.
+     * @param Enlight_Event_EventManager $events
+     * @param CacheProvider $cache
+     * @param CachedConfigReader $configReader
+     * @param Connection $connection
+     * @param Profile $profile
+     */
     public function __construct(
         Enlight_Event_EventManager $events,
         CacheProvider $cache,
@@ -69,8 +77,6 @@ class Collector
 
     /**
      * @param CollectorInterface $collector
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function addCollector(CollectorInterface $collector)
     {
@@ -79,8 +85,6 @@ class Collector
 
     /**
      * @return CollectorInterface[]
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function getCollectors()
     {

@@ -25,6 +25,9 @@ class DatabaseProfiler implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
     public function onInitZendConnection(\Enlight_Event_EventArgs $args)
     {
         /** @var Container $subject */

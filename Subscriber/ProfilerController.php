@@ -5,6 +5,10 @@ namespace ShyimProfiler\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager;
 
+/**
+ * Class ProfilerController
+ * @package ShyimProfiler\Subscriber
+ */
 class ProfilerController implements SubscriberInterface
 {
     /**
@@ -22,6 +26,9 @@ class ProfilerController implements SubscriberInterface
      */
     private $template;
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return [

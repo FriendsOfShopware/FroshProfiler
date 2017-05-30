@@ -37,7 +37,7 @@ class Collector implements SubscriberInterface
     private $profileController;
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
@@ -59,6 +59,9 @@ class Collector implements SubscriberInterface
         $this->profile = $profile;
     }
 
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
     public function onPostDispatch(Enlight_Event_EventArgs $args)
     {
         /** @var Enlight_Controller_Action $controller */
@@ -83,6 +86,9 @@ class Collector implements SubscriberInterface
         $this->profileController = $controller;
     }
 
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
     public function onDispatchLoopShutdown(Enlight_Event_EventArgs $args)
     {
         if ($this->profile->getId() === null || !$this->container->has('front')) {

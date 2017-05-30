@@ -21,8 +21,6 @@ class GeneralCollector implements CollectorInterface
      * GeneralCollector constructor.
      *
      * @param ContainerInterface $container
-     *
-     * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function __construct(ContainerInterface $container)
     {
