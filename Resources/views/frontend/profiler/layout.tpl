@@ -9,7 +9,7 @@
         <style>{fetchFile file="frontend/profiler/_resources/css/detail.css"}</style>
         <script src="{link file="frontend/profiler/_resources/js/Chart.bundle.js"}"></script>
     </head>
-    <body>
+    <body{if {controllerAction} === "detail" && $sPanel == "time"} class="time"{/if}>
     <div id="header">
         <div class="container">
             <h1>
@@ -28,7 +28,7 @@
                     var toggleDiv = document.getElementById(event.target.getAttribute('data-toggle-div'));
 
                     if (toggleDiv) {
-                        if (toggleDiv.style.display == 'block') {
+                        if (toggleDiv.style.display === 'block') {
                             toggleDiv.style.display = 'none';
                         } else {
                             toggleDiv.style.display = 'block';

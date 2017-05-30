@@ -22,9 +22,43 @@
 
 <canvas id="canvas"></canvas>
 
+<div id="eventsOverview" style="display: none">
+    <h2>Executed listeners for event <span id="eventName"></span></h2>
+    <table class="">
+        <thead>
+        <tr>
+            <th scope="col" class="key">Callable</th>
+            <th scope="col">Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
 <script>
+    var listeners = {$sDetail.events.eventListeners|@json_encode};
+    var eventsOverview = document.getElementById('eventsOverview');
+    var eventsTBody = eventsOverview.querySelector('tbody');
+    var eventName = document.getElementById('eventName');
     window.onload = function () {
-        var ctx = document.getElementById("canvas").getContext("2d");
+        var ct = document.getElementById("canvas");
+        var ctx = ct.getContext("2d");
+        ct.onclick = function (evt) {
+            var activePoints = window.myHorizontalBar.getElementsAtEvent(evt);
+            if (activePoints[0] && listeners[activePoints[0]._view.label] !== undefined) {
+                eventsOverview.style.display = "block";
+                eventName.innerHTML = activePoints[0]._view.label;
+
+                var html = '';
+                listeners[activePoints[0]._view.label].forEach(function (listener) {
+                    html += '<tr><td class="key">' + listener.name + '</td><td>' + listener.duration.toString() + ' ms</td></tr>';
+                });
+                eventsTBody.innerHTML = html;
+            }
+        };
+
         var chartData = {
             labels: {$sDetail.events.chartLabels|@json_encode},
             datasets: [

@@ -5,6 +5,10 @@ namespace ShyimProfiler\Components\Event;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
+use Enlight_Event_EventArgs;
+use Enlight_Event_Exception;
+use Enlight_Event_Handler_Default;
+use Enlight_Event_Handler_Plugin;
 use Shopware\Components\ContainerAwareEventManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -72,7 +76,7 @@ class EventManager extends ContainerAwareEventManager
             $this->watch->start($event);
         }
 
-        $response = parent::notify($event, $eventArgs);
+        $response = $this->parentNotify($event, $eventArgs);
 
         if ($hasListeners) {
             $this->watch->stop($event);
@@ -92,7 +96,7 @@ class EventManager extends ContainerAwareEventManager
             $this->watch->start($event);
         }
 
-        $afterValue = parent::filter($event, $value, $eventArgs);
+        $afterValue = $this->parentFilter($event, $value, $eventArgs);
 
         if ($hasListeners) {
             $this->watch->stop($event);
@@ -120,7 +124,7 @@ class EventManager extends ContainerAwareEventManager
             $this->watch->start($event);
         }
 
-        $cancel = parent::notifyUntil($event, $eventArgs);
+        $cancel = $this->parentNotifyUntil($event, $eventArgs);
 
         if ($hasListeners) {
             $this->watch->stop($event);
@@ -162,14 +166,6 @@ class EventManager extends ContainerAwareEventManager
         $this->eventsAmount++;
 
         return parent::addListener($eventName, $listener, $priority);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function collect($event, ArrayCollection $collection, $eventArgs = null)
-    {
-        return parent::collect($event, $collection, $eventArgs);
     }
 
     /**
@@ -230,5 +226,147 @@ class EventManager extends ContainerAwareEventManager
         }
 
         return $value;
+    }
+
+    /**
+     * @param $event
+     * @param null $eventArgs
+     * @return Enlight_Event_EventArgs|null
+     */
+    private function parentNotify($event, $eventArgs = null)
+    {
+        if (!$this->hasListeners($event)) {
+            return null;
+        }
+
+        $eventArgs = $this->buildEventArgs($eventArgs);
+        $eventArgs->setReturn(null);
+        $eventArgs->setName($event);
+        $eventArgs->setProcessed(false);
+
+        /** @var Enlight_Event_Handler_Plugin $listener */
+        foreach ($this->getListeners($event) as $listener) {
+            $lis = $listener->getListener();
+            $eventName = null;
+            if ($listener instanceof Enlight_Event_Handler_Default) {
+                $eventName = $event . '|' . get_class($lis[0]) . ':' . $lis[1];
+            } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
+                $eventName = $event . '|' . get_class($listener->Plugin()) . ':' . $lis;
+            }
+            if ($eventName) {
+                $this->watch->start($eventName);
+            }
+            $listener->execute($eventArgs);
+            if ($eventName) {
+                $this->watch->stop($eventName);
+            }
+        }
+        $eventArgs->setProcessed(true);
+
+        return $eventArgs;
+    }
+
+    /**
+     * @param $event
+     * @param null $eventArgs
+     * @return Enlight_Event_EventArgs|null
+     */
+    private function parentNotifyUntil($event, $eventArgs = null)
+    {
+        if (!$this->hasListeners($event)) {
+            return null;
+        }
+
+        $eventArgs = $this->buildEventArgs($eventArgs);
+        $eventArgs->setReturn(null);
+        $eventArgs->setName($event);
+        $eventArgs->setProcessed(false);
+
+        /** @var Enlight_Event_Handler_Default $listener */
+        foreach ($this->getListeners($event) as $listener) {
+            $lis = $listener->getListener();
+            $eventName = null;
+            if ($listener instanceof Enlight_Event_Handler_Default) {
+                $eventName = $event . '|' . get_class($lis[0]) . ':' . $lis[1];
+            } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
+                $eventName = $event . '|' . get_class($listener->Plugin()) . ':' . $lis;
+            }
+            if ($eventName) {
+                $this->watch->start($eventName);
+            }
+            if (null !== ($return = $listener->execute($eventArgs))
+                || $eventArgs->isProcessed()
+            ) {
+                $eventArgs->setProcessed(true);
+                $eventArgs->setReturn($return);
+            }
+            if ($eventName) {
+                $this->watch->stop($eventName);
+            }
+            if ($eventArgs->isProcessed()) {
+                return $eventArgs;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $event
+     * @param $value
+     * @param null $eventArgs
+     * @return mixed
+     */
+    public function parentFilter($event, $value, $eventArgs = null)
+    {
+        if (!$this->hasListeners($event)) {
+            return $value;
+        }
+
+        $eventArgs = $this->buildEventArgs($eventArgs);
+        $eventArgs->setReturn($value);
+        $eventArgs->setName($event);
+        $eventArgs->setProcessed(false);
+
+        /** @var Enlight_Event_Handler_Default $listener */
+        foreach ($this->getListeners($event) as $listener) {
+            $lis = $listener->getListener();
+            $eventName = null;
+            if ($listener instanceof Enlight_Event_Handler_Default) {
+                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
+            } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
+                $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
+            }
+            if ($eventName) {
+                $this->watch->start($eventName);
+            }
+            if (null !== ($return = $listener->execute($eventArgs))) {
+                $eventArgs->setReturn($return);
+            }
+            if ($eventName) {
+                $this->watch->stop($eventName);
+            }
+        }
+        $eventArgs->setProcessed(true);
+
+        return $eventArgs->getReturn();
+    }
+
+    /**
+     * @param null $eventArgs
+     * @return Enlight_Event_EventArgs|null
+     * @throws Enlight_Event_Exception
+     */
+    private function buildEventArgs($eventArgs = null)
+    {
+        if (isset($eventArgs) && is_array($eventArgs)) {
+            return new Enlight_Event_EventArgs($eventArgs);
+        } elseif (!isset($eventArgs)) {
+            return new Enlight_Event_EventArgs();
+        } elseif (!$eventArgs instanceof Enlight_Event_EventArgs) {
+            throw new Enlight_Event_Exception('Parameter "eventArgs" must be an instance of "Enlight_Event_EventArgs"');
+        }
+
+        return $eventArgs;
     }
 }
