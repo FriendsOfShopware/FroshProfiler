@@ -23,4 +23,6 @@ Required Minimum Shopware Version 5.2
 * Run command `composer require shyim/shopware-profiler` and install and active plugin with Plugin Manager 
 
 # Images
-![toolbar](http://i.imgur.com/1F5d8jj.jpg)
+![Browser Toolbar](http://i.imgur.com/1F5d8jj.jpg)
+
+![Performance Profiling](http://i.imgur.com/3eUWwQ3.png)
