@@ -20,7 +20,7 @@ class DatabaseProfiler implements SubscriberInterface
     {
         return [
            'Enlight_Bootstrap_AfterInitResource_models' => 'onInitDoctrineModels',
-           'Enlight_Bootstrap_AfterInitResource_db' => 'onInitZendConnection'
+           'Enlight_Bootstrap_AfterInitResource_db'     => 'onInitZendConnection'
         ];
     }
 
