@@ -7,6 +7,7 @@ use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
 use Shopware\Components\ContainerAwareEventManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class EventManager
@@ -35,12 +36,18 @@ class EventManager extends ContainerAwareEventManager
     private $xdebugDepth = 0;
 
     /**
+     * @var Stopwatch
+     */
+    private $watch;
+
+    /**
      * EventManager constructor.
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
+        $this->watch = new Stopwatch();
         $this->xdebugInstalled = extension_loaded('xdebug');
 
         if ($this->xdebugInstalled) {
@@ -53,13 +60,25 @@ class EventManager extends ContainerAwareEventManager
      */
     public function notify($event, $eventArgs = null)
     {
+        $hasListeners = $this->hasListeners($event);
+
         $this->calledEvents[] = [
             'type' => 'notify',
             'name' => $event,
             'args' => $this->dump($eventArgs)
         ];
 
-        return parent::notify($event, $eventArgs);
+        if ($hasListeners) {
+            $this->watch->start($event);
+        }
+
+        $response = parent::notify($event, $eventArgs);
+
+        if ($hasListeners) {
+            $this->watch->stop($event);
+        }
+
+        return $response;
     }
 
     /**
@@ -67,7 +86,17 @@ class EventManager extends ContainerAwareEventManager
      */
     public function filter($event, $value, $eventArgs = null)
     {
+        $hasListeners = $this->hasListeners($event);
+
+        if ($hasListeners) {
+            $this->watch->start($event);
+        }
+
         $afterValue = parent::filter($event, $value, $eventArgs);
+
+        if ($hasListeners) {
+            $this->watch->stop($event);
+        }
 
         $this->calledEvents[] = [
             'type' => 'filter',
@@ -85,7 +114,18 @@ class EventManager extends ContainerAwareEventManager
      */
     public function notifyUntil($event, $eventArgs = null)
     {
+        $hasListeners = $this->hasListeners($event);
+
+        if ($hasListeners) {
+            $this->watch->start($event);
+        }
+
         $cancel = parent::notifyUntil($event, $eventArgs);
+
+        if ($hasListeners) {
+            $this->watch->stop($event);
+        }
+
         $this->calledEvents[] = [
             'type'   => 'notifyUntil',
             'name'   => $event,
@@ -119,7 +159,7 @@ class EventManager extends ContainerAwareEventManager
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
-        ++$this->eventsAmount;
+        $this->eventsAmount++;
 
         return parent::addListener($eventName, $listener, $priority);
     }
@@ -137,7 +177,7 @@ class EventManager extends ContainerAwareEventManager
      */
     public function registerListener(\Enlight_Event_Handler $handler)
     {
-        ++$this->eventsAmount;
+        $this->eventsAmount++;
 
         return parent::registerListener($handler);
     }
@@ -168,6 +208,14 @@ class EventManager extends ContainerAwareEventManager
     public function getCalledEvents()
     {
         return $this->calledEvents;
+    }
+
+    /**
+     * @return Stopwatch
+     */
+    public function getStopWatch()
+    {
+        return $this->watch;
     }
 
     /**
