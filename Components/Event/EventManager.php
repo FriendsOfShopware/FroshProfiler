@@ -55,7 +55,7 @@ class EventManager extends ContainerAwareEventManager
         $this->xdebugInstalled = extension_loaded('xdebug');
 
         if ($this->xdebugInstalled) {
-            $this->xdebugDepth = ini_get('xdebug.var_display_max_depth');
+            $this->xdebugDepth = (int) ini_get('xdebug.var_display_max_depth');
         }
     }
 
@@ -253,11 +253,11 @@ class EventManager extends ContainerAwareEventManager
             } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
                 $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
             }
-            if ($eventName) {
+            if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
             $listener->execute($eventArgs);
-            if ($eventName) {
+            if ($eventName !== null) {
                 $this->watch->stop($eventName);
             }
         }
@@ -291,7 +291,7 @@ class EventManager extends ContainerAwareEventManager
             } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
                 $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
             }
-            if ($eventName) {
+            if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
             if (null !== ($return = $listener->execute($eventArgs))
@@ -300,7 +300,7 @@ class EventManager extends ContainerAwareEventManager
                 $eventArgs->setProcessed(true);
                 $eventArgs->setReturn($return);
             }
-            if ($eventName) {
+            if ($eventName !== null) {
                 $this->watch->stop($eventName);
             }
             if ($eventArgs->isProcessed()) {
@@ -337,13 +337,13 @@ class EventManager extends ContainerAwareEventManager
             } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
                 $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
             }
-            if ($eventName) {
+            if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
             if (null !== ($return = $listener->execute($eventArgs))) {
                 $eventArgs->setReturn($return);
             }
-            if ($eventName) {
+            if ($eventName !== null) {
                 $this->watch->stop($eventName);
             }
         }

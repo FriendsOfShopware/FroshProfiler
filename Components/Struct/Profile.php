@@ -32,7 +32,7 @@ class Profile implements JsonSerializable
     private $templateBlockCalls = 0;
 
     /**
-     * @var int
+     * @var double
      */
     private $templateRenderTime = 0;
 

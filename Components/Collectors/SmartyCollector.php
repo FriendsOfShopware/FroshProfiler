@@ -39,10 +39,10 @@ class SmartyCollector implements CollectorInterface
             'start_time'   => $smarty->start_time,
         ];
 
-        // Catch "Template was not loaded failure" Exception
         try {
             $result['template'] = explode('|', $controller->View()->Template()->template_resource);
         } catch (Enlight_Exception $e) {
+            // Catch "Template was not loaded failure" Exception
         }
 
         $profile->setTemplate($result);

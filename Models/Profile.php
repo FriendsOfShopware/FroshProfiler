@@ -27,7 +27,7 @@ class Profile extends ModelEntity
     private $status;
 
     /**
-     * @var int
+     * @var string
      * @ORM\Column(name="ip", type="string", nullable=false)
      */
     private $ip;
