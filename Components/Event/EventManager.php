@@ -2,7 +2,6 @@
 
 namespace ShyimProfiler\Components\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
