@@ -10,6 +10,7 @@ use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware\Components\Plugin\Context\UpdateContext;
 use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
+use ShyimProfiler\Components\CompilerPass\CustomCacheCompilerPass;
 use ShyimProfiler\Components\CompilerPass\CustomEventService;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use ShyimProfiler\Models\Profile;
@@ -71,6 +72,7 @@ class ShyimProfiler extends Plugin
         $container->addCompilerPass(new CustomEventService());
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
+        $container->addCompilerPass(new CustomCacheCompilerPass());
     }
 
     /**

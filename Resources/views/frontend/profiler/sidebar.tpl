@@ -50,6 +50,16 @@
                 </span>
             </a>
         </li>
+        <li class="cache{if $sPanel == "cache"} selected{/if}">
+            <a href="{url controller=profiler action=detail id=$sId panel=cache}">
+                <span class="label">
+                    <span class="icon">
+                        {fetchFile file="@Toolbar/_resources/svg/cache.svg"}
+                    </span>
+                    <strong>Cache</strong>
+                </span>
+            </a>
+        </li>
         <li class="security{if $sPanel == "security"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=security}">
                 <span class="label">

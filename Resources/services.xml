@@ -56,6 +56,11 @@
             <tag name="profiler.collector"/>
         </service>
 
+        <service id="shyim_profiler.collectors.cache" class="ShyimProfiler\Components\Collectors\CacheCollector" public="false">
+            <argument type="service" id="cache"/>
+            <tag name="profiler.collector"/>
+        </service>
+
         <service id="shyim_profiler.collectors.db" class="ShyimProfiler\Components\Collectors\DBCollector" public="false">
             <argument type="service" id="db"/>
             <argument type="service" id="models"/>

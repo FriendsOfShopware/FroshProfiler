@@ -209,7 +209,7 @@ class Profile implements JsonSerializable
      */
     public function setAttributes(array $attributes)
     {
-        $this->attributes = $attributes;
+        $this->attributes = $attributes + $this->attributes;
     }
 
     /**
