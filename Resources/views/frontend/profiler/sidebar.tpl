@@ -50,6 +50,16 @@
                 </span>
             </a>
         </li>
+        <li class="security{if $sPanel == "security"} selected{/if}">
+            <a href="{url controller=profiler action=detail id=$sId panel=security}">
+                <span class="label">
+                    <span class="icon">
+                        {fetchFile file="@Toolbar/_resources/svg/person.svg"}
+                    </span>
+                    <strong>Security</strong>
+                </span>
+            </a>
+        </li>
         <li class="twig{if $sPanel == "template"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=template}">
                 <span class="label">
@@ -66,7 +76,7 @@
                     <span class="icon">
                         {fetchFile file="@Toolbar/_resources/svg/database.svg"}
                     </span>
-                    <strong>Database</strong>
+                    <strong>Database ({$sDetail.db.sqls|count})</strong>
                 </span>
             </a>
         </li>

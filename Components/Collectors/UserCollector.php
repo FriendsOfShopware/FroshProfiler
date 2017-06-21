@@ -46,8 +46,18 @@ class UserCollector implements CollectorInterface
         ];
 
         if (!empty($result['loggedin'])) {
-            $result = array_merge($result, $this->container->get('Modules')->Admin()->sGetUserData());
+            $userData = $this->container->get('Modules')->Admin()->sGetUserData();
+            $result = array_merge($result, $userData);
+            $result['data'] = $userData;
         }
+
+        $encoders = [];
+
+        foreach ($this->container->get('PasswordEncoder')->getCompatibleEncoders() as $compatibleEncoder) {
+            $encoders[] = get_class($compatibleEncoder);
+        }
+
+        $result['encoders'] = $encoders;
 
         $profile->setUser($result);
     }
