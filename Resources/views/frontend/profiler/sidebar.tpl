@@ -12,7 +12,7 @@
         </li>
         <li class="time{if $sPanel == "time"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=time}">
-                <span class="label disabled">
+                <span class="label">
                     <span class="icon">
                         {fetchFile file="@Toolbar/_resources/svg/time.svg"}
                     </span>

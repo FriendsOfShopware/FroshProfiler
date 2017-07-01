@@ -19,6 +19,7 @@
 </div>
 
 <h2>Event Chart</h2>
+<small>Press to a chart bar for more informations</small>
 
 <canvas id="canvas"></canvas>
 
