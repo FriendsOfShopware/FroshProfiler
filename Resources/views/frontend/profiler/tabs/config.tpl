@@ -63,20 +63,53 @@
     <a href="{url controller=profiler action=php}">View full PHP configuration</a>
 </p>
 
-<h2>Enabled Bundles <small>({$sDetail.bundles|count})</small></h2>
-<table>
-    <thead>
-        <tr>
-            <th class="key">Name</th>
-            <th>Path</th>
-        </tr>
-    </thead>
-    <tbody>
-        {foreach from=$sDetail.bundles item=bundle}
-            <tr>
-                <th scope="row" class="font-normal">{$bundle[0]}</th>
-                <td class="font-normal">{$bundle[1]}</td>
-            </tr>
-        {/foreach}
-    </tbody>
-</table>
+<div class="sf-tabs">
+    <div class="tab">
+        <h3 class="tab-title">Enabled Bundles ({$sDetail.bundles|count})</h3>
+        <div class="tab-content">
+            <table>
+                <thead>
+                <tr>
+                    <th class="key">Name</th>
+                    <th>Path</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach from=$sDetail.bundles item=bundle}
+                    <tr>
+                        <th scope="row" class="font-normal">{$bundle[0]}</th>
+                        <td class="font-normal">{$bundle[1]}</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab">
+        <h3 class="tab-title">Container parameters ({$sDetail.config|count})</h3>
+        <div class="tab-content">
+            <table>
+                <thead>
+                <tr>
+                    <th class="key">Name</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach from=$sDetail.config key=key item=value}
+                    <tr>
+                        <th scope="row" class="font-normal">{$key}</th>
+                        <td class="font-normal">
+                            {if is_array($value)}
+                                {$value|dump}
+                            {else}
+                                {$value}
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
