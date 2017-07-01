@@ -119,7 +119,7 @@ class Cache extends Zend_Cache_Core
         // automatic cleaning
         if ($this->_options['automatic_cleaning_factor'] > 0) {
             $rand = rand(1, $this->_options['automatic_cleaning_factor']);
-            if ($rand==1) {
+            if ($rand == 1) {
                 //  new way                 || deprecated way
                 if ($this->_extendedBackend || method_exists($this->_backend, 'isAutomaticCleaningAvailable')) {
                     $this->_log("Zend_Cache_Core::save(): automatic cleaning running", 7);
@@ -156,7 +156,7 @@ class Cache extends Zend_Cache_Core
 
         if ($this->_options['write_control']) {
             $data2 = $this->_backend->load($id, true);
-            if ($data!=$data2) {
+            if ($data != $data2) {
                 $this->_log("Zend_Cache_Core::save(): write control of item '{$id}' failed -> removing it", 4);
                 $this->_backend->remove($id);
                 return false;

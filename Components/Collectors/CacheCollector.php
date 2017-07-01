@@ -46,14 +46,14 @@ class CacheCollector implements CollectorInterface
     {
         $profile->setAttributes([
             'cache' => [
-                'calls' => $this->cache->calls,
-                'read' => $this->cache->read,
-                'write' => $this->cache->write,
-                'delete' => $this->cache->delete,
-                'hit' => $this->cache->hit,
+                'calls'     => $this->cache->calls,
+                'read'      => $this->cache->read,
+                'write'     => $this->cache->write,
+                'delete'    => $this->cache->delete,
+                'hit'       => $this->cache->hit,
                 'hitMissed' => $this->cache->hitMissed,
-                'time' => $this->cache->time,
-                'backend' => get_class($this->cache->getBackend())
+                'time'      => $this->cache->time,
+                'backend'   => get_class($this->cache->getBackend())
             ]
         ]);
     }

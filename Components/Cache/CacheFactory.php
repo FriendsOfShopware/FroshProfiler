@@ -2,7 +2,6 @@
 
 namespace ShyimProfiler\Components\Cache;
 
-
 class CacheFactory
 {
     /**
