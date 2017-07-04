@@ -37,7 +37,6 @@
     </table>
 </div>
 
-
 <script>
     var listeners = {$sDetail.events.eventListeners|@json_encode};
     var eventsOverview = document.getElementById('eventsOverview');
