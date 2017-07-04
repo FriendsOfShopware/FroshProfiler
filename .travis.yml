@@ -39,7 +39,7 @@ script:
   - composer test
 
 after_success:
-  - ./build.sh
+  - ./build.sh $TRAVIS_TAG
 
 matrix:
   allow_failures:
