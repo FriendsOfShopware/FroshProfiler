@@ -8,4 +8,74 @@
     <license>MIT</license>
     <link>https://github.com/shyim/shopware-profiler</link>
     <author>Shyim</author>
+    <changelog version="1.0.6">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Performance optimization <a href="https://github.com/shyim/shopware-profiler/issues/27">#27</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.0.7">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Allow local development <a href="https://github.com/shyim/shopware-profiler/issues/29">#29</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.0.8">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Fixed usage on localhost <a href="https://github.com/shyim/shopware-profiler/issues/29">#29</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.0.9">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Cache folder very big <a href="https://github.com/shyim/shopware-profiler/issues/30">#30</a></li>
+                <li>Profiler breaks controller auto-registration <a href="https://github.com/shyim/shopware-profiler/issues/38">#38</a></li>
+                <li>html comments in robots.txt <a href="https://github.com/shyim/shopware-profiler/issues/37">#37</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.0.10">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Template error with Shopware Premium Plugin "SwagFuzzy" <a href="https://github.com/shyim/shopware-profiler/issues/44">#44</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.0.11">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Plugin overwrites my xdebug.var_display_max_depth <a href="https://github.com/shyim/shopware-profiler/issues/45">#45</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.1.0">
+        <changes lang="en">
+            <![CDATA[
+                <h4>Performance Event Charts 🎉</h4>
+                <ul>
+                <li>Added event charts to show which events needs how long to execute</li>
+                <li>Added overview of cache read/write/delete and a hit/miss metric</li>
+                <li>Added new sidebar of security with all user informations and password encoders</li>
+                <li>Added overview of container parameters to "Configuration" tab</li>
+                <li>Added search form to developers.shopware.com</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
 </plugin>
