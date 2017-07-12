@@ -37,7 +37,8 @@ class BlockAnnotator
         'frontend_robots_txt_disallows',
         'frontend_robots_txt_allows',
         'frontend_robots_txt_sitemap',
-        'frontend_robots_txt_sitemap_mobile'
+        'frontend_robots_txt_sitemap_mobile',
+        'frontend_index_body_attributes'
     ];
 
     /**

@@ -13,6 +13,7 @@ use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
 use ShyimProfiler\Components\CompilerPass\CustomCacheCompilerPass;
 use ShyimProfiler\Components\CompilerPass\CustomEventService;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
+use ShyimProfiler\Components\CompilerPass\SmartySecurityCompilerPass;
 use ShyimProfiler\Models\Profile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -73,6 +74,7 @@ class ShyimProfiler extends Plugin
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
         $container->addCompilerPass(new CustomCacheCompilerPass());
+        $container->addCompilerPass(new SmartySecurityCompilerPass());
     }
 
     /**
