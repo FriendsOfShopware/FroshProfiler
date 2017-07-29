@@ -24,7 +24,7 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
     {
         parent::setUp();
 
-        $this->pluginConfig = Shopware()->Container()->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
+        $this->pluginConfig = Shopware()->Container()->get('shyim_profiler.config');
         $this->cache = Shopware()->Container()->get('shyim_profiler.cache');
         $this->connection = Shopware()->Container()->get('dbal_connection');
         $this->dispatch('/');

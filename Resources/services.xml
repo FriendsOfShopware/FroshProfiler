@@ -15,9 +15,9 @@
         <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector">
             <argument type="service" id="events" />
             <argument type="service" id="shyim_profiler.cache" />
-            <argument type="service" id="shopware.plugin.cached_config_reader"/>
             <argument type="service" id="dbal_connection"/>
             <argument type="service" id="shyim_profiler.current.profile"/>
+            <argument type="service" id="shyim_profiler.config"/>
         </service>
 
         <service id="shyim_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
@@ -76,10 +76,16 @@
             <tag name="profiler.collector"/>
         </service>
 
+        <service id="shyim_profiler.config" class="Shopware\Components\Plugin\CachedConfigReader">
+            <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
+            <argument type="string">ShyimProfiler</argument>
+        </service>
+
         <!-- Event Subscriber -->
         <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />
             <argument type="service" id="shyim_profiler.current.profile"/>
+            <argument type="service" id="shyim_profiler.config"/>
             <tag name="shopware.event_subscriber" />
         </service>
 
@@ -92,7 +98,7 @@
 
         <service id="shyim_profiler.subscriber.block_annotation" class="ShyimProfiler\Subscriber\BlockAnnotation">
             <argument type="service" id="config"/>
-            <argument type="service" id="shopware.plugin.cached_config_reader"/>
+            <argument type="service" id="shyim_profiler.config"/>
             <argument type="service" id="shyim_profiler.block_annotator"/>
             <argument type="service" id="front"/>
             <tag name="shopware.event_subscriber"/>

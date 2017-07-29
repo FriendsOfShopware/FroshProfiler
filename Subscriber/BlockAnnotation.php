@@ -49,19 +49,19 @@ class BlockAnnotation implements SubscriberInterface
 
     /**
      * @param Shopware_Components_Config $config
-     * @param CachedConfigReader         $cachedConfigReader
-     * @param BlockAnnotator             $blockAnnotator
-     * @param Enlight_Controller_Front   $front
+     * @param array $pluginConfig
+     * @param BlockAnnotator $blockAnnotator
+     * @param Enlight_Controller_Front $front
      */
     public function __construct(
         Shopware_Components_Config $config,
-        CachedConfigReader $cachedConfigReader,
+        array $pluginConfig,
         BlockAnnotator $blockAnnotator,
         Enlight_Controller_Front $front
     ) {
         $this->config = $config;
         $this->blockAnnotator = $blockAnnotator;
-        $this->pluginConfig = $cachedConfigReader->getByPluginName('ShyimProfiler');
+        $this->pluginConfig = $pluginConfig;
 
         // Disable frontend blocks, if ip is not whitelisted
         if (!empty($this->pluginConfig['whitelistIP']) && !in_array($front->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']))) {

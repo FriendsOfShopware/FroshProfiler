@@ -51,12 +51,14 @@ class Collector implements SubscriberInterface
 
     /**
      * @param ContainerInterface $container
+     * @param Profile $profile
+     * @param array $pluginConfig
      */
-    public function __construct(ContainerInterface $container, Profile $profile)
+    public function __construct(ContainerInterface $container, Profile $profile, array $pluginConfig)
     {
         $this->container = $container;
-        $this->pluginConfig = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('ShyimProfiler');
         $this->profile = $profile;
+        $this->pluginConfig = $pluginConfig;
     }
 
     /**
@@ -68,9 +70,9 @@ class Collector implements SubscriberInterface
         $controller = $args->getSubject();
 
         if (
-            strtolower($controller->Request()->getControllerName()) == 'profiler' ||
-            strtolower($controller->Request()->getControllerName()) == 'media' ||
-            strtolower($controller->Request()->getControllerName()) == 'csrftoken' ||
+            strtolower($controller->Request()->getControllerName()) === 'profiler' ||
+            strtolower($controller->Request()->getControllerName()) === 'media' ||
+            strtolower($controller->Request()->getControllerName()) === 'csrftoken' ||
             $this->profile->getId()
         ) {
             return;

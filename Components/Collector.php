@@ -56,21 +56,21 @@ class Collector
      * Collector constructor.
      * @param Enlight_Event_EventManager $events
      * @param CacheProvider $cache
-     * @param CachedConfigReader $configReader
      * @param Connection $connection
      * @param Profile $profile
+     * @param array $pluginConfig
      */
     public function __construct(
         Enlight_Event_EventManager $events,
         CacheProvider $cache,
-        CachedConfigReader $configReader,
         Connection $connection,
-        Profile $profile
+        Profile $profile,
+        array $pluginConfig
     ) {
         $this->events = $events;
         $this->cache = $cache;
         $this->normalizer = new NormalizerFormatter();
-        $this->pluginConfig = $configReader->getByPluginName('ShyimProfiler');
+        $this->pluginConfig = $pluginConfig;
         $this->connection = $connection;
         $this->profile = $profile;
     }
