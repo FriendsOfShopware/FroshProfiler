@@ -59,12 +59,21 @@ class BlockAnnotator
 
             $file = '';
 
+
             if ($pluginConfig['frontendblocksTemplate']) {
+                $templateResources = explode('|', $template->template_resource);
+
                 $currentFile = $template->_current_file;
 
-                if (strpos($currentFile, 'frontend/plugins/seo/index.tpl') !== false) {
-                    $currentFile = explode('|', $template->template_resource)[0];
+                // smarty eval
+                if (0 === strpos($templateResources[0], 'string:')) {
+                    $templateResources = [];
                 }
+
+                if (count($templateResources) > 1 && strpos($currentFile, $templateResources[0]) === false) {
+                    $currentFile = $templateResources[0];
+                }
+
                 $file = ', File: ' . $currentFile;
             }
 
