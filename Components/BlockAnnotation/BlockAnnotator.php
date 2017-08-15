@@ -1,6 +1,7 @@
 <?php
 
 namespace ShyimProfiler\Components\BlockAnnotation;
+use Doctrine\Common\Util\Debug;
 
 /**
  * BlockAnnotator annotates smarty block with HTML comments, so you can tell which content belongs to which block.
@@ -59,7 +60,12 @@ class BlockAnnotator
             $file = '';
 
             if ($pluginConfig['frontendblocksTemplate']) {
-                $file = ', File: ' . $template->_current_file;
+                $currentFile = $template->_current_file;
+
+                if (strpos($currentFile, 'frontend/plugins/seo/index.tpl') !== false) {
+                    $currentFile = explode('|', $template->template_resource)[0];
+                }
+                $file = ', File: ' . $currentFile;
             }
 
             $info = $block['name'];
