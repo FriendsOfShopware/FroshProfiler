@@ -32,7 +32,6 @@ class BlockAnnotator
      */
     protected $blacklist = [
         'frontend_index_header_title',
-        'frontend_index_body_classes',
         'frontend_robots_txt',
         'frontend_robots_txt_user_agent',
         'frontend_robots_txt_disallows',
@@ -53,6 +52,7 @@ class BlockAnnotator
         foreach ($this->blockSplitter->split($source) as $block) {
             if (in_array($block['name'], $this->blacklist) ||
                 strpos($block['name'], '/attributes') !== false ||
+                strpos($block['name'], '/classes') !== false ||
                 strpos($block['name'], 'frontend_index_search_similar_results_') !== false) {
                 continue;
             }
