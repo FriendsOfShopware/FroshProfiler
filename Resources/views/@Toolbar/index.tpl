@@ -1,3 +1,28 @@
+{if !empty($sUsedSnippets)}
+    {literal}
+    <a class="btn is--primary btn-snippet-fixed" href="#" onclick="$.modal.open($('#usedSnippets').html(), {width: $(window).width(), height: $(window).height() - 100, title: 'Used snippets'}); return false;">{/literal}Used snippets on this site ({$sUsedSnippets|count})</a>
+    <div id="usedSnippets" style="display: none">
+        <table class="table-fill">
+            <thead>
+            <tr>
+                <td>Namespace</td>
+                <td>Name</td>
+                <td>Content</td>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach from=$sUsedSnippets item=snippet}
+                <tr>
+                    <td>{$snippet.namespace}</td>
+                    <td>{$snippet.name}</td>
+                    <td>{$snippet.content}</td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+{/if}
+
 <style>{fetchFile file="@Toolbar/_resources/css/toolbar.css"}</style>
 <div class="sf-toolbarreset clear-fix">
     {foreach from=$sProfilerCollectors item=sProfilerCollector}

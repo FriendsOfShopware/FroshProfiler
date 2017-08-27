@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">ShyimProfiler</label>
     <label lang="en">ShyimProfiler</label>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <copyright>Shyim</copyright>
     <license>MIT</license>
     <link>https://github.com/shyim/shopware-profiler</link>
@@ -87,4 +87,19 @@
             ]]>
         </changes>
     </changelog>
+    <changelog version="1.1.2">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                <li>Added overview of used snippets per page</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <description>
+        <![CDATA[
+            <b>Notice to used snippets</b>
+            <p>Used snippets will be only displayed when no template cache is available. You can also disable template caching in our config.php see like <a href="https://developers.shopware.com/developers-guide/shopware-config/#template">https://developers.shopware.com/developers-guide/shopware-config/#template</a></p>
+        ]]>
+    </description>
 </plugin>

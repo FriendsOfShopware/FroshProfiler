@@ -134,5 +134,11 @@
             <argument type="service" id="shyim_profiler.decoration.debuglogger.inner"/>
             <argument type="string">Debuglogger</argument>
         </service>
+
+        <service id="snippet_resource"
+                 class="ShyimProfiler\Components\Smarty\SnippetResource">
+            <argument type="service" id="snippets"/>
+            <argument>%shopware.snippet.showSnippetPlaceholder%</argument>
+        </service>
     </services>
 </container>

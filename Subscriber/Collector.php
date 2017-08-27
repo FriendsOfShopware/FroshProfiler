@@ -127,6 +127,7 @@ class Collector implements SubscriberInterface
             $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
             $view->assign('sProfilerID', $this->profile->getId());
             $view->assign('sProfilerTime', $profileData['profileTime']);
+            $view->assign('sUsedSnippets', $this->container->get('snippet_resource')->getUsedSnippets());
 
             $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
             $profileTemplate = $view->fetch('@Toolbar/index.tpl');
