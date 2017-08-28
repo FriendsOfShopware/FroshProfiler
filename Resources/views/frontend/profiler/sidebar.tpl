@@ -20,6 +20,16 @@
                 </span>
             </a>
         </li>
+        <li class="time{if $sPanel == "forms"} selected{/if}">
+            <a href="{url controller=profiler action=detail id=$sId panel=forms}">
+                <span class="label{if empty($sDetail.forms)} disabled{/if}">
+                    <span class="icon">
+                        {fetchFile file="@Toolbar/_resources/svg/form.svg"}
+                    </span>
+                    <strong>Forms</strong>
+                </span>
+            </a>
+        </li>
         <li class="exception{if $sPanel == "exception"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=exception}">
                 <span class="label{if empty($sDetail.exception)} disabled{/if}">

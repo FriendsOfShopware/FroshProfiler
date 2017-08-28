@@ -76,6 +76,10 @@
             <tag name="profiler.collector"/>
         </service>
 
+        <service id="shyim_profiler.collectors.forms" class="ShyimProfiler\Components\Collectors\FormCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
         <service id="shyim_profiler.config" class="Shopware\Components\Plugin\CachedConfigReader">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
             <argument type="string">ShyimProfiler</argument>
@@ -139,6 +143,18 @@
                  class="ShyimProfiler\Components\Smarty\SnippetResource">
             <argument type="service" id="snippets"/>
             <argument>%shopware.snippet.showSnippetPlaceholder%</argument>
+        </service>
+
+        <service id="shyim_profiler.forms.data_extractor"
+                 class="Symfony\Component\Form\Extension\DataCollector\FormDataExtractor"/>
+
+        <service id="shyim_profiler.forms.data_collector" class="Symfony\Component\Form\Extension\DataCollector\FormDataCollector">
+            <argument type="service" id="shyim_profiler.forms.data_extractor"/>
+        </service>
+
+        <service id="shyim_profiler.forms.form_listener" class="ShyimProfiler\Components\FormListener" decorates="shopware.form.extension.event">
+            <argument type="service" id="shyim_profiler.forms.form_listener.inner"/>
+            <argument type="service" id="shyim_profiler.forms.data_collector"/>
         </service>
     </services>
 </container>
