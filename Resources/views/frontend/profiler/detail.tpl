@@ -2,7 +2,7 @@
 
 {block name="content"}
     <div id="summary">
-        <div class="status {if $sDetail.response.httpResponse == 200}status-success{else}status-error{/if}">
+        <div class="status {if $sDetail.response.httpResponse == 200 || $sDetail.response.httpResponse == 302}status-success{else}status-error{/if}">
             <div class="container">
                 <h2 class="break-long-words">
                     <a href="{$sDetail.request.url}">{$sDetail.request.url}</a>

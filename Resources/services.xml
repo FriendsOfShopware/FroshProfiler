@@ -152,9 +152,9 @@
             <argument type="service" id="shyim_profiler.forms.data_extractor"/>
         </service>
 
-        <service id="shyim_profiler.forms.form_listener" class="ShyimProfiler\Components\FormListener" decorates="shopware.form.extension.event">
-            <argument type="service" id="shyim_profiler.forms.form_listener.inner"/>
+        <service id="shyim_profiler.forms.form_listener" class="ShyimProfiler\Components\FormListener">
             <argument type="service" id="shyim_profiler.forms.data_collector"/>
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
         </service>
     </services>
 </container>

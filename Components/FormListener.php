@@ -3,8 +3,6 @@
 
 namespace ShyimProfiler\Components;
 
-
-use Shopware\Bundle\FormBundle\Extension\EventExtension;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\DataCollector\FormDataCollectorInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,12 +12,6 @@ use Symfony\Component\Form\FormEvents;
 class FormListener extends AbstractTypeExtension
 {
     /**
-     * @var EventExtension
-     * @author Soner Sayakci <s.sayakci@gmail.com>
-     */
-    private $eventExtension;
-
-    /**
      * @var FormDataCollectorInterface
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
@@ -27,13 +19,11 @@ class FormListener extends AbstractTypeExtension
 
     /**
      * FormListener constructor.
-     * @param EventExtension $eventExtension
      * @param FormDataCollectorInterface $formDataCollector
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
-    public function __construct(EventExtension $eventExtension, FormDataCollectorInterface $formDataCollector)
+    public function __construct(FormDataCollectorInterface $formDataCollector)
     {
-        $this->eventExtension = $eventExtension;
         $this->dataCollector = $formDataCollector;
     }
 
@@ -47,7 +37,6 @@ class FormListener extends AbstractTypeExtension
     {
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'postSetData'], 255);
         $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'postSubmit'], -255);
-        $this->eventExtension->buildForm($builder, $options);
     }
 
 
