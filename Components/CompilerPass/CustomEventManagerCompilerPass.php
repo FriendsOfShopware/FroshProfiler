@@ -7,10 +7,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ShyimProfiler\Components\Event\EventManager;
 
 /**
- * Class CustomEventService
+ * Class CustomEventManagerCompilerPass
  * @package ShyimProfiler\Components\CompilerPass
  */
-class CustomEventService implements CompilerPassInterface
+class CustomEventManagerCompilerPass implements CompilerPassInterface
 {
     /**
      * @param ContainerBuilder $container

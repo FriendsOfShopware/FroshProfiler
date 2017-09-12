@@ -2,7 +2,6 @@
 
 namespace ShyimProfiler;
 
-use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\ORM\Tools\SchemaTool;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
@@ -11,9 +10,8 @@ use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware\Components\Plugin\Context\UpdateContext;
 use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
 use ShyimProfiler\Components\CompilerPass\CustomCacheCompilerPass;
-use ShyimProfiler\Components\CompilerPass\CustomEventService;
+use ShyimProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
 use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
-use ShyimProfiler\Components\CompilerPass\SmartySecurityCompilerPass;
 use ShyimProfiler\Models\Profile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -70,7 +68,7 @@ class ShyimProfiler extends Plugin
 
         parent::build($container);
 
-        $container->addCompilerPass(new CustomEventService());
+        $container->addCompilerPass(new CustomEventManagerCompilerPass());
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
         $container->addCompilerPass(new CustomCacheCompilerPass());
