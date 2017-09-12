@@ -22,7 +22,7 @@
         </li>
         <li class="time{if $sPanel == "forms"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=forms}">
-                <span class="label{if empty($sDetail.forms)} disabled{/if}">
+                <span class="label{if empty($sDetail.forms.forms)} disabled{/if}">
                     <span class="icon">
                         {fetchFile file="@Toolbar/_resources/svg/form.svg"}
                     </span>
