@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">ShyimProfiler</label>
     <label lang="en">ShyimProfiler</label>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
     <copyright>Shyim</copyright>
     <license>MIT</license>
     <link>https://github.com/shyim/shopware-profiler</link>
@@ -101,6 +101,15 @@
             <![CDATA[
                 <ul>
                     <li>Added support for symfony forms collector</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.1.4">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Added new configuration option to log javascript events</li>
                 </ul>
             ]]>
         </changes>

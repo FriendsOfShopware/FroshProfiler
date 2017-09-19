@@ -5,19 +5,16 @@
         <element type="boolean">
             <name>frontendblocks</name>
             <label>Show smarty blocks as HTML comments on page source code</label>
-            <label lang="de">Zeige Smarty Blöcke als HTML Kommentare an</label>
             <value>1</value>
         </element>
         <element type="boolean">
             <name>frontendblocksTemplate</name>
             <label>Show template file in html comment</label>
-            <label lang="de">Zeige Template Pfad im HTML Kommentar</label>
             <value>1</value>
         </element>
         <element type="textarea">
             <name>whitelistIP</name>
             <label>Whitelist for Toolbar</label>
-            <label lang="de">Whitelist für die Toolbar</label>
             <options>
                 <helpText>Multiple IPs with a line break</helpText>
             </options>
@@ -25,7 +22,6 @@
         <element type="boolean">
             <name>whitelistIPProfile</name>
             <label>Profile when Toolbar is disabled with IP Whitelist</label>
-            <label lang="de">Profile trotz, dass die Toolbar ausgeblendet ist via IP</label>
             <value>1</value>
         </element>
         <element type="number">
@@ -38,6 +34,11 @@
             <name>dumpDepth</name>
             <label>Depth of vardump in profiler detail</label>
             <value>20</value>
+        </element>
+        <element type="boolean">
+            <name>jsEvents</name>
+            <label>Output Javascript events to console</label>
+            <value>1</value>
         </element>
     </elements>
 </config>

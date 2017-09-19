@@ -123,6 +123,12 @@
             <argument>%shyim_profiler.smarty_default_plugin_dir%</argument>
         </service>
 
+        <service id="shyim_profiler.subscriber.javascript" class="ShyimProfiler\Subscriber\JavascriptSubscriber">
+            <argument type="service" id="shyim_profiler.config"/>
+            <argument type="string">%shyim_profiler.view_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
         <service id="shyim_profiler.current.profile" class="ShyimProfiler\Components\Struct\Profile"/>
 
         <!-- Decorations -->
