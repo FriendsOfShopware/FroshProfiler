@@ -8,10 +8,12 @@
     "installer-name": "ShyimProfiler"
   },
   "require": {
+    "php" : "^7.0",
     "symfony/var-dumper": "^3.2",
     "jdorn/sql-formatter": "^v1.2.17",
     "composer/installers": "~1.0",
-    "symfony/stopwatch": "^3.3"
+    "symfony/stopwatch": "^3.3",
+    "roave/security-advisories": "dev-master"
   },
   "scripts": {
     "test": "phpunit -c tests"

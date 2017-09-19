@@ -17,8 +17,8 @@ env:
     - SHOPWARE_VERSION="5.4"
   global:
     - PLUGIN_NAME=ShyimProfiler
-    - SHOPWARE_DIRECTORY=${HOME}/shopware
-    - PLUGIN_DIRECTORY=${SHOPWARE_DIRECTORY}/custom/plugins
+    - SHOPWARE_DIRECTORY="${HOME}/shopware"
+    - PLUGIN_DIRECTORY="${SHOPWARE_DIRECTORY}/custom/plugins"
 
 cache:
    directories:
