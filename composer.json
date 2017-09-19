@@ -7,9 +7,6 @@
   "extra": {
     "installer-name": "ShyimProfiler"
   },
-  "replace": {
-    "symfony/polyfill-mbstring": "~1.0"
-  },
   "require": {
     "php" : "^7.0",
     "symfony/var-dumper": "^3.2",
