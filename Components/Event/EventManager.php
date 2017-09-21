@@ -2,10 +2,12 @@
 
 namespace ShyimProfiler\Components\Event;
 
+use Closure;
 use Doctrine\Common\Util\Debug;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
 use Enlight_Event_Exception;
+use Enlight_Event_Handler;
 use Enlight_Event_Handler_Default;
 use Enlight_Event_Handler_Plugin;
 use Shopware\Components\ContainerAwareEventManager;
@@ -245,13 +247,7 @@ class EventManager extends ContainerAwareEventManager
 
         /** @var Enlight_Event_Handler_Plugin $listener */
         foreach ($this->getListeners($event) as $listener) {
-            $lis = $listener->getListener();
-            $eventName = null;
-            if ($listener instanceof Enlight_Event_Handler_Default) {
-                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
-            } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
-                $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
-            }
+            $eventName = $this->getEventName($event, $listener);
             if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
@@ -283,13 +279,7 @@ class EventManager extends ContainerAwareEventManager
 
         /** @var Enlight_Event_Handler_Default $listener */
         foreach ($this->getListeners($event) as $listener) {
-            $lis = $listener->getListener();
-            $eventName = null;
-            if ($listener instanceof Enlight_Event_Handler_Default) {
-                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
-            } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
-                $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
-            }
+            $eventName = $this->getEventName($event, $listener);
             if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
@@ -329,13 +319,7 @@ class EventManager extends ContainerAwareEventManager
 
         /** @var Enlight_Event_Handler_Default $listener */
         foreach ($this->getListeners($event) as $listener) {
-            $lis = $listener->getListener();
-            $eventName = null;
-            if ($listener instanceof Enlight_Event_Handler_Default) {
-                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
-            } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
-                $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
-            }
+            $eventName = $this->getEventName($event, $listener);
             if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
@@ -367,5 +351,28 @@ class EventManager extends ContainerAwareEventManager
         }
 
         return $eventArgs;
+    }
+
+    /**
+     * @param string $event
+     * @param Enlight_Event_Handler $listener
+     * @return string
+     */
+    private function getEventName($event, Enlight_Event_Handler $listener)
+    {
+        $eventName = null;
+        $lis = $listener->getListener();
+
+        if ($listener instanceof Enlight_Event_Handler_Default) {
+            if ($lis instanceof Closure) {
+                $eventName = $event . '|Closure::Closure';
+            } else {
+                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
+            }
+        } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
+            $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;
+        }
+
+        return $eventName;
     }
 }
