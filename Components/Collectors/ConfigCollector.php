@@ -40,7 +40,15 @@ class ConfigCollector implements CollectorInterface
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
-        $profile->setConfig($this->container->getParameterBag()->all());
+        $config = $this->container->getParameterBag()->all();
+
+        array_walk_recursive($config, function(&$value, $key) {
+            if (stripos($key, 'password') !== false) {
+                $value = '******';
+            }
+        });
+
+        $profile->setConfig($config);
     }
 
     /**
