@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">ShyimProfiler</label>
     <label lang="en">ShyimProfiler</label>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <copyright>Shyim</copyright>
     <license>MIT</license>
     <link>https://github.com/shyim/shopware-profiler</link>
@@ -110,6 +110,15 @@
             <![CDATA[
                 <ul>
                     <li>Added new configuration option to log javascript events</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.1.5">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Fixed Fatal Error while Profiling Closure Event Listener</li>
                 </ul>
             ]]>
         </changes>
