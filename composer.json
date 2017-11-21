@@ -1,24 +1,28 @@
 {
-  "name": "shyim/shopware-profiler",
-  "keywords": ["shopware", "profiling", "plugin"],
-  "description": "Profiling for Shopware",
-  "license": "MIT",
-  "type": "shopware-plugin",
-  "extra": {
-    "installer-name": "ShyimProfiler"
-  },
-  "replace": {
-    "symfony/polyfill-mbstring": "~1.0"
-  },
-  "require": {
-    "php" : "^7.0",
-    "symfony/var-dumper": "^3.2",
-    "jdorn/sql-formatter": "^1.2.17",
-    "composer/installers": "~1.0",
-    "symfony/stopwatch": "^3.3",
-    "roave/security-advisories": "dev-master"
-  },
-  "scripts": {
-    "test": "phpunit -c tests"
-  }
+    "name": "shyim/shopware-profiler",
+    "keywords": [
+        "shopware",
+        "profiling",
+        "plugin"
+    ],
+    "description": "Profiling for Shopware",
+    "license": "MIT",
+    "type": "shopware-plugin",
+    "extra": {
+        "installer-name": "ShyimProfiler"
+    },
+    "replace": {
+        "symfony/polyfill-mbstring": "~1.0"
+    },
+    "require": {
+        "php": "^7.0",
+        "symfony/var-dumper": "^3.2",
+        "jdorn/sql-formatter": "^1.2.17",
+        "composer/installers": "~1.0",
+        "symfony/stopwatch": "^3.3",
+        "roave/security-advisories": "dev-master"
+    },
+    "scripts": {
+        "test": "phpunit -c tests"
+    }
 }
