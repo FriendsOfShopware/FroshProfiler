@@ -19,7 +19,7 @@
 <table class="">
     <thead>
         <tr>
-            <th scope="col" class="key">Template Name</th>
+            <th scope="col">Template Name</th>
             <th scope="col">Render Count</th>
         </tr>
     </thead>
