@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">ShyimProfiler</label>
     <label lang="en">ShyimProfiler</label>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <copyright>Shyim</copyright>
     <license>MIT</license>
     <link>https://github.com/shyim/shopware-profiler</link>
@@ -119,6 +119,16 @@
             <![CDATA[
                 <ul>
                     <li>Fixed Fatal Error while Profiling Closure Event Listener</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.1.6">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Fixed template name column size, thanks to larsbo <a href="https://github.com/shyim/shopware-profiler/issues/64">#64</a></li>
+                    <li>Profiler reachable also if ip not on whitelist <a href="https://github.com/shyim/shopware-profiler/issues/63">#63</a></li>
                 </ul>
             ]]>
         </changes>
