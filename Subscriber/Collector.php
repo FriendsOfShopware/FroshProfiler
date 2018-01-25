@@ -68,11 +68,13 @@ class Collector implements SubscriberInterface
     {
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
+        $controllerLower = strtolower($controller->Request()->getControllerName());
 
         if (
-            strtolower($controller->Request()->getControllerName()) === 'profiler' ||
-            strtolower($controller->Request()->getControllerName()) === 'media' ||
-            strtolower($controller->Request()->getControllerName()) === 'csrftoken' ||
+            $controllerLower === 'profiler' ||
+            $controllerLower === 'media' ||
+            $controllerLower === 'csrftoken' ||
+            strpos($controller->Request()->getRequestUri(), 'profiler') !== false ||
             $this->profile->getId()
         ) {
             return;

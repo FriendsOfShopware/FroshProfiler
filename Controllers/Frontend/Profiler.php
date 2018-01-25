@@ -15,10 +15,22 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
     /**
      * {@inheritdoc}
+     * @throws \Enlight_Controller_Exception
      */
     public function preDispatch()
     {
         $this->cache = $this->get('shyim_profiler.cache');
+        $config = $this->get('shyim_profiler.config');
+
+        if (!empty($config['whitelistIP'])) {
+            $isIPWhitelisted = in_array($this->get('front')->Request()->getClientIp(), explode("\n", $config['whitelistIP']), false);
+            if (!$isIPWhitelisted) {
+                throw new Enlight_Controller_Exception(
+                    'Controller "' . $this->Request()->getControllerName() . '" not found',
+                    Enlight_Controller_Exception::Controller_Dispatcher_Controller_Not_Found
+                );
+            }
+        }
     }
 
     /**
