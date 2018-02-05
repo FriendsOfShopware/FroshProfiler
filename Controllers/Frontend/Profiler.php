@@ -35,6 +35,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
     /**
      * @return void
+     * @throws Exception
      */
     public function indexAction()
     {
@@ -58,6 +59,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
     /**
      * @return void
+     * @throws Exception
      */
     public function detailAction()
     {
@@ -111,8 +113,17 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
+    public function ajaxAction()
+    {
+        $this->Front()->Plugins()->Json()->setRenderer();
+        $this->View()->setTemplate();
+        $data = $this->cache->fetch($this->Request()->getParam('hash'));
+        $this->View()->assign($data);
+    }
+
     /**
      * @return QueryBuilder
+     * @throws Exception
      */
     private function buildListQuery()
     {
