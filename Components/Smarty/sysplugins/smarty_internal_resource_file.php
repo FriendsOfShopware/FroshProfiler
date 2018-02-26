@@ -26,7 +26,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
     {
-        Shopware()->Container()->get('shyim_profiler.current.profile')->addTemplateCall($source->name);
+        Shopware()->Container()->get('frosh_profiler.current.profile')->addTemplateCall($source->name);
         $source->filepath = $this->buildFilepath($source, $_template);
 
         if ($source->filepath !== false) {

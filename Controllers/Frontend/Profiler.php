@@ -20,8 +20,8 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
      */
     public function preDispatch()
     {
-        $this->cache = $this->get('shyim_profiler.cache');
-        $config = $this->get('shyim_profiler.config');
+        $this->cache = $this->get('frosh_profiler.cache');
+        $config = $this->get('frosh_profiler.config');
 
         if (!empty($config['whitelistIP'])) {
             $isIPWhitelisted = in_array($this->get('front')->Request()->getClientIp(), explode("\n", $config['whitelistIP']), false);

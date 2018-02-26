@@ -21,7 +21,7 @@ class FormCollector implements CollectorInterface
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
-        $profile->setAttributes(['forms' => $controller->get('shyim_profiler.forms.data_collector')->getData()]);
+        $profile->setAttributes(['forms' => $controller->get('frosh_profiler.forms.data_collector')->getData()]);
     }
 
     /**

@@ -18,6 +18,6 @@ class AddTemplatePluginDirCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $template = $container->getDefinition('template');
-        $template->addMethodCall('addPluginsDir', [$container->getParameter('shyim_profiler.smarty_dir')]);
+        $template->addMethodCall('addPluginsDir', [$container->getParameter('frosh_profiler.smarty_dir')]);
     }
 }

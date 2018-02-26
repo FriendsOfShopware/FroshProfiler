@@ -17,7 +17,7 @@ class ProfilerCollectorCompilerPass implements CompilerPassInterface
     {
         $services = $container->findTaggedServiceIds('profiler.collector');
 
-        $collectorDefinition = $container->getDefinition('shyim_profiler.collector');
+        $collectorDefinition = $container->getDefinition('frosh_profiler.collector');
 
         foreach ($services as $id => $tags) {
             $collectorDefinition->addMethodCall('addCollector', [$container->getDefinition($id)]);

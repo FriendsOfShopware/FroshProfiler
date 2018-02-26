@@ -301,7 +301,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
             error_reporting($_smarty_old_error_level);
         }
 
-        Shopware()->Container()->get('shyim_profiler.current.profile')->setRenderTime(microtime(true) - $startTime);
+        Shopware()->Container()->get('frosh_profiler.current.profile')->setRenderTime(microtime(true) - $startTime);
         // display or fetch
         if ($display) {
             if ($this->caching && $this->cache_modified_check) {

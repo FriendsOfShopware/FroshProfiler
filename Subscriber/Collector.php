@@ -108,14 +108,14 @@ class Collector implements SubscriberInterface
             $symfonyResponse = new Response();
         }
 
-        $profileData = $this->container->get('shyim_profiler.collector')->collectInformation($this->profileController);
+        $profileData = $this->container->get('frosh_profiler.collector')->collectInformation($this->profileController);
         $profileData['response']['headers'] = $symfonyResponse->headers->all();
         $profileData['profileTime'] = round(microtime(true) - STARTTIME, 3);
 
         $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
         if (empty($this->pluginConfig['whitelistIP']) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
-            $this->container->get('shyim_profiler.collector')->saveCollectInformation(
+            $this->container->get('frosh_profiler.collector')->saveCollectInformation(
                 $this->profile->getId(),
                 $profileData,
                 $this->profileController->Request()->getHeader('X-Profiler')
@@ -125,12 +125,12 @@ class Collector implements SubscriberInterface
         if ($this->profileController->Request()->getModuleName() == 'frontend' && (empty($this->pluginConfig['whitelistIP']) || $isIPWhitelisted)) {
             $view = $this->container->get('template');
             $view->assign('sProfiler', $profileData);
-            $view->assign('sProfilerCollectors', $this->container->get('shyim_profiler.collector')->getCollectors());
+            $view->assign('sProfilerCollectors', $this->container->get('frosh_profiler.collector')->getCollectors());
             $view->assign('sProfilerID', $this->profile->getId());
             $view->assign('sProfilerTime', $profileData['profileTime']);
             $view->assign('sUsedSnippets', $this->container->get('snippet_resource')->getUsedSnippets());
 
-            $view->addTemplateDir($this->container->getParameter('shyim_profiler.plugin_dir') . '/Resources/views/');
+            $view->addTemplateDir($this->container->getParameter('frosh_profiler.plugin_dir') . '/Resources/views/');
             $profileTemplate = $view->fetch('@Toolbar/index.tpl');
 
             $content = $response->getBody();

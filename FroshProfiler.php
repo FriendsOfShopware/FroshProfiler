@@ -63,7 +63,7 @@ class FroshProfiler extends Plugin
      */
     public function build(ContainerBuilder $container)
     {
-        $container->setParameter('shyim_profiler.plugin_dir', $this->getPath());
+        $container->setParameter('frosh_profiler.plugin_dir', $this->getPath());
 
         parent::build($container);
 

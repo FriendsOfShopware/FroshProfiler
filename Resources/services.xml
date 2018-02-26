@@ -5,143 +5,143 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="shyim_profiler.cache_dir">%kernel.cache_dir%/FroshProfiler</parameter>
-        <parameter key="shyim_profiler.view_dir">%shyim_profiler.plugin_dir%/Resources/views</parameter>
-        <parameter key="shyim_profiler.smarty_dir">%shyim_profiler.plugin_dir%/Resources/smarty</parameter>
-        <parameter key="shyim_profiler.smarty_default_plugin_dir">%shyim_profiler.plugin_dir%/Components/Smarty/sysplugins/</parameter>
+        <parameter key="frosh_profiler.cache_dir">%kernel.cache_dir%/FroshProfiler</parameter>
+        <parameter key="frosh_profiler.view_dir">%frosh_profiler.plugin_dir%/Resources/views</parameter>
+        <parameter key="frosh_profiler.smarty_dir">%frosh_profiler.plugin_dir%/Resources/smarty</parameter>
+        <parameter key="frosh_profiler.smarty_default_plugin_dir">%frosh_profiler.plugin_dir%/Components/Smarty/sysplugins/</parameter>
     </parameters>
 
     <services>
-        <service id="shyim_profiler.collector" class="FroshProfiler\Components\Collector">
+        <service id="frosh_profiler.collector" class="FroshProfiler\Components\Collector">
             <argument type="service" id="events" />
-            <argument type="service" id="shyim_profiler.cache" />
+            <argument type="service" id="frosh_profiler.cache" />
             <argument type="service" id="dbal_connection"/>
-            <argument type="service" id="shyim_profiler.current.profile"/>
-            <argument type="service" id="shyim_profiler.config"/>
+            <argument type="service" id="frosh_profiler.current.profile"/>
+            <argument type="service" id="frosh_profiler.config"/>
         </service>
 
-        <service id="shyim_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
-            <argument type="string">%shyim_profiler.cache_dir%</argument>
+        <service id="frosh_profiler.cache" class="Doctrine\Common\Cache\FilesystemCache">
+            <argument type="string">%frosh_profiler.cache_dir%</argument>
         </service>
 
-        <service id="shyim_profiler.block_annotator" class="FroshProfiler\Components\BlockAnnotation\BlockAnnotator">
-            <argument type="service" id="shyim_profiler.block_splitter" />
+        <service id="frosh_profiler.block_annotator" class="FroshProfiler\Components\BlockAnnotation\BlockAnnotator">
+            <argument type="service" id="frosh_profiler.block_splitter" />
         </service>
 
-        <service id="shyim_profiler.block_splitter" class="FroshProfiler\Components\BlockAnnotation\BlockSplitter" />
+        <service id="frosh_profiler.block_splitter" class="FroshProfiler\Components\BlockAnnotation\BlockSplitter" />
 
         <!-- Collectors -->
-        <service id="shyim_profiler.collectors.general" class="FroshProfiler\Components\Collectors\GeneralCollector" public="false">
+        <service id="frosh_profiler.collectors.general" class="FroshProfiler\Components\Collectors\GeneralCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.php" class="FroshProfiler\Components\Collectors\PHPCollector" public="false">
+        <service id="frosh_profiler.collectors.php" class="FroshProfiler\Components\Collectors\PHPCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.user" class="FroshProfiler\Components\Collectors\UserCollector" public="false">
+        <service id="frosh_profiler.collectors.user" class="FroshProfiler\Components\Collectors\UserCollector" public="false">
             <argument type="service" id="service_container"/>
 
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.smarty" class="FroshProfiler\Components\Collectors\SmartyCollector" public="false">
+        <service id="frosh_profiler.collectors.smarty" class="FroshProfiler\Components\Collectors\SmartyCollector" public="false">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.event" class="FroshProfiler\Components\Collectors\EventCollector" public="false">
+        <service id="frosh_profiler.collectors.event" class="FroshProfiler\Components\Collectors\EventCollector" public="false">
             <argument type="service" id="events"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.cache" class="FroshProfiler\Components\Collectors\CacheCollector" public="false">
+        <service id="frosh_profiler.collectors.cache" class="FroshProfiler\Components\Collectors\CacheCollector" public="false">
             <argument type="service" id="cache"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.db" class="FroshProfiler\Components\Collectors\DBCollector" public="false">
+        <service id="frosh_profiler.collectors.db" class="FroshProfiler\Components\Collectors\DBCollector" public="false">
             <argument type="service" id="db"/>
             <argument type="service" id="models"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector" public="false">
+        <service id="frosh_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.exception" class="FroshProfiler\Components\Collectors\ExceptionCollector" public="false">
+        <service id="frosh_profiler.collectors.exception" class="FroshProfiler\Components\Collectors\ExceptionCollector" public="false">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.forms" class="FroshProfiler\Components\Collectors\FormCollector" public="false">
+        <service id="frosh_profiler.collectors.forms" class="FroshProfiler\Components\Collectors\FormCollector" public="false">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.config" class="Shopware\Components\Plugin\CachedConfigReader">
+        <service id="frosh_profiler.config" class="Shopware\Components\Plugin\CachedConfigReader">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
             <argument type="string">FroshProfiler</argument>
         </service>
 
         <!-- Event Subscriber -->
-        <service id="shyim_profiler.subscriber.collector" class="FroshProfiler\Subscriber\Collector">
+        <service id="frosh_profiler.subscriber.collector" class="FroshProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />
-            <argument type="service" id="shyim_profiler.current.profile"/>
-            <argument type="service" id="shyim_profiler.config"/>
+            <argument type="service" id="frosh_profiler.current.profile"/>
+            <argument type="service" id="frosh_profiler.config"/>
             <tag name="shopware.event_subscriber" />
         </service>
 
-        <service id="shyim_profiler.subscriber.controller_profiler" class="FroshProfiler\Subscriber\ProfilerController">
-            <argument type="string">%shyim_profiler.plugin_dir%</argument>
-            <argument type="string">%shyim_profiler.view_dir%</argument>
+        <service id="frosh_profiler.subscriber.controller_profiler" class="FroshProfiler\Subscriber\ProfilerController">
+            <argument type="string">%frosh_profiler.plugin_dir%</argument>
+            <argument type="string">%frosh_profiler.view_dir%</argument>
             <argument type="service" id="template" />
             <tag name="shopware.event_subscriber" />
         </service>
 
-        <service id="shyim_profiler.subscriber.block_annotation" class="FroshProfiler\Subscriber\BlockAnnotation">
+        <service id="frosh_profiler.subscriber.block_annotation" class="FroshProfiler\Subscriber\BlockAnnotation">
             <argument type="service" id="config"/>
-            <argument type="service" id="shyim_profiler.config"/>
-            <argument type="service" id="shyim_profiler.block_annotator"/>
+            <argument type="service" id="frosh_profiler.config"/>
+            <argument type="service" id="frosh_profiler.block_annotator"/>
             <argument type="service" id="front"/>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.subscriber.cache" class="FroshProfiler\Subscriber\CacheSubscriber">
-            <argument type="string">%shyim_profiler.cache_dir%</argument>
-            <argument type="string">%shyim_profiler.view_dir%</argument>
+        <service id="frosh_profiler.subscriber.cache" class="FroshProfiler\Subscriber\CacheSubscriber">
+            <argument type="string">%frosh_profiler.cache_dir%</argument>
+            <argument type="string">%frosh_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.subscriber.database_profiler" class="FroshProfiler\Subscriber\DatabaseProfiler">
+        <service id="frosh_profiler.subscriber.database_profiler" class="FroshProfiler\Subscriber\DatabaseProfiler">
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.subscriber.smarty_profiler" class="FroshProfiler\Subscriber\SmartyProfiler">
+        <service id="frosh_profiler.subscriber.smarty_profiler" class="FroshProfiler\Subscriber\SmartyProfiler">
             <tag name="shopware.event_subscriber"/>
-            <argument>%shyim_profiler.smarty_default_plugin_dir%</argument>
+            <argument>%frosh_profiler.smarty_default_plugin_dir%</argument>
         </service>
 
-        <service id="shyim_profiler.subscriber.javascript" class="FroshProfiler\Subscriber\JavascriptSubscriber">
-            <argument type="service" id="shyim_profiler.config"/>
-            <argument type="string">%shyim_profiler.view_dir%</argument>
+        <service id="frosh_profiler.subscriber.javascript" class="FroshProfiler\Subscriber\JavascriptSubscriber">
+            <argument type="service" id="frosh_profiler.config"/>
+            <argument type="string">%frosh_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.current.profile" class="FroshProfiler\Components\Struct\Profile"/>
+        <service id="frosh_profiler.current.profile" class="FroshProfiler\Components\Struct\Profile"/>
 
         <!-- Decorations -->
-        <service decorates="pluginlogger" id="shyim_profiler.decoration.pluginlogger" class="FroshProfiler\Components\Logger">
-            <argument type="service" id="shyim_profiler.decoration.pluginlogger.inner"/>
+        <service decorates="pluginlogger" id="frosh_profiler.decoration.pluginlogger" class="FroshProfiler\Components\Logger">
+            <argument type="service" id="frosh_profiler.decoration.pluginlogger.inner"/>
             <argument type="string">Pluginlogger</argument>
         </service>
-        <service decorates="corelogger" id="shyim_profiler.decoration.corelogger" class="FroshProfiler\Components\Logger">
-            <argument type="service" id="shyim_profiler.decoration.corelogger.inner"/>
+        <service decorates="corelogger" id="frosh_profiler.decoration.corelogger" class="FroshProfiler\Components\Logger">
+            <argument type="service" id="frosh_profiler.decoration.corelogger.inner"/>
             <argument type="string">Corelogger</argument>
         </service>
-        <service decorates="debuglogger" id="shyim_profiler.decoration.debuglogger" class="FroshProfiler\Components\Logger">
-            <argument type="service" id="shyim_profiler.decoration.debuglogger.inner"/>
+        <service decorates="debuglogger" id="frosh_profiler.decoration.debuglogger" class="FroshProfiler\Components\Logger">
+            <argument type="service" id="frosh_profiler.decoration.debuglogger.inner"/>
             <argument type="string">Debuglogger</argument>
         </service>
 
@@ -151,15 +151,15 @@
             <argument>%shopware.snippet.showSnippetPlaceholder%</argument>
         </service>
 
-        <service id="shyim_profiler.forms.data_extractor"
+        <service id="frosh_profiler.forms.data_extractor"
                  class="Symfony\Component\Form\Extension\DataCollector\FormDataExtractor"/>
 
-        <service id="shyim_profiler.forms.data_collector" class="Symfony\Component\Form\Extension\DataCollector\FormDataCollector">
-            <argument type="service" id="shyim_profiler.forms.data_extractor"/>
+        <service id="frosh_profiler.forms.data_collector" class="Symfony\Component\Form\Extension\DataCollector\FormDataCollector">
+            <argument type="service" id="frosh_profiler.forms.data_extractor"/>
         </service>
 
-        <service id="shyim_profiler.forms.form_listener" class="FroshProfiler\Components\FormListener">
-            <argument type="service" id="shyim_profiler.forms.data_collector"/>
+        <service id="frosh_profiler.forms.form_listener" class="FroshProfiler\Components\FormListener">
+            <argument type="service" id="frosh_profiler.forms.data_collector"/>
             <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
         </service>
     </services>
