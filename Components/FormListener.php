@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ShyimProfiler\Components;
 
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -13,13 +12,16 @@ class FormListener extends AbstractTypeExtension
 {
     /**
      * @var FormDataCollectorInterface
+     *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     private $dataCollector;
 
     /**
      * FormListener constructor.
+     *
      * @param FormDataCollectorInterface $formDataCollector
+     *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function __construct(FormDataCollectorInterface $formDataCollector)
@@ -29,8 +31,8 @@ class FormListener extends AbstractTypeExtension
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
+     * @param array                $options
+     *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -38,7 +40,6 @@ class FormListener extends AbstractTypeExtension
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'postSetData'], 255);
         $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'postSubmit'], -255);
     }
-
 
     /**
      * Returns the name of the type being extended.

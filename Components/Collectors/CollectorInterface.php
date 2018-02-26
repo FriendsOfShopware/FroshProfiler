@@ -7,7 +7,6 @@ use ShyimProfiler\Components\Struct\Profile;
 
 /**
  * Interface CollectorInterface
- * @package ShyimProfiler\Components\Collectors
  */
 interface CollectorInterface
 {
@@ -18,8 +17,7 @@ interface CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
-     * @return void
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile);
 

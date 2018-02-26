@@ -2,13 +2,12 @@
 
 namespace ShyimProfiler\Components\CompilerPass;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ShyimProfiler\Components\Event\EventManager;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class CustomEventManagerCompilerPass
- * @package ShyimProfiler\Components\CompilerPass
  */
 class CustomEventManagerCompilerPass implements CompilerPassInterface
 {

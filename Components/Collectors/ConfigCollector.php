@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class ConfigCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class ConfigCollector implements CollectorInterface
 {
@@ -19,6 +18,7 @@ class ConfigCollector implements CollectorInterface
 
     /**
      * ConfigCollector constructor.
+     *
      * @param Container $container
      */
     public function __construct(Container $container)
@@ -36,13 +36,13 @@ class ConfigCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
         $config = $this->container->getParameterBag()->all();
 
-        array_walk_recursive($config, function(&$value, $key) {
+        array_walk_recursive($config, function (&$value, $key) {
             if (stripos($key, 'password') !== false) {
                 $value = '******';
             }

@@ -9,7 +9,6 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
 
 /**
  * Class EventCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class EventCollector implements CollectorInterface
 {
@@ -35,7 +34,7 @@ class EventCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -45,11 +44,11 @@ class EventCollector implements CollectorInterface
         foreach ($this->eventManager->getStopWatch()->getSectionEvents('__root__') as $eventName => $sectionEvent) {
             if ($sectionEvent->getStartTime() !== $sectionEvent->getEndTime()) {
                 $eventsTimes[$eventName] = [
-                    'name'      => $eventName,
-                    'start'     => $sectionEvent->getStartTime(),
-                    'end'       => $sectionEvent->getEndTime(),
-                    'duration'  => $sectionEvent->getDuration(),
-                    'listeners' => []
+                    'name' => $eventName,
+                    'start' => $sectionEvent->getStartTime(),
+                    'end' => $sectionEvent->getEndTime(),
+                    'duration' => $sectionEvent->getDuration(),
+                    'listeners' => [],
                 ];
             }
         }
@@ -68,8 +67,8 @@ class EventCollector implements CollectorInterface
             return ($a['duration'] > $b['duration']) ? -1 : 1;
         });
 
-        $chartLabels    = [];
-        $chartValues    = [];
+        $chartLabels = [];
+        $chartValues = [];
         $eventListeners = [];
 
         foreach ($eventsTimes as $eventsTime) {
@@ -79,12 +78,12 @@ class EventCollector implements CollectorInterface
         }
 
         $profile->setEvents([
-            'eventAmount'    => $this->eventManager->getEventAmount(),
-            'calledEvents'   => $this->eventManager->getCalledEvents(),
-            'events'         => $eventsTimes,
-            'chartLabels'    => $chartLabels,
-            'chartValues'    => $chartValues,
-            'eventListeners' => $eventListeners
+            'eventAmount' => $this->eventManager->getEventAmount(),
+            'calledEvents' => $this->eventManager->getCalledEvents(),
+            'events' => $eventsTimes,
+            'chartLabels' => $chartLabels,
+            'chartValues' => $chartValues,
+            'eventListeners' => $eventListeners,
         ]);
     }
 

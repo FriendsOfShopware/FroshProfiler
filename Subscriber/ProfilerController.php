@@ -7,7 +7,6 @@ use Enlight_Template_Manager;
 
 /**
  * Class ProfilerController
- * @package ShyimProfiler\Subscriber
  */
 class ProfilerController implements SubscriberInterface
 {
@@ -27,16 +26,6 @@ class ProfilerController implements SubscriberInterface
     private $template;
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            'Enlight_Controller_Dispatcher_ControllerPath_Frontend_Profiler' => 'onProfilerController',
-        ];
-    }
-
-    /**
      * @param $pluginDir
      * @param $viewDir
      * @param Enlight_Template_Manager $template
@@ -49,6 +38,16 @@ class ProfilerController implements SubscriberInterface
         $this->pluginDir = $pluginDir;
         $this->viewDir = $viewDir;
         $this->template = $template;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            'Enlight_Controller_Dispatcher_ControllerPath_Frontend_Profiler' => 'onProfilerController',
+        ];
     }
 
     /**

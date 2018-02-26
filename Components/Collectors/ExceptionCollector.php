@@ -7,7 +7,6 @@ use ShyimProfiler\Components\Struct\Profile;
 
 /**
  * Class ExceptionCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class ExceptionCollector implements CollectorInterface
 {
@@ -21,8 +20,7 @@ class ExceptionCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
-     * @return void
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -33,11 +31,7 @@ class ExceptionCollector implements CollectorInterface
         }
     }
 
-    /**
-     * @return void
-     */
     public function getToolbarTemplate()
     {
-        return;
     }
 }

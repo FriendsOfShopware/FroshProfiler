@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Collector
- * @package ShyimProfiler\Subscriber
  */
 class Collector implements SubscriberInterface
 {
@@ -37,28 +36,28 @@ class Collector implements SubscriberInterface
     private $profileController;
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
-            'Enlight_Controller_Action_PostDispatch_Widgets'  => 'onPostDispatch',
-            'Enlight_Controller_Front_DispatchLoopShutdown'   => 'onDispatchLoopShutdown',
-            'Enlight_Components_Mail_Send'                    => 'onSendMails',
-        ];
-    }
-
-    /**
      * @param ContainerInterface $container
-     * @param Profile $profile
-     * @param array $pluginConfig
+     * @param Profile            $profile
+     * @param array              $pluginConfig
      */
     public function __construct(ContainerInterface $container, Profile $profile, array $pluginConfig)
     {
         $this->container = $container;
         $this->profile = $profile;
         $this->pluginConfig = $pluginConfig;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
+            'Enlight_Controller_Action_PostDispatch_Widgets' => 'onPostDispatch',
+            'Enlight_Controller_Front_DispatchLoopShutdown' => 'onDispatchLoopShutdown',
+            'Enlight_Components_Mail_Send' => 'onSendMails',
+        ];
     }
 
     /**
@@ -153,13 +152,13 @@ class Collector implements SubscriberInterface
         $context = $this->container->get('templatemail')->getStringCompiler()->getContext();
 
         $this->profile->addMail([
-            'from'      => $mail->getFrom(),
-            'fromName'  => $mail->getFromName(),
-            'to'        => $mail->getTo(),
-            'subject'   => $mail->getSubject(),
+            'from' => $mail->getFrom(),
+            'fromName' => $mail->getFromName(),
+            'to' => $mail->getTo(),
+            'subject' => $mail->getSubject(),
             'bodyPlain' => $mail->getPlainBodyText(),
-            'bodyHtml'  => $mail->getPlainBody(),
-            'context'   => $context,
+            'bodyHtml' => $mail->getPlainBody(),
+            'context' => $context,
         ]);
     }
 }

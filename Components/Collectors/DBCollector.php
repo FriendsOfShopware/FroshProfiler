@@ -11,7 +11,6 @@ use Zend_Db_Profiler;
 
 /**
  * Class DBCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class DBCollector implements CollectorInterface
 {
@@ -57,7 +56,7 @@ class DBCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -69,8 +68,8 @@ class DBCollector implements CollectorInterface
 
         $profile->setDbQueries([
             'totalQueries' => $totalQueriesZend + $totalQueriesDoctrine,
-            'queryTime'    => $this->executeTime,
-            'sqls'         => $this->executedQuerys,
+            'queryTime' => $this->executeTime,
+            'sqls' => $this->executedQuerys,
         ]);
     }
 
@@ -82,15 +81,12 @@ class DBCollector implements CollectorInterface
         return '@Toolbar/toolbar/db.tpl';
     }
 
-    /**
-     * @return void
-     */
     private function getAllQuerys()
     {
         foreach ($this->doctrineProfiler->queries as $query) {
             $this->executedQuerys[] = [
-                'sql'       => $query['sql'],
-                'params'    => $query['params'],
+                'sql' => $query['sql'],
+                'params' => $query['params'],
                 'execution' => $query['executionMS'],
             ];
             $this->executeTime += $query['executionMS'];
@@ -98,8 +94,8 @@ class DBCollector implements CollectorInterface
 
         foreach ($this->zendProfiler->getQueryProfiles() as $queryProfile) {
             $this->executedQuerys[] = [
-                'sql'       => $queryProfile->getQuery(),
-                'params'    => $queryProfile->getQueryParams(),
+                'sql' => $queryProfile->getQuery(),
+                'params' => $queryProfile->getQueryParams(),
                 'execution' => $queryProfile->getElapsedSecs(),
             ];
         }

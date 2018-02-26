@@ -15,6 +15,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
 
     /**
      * {@inheritdoc}
+     *
      * @throws \Enlight_Controller_Exception
      */
     public function preDispatch()
@@ -33,9 +34,6 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
-    /**
-     * @return void
-     */
     public function indexAction()
     {
         $query = $this->buildListQuery();
@@ -50,15 +48,12 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
             if (!empty($index)) {
                 $this->redirect([
                     'action' => 'detail',
-                    'id'     => $index['token']
+                    'id' => $index['token'],
                 ]);
             }
         }
     }
 
-    /**
-     * @return void
-     */
     public function detailAction()
     {
         $id = $this->Request()->get('id');
@@ -85,18 +80,12 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         $this->View()->sPanel = $this->Request()->getParam('panel', 'request');
     }
 
-    /**
-     * @return void
-     */
     public function phpAction()
     {
         phpinfo();
         die();
     }
 
-    /**
-     * @return void
-     */
     public function mailAction()
     {
         $mode = $this->Request()->getParam('mode', 'bodyHtml');

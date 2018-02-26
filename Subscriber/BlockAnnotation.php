@@ -6,13 +6,11 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Front;
 use Enlight_Event_EventArgs;
 use Enlight_Template_Manager;
-use Shopware\Components\Plugin\CachedConfigReader;
 use Shopware_Components_Config;
 use ShyimProfiler\Components\BlockAnnotation\BlockAnnotator;
 
 /**
  * Class BlockAnnotation
- * @package ShyimProfiler\Subscriber
  */
 class BlockAnnotation implements SubscriberInterface
 {
@@ -37,21 +35,10 @@ class BlockAnnotation implements SubscriberInterface
     private $templateDirConfigured = false;
 
     /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
-            'Enlight_Controller_Action_PreDispatch_Widgets'  => 'onPreDispatch',
-        ];
-    }
-
-    /**
      * @param Shopware_Components_Config $config
-     * @param array $pluginConfig
-     * @param BlockAnnotator $blockAnnotator
-     * @param Enlight_Controller_Front $front
+     * @param array                      $pluginConfig
+     * @param BlockAnnotator             $blockAnnotator
+     * @param Enlight_Controller_Front   $front
      */
     public function __construct(
         Shopware_Components_Config $config,
@@ -67,6 +54,17 @@ class BlockAnnotation implements SubscriberInterface
         if (!empty($this->pluginConfig['whitelistIP']) && !in_array($front->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']))) {
             $this->pluginConfig['frontendblocks'] = false;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
+            'Enlight_Controller_Action_PreDispatch_Widgets' => 'onPreDispatch',
+        ];
     }
 
     /**
@@ -91,7 +89,7 @@ class BlockAnnotation implements SubscriberInterface
 
         // configure shopware to not strip HTML comments
         $this->config->offsetSet('sSEOREMOVECOMMENTS', false);
-        $view->Engine()->registerFilter('pre', array($this, 'preFilter'));
+        $view->Engine()->registerFilter('pre', [$this, 'preFilter']);
     }
 
     /**

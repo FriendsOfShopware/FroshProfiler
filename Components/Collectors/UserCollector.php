@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class UserCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class UserCollector implements CollectorInterface
 {
@@ -19,6 +18,7 @@ class UserCollector implements CollectorInterface
 
     /**
      * UserCollector constructor.
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
@@ -36,8 +36,7 @@ class UserCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
-     * @return void
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {

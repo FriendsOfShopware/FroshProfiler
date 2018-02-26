@@ -6,7 +6,6 @@ use Shopware\Components\Logger as BaseLogger;
 
 /**
  * Class Logger
- * @package ShyimProfiler\Components
  */
 class Logger extends BaseLogger
 {
@@ -27,7 +26,8 @@ class Logger extends BaseLogger
 
     /**
      * Logger constructor.
-     * @param BaseLogger $parentLogger
+     *
+     * @param BaseLogger                                $parentLogger
      * @param array|\Monolog\Handler\HandlerInterface[] $channelName
      */
     public function __construct(BaseLogger $parentLogger, $channelName)
@@ -41,7 +41,8 @@ class Logger extends BaseLogger
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return mixed
      */
     public function __call($name, $arguments)

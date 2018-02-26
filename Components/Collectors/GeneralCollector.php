@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class GeneralCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class GeneralCollector implements CollectorInterface
 {
@@ -37,37 +36,37 @@ class GeneralCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
         $profile->setAttributes([
             'response' => [
                 'httpResponse' => $controller->Response()->getHttpResponseCode(),
-                'headers'      => $controller->Response()->getHeaders(),
+                'headers' => $controller->Response()->getHeaders(),
             ],
             'request' => [
-                'moduleName'     => $controller->Request()->getModuleName(),
+                'moduleName' => $controller->Request()->getModuleName(),
                 'controllerName' => $controller->Request()->getControllerName(),
-                'actionName'     => $controller->Request()->getActionName(),
-                'httpMethod'     => $controller->Request()->getMethod(),
-                'params'         => $controller->Request()->getParams(),
-                'get'            => $controller->Request()->getQuery(),
-                'post'           => $controller->Request()->getPost(),
-                'cookies'        => $controller->Request()->getCookie(),
-                'uri'            => $controller->Request()->getRequestUri(),
-                'url'            => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $this->container->get('shop')->getHost() . $this->container->get('shop')->getBaseUrl() . $controller->Request()->getRequestUri(),
-                'ip'             => $controller->Request()->getClientIp(),
-                'time'           => time(),
+                'actionName' => $controller->Request()->getActionName(),
+                'httpMethod' => $controller->Request()->getMethod(),
+                'params' => $controller->Request()->getParams(),
+                'get' => $controller->Request()->getQuery(),
+                'post' => $controller->Request()->getPost(),
+                'cookies' => $controller->Request()->getCookie(),
+                'uri' => $controller->Request()->getRequestUri(),
+                'url' => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $this->container->get('shop')->getHost() . $this->container->get('shop')->getBaseUrl() . $controller->Request()->getRequestUri(),
+                'ip' => $controller->Request()->getClientIp(),
+                'time' => time(),
             ],
             'session' => [
                 'meta' => $this->container->get('dbal_connection')->fetchAssoc('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [$this->container->get('session')->get('sessionId')]),
                 'data' => $_SESSION['Shopware'],
             ],
-            'logs'      => $this->getLogs(),
-            'server'    => $_SERVER,
+            'logs' => $this->getLogs(),
+            'server' => $_SERVER,
             'startTime' => STARTTIME,
-            'bundles'   => $this->getBundles(),
+            'bundles' => $this->getBundles(),
         ]);
     }
 

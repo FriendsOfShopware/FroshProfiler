@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ShyimProfiler\Subscriber;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,7 +8,6 @@ use Enlight_Event_EventArgs;
 
 /**
  * Class JavascriptSubscriber
- * @package ShyimProfiler\Subscriber
  */
 class JavascriptSubscriber implements SubscriberInterface
 {
@@ -25,7 +23,8 @@ class JavascriptSubscriber implements SubscriberInterface
 
     /**
      * JavascriptSubscriber constructor.
-     * @param array $pluginConfig
+     *
+     * @param array  $pluginConfig
      * @param string $viewDir
      */
     public function __construct(array $pluginConfig, $viewDir)
@@ -36,17 +35,19 @@ class JavascriptSubscriber implements SubscriberInterface
 
     /**
      * {@inheritdoc]
+     *
      * @return array
      */
     public static function getSubscribedEvents()
     {
         return [
-            'Theme_Compiler_Collect_Plugin_Javascript' => 'onCollectJavascriptFiles'
+            'Theme_Compiler_Collect_Plugin_Javascript' => 'onCollectJavascriptFiles',
         ];
     }
 
     /**
      * @param Enlight_Event_EventArgs $args
+     *
      * @return ArrayCollection
      */
     public function onCollectJavascriptFiles(Enlight_Event_EventArgs $args)
@@ -59,5 +60,4 @@ class JavascriptSubscriber implements SubscriberInterface
 
         return $collection;
     }
-
 }

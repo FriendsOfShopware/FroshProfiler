@@ -16,7 +16,6 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class EventManager
- * @package ShyimProfiler\Components\Event
  */
 class EventManager extends ContainerAwareEventManager
 {
@@ -47,6 +46,7 @@ class EventManager extends ContainerAwareEventManager
 
     /**
      * EventManager constructor.
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
@@ -70,7 +70,7 @@ class EventManager extends ContainerAwareEventManager
         $this->calledEvents[] = [
             'type' => 'notify',
             'name' => $event,
-            'args' => $this->dump($eventArgs)
+            'args' => $this->dump($eventArgs),
         ];
 
         if ($hasListeners) {
@@ -107,8 +107,8 @@ class EventManager extends ContainerAwareEventManager
             'type' => 'filter',
             'name' => $event,
             'args' => $this->dump($eventArgs),
-            'old'  => is_object($value) ? $this->dump($value) : $value,
-            'new'  => is_object($afterValue) ? $this->dump($afterValue) : $afterValue,
+            'old' => is_object($value) ? $this->dump($value) : $value,
+            'new' => is_object($afterValue) ? $this->dump($afterValue) : $afterValue,
         ];
 
         return $afterValue;
@@ -132,9 +132,9 @@ class EventManager extends ContainerAwareEventManager
         }
 
         $this->calledEvents[] = [
-            'type'   => 'notifyUntil',
-            'name'   => $event,
-            'args'   => $this->dump($eventArgs),
+            'type' => 'notifyUntil',
+            'name' => $event,
+            'args' => $this->dump($eventArgs),
             'cancel' => is_object($cancel) ? $this->dump($cancel) : $cancel,
         ];
 
@@ -164,7 +164,7 @@ class EventManager extends ContainerAwareEventManager
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
-        $this->eventsAmount++;
+        ++$this->eventsAmount;
 
         return parent::addListener($eventName, $listener, $priority);
     }
@@ -174,7 +174,7 @@ class EventManager extends ContainerAwareEventManager
      */
     public function registerListener(\Enlight_Event_Handler $handler)
     {
-        $this->eventsAmount++;
+        ++$this->eventsAmount;
 
         return parent::registerListener($handler);
     }
@@ -216,7 +216,44 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
+     * @param $event
+     * @param $value
+     * @param null $eventArgs
+     *
+     * @return mixed
+     */
+    public function parentFilter($event, $value, $eventArgs = null)
+    {
+        if (!$this->hasListeners($event)) {
+            return $value;
+        }
+
+        $eventArgs = $this->buildEventArgs($eventArgs);
+        $eventArgs->setReturn($value);
+        $eventArgs->setName($event);
+        $eventArgs->setProcessed(false);
+
+        /** @var Enlight_Event_Handler_Default $listener */
+        foreach ($this->getListeners($event) as $listener) {
+            $eventName = $this->getEventName($event, $listener);
+            if ($eventName !== null) {
+                $this->watch->start($eventName);
+            }
+            if (($return = $listener->execute($eventArgs)) !== null) {
+                $eventArgs->setReturn($return);
+            }
+            if ($eventName !== null) {
+                $this->watch->stop($eventName);
+            }
+        }
+        $eventArgs->setProcessed(true);
+
+        return $eventArgs->getReturn();
+    }
+
+    /**
      * @param $argument
+     *
      * @return string
      */
     private function dump($argument)
@@ -232,6 +269,7 @@ class EventManager extends ContainerAwareEventManager
     /**
      * @param $event
      * @param null $eventArgs
+     *
      * @return Enlight_Event_EventArgs|null
      */
     private function parentNotify($event, $eventArgs = null)
@@ -264,6 +302,7 @@ class EventManager extends ContainerAwareEventManager
     /**
      * @param $event
      * @param null $eventArgs
+     *
      * @return Enlight_Event_EventArgs|null
      */
     private function parentNotifyUntil($event, $eventArgs = null)
@@ -283,7 +322,7 @@ class EventManager extends ContainerAwareEventManager
             if ($eventName !== null) {
                 $this->watch->start($eventName);
             }
-            if (null !== ($return = $listener->execute($eventArgs))
+            if (($return = $listener->execute($eventArgs)) !== null
                 || $eventArgs->isProcessed()
             ) {
                 $eventArgs->setProcessed(true);
@@ -301,44 +340,11 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $event
-     * @param $value
      * @param null $eventArgs
-     * @return mixed
-     */
-    public function parentFilter($event, $value, $eventArgs = null)
-    {
-        if (!$this->hasListeners($event)) {
-            return $value;
-        }
-
-        $eventArgs = $this->buildEventArgs($eventArgs);
-        $eventArgs->setReturn($value);
-        $eventArgs->setName($event);
-        $eventArgs->setProcessed(false);
-
-        /** @var Enlight_Event_Handler_Default $listener */
-        foreach ($this->getListeners($event) as $listener) {
-            $eventName = $this->getEventName($event, $listener);
-            if ($eventName !== null) {
-                $this->watch->start($eventName);
-            }
-            if (null !== ($return = $listener->execute($eventArgs))) {
-                $eventArgs->setReturn($return);
-            }
-            if ($eventName !== null) {
-                $this->watch->stop($eventName);
-            }
-        }
-        $eventArgs->setProcessed(true);
-
-        return $eventArgs->getReturn();
-    }
-
-    /**
-     * @param null $eventArgs
-     * @return Enlight_Event_EventArgs|null
+     *
      * @throws Enlight_Event_Exception
+     *
+     * @return Enlight_Event_EventArgs|null
      */
     private function buildEventArgs($eventArgs = null)
     {
@@ -354,8 +360,9 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param string $event
+     * @param string                $event
      * @param Enlight_Event_Handler $listener
+     *
      * @return string
      */
     private function getEventName($event, Enlight_Event_Handler $listener)

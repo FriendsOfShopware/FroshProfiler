@@ -1,7 +1,6 @@
 <?php
 
 namespace ShyimProfiler\Components\BlockAnnotation;
-use Doctrine\Common\Util\Debug;
 
 /**
  * BlockAnnotator annotates smarty block with HTML comments, so you can tell which content belongs to which block.
@@ -10,6 +9,21 @@ use Doctrine\Common\Util\Debug;
  */
 class BlockAnnotator
 {
+    /**
+     * Do not append block info to blacklisted blocks (e.g. JS, CSS).
+     *
+     * @var array
+     */
+    protected $blacklist = [
+        'frontend_index_header_title',
+        'frontend_robots_txt',
+        'frontend_robots_txt_user_agent',
+        'frontend_robots_txt_disallows',
+        'frontend_robots_txt_allows',
+        'frontend_robots_txt_sitemap',
+        'frontend_robots_txt_sitemap_mobile',
+        'frontend_index_body_attributes',
+    ];
     /**
      * @var BlockSplitter
      */
@@ -26,25 +40,10 @@ class BlockAnnotator
     }
 
     /**
-     * Do not append block info to blacklisted blocks (e.g. JS, CSS).
-     *
-     * @var array
-     */
-    protected $blacklist = [
-        'frontend_index_header_title',
-        'frontend_robots_txt',
-        'frontend_robots_txt_user_agent',
-        'frontend_robots_txt_disallows',
-        'frontend_robots_txt_allows',
-        'frontend_robots_txt_sitemap',
-        'frontend_robots_txt_sitemap_mobile',
-        'frontend_index_body_attributes'
-    ];
-
-    /**
      * @param $source
      * @param $template
      * @param $pluginConfig
+     *
      * @return string
      */
     public function annotate($source, $template, $pluginConfig)
@@ -59,14 +58,13 @@ class BlockAnnotator
 
             $file = '';
 
-
             if ($pluginConfig['frontendblocksTemplate']) {
                 $templateResources = explode('|', $template->template_resource);
 
                 $currentFile = $template->_current_file;
 
                 // smarty eval
-                if (0 === strpos($templateResources[0], 'string:')) {
+                if (strpos($templateResources[0], 'string:') === 0) {
                     $templateResources = [];
                 }
 

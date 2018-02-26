@@ -11,7 +11,6 @@ use Shopware_Controllers_Backend_Performance;
 
 /**
  * Class CacheSubscriber
- * @package ShyimProfiler\Subscriber
  */
 class CacheSubscriber implements SubscriberInterface
 {
@@ -27,6 +26,7 @@ class CacheSubscriber implements SubscriberInterface
 
     /**
      * CacheSubscriber constructor.
+     *
      * @param string $cacheDir
      * @param string $templateDir
      */
@@ -42,7 +42,7 @@ class CacheSubscriber implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatch_Backend_Cache'       => 'onPostDispatchBackendCache',
+            'Enlight_Controller_Action_PostDispatch_Backend_Cache' => 'onPostDispatchBackendCache',
             'Enlight_Controller_Action_PostDispatch_Backend_Performance' => 'onPostDispatchBackendPerformance',
         ];
     }

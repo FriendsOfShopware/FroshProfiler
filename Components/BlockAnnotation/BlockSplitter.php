@@ -21,18 +21,18 @@ class BlockSplitter
      */
     public function split($template)
     {
-        $matches = array();
+        $matches = [];
         preg_match_all('#' . self::BLOCK_START . '|' . self::BLOCK_END . '#', $template, $matches, PREG_OFFSET_CAPTURE);
 
-        $openStack = array();
-        $closedStack = array();
+        $openStack = [];
+        $closedStack = [];
 
         // Iterate all matches and build the result array
         foreach ($matches[0] as $key => $match) {
             $value = $match[0];
             $offset = $match[1];
             $name = $matches['name'][$key][0];
-            $isStart = $matches['name'][$key][1] > -1;
+            $isStart = -1 < $matches['name'][$key][1];
 
             if ($isStart) {
                 // iterate all currently open blocks and increase the child counter
@@ -40,7 +40,7 @@ class BlockSplitter
                     $parentElement['children'] += 1;
                 }
                 // push the open block to the stack
-                $openStack[] = array('name' => $name, 'start' => $offset, 'startContent' => $offset + strlen($value), 'children' => 0);
+                $openStack[] = ['name' => $name, 'start' => $offset, 'startContent' => $offset + strlen($value), 'children' => 0];
             } else {
                 // remove the closed block from `open` stack, collect some info and push it to `close` stack
                 $element = array_pop($openStack);
@@ -56,7 +56,7 @@ class BlockSplitter
         }
 
         // sort by children - the replaccement later will go from the deepest child towards the main parent
-        usort($closedStack, array($this, 'sortByChildren'));
+        usort($closedStack, [$this, 'sortByChildren']);
 
         return $closedStack;
     }

@@ -8,7 +8,6 @@ use ShyimProfiler\Components\Struct\Profile;
 
 /**
  * Class SmartyCollector
- * @package ShyimProfiler\Components\Collectors
  */
 class SmartyCollector implements CollectorInterface
 {
@@ -22,8 +21,7 @@ class SmartyCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
-     * @return void
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -31,12 +29,12 @@ class SmartyCollector implements CollectorInterface
         $assigns = $controller->View()->getAssign();
 
         $result = [
-            'cache_dir'    => $smarty->getCacheDir(),
-            'compile_dir'  => $smarty->getCompileDir(),
+            'cache_dir' => $smarty->getCacheDir(),
+            'compile_dir' => $smarty->getCompileDir(),
             'template_dir' => $smarty->getTemplateDir(),
-            'plugin_dir'   => $smarty->getPluginsDir(),
-            'vars'         => $assigns,
-            'start_time'   => $smarty->start_time,
+            'plugin_dir' => $smarty->getPluginsDir(),
+            'vars' => $assigns,
+            'start_time' => $smarty->start_time,
         ];
 
         try {

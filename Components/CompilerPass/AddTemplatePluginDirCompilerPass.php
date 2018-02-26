@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ShyimProfiler\Components\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -8,7 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class AddTemplatePluginDirCompilerPass
- * @package ShyimProfiler\Components\CompilerPass
  */
 class AddTemplatePluginDirCompilerPass implements CompilerPassInterface
 {

@@ -7,15 +7,9 @@ use Zend_Cache_Core;
 
 /**
  * Class Cache
- * @package ShyimProfiler\Components\Cache
  */
 class Cache extends Zend_Cache_Core
 {
-    /**
-     * @var integer
-     */
-    protected $_lastId;
-
     /**
      * @var int
      */
@@ -50,16 +44,21 @@ class Cache extends Zend_Cache_Core
      * @var int
      */
     public $time = 0;
+    /**
+     * @var int
+     */
+    protected $_lastId;
 
     /**
      * @param string $id
-     * @param bool $doNotTestCacheValidity
-     * @param bool $doNotUnserialize
+     * @param bool   $doNotTestCacheValidity
+     * @param bool   $doNotUnserialize
+     *
      * @return bool|false|mixed|string
      */
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
     {
-        $this->calls++;
+        ++$this->calls;
         $time = microtime(true);
         if (!$this->_options['caching']) {
             return false;
@@ -71,31 +70,33 @@ class Cache extends Zend_Cache_Core
         $this->_log("Zend_Cache_Core: load item '{$id}'", 7);
         $data = $this->_backend->load($id, $doNotTestCacheValidity);
         if ($data === false) {
-            $this->hitMissed++;
+            ++$this->hitMissed;
             // no cache available
             return false;
         }
-        $this->hit++;
-        $this->read++;
+        ++$this->hit;
+        ++$this->read;
         $this->time += (microtime(true) - $time);
         if ((!$doNotUnserialize) && $this->_options['automatic_serialization']) {
             // we need to unserialize before sending the result
             return unserialize($data);
         }
+
         return $data;
     }
 
     /**
-     * @param array $data
+     * @param array  $data
      * @param string $id
-     * @param array $tags
-     * @param bool $specificLifetime
-     * @param int $priority
+     * @param array  $tags
+     * @param bool   $specificLifetime
+     * @param int    $priority
+     *
      * @return bool
      */
-    public function save($data, $id = null, $tags = array(), $specificLifetime = false, $priority = 8)
+    public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
-        $this->calls++;
+        ++$this->calls;
         $time = microtime(true);
         if (!$this->_options['caching']) {
             return true;
@@ -112,7 +113,7 @@ class Cache extends Zend_Cache_Core
             $data = serialize($data);
         } else {
             if (!is_string($data)) {
-                Zend_Cache::throwException("Datas must be string or set automatic_serialization = true");
+                Zend_Cache::throwException('Datas must be string or set automatic_serialization = true');
             }
         }
 
@@ -122,10 +123,10 @@ class Cache extends Zend_Cache_Core
             if ($rand == 1) {
                 //  new way                 || deprecated way
                 if ($this->_extendedBackend || method_exists($this->_backend, 'isAutomaticCleaningAvailable')) {
-                    $this->_log("Zend_Cache_Core::save(): automatic cleaning running", 7);
+                    $this->_log('Zend_Cache_Core::save(): automatic cleaning running', 7);
                     $this->clean(Zend_Cache::CLEANING_MODE_OLD);
                 } else {
-                    $this->_log("Zend_Cache_Core::save(): automatic cleaning is not available/necessary with current backend", 4);
+                    $this->_log('Zend_Cache_Core::save(): automatic cleaning is not available/necessary with current backend', 4);
                 }
             }
         }
@@ -143,7 +144,7 @@ class Cache extends Zend_Cache_Core
             ignore_user_abort($abort);
         }
 
-        $this->write++;
+        ++$this->write;
 
         $this->time += (microtime(true) - $time);
 
@@ -151,6 +152,7 @@ class Cache extends Zend_Cache_Core
             // maybe the cache is corrupted, so we remove it !
             $this->_log("Zend_Cache_Core::save(): failed to save item '{$id}' -> removing it", 4);
             $this->_backend->remove($id);
+
             return false;
         }
 
@@ -159,6 +161,7 @@ class Cache extends Zend_Cache_Core
             if ($data != $data2) {
                 $this->_log("Zend_Cache_Core::save(): write control of item '{$id}' failed -> removing it", 4);
                 $this->_backend->remove($id);
+
                 return false;
             }
         }
@@ -168,19 +171,20 @@ class Cache extends Zend_Cache_Core
 
     /**
      * @param string $id
+     *
      * @return bool
      */
     public function remove($id)
     {
         $time = microtime(true);
-        $this->calls++;
+        ++$this->calls;
         if (!$this->_options['caching']) {
             return true;
         }
         $id = $this->_id($id); // cache id may need prefix
         self::_validateIdOrTag($id);
 
-        $this->delete++;
+        ++$this->delete;
 
         $this->_log("Zend_Cache_Core: remove item '{$id}'", 7);
         $remove = $this->_backend->remove($id);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ShyimProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
@@ -18,8 +17,7 @@ class FormCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
-     * @return void
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {

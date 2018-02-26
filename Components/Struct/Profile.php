@@ -7,7 +7,6 @@ use JsonSerializable;
 
 /**
  * Class Profile
- * @package ShyimProfiler\Components\Struct
  */
 class Profile implements JsonSerializable
 {
@@ -32,7 +31,7 @@ class Profile implements JsonSerializable
     private $templateBlockCalls = 0;
 
     /**
-     * @var double
+     * @var float
      */
     private $templateRenderTime = 0;
 
@@ -97,12 +96,9 @@ class Profile implements JsonSerializable
         return $this->id;
     }
 
-    /**
-     * @return void
-     */
     public function increaseTemplateBlockCalls()
     {
-        $this->templateBlockCalls++;
+        ++$this->templateBlockCalls;
     }
 
     /**
@@ -118,7 +114,7 @@ class Profile implements JsonSerializable
      */
     public function addTemplateCall($path)
     {
-        $this->templateCalls++;
+        ++$this->templateCalls;
         $path = $this->normalizePath($path);
 
         if (!isset($this->templatesRendered[$path])) {
@@ -213,44 +209,50 @@ class Profile implements JsonSerializable
     }
 
     /**
-     * @param string $path
-     * @return bool|string
-     */
-    private function normalizePath($path)
-    {
-        if (strpos($path, 'frontend') !== false) {
-            $pos = strpos($path, 'frontend');
-            return substr($path, $pos);
-        }
-
-        if (strpos($path, 'widgets') !== false) {
-            $pos = strpos($path, 'widgets');
-            return substr($path, $pos);
-        }
-
-        return $path;
-    }
-
-    /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
     {
         $result = [
             'template' => $this->template,
-            'config'   => $this->config,
-            'db'       => $this->dbQueries,
-            'events'   => $this->events,
-            'php'      => $this->php,
-            'user'     => $this->user
+            'config' => $this->config,
+            'db' => $this->dbQueries,
+            'events' => $this->events,
+            'php' => $this->php,
+            'user' => $this->user,
         ];
 
         $result = array_merge($result, $this->attributes);
 
         return $result;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return bool|string
+     */
+    private function normalizePath($path)
+    {
+        if (strpos($path, 'frontend') !== false) {
+            $pos = strpos($path, 'frontend');
+
+            return substr($path, $pos);
+        }
+
+        if (strpos($path, 'widgets') !== false) {
+            $pos = strpos($path, 'widgets');
+
+            return substr($path, $pos);
+        }
+
+        return $path;
     }
 }

@@ -3,8 +3,8 @@
 namespace ShyimProfiler\Models;
 
 use DateTime;
-use Shopware\Components\Model\ModelEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Shopware\Components\Model\ModelEntity;
 
 /**
  * @ORM\Table(name="s_plugin_profiler")

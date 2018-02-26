@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class CustomCacheCompilerPass
- * @package ShyimProfiler\Components\CompilerPass
  */
 class CustomCacheCompilerPass implements CompilerPassInterface
 {

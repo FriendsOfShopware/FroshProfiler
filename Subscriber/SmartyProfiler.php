@@ -7,7 +7,6 @@ use Enlight_Event_EventArgs;
 
 /**
  * Class SmartyProfiler
- * @package ShyimProfiler\Subscriber
  */
 class SmartyProfiler implements SubscriberInterface
 {
@@ -18,6 +17,7 @@ class SmartyProfiler implements SubscriberInterface
 
     /**
      * SmartyProfiler constructor.
+     *
      * @param $pluginDir
      */
     public function __construct($pluginDir)
@@ -31,7 +31,7 @@ class SmartyProfiler implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Bootstrap_InitResource_template' => 'onInitTemplate'
+            'Enlight_Bootstrap_InitResource_template' => 'onInitTemplate',
         ];
     }
 
