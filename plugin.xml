@@ -3,11 +3,11 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">FroshProfiler</label>
     <label lang="en">FroshProfiler</label>
-    <version>1.1.6</version>
-    <copyright>Shyim</copyright>
+    <version>1.2.0</version>
+    <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
-    <link>https://github.com/shyim/shopware-profiler</link>
-    <author>Shyim</author>
+    <link>https://friendsofshopware.github.io/</link>
+    <author>Friends of Shopware</author>
     <changelog version="1.0.6">
         <changes lang="en">
             <![CDATA[
@@ -129,6 +129,15 @@
                 <ul>
                     <li>Fixed template name column size, thanks to larsbo <a href="https://github.com/shyim/shopware-profiler/issues/64">#64</a></li>
                     <li>Profiler reachable also if ip not on whitelist <a href="https://github.com/shyim/shopware-profiler/issues/63">#63</a></li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.2.0">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Profiler plugin is now part of Friends of Shopware group. Repository moved to https://github.com/FriendsOfShopware/FroshProfiler</li>
                 </ul>
             ]]>
         </changes>

@@ -1,5 +1,5 @@
 {
-  "name": "shyim/shopware-profiler",
+  "name": "frosh/shopware-profiler",
   "keywords": ["shopware", "profiling", "plugin"],
   "description": "Profiling for Shopware",
   "license": "MIT",
