@@ -5,12 +5,13 @@
 
 Profiling for Shopware  
 Required Minimum Shopware Version 5.2
+Required PHP 7.0
 
 # Installation
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/shyim/shopware-profiler/releases/latest/) (e.g. `FroshProfiler-1.1.6.zip`)
+* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.1.6.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version
@@ -20,7 +21,7 @@ Required Minimum Shopware Version 5.2
 
 ## Install with composer
 * Change to your root Installation of shopware
-* Run command `composer require shyim/shopware-profiler` and install and active plugin with Plugin Manager 
+* Run command `composer require frosh/shopware-profiler` and install and active plugin with Plugin Manager 
 
 # Images
 ![Browser Toolbar](http://i.imgur.com/1F5d8jj.jpg)
