@@ -9,10 +9,10 @@ if [ -z ${commit} ]; then
 fi
 
 # Remove old release
-rm -rf ShyimProfiler ShyimProfiler-*.zip
+rm -rf FroshProfiler FroshProfiler-*.zip
 
 # Build new release
-mkdir -p ShyimProfiler
-git archive ${commit} | tar -x -C ShyimProfiler
-composer install --no-dev -n -o -d ShyimProfiler
-zip -r ShyimProfiler-${commit}.zip ShyimProfiler
+mkdir -p FroshProfiler
+git archive ${commit} | tar -x -C FroshProfiler
+composer install --no-dev -n -o -d FroshProfiler
+zip -r FroshProfiler-${commit}.zip FroshProfiler

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\CompilerPass;
+namespace FroshProfiler\Components\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

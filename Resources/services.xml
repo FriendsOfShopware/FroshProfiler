@@ -5,14 +5,14 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="shyim_profiler.cache_dir">%kernel.cache_dir%/ShyimProfiler</parameter>
+        <parameter key="shyim_profiler.cache_dir">%kernel.cache_dir%/FroshProfiler</parameter>
         <parameter key="shyim_profiler.view_dir">%shyim_profiler.plugin_dir%/Resources/views</parameter>
         <parameter key="shyim_profiler.smarty_dir">%shyim_profiler.plugin_dir%/Resources/smarty</parameter>
         <parameter key="shyim_profiler.smarty_default_plugin_dir">%shyim_profiler.plugin_dir%/Components/Smarty/sysplugins/</parameter>
     </parameters>
 
     <services>
-        <service id="shyim_profiler.collector" class="ShyimProfiler\Components\Collector">
+        <service id="shyim_profiler.collector" class="FroshProfiler\Components\Collector">
             <argument type="service" id="events" />
             <argument type="service" id="shyim_profiler.cache" />
             <argument type="service" id="dbal_connection"/>
@@ -24,83 +24,83 @@
             <argument type="string">%shyim_profiler.cache_dir%</argument>
         </service>
 
-        <service id="shyim_profiler.block_annotator" class="ShyimProfiler\Components\BlockAnnotation\BlockAnnotator">
+        <service id="shyim_profiler.block_annotator" class="FroshProfiler\Components\BlockAnnotation\BlockAnnotator">
             <argument type="service" id="shyim_profiler.block_splitter" />
         </service>
 
-        <service id="shyim_profiler.block_splitter" class="ShyimProfiler\Components\BlockAnnotation\BlockSplitter" />
+        <service id="shyim_profiler.block_splitter" class="FroshProfiler\Components\BlockAnnotation\BlockSplitter" />
 
         <!-- Collectors -->
-        <service id="shyim_profiler.collectors.general" class="ShyimProfiler\Components\Collectors\GeneralCollector" public="false">
+        <service id="shyim_profiler.collectors.general" class="FroshProfiler\Components\Collectors\GeneralCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.php" class="ShyimProfiler\Components\Collectors\PHPCollector" public="false">
+        <service id="shyim_profiler.collectors.php" class="FroshProfiler\Components\Collectors\PHPCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.user" class="ShyimProfiler\Components\Collectors\UserCollector" public="false">
+        <service id="shyim_profiler.collectors.user" class="FroshProfiler\Components\Collectors\UserCollector" public="false">
             <argument type="service" id="service_container"/>
 
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.smarty" class="ShyimProfiler\Components\Collectors\SmartyCollector" public="false">
+        <service id="shyim_profiler.collectors.smarty" class="FroshProfiler\Components\Collectors\SmartyCollector" public="false">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.event" class="ShyimProfiler\Components\Collectors\EventCollector" public="false">
+        <service id="shyim_profiler.collectors.event" class="FroshProfiler\Components\Collectors\EventCollector" public="false">
             <argument type="service" id="events"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.cache" class="ShyimProfiler\Components\Collectors\CacheCollector" public="false">
+        <service id="shyim_profiler.collectors.cache" class="FroshProfiler\Components\Collectors\CacheCollector" public="false">
             <argument type="service" id="cache"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.db" class="ShyimProfiler\Components\Collectors\DBCollector" public="false">
+        <service id="shyim_profiler.collectors.db" class="FroshProfiler\Components\Collectors\DBCollector" public="false">
             <argument type="service" id="db"/>
             <argument type="service" id="models"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.config" class="ShyimProfiler\Components\Collectors\ConfigCollector" public="false">
+        <service id="shyim_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.exception" class="ShyimProfiler\Components\Collectors\ExceptionCollector" public="false">
+        <service id="shyim_profiler.collectors.exception" class="FroshProfiler\Components\Collectors\ExceptionCollector" public="false">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="shyim_profiler.collectors.forms" class="ShyimProfiler\Components\Collectors\FormCollector" public="false">
+        <service id="shyim_profiler.collectors.forms" class="FroshProfiler\Components\Collectors\FormCollector" public="false">
             <tag name="profiler.collector"/>
         </service>
 
         <service id="shyim_profiler.config" class="Shopware\Components\Plugin\CachedConfigReader">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
-            <argument type="string">ShyimProfiler</argument>
+            <argument type="string">FroshProfiler</argument>
         </service>
 
         <!-- Event Subscriber -->
-        <service id="shyim_profiler.subscriber.collector" class="ShyimProfiler\Subscriber\Collector">
+        <service id="shyim_profiler.subscriber.collector" class="FroshProfiler\Subscriber\Collector">
             <argument type="service" id="service_container" />
             <argument type="service" id="shyim_profiler.current.profile"/>
             <argument type="service" id="shyim_profiler.config"/>
             <tag name="shopware.event_subscriber" />
         </service>
 
-        <service id="shyim_profiler.subscriber.controller_profiler" class="ShyimProfiler\Subscriber\ProfilerController">
+        <service id="shyim_profiler.subscriber.controller_profiler" class="FroshProfiler\Subscriber\ProfilerController">
             <argument type="string">%shyim_profiler.plugin_dir%</argument>
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <argument type="service" id="template" />
             <tag name="shopware.event_subscriber" />
         </service>
 
-        <service id="shyim_profiler.subscriber.block_annotation" class="ShyimProfiler\Subscriber\BlockAnnotation">
+        <service id="shyim_profiler.subscriber.block_annotation" class="FroshProfiler\Subscriber\BlockAnnotation">
             <argument type="service" id="config"/>
             <argument type="service" id="shyim_profiler.config"/>
             <argument type="service" id="shyim_profiler.block_annotator"/>
@@ -108,45 +108,45 @@
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.subscriber.cache" class="ShyimProfiler\Subscriber\CacheSubscriber">
+        <service id="shyim_profiler.subscriber.cache" class="FroshProfiler\Subscriber\CacheSubscriber">
             <argument type="string">%shyim_profiler.cache_dir%</argument>
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.subscriber.database_profiler" class="ShyimProfiler\Subscriber\DatabaseProfiler">
+        <service id="shyim_profiler.subscriber.database_profiler" class="FroshProfiler\Subscriber\DatabaseProfiler">
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.subscriber.smarty_profiler" class="ShyimProfiler\Subscriber\SmartyProfiler">
+        <service id="shyim_profiler.subscriber.smarty_profiler" class="FroshProfiler\Subscriber\SmartyProfiler">
             <tag name="shopware.event_subscriber"/>
             <argument>%shyim_profiler.smarty_default_plugin_dir%</argument>
         </service>
 
-        <service id="shyim_profiler.subscriber.javascript" class="ShyimProfiler\Subscriber\JavascriptSubscriber">
+        <service id="shyim_profiler.subscriber.javascript" class="FroshProfiler\Subscriber\JavascriptSubscriber">
             <argument type="service" id="shyim_profiler.config"/>
             <argument type="string">%shyim_profiler.view_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_profiler.current.profile" class="ShyimProfiler\Components\Struct\Profile"/>
+        <service id="shyim_profiler.current.profile" class="FroshProfiler\Components\Struct\Profile"/>
 
         <!-- Decorations -->
-        <service decorates="pluginlogger" id="shyim_profiler.decoration.pluginlogger" class="ShyimProfiler\Components\Logger">
+        <service decorates="pluginlogger" id="shyim_profiler.decoration.pluginlogger" class="FroshProfiler\Components\Logger">
             <argument type="service" id="shyim_profiler.decoration.pluginlogger.inner"/>
             <argument type="string">Pluginlogger</argument>
         </service>
-        <service decorates="corelogger" id="shyim_profiler.decoration.corelogger" class="ShyimProfiler\Components\Logger">
+        <service decorates="corelogger" id="shyim_profiler.decoration.corelogger" class="FroshProfiler\Components\Logger">
             <argument type="service" id="shyim_profiler.decoration.corelogger.inner"/>
             <argument type="string">Corelogger</argument>
         </service>
-        <service decorates="debuglogger" id="shyim_profiler.decoration.debuglogger" class="ShyimProfiler\Components\Logger">
+        <service decorates="debuglogger" id="shyim_profiler.decoration.debuglogger" class="FroshProfiler\Components\Logger">
             <argument type="service" id="shyim_profiler.decoration.debuglogger.inner"/>
             <argument type="string">Debuglogger</argument>
         </service>
 
         <service id="snippet_resource"
-                 class="ShyimProfiler\Components\Smarty\SnippetResource">
+                 class="FroshProfiler\Components\Smarty\SnippetResource">
             <argument type="service" id="snippets"/>
             <argument>%shopware.snippet.showSnippetPlaceholder%</argument>
         </service>
@@ -158,7 +158,7 @@
             <argument type="service" id="shyim_profiler.forms.data_extractor"/>
         </service>
 
-        <service id="shyim_profiler.forms.form_listener" class="ShyimProfiler\Components\FormListener">
+        <service id="shyim_profiler.forms.form_listener" class="FroshProfiler\Components\FormListener">
             <argument type="service" id="shyim_profiler.forms.data_collector"/>
             <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
         </service>

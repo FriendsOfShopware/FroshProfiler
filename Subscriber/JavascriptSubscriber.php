@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Subscriber;
+namespace FroshProfiler\Subscriber;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Enlight\Event\SubscriberInterface;

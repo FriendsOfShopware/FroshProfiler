@@ -10,11 +10,11 @@ Required Minimum Shopware Version 5.2
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/shyim/shopware-profiler/releases/latest/) (e.g. `ShyimProfiler-1.1.6.zip`)
+* Download the [latest plugin version](https://github.com/shyim/shopware-profiler/releases/latest/) (e.g. `FroshProfiler-1.1.6.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version
-* Checkout Plugin in `/custom/plugins/ShyimProfiler`
+* Checkout Plugin in `/custom/plugins/FroshProfiler`
 * Change to Directory and run `composer install` to install the dependencies
 * Install the Plugin with the Plugin Manager
 

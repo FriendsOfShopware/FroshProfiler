@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\Cache;
+namespace FroshProfiler\Components\Cache;
 
 use Zend_Cache;
 use Zend_Cache_Core;

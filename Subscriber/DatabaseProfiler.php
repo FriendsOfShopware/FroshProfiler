@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Subscriber;
+namespace FroshProfiler\Subscriber;
 
 use Doctrine\DBAL\Logging\DebugStack;
 use Enlight\Event\SubscriberInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components;
+namespace FroshProfiler\Components;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\DataCollector\FormDataCollectorInterface;

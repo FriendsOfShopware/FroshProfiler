@@ -1,11 +1,11 @@
 <?php
 
-namespace ShyimProfiler\Components\Collectors;
+namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
 use Shopware;
 use Shopware\Kernel;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

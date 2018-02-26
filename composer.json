@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "shopware-plugin",
   "extra": {
-    "installer-name": "ShyimProfiler"
+    "installer-name": "FroshProfiler"
   },
   "replace": {
     "symfony/polyfill-mbstring": "~1.0"

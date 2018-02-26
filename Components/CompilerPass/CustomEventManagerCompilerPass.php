@@ -1,8 +1,8 @@
 <?php
 
-namespace ShyimProfiler\Components\CompilerPass;
+namespace FroshProfiler\Components\CompilerPass;
 
-use ShyimProfiler\Components\Event\EventManager;
+use FroshProfiler\Components\Event\EventManager;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

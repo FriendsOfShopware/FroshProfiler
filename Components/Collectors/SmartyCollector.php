@@ -1,10 +1,10 @@
 <?php
 
-namespace ShyimProfiler\Components\Collectors;
+namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
 use Enlight_Exception;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Struct\Profile;
 
 /**
  * Class SmartyCollector

@@ -1,10 +1,10 @@
 <?php
 
-namespace ShyimProfiler\Components\Collectors;
+namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
-use ShyimProfiler\Components\Event\EventManager;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Event\EventManager;
+use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
 /**

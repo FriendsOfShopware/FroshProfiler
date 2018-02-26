@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler;
+namespace FroshProfiler;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Shopware\Components\Plugin;
@@ -8,11 +8,11 @@ use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware\Components\Plugin\Context\UpdateContext;
-use ShyimProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
-use ShyimProfiler\Components\CompilerPass\CustomCacheCompilerPass;
-use ShyimProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
-use ShyimProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
-use ShyimProfiler\Models\Profile;
+use FroshProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
+use FroshProfiler\Components\CompilerPass\CustomCacheCompilerPass;
+use FroshProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
+use FroshProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
+use FroshProfiler\Models\Profile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -20,9 +20,9 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 }
 
 /**
- * Class ShyimProfiler
+ * Class FroshProfiler
  */
-class ShyimProfiler extends Plugin
+class FroshProfiler extends Plugin
 {
     /**
      * @param ActivateContext $context

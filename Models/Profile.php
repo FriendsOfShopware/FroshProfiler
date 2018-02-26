@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Models;
+namespace FroshProfiler\Models;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;

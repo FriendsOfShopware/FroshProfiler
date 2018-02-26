@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
-    <label lang="de">ShyimProfiler</label>
-    <label lang="en">ShyimProfiler</label>
+    <label lang="de">FroshProfiler</label>
+    <label lang="en">FroshProfiler</label>
     <version>1.1.6</version>
     <copyright>Shyim</copyright>
     <license>MIT</license>

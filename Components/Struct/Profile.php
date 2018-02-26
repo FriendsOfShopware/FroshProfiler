@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\Struct;
+namespace FroshProfiler\Components\Struct;
 
 use Exception;
 use JsonSerializable;

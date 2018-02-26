@@ -1,14 +1,14 @@
 <?php
 
-namespace ShyimProfiler\Components;
+namespace FroshProfiler\Components;
 
 use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\DBAL\Connection;
 use Enlight_Controller_Action;
 use Enlight_Event_EventManager;
 use Monolog\Formatter\NormalizerFormatter;
-use ShyimProfiler\Components\Collectors\CollectorInterface;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Collectors\CollectorInterface;
+use FroshProfiler\Components\Struct\Profile;
 
 /**
  * Class Collector

@@ -1,13 +1,13 @@
 <?php
 
-namespace ShyimProfiler\Subscriber;
+namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Front;
 use Enlight_Event_EventArgs;
 use Enlight_Template_Manager;
 use Shopware_Components_Config;
-use ShyimProfiler\Components\BlockAnnotation\BlockAnnotator;
+use FroshProfiler\Components\BlockAnnotation\BlockAnnotator;
 
 /**
  * Class BlockAnnotation

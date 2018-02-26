@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\BlockAnnotation;
+namespace FroshProfiler\Components\BlockAnnotation;
 
 /**
  * BlockAnnotator annotates smarty block with HTML comments, so you can tell which content belongs to which block.

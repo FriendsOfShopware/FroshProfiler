@@ -1,9 +1,9 @@
 <?php
 
-namespace ShyimProfiler\Components\Collectors;
+namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Struct\Profile;
 
 /**
  * Class ExceptionCollector

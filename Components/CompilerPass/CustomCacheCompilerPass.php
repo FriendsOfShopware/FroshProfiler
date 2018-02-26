@@ -1,9 +1,9 @@
 <?php
 
-namespace ShyimProfiler\Components\CompilerPass;
+namespace FroshProfiler\Components\CompilerPass;
 
-use ShyimProfiler\Components\Cache\Cache;
-use ShyimProfiler\Components\Cache\CacheFactory;
+use FroshProfiler\Components\Cache\Cache;
+use FroshProfiler\Components\Cache\CacheFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\Smarty;
+namespace FroshProfiler\Components\Smarty;
 
 use Smarty;
 use Smarty_Internal_Template;
@@ -8,7 +8,7 @@ use Smarty_Template_Source;
 
 /**
  * Class SnippetResource
- * @package ShyimProfiler\Components\Smarty
+ * @package FroshProfiler\Components\Smarty
  * @author Soner Sayakci <s.sayakci@gmail.com>
  */
 class SnippetResource extends \Enlight_Components_Snippet_Resource

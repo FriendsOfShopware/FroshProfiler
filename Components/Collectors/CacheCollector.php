@@ -1,10 +1,10 @@
 <?php
 
-namespace ShyimProfiler\Components\Collectors;
+namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
-use ShyimProfiler\Components\Cache\Cache;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Cache\Cache;
+use FroshProfiler\Components\Struct\Profile;
 
 /**
  * Class CacheCollector

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\Cache;
+namespace FroshProfiler\Components\Cache;
 
 class CacheFactory
 {

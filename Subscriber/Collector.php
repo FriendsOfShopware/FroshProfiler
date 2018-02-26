@@ -1,12 +1,12 @@
 <?php
 
-namespace ShyimProfiler\Subscriber;
+namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Action;
 use Enlight_Controller_Response_ResponseHttp;
 use Enlight_Event_EventArgs;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 

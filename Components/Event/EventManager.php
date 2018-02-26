@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\Event;
+namespace FroshProfiler\Components\Event;
 
 use Closure;
 use Doctrine\Common\Util\Debug;

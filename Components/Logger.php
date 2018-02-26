@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components;
+namespace FroshProfiler\Components;
 
 use Shopware\Components\Logger as BaseLogger;
 

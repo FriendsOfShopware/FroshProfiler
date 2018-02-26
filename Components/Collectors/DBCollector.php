@@ -1,12 +1,12 @@
 <?php
 
-namespace ShyimProfiler\Components\Collectors;
+namespace FroshProfiler\Components\Collectors;
 
 use Doctrine\DBAL\Logging\DebugStack;
 use Enlight_Components_Db_Adapter_Pdo_Mysql;
 use Enlight_Controller_Action;
 use Shopware\Components\Model\ModelManager;
-use ShyimProfiler\Components\Struct\Profile;
+use FroshProfiler\Components\Struct\Profile;
 use Zend_Db_Profiler;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Subscriber;
+namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager;

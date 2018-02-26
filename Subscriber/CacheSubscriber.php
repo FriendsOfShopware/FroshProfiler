@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Subscriber;
+namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
@@ -57,7 +57,7 @@ class CacheSubscriber implements SubscriberInterface
 
         if ($subject->Request()->getActionName() == 'load') {
             $subject->View()->addTemplateDir($this->templateDir);
-            $subject->View()->extendsTemplate('backend/ShyimProfiler/performance/view/tabs/cache/form.js');
+            $subject->View()->extendsTemplate('backend/FroshProfiler/performance/view/tabs/cache/form.js');
         }
     }
 

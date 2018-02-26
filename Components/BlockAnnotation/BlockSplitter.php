@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimProfiler\Components\BlockAnnotation;
+namespace FroshProfiler\Components\BlockAnnotation;
 
 /**
  * BlockSplitter splits a given template string into smarty blocks.
