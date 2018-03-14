@@ -12,7 +12,7 @@
         </div>
         <div class="sf-toolbar-info-piece">
             <b>Query time</b>
-            <span>{$sProfiler.db.queryTime} ms</span>
+            <span>{$sProfiler.db.queryTime|number_format:4} s</span>
         </div>
     </div>
 </div>

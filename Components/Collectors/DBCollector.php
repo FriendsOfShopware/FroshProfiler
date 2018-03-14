@@ -89,14 +89,14 @@ class DBCollector implements CollectorInterface
                 'params' => $query['params'],
                 'execution' => $query['executionMS'],
             ];
-            $this->executeTime += $query['executionMS'];
+            $this->executeTime += $query['executionMS'] / 1000;
         }
 
         foreach ($this->zendProfiler->getQueryProfiles() as $queryProfile) {
             $this->executedQuerys[] = [
                 'sql' => $queryProfile->getQuery(),
                 'params' => $queryProfile->getQueryParams(),
-                'execution' => $queryProfile->getElapsedSecs(),
+                'execution' => $queryProfile->getElapsedSecs() * 1000,
             ];
         }
     }

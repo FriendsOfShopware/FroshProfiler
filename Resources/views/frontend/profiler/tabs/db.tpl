@@ -7,7 +7,7 @@
     </div>
 
     <div class="metric">
-        <span class="value">{$sDetail.db.queryTime}</span>
+        <span class="value">{$sDetail.db.queryTime|number_format:4} s</span>
         <span class="label">Total Query Time</span>
     </div>
 </div>
@@ -25,7 +25,7 @@
             <tr>
                 <td>{$sql.sql|sqlFormat}</td>
                 <td>{$sql.params|dump}</td>
-                <td>{$sql.execution}</td>
+                <td>{$sql.execution|number_format:4} ms</td>
             </tr>
         {/foreach}
     </tbody>
