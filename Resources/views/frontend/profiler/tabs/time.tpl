@@ -28,7 +28,7 @@
     <table class="">
         <thead>
         <tr>
-            <th scope="col" class="key">Callable</th>
+            <th scope="col">Callable</th>
             <th scope="col">Time</th>
         </tr>
         </thead>
