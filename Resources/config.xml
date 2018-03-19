@@ -35,6 +35,11 @@
             <label>Depth of vardump in profiler detail</label>
             <value>20</value>
         </element>
+        <element type="number">
+            <name>dumpSize</name>
+            <label>Maximum size of the vardump (-1 equals Unlimited)</label>
+            <value>2500</value>
+        </element>
         <element type="boolean">
             <name>jsEvents</name>
             <label>Output Javascript events to console</label>

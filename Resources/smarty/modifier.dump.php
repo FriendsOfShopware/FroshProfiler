@@ -7,7 +7,10 @@ function smarty_modifier_dump($var)
 {
     $dumper = new HtmlDumper();
     $cloner = new VarCloner();
-    $cloner->setMaxItems(PHP_INT_MAX);
+
+    $maxItems = Shopware()->Config()->get('dumpSize', 2500);
+    $cloner->setMaxItems(($maxItems === -1 ? PHP_INT_MAX : $maxItems));
+
     $data = $cloner->cloneVar($var);
     $data->withMaxDepth(Shopware()->Config()->get('dumpDepth', 20));
 
