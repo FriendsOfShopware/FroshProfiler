@@ -1,7 +1,6 @@
 # Profiling
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shyim/shopware-profiler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shyim/shopware-profiler/?branch=master)
-[![Travis CI](https://api.travis-ci.org/shyim/shopware-profiler.svg?branch=master)](https://travis-ci.org/shyim/shopware-profiler)
+[![Travis CI](https://api.travis-ci.org/FriendsOfShopware/FroshProfiler.svg?branch=master)](https://travis-ci.org/FriendsOfShopware/FroshProfiler)
 
 Profiling for Shopware  
 Required Minimum Shopware Version 5.2
@@ -11,7 +10,7 @@ Required PHP 7.0
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.1.6.zip`)
+* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.2.1.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version
