@@ -142,6 +142,15 @@
             ]]>
         </changes>
     </changelog>
+    <changelog version="1.2.1">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Fixed units of query time, added config for dumpSize</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
     <description>
         <![CDATA[
             <b>Notice to used snippets</b>
