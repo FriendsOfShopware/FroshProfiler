@@ -12,7 +12,7 @@
         <changes lang="en">
             <![CDATA[
                 <ul>
-                    <li>Add plugin icon for the plugin maanger</li>
+                    <li>Add plugin icon for the plugin manager</li>
                     <li>Update name to a user friendly notation</li>
                     <li>Change order of changelog list items</li>
                 </ul>
