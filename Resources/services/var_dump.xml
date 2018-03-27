@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="kernel.charset">utf8</parameter>
+        <parameter key="kernel.project_dir">%kernel.root_dir%</parameter>
+        <parameter key="var_dump_server">127.0.0.1:9912</parameter>
+    </parameters>
+
+    <services>
+        <service id="var_dumper.cli_dumper" class="Symfony\Component\VarDumper\Dumper\CliDumper">
+            <argument>%var_dump_server%</argument><!-- debug.dump_destination -->
+            <argument>%kernel.charset%</argument>
+            <argument>0</argument> <!-- flags -->
+        </service>
+
+        <service id="var_dumper.html_dumper" class="Symfony\Component\VarDumper\Dumper\HtmlDumper">
+            <argument>%var_dump_server%</argument>
+            <argument>%kernel.charset%</argument>
+            <argument>0</argument> <!-- flags -->
+        </service>
+
+        <service id="var_dumper.server_dumper" class="Symfony\Component\VarDumper\Dumper\ServerDumper">
+            <argument>%var_dump_server%</argument>
+            <argument type="service" id="var_dumper.cli_dumper" />
+            <argument type="collection">
+                <argument type="service" key="source">
+                    <service class="Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider">
+                        <argument>%kernel.charset%</argument>
+                        <argument type="string">%kernel.project_dir%</argument>
+                    </service>
+                </argument>
+                <argument type="service" key="request">
+                    <service class="FroshProfiler\Components\VarDumper\RequestContextProvider">
+                        <argument type="service" id="front" />
+                    </service>
+                </argument>
+                <argument type="service" key="cli">
+                    <service class="Symfony\Component\VarDumper\Dumper\ContextProvider\CliContextProvider" />
+                </argument>
+            </argument>
+        </service>
+
+        <service id="var_dumper.dump_server" class="Symfony\Component\VarDumper\Server\DumpServer">
+            <argument>%var_dump_server%</argument>
+            <argument type="service" id="pluginlogger" on-invalid="null" />
+            <tag name="monolog.logger" channel="debug" />
+        </service>
+
+        <service id="var_dumper.command.server_dump" class="Symfony\Component\VarDumper\Command\ServerDumpCommand">
+            <argument type="service" id="var_dumper.dump_server" />
+            <argument type="collection">
+                <argument type="service" key="cli">
+                    <service class="Symfony\Component\VarDumper\Command\Descriptor\CliDescriptor">
+                        <argument type="service" id="var_dumper.cli_dumper" />
+                    </service>
+                </argument>
+                <argument type="service" key="html">
+                    <service class="Symfony\Component\VarDumper\Command\Descriptor\HtmlDescriptor">
+                        <argument type="service" id="var_dumper.html_dumper" />
+                    </service>
+                </argument>
+            </argument>
+            <call method="setName">
+                <argument type="string">server:dump</argument>
+            </call>
+            <tag name="console.command" command="server:dump" />
+        </service>
+
+        <service id="frosh_profiler.subscriber.var_dumper" class="FroshProfiler\Subscriber\VarDumpServerSubscriber">
+            <argument type="service" id="frosh_profiler.config"/>
+            <argument type="service" id="var_dumper.server_dumper"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+    </services>
+</container>

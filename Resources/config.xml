@@ -45,5 +45,10 @@
             <label>Output Javascript events to console</label>
             <value>1</value>
         </element>
+        <element type="boolean">
+            <name>varDumpServer</name>
+            <label>Enable var-dump server</label>
+            <value>0</value>
+        </element>
     </elements>
 </config>

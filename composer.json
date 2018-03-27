@@ -11,14 +11,19 @@
     "symfony/polyfill-mbstring": "~1.0"
   },
   "require": {
-    "php" : "^7.0",
-    "symfony/var-dumper": "^3.2",
     "jdorn/sql-formatter": "^1.2.17",
     "composer/installers": "~1.0",
     "symfony/stopwatch": "^3.3",
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "shyim/var-dumper": "dev-master"
   },
   "scripts": {
     "test": "phpunit -c tests"
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/shyim/var-dumper"
+    }
+  ]
 }
