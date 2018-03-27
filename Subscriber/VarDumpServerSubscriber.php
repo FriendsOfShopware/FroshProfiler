@@ -4,6 +4,7 @@ namespace FroshProfiler\Subscriber;
 
 
 use Enlight\Event\SubscriberInterface;
+use Enlight_Event_EventArgs;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\ServerDumper;
 use Symfony\Component\VarDumper\VarDumper;
@@ -48,10 +49,10 @@ class VarDumpServerSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      * @author Soner Sayakci <shyim@posteo.de>
      */
-    public function initVarDumper(\Enlight_Event_EventArgs $args)
+    public function initVarDumper(Enlight_Event_EventArgs $args)
     {
         if (empty($this->pluginConfig['varDumpServer'])) {
             return;
