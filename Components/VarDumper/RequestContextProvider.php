@@ -35,7 +35,7 @@ class RequestContextProvider implements ContextProviderInterface
         $request = $this->front->Request();
 
         return array(
-            'uri' => $request->getRequestUri(),
+            'uri' => $request->getScheme() . '//' . $request->getHttpHost() . $request->getRequestUri(),
             'method' => $request->getMethod(),
             'controller' => $request->getControllerName(),
             'identifier' => spl_object_hash($request),
