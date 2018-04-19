@@ -30,7 +30,7 @@
             {include file=$sProfilerCollector->getToolbarTemplate()}
         {/if}
     {/foreach}
-    <a class="hide-button" title="Close Toolbar" onclick="document.querySelector('.sf-toolbarreset').remove();">
+    <a class="hide-button" title="Close Toolbar" onclick="closeToolbar()">
         {fetchFile file="@Toolbar/_resources/svg/close.svg"}
     </a>
 </div>
@@ -42,5 +42,10 @@
             ajaxBeforeSend.apply(window.CSRF, arguments);
             request.setRequestHeader('X-Profiler', '{$sProfilerID}');
         };
+    }
+    function closeToolbar()
+    {
+        document.querySelector('.sf-toolbarreset').remove();
+        document.cookie = "disableProfile=1";
     }
 </script>

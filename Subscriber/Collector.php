@@ -74,7 +74,8 @@ class Collector implements SubscriberInterface
             $controllerLower === 'media' ||
             $controllerLower === 'csrftoken' ||
             strpos($controller->Request()->getRequestUri(), 'profiler') !== false ||
-            $this->profile->getId()
+            $this->profile->getId() ||
+            $controller->Request()->getCookie('disableProfile', false)
         ) {
             return;
         }
