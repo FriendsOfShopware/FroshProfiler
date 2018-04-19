@@ -34,6 +34,10 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function indexAction()
     {
         $query = $this->buildListQuery();
@@ -54,6 +58,10 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function detailAction()
     {
         $id = $this->Request()->get('id');
@@ -80,12 +88,18 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         $this->View()->sPanel = $this->Request()->getParam('panel', 'request');
     }
 
+    /**
+     * @return void
+     */
     public function phpAction()
     {
         phpinfo();
         die();
     }
 
+    /**
+     * @return void
+     */
     public function mailAction()
     {
         $mode = $this->Request()->getParam('mode', 'bodyHtml');
@@ -100,8 +114,17 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
     }
 
+    public function ajaxAction()
+    {
+        $this->Front()->Plugins()->Json()->setRenderer();
+        $this->View()->setTemplate();
+        $data = $this->cache->fetch($this->Request()->getParam('hash'));
+        $this->View()->assign($data);
+    }
+
     /**
      * @return QueryBuilder
+     * @throws Exception
      */
     private function buildListQuery()
     {
