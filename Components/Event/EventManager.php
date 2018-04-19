@@ -52,12 +52,16 @@ class EventManager extends ContainerAwareEventManager
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
-        $this->watch = new Stopwatch();
         $this->xdebugInstalled = extension_loaded('xdebug');
 
         if ($this->xdebugInstalled) {
             $this->xdebugDepth = (int) ini_get('xdebug.var_display_max_depth');
         }
+    }
+
+    public function setStopWatch(Stopwatch $stopwatch)
+    {
+        $this->watch = $stopwatch;
     }
 
     /**

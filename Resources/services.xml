@@ -27,6 +27,8 @@
             <argument type="string">%frosh_profiler.cache_dir%</argument>
         </service>
 
+        <service id="frosh_profiler.stop_watch" class="Symfony\Component\Stopwatch\Stopwatch"/>
+
         <service id="frosh_profiler.block_annotator" class="FroshProfiler\Components\BlockAnnotation\BlockAnnotator">
             <argument type="service" id="frosh_profiler.block_splitter" />
         </service>
