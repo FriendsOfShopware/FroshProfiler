@@ -345,12 +345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/shyim/var-dumper.git",
-                "reference": "bd646b3472b2f393d3b97ca0d8a4bf5649e8eea8"
+                "reference": "eabe35d9de816a512c8cc4aefbf4f26627ed8b1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shyim/var-dumper/zipball/bd646b3472b2f393d3b97ca0d8a4bf5649e8eea8",
-                "reference": "bd646b3472b2f393d3b97ca0d8a4bf5649e8eea8",
+                "url": "https://api.github.com/repos/shyim/var-dumper/zipball/eabe35d9de816a512c8cc4aefbf4f26627ed8b1e",
+                "reference": "eabe35d9de816a512c8cc4aefbf4f26627ed8b1e",
                 "shasum": ""
             },
             "require": {
@@ -415,7 +415,7 @@
                 "source": "https://github.com/shyim/var-dumper/tree/master",
                 "issues": "https://github.com/shyim/var-dumper/issues"
             },
-            "time": "2018-04-19T08:37:27+00:00"
+            "time": "2018-04-19T10:09:21+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
