@@ -48,6 +48,54 @@ $this->get('frosh_profiler.stop_watch')->stop('Watch Name');
 
 Go to Performance tab, and your custom events are shown there
 
+### JavaScript: StateManager and Event Logging
+
+Will log ...
+
+... PubSub events: 
+
+* subscribe (*event name*)
+* unsubscribe (*event name*)
+* publish (*event name, arguments*)
+
+... Plugin registration:
+
+* addPlugin (*plugin name, element, viewports*)
+* removePlugin (*plugin name, element*)
+* updatePlugin (*plugin name, element*)
+* destroyPlugin (*plugin name, element*)
+
+... Breakpoint change:
+
+* switchPlugins (*previous/current state*)
+
+... Plugin initialization:
+
+* initPlugin (*plugin name, selector, event handlers*)
+
+#### Filter
+
+You can filter output by ...
+
+* type (available: *subscribe, unsubscribe, publish, addPlugin, removePlugin, updatePlugin, destroyPlugin, switchPlugins, initPlugin*)
+* event name
+* plugin name
+
+To set filter use the javascript console and the following functions, corresponding to each filter:
+
+```javascript
+StateDebug.setFilterType('publish');
+StateDebug.setFilterEvent(['onTrackItems', 'onSetSizes']);
+StateDebug.setFilterPlugin('swAjaxVariant');
+```
+
+You can pass a single filter criteria as string or an array of multiple filter criterias.
+
+Type criterias need to be exact and valid (see above). Event and plugin name criterias can
+include part of the name.
+
+To reset filter criterias call the functions without any arguments.
+
 
 # Images
 ![Browser Toolbar](http://i.imgur.com/1F5d8jj.jpg)
