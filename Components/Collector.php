@@ -21,19 +21,9 @@ class Collector
     private $collectors = [];
 
     /**
-     * @var Enlight_Event_EventManager
-     */
-    private $events;
-
-    /**
      * @var CacheProvider
      */
     private $cache;
-
-    /**
-     * @var NormalizerFormatter
-     */
-    private $normalizer;
 
     /**
      * @var Connection
@@ -53,22 +43,18 @@ class Collector
     /**
      * Collector constructor.
      *
-     * @param Enlight_Event_EventManager $events
      * @param CacheProvider              $cache
      * @param Connection                 $connection
      * @param Profile                    $profile
      * @param array                      $pluginConfig
      */
     public function __construct(
-        Enlight_Event_EventManager $events,
         CacheProvider $cache,
         Connection $connection,
         Profile $profile,
         array $pluginConfig
     ) {
-        $this->events = $events;
         $this->cache = $cache;
-        $this->normalizer = new NormalizerFormatter();
         $this->pluginConfig = $pluginConfig;
         $this->connection = $connection;
         $this->profile = $profile;
@@ -108,7 +94,7 @@ class Collector
 
     public function saveCollectInformation($id, $information, $subrequets = false)
     {
-        $information = $this->normalizer->format($information);
+        $information = $this->normalizeArray($information);
 
         if ($subrequets) {
             $data = $this->cache->fetch($id);
@@ -148,5 +134,27 @@ class Collector
         }
 
         return $id;
+    }
+
+    /**
+     * @param array $variables
+     * @return array
+     * @author Soner Sayakci <shyim@posteo.de>
+     */
+    private function normalizeArray(array $variables)
+    {
+        array_walk_recursive($variables, function (&$value) {
+            if (is_object($value)) {
+                try {
+                    serialize($value);
+                } catch (\Exception $e) {
+                    $value = null;
+                } catch (\Throwable $e) {
+                    $value = null;
+                }
+            }
+        });
+
+        return $variables;
     }
 }

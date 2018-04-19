@@ -17,7 +17,6 @@
 
     <services>
         <service id="frosh_profiler.collector" class="FroshProfiler\Components\Collector">
-            <argument type="service" id="events" />
             <argument type="service" id="frosh_profiler.cache" />
             <argument type="service" id="dbal_connection"/>
             <argument type="service" id="frosh_profiler.current.profile"/>
