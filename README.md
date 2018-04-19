@@ -34,6 +34,8 @@ Starting with 1.3.0 profiler does also support [var dump server](https://symfony
 * Open a terminal and run ```./bin/console server:dump --format=html > dump.html```
 * Use method ```dump()``` in your code and open dump.html in your Browser.
 
+![VarDumpServerHtml](https://i.imgur.com/qrTtG1Z.png)
+
 ### Adding additional stop watch events
 
 ````php
@@ -46,8 +48,6 @@ $this->get('frosh_profiler.stop_watch')->stop('Watch Name');
 
 Go to Performance tab, and your custom events are shown there
 
-
-![VarDumpServerHtml](https://i.imgur.com/qrTtG1Z.png)
 
 # Images
 ![Browser Toolbar](http://i.imgur.com/1F5d8jj.jpg)
