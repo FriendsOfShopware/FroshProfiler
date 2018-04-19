@@ -23,7 +23,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/shyim/var-dumper"
+      "url": "https://github.com/shyim/var-dumper.git"
     }
   ]
 }
