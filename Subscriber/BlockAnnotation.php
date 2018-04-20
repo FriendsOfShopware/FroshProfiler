@@ -51,7 +51,7 @@ class BlockAnnotation implements SubscriberInterface
         $this->pluginConfig = $pluginConfig;
 
         // Disable frontend blocks, if ip is not whitelisted
-        if (!empty($this->pluginConfig['whitelistIP']) && !in_array($front->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']))) {
+        if (!empty(trim($this->pluginConfig['whitelistIP'])) && !in_array($front->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']))) {
             $this->pluginConfig['frontendblocks'] = false;
         }
     }
