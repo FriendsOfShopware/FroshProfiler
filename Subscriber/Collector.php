@@ -115,7 +115,7 @@ class Collector implements SubscriberInterface
 
         $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
-        if (empty($this->pluginConfig['whitelistIP']) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
+        if (empty(trim($this->pluginConfig['whitelistIP'])) || $this->pluginConfig['whitelistIPProfile'] == 1 || $isIPWhitelisted) {
             $this->container->get('frosh_profiler.collector')->saveCollectInformation(
                 $this->profile->getId(),
                 $profileData,
@@ -123,7 +123,7 @@ class Collector implements SubscriberInterface
             );
         }
 
-        if ($this->profileController->Request()->getModuleName() == 'frontend' && (empty($this->pluginConfig['whitelistIP']) || $isIPWhitelisted)) {
+        if ($this->profileController->Request()->getModuleName() == 'frontend' && (empty(trim($this->pluginConfig['whitelistIP'])) || $isIPWhitelisted)) {
             $view = $this->container->get('template');
             $view->assign('sProfiler', $profileData);
             $view->assign('sProfilerCollectors', $this->container->get('frosh_profiler.collector')->getCollectors());
