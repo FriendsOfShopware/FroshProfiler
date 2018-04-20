@@ -23,7 +23,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         $this->cache = $this->get('frosh_profiler.cache');
         $config = $this->get('frosh_profiler.config');
 
-        if (!empty($config['whitelistIP'])) {
+        if (!empty(trim($config['whitelistIP']))) {
             $isIPWhitelisted = in_array($this->get('front')->Request()->getClientIp(), explode("\n", $config['whitelistIP']), false);
             if (!$isIPWhitelisted) {
                 throw new Enlight_Controller_Exception(
