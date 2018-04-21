@@ -16,6 +16,8 @@
                     <li>Improved data normalizer for objects</li>
                     <li>Added stopwatch service to add custom events</li>
                     <li>Allow users to stop profiling</li>
+                    <li>Advanced js events logging, thanks to @dneustadt</li>
+                    <li>Fixed whitespace problem with whitelistIP, thanks to @JoshuaBehrens</li>
                 </ul>
             ]]>
         </changes>
