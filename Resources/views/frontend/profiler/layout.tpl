@@ -12,8 +12,8 @@
     <div id="header">
         <div class="container">
             <h1>
-                {fetchFile file="@Toolbar/_resources/svg/symfony.svg"}
-                Symfony <span>Profiler</span>
+                {fetchFile file="@Toolbar/_resources/svg/shopware.svg"}
+                Shopware <span>Profiler</span>
             </h1>
             <div class="search">
                 <div class="form-row">
