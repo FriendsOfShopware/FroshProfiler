@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b756e3200ad22e0cff8608224b98838d",
+    "content-hash": "e5a65984d7a7a353c66c093593f0d5e5",
     "packages": [
         {
             "name": "composer/installers",
@@ -178,7 +178,7 @@
         },
         {
             "name": "shyim/var-dumper",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shyim/var-dumper.git",
@@ -229,6 +229,7 @@
                     "/Tests/"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -248,10 +249,6 @@
                 "debug",
                 "dump"
             ],
-            "support": {
-                "source": "https://github.com/shyim/var-dumper/tree/master",
-                "issues": "https://github.com/shyim/var-dumper/issues"
-            },
             "time": "2018-04-19T10:09:21+00:00"
         },
         {
@@ -362,9 +359,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "shyim/var-dumper": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
