@@ -83,6 +83,13 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
             ]);
         }
 
+        $eventFilter = [
+            'showContainerEvents' => $this->Request()->getParam('showContainerEvents', 0),
+            'search' => $this->Request()->getParam('search'),
+        ];
+        $detail = $this->filterEvents($detail, $eventFilter);
+
+        $this->View()->eventFilter = $eventFilter;
         $this->View()->sId = $this->Request()->get('id');
         $this->View()->sDetail = $detail;
         $this->View()->sPanel = $this->Request()->getParam('panel', 'request');
@@ -174,5 +181,29 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         }
 
         return $query;
+    }
+
+    /**
+     * @param array $detail
+     * @param array $eventFilter
+     * @return array
+     */
+    private function filterEvents(array $detail, array $eventFilter)
+    {
+        if ($this->Request()->getParam('panel') === 'events') {
+            $detail['events']['calledEvents'] = \array_filter($detail['events']['calledEvents'], function($value) use($eventFilter) {
+                if (!$eventFilter['showContainerEvents'] && \strpos($value['name'], 'Enlight_Bootstrap') === 0) {
+                    return false;
+                }
+
+                if ($eventFilter['search'] && \stripos($value['name'], $eventFilter['search']) === false) {
+                    return false;
+                }
+
+                return true;
+            });
+        }
+
+        return $detail;
     }
 }

@@ -4,6 +4,15 @@
     <div class="tab">
         <h3 class="tab-title">Called Listeners ({$sDetail.events.eventAmount})</h3>
 
+        <h4>Filters</h4>
+        <form method="get">
+            <input type="checkbox" name="showContainerEvents" value="1"{if $eventFilter.showContainerEvents} checked{/if}> Show container events<br>
+            <input type="text" name="search" placeholder="Search for events" value="{$eventFilter.search}">
+            <button class="btn">Filter</button>
+        </form>
+        <br>
+
+
         <div class="tab-content">
             <table>
                 <thead>
