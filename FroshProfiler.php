@@ -3,6 +3,7 @@
 namespace FroshProfiler;
 
 use Doctrine\ORM\Tools\SchemaTool;
+use FroshProfiler\Components\Tracleable\TraceableCompilerPass;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
@@ -13,11 +14,18 @@ use FroshProfiler\Components\CompilerPass\CustomCacheCompilerPass;
 use FroshProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
 use FroshProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use FroshProfiler\Models\Profile;
+use Symfony\Component\ClassLoader\Psr4ClassLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
+
+global $kernel;
+
+$loader = new Psr4ClassLoader();
+$loader->addPrefix('FroshProfilerProxy', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
+$loader->register();
 
 /**
  * Class FroshProfiler
@@ -71,6 +79,7 @@ class FroshProfiler extends Plugin
         $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
         $container->addCompilerPass(new CustomCacheCompilerPass());
+        $container->addCompilerPass(new TraceableCompilerPass());
     }
 
     /**

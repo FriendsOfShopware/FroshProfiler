@@ -88,6 +88,13 @@
                 title: {
                     display: true,
                     text: 'Event-Duration'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            padding: 0
+                        }
+                    }],
                 }
             }
         });

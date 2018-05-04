@@ -81,13 +81,14 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
             $this->redirect([
                 'action' => 'index',
             ]);
+            return;
         }
 
         $eventFilter = [
             'showContainerEvents' => $this->Request()->getParam('showContainerEvents', 0),
             'search' => $this->Request()->getParam('search'),
         ];
-        $detail = $this->filterEvents($detail, $eventFilter);
+        $detail = $this->filterDetail($detail, $eventFilter);
 
         $this->View()->eventFilter = $eventFilter;
         $this->View()->sId = $this->Request()->get('id');
@@ -188,7 +189,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
      * @param array $eventFilter
      * @return array
      */
-    private function filterEvents(array $detail, array $eventFilter)
+    private function filterDetail(array $detail, array $eventFilter)
     {
         if ($this->Request()->getParam('panel') === 'events') {
             $detail['events']['calledEvents'] = \array_filter($detail['events']['calledEvents'], function($value) use($eventFilter) {

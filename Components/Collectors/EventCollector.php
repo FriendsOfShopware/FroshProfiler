@@ -72,6 +72,10 @@ class EventCollector implements CollectorInterface
         $eventListeners = [];
 
         foreach ($eventsTimes as $eventsTime) {
+            if ($eventsTime['duration'] === 0) {
+                continue;
+            }
+
             $chartLabels[] = $eventsTime['name'];
             $chartValues[] = $eventsTime['duration'];
             $eventListeners[$eventsTime['name']] = $eventsTime['listeners'];
