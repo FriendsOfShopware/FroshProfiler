@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class TraceableCompilerPass implements CompilerPassInterface
 {
-    const TRACEABLE_SERVICES = [
+    private $traceableServices = [
         'shopware.emotion',
         'shopware.routing',
         'shopware_search',
@@ -24,13 +24,13 @@ class TraceableCompilerPass implements CompilerPassInterface
         'shopware_storefront',
     ];
 
-    const IGNORE_SERVICES = [
+    private $ignoredServices = [
         'shopware_media.cache_optimizer_service',
         'shopware_search.variant_search',
         'shopware_search_es.variant_search'
     ];
 
-    const IGNORE_CLASS = [
+    private $ignoredClasses = [
         StrategyInterface::class
     ];
 
@@ -56,6 +56,10 @@ class TraceableCompilerPass implements CompilerPassInterface
             return;
         }
 
+        $this->traceableServices = $container->hasParameter('shopware.traceable.tracleable_services') ? $container->getParameter('shopware.traceable.tracleable_services') : $this->traceableServices;
+        $this->ignoredClasses = $container->hasParameter('shopware.traceable.ignore_class') ? $container->getParameter('shopware.traceable.ignore_class') : $this->ignoredClasses;
+        $this->ignoredServices = $container->hasParameter('shopware.traceable.ignore_services') ? $container->getParameter('shopware.traceable.ignore_services') : $this->ignoredServices;
+
         $directory = $container->getParameter('kernel.cache_dir');
         $directory .= '/tracer';
 
@@ -67,20 +71,20 @@ class TraceableCompilerPass implements CompilerPassInterface
 
         foreach ($container->getServiceIds() as $serviceId) {
             $allowed = false;
-            foreach (self::TRACEABLE_SERVICES as $service) {
+            foreach ($this->traceableServices as $service) {
                 if (stripos($serviceId, $service) !== false) {
                     $allowed = true;
                 }
             }
 
-            if (in_array($serviceId, self::IGNORE_SERVICES)) {
+            if (in_array($serviceId, $this->ignoredServices)) {
                 continue;
             }
 
             if ($allowed) {
                 $definition = $container->getDefinition($serviceId);
 
-                if (in_array($definition->getClass(), self::IGNORE_CLASS)) {
+                if (in_array($definition->getClass(), $this->ignoredClasses)) {
                     continue;
                 }
 
@@ -91,14 +95,17 @@ class TraceableCompilerPass implements CompilerPassInterface
                 $namespaceFolderPath = $directory . '/' . $folderPath;
 
                 if (!file_exists($namespaceFolderPath)) {
-                    mkdir($directory . '/' . $folderPath, 0777, true);
+                    if (!mkdir($directory . '/' . $folderPath, 0777, true) && !is_dir($directory . '/' . $folderPath)) {
+                        throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory . '/' . $folderPath));
+                    }
                 }
 
-                file_put_contents($directory . '/' . $folderPath . '/' . $fileName . '.php', $code);
+                file_put_contents($directory . '/' . $folderPath . '/' . $fileName . '.php', $code, LOCK_EX);
 
                 $new = new Definition(
                     $name, [
                     new Reference($serviceId . '.inner'),
+                    new Reference('frosh_profiler.stop_watch'),
                 ]);
                 $container->setDefinition($serviceId . '.inner', $definition);
                 $container->setDefinition($serviceId, $new);

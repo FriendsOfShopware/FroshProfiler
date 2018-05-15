@@ -35,21 +35,30 @@ class TraceableGenerator
         // Generate the base class
         $proxyClassName = $this->getProxyClassName($class);
         $classGenerator = new ClassGenerator($proxyClassName);
-        $classGenerator->setExtendedClass($reflectionClass->getName());
+
+        $interfaces = $reflectionClass->getInterfaces();
+
+        // Shopware does not consider interfaces in many places
+//        if (\count($interfaces) === 1) {
+//            $classGenerator->setImplementedInterfaces([array_keys($interfaces)[0]]);
+//        } else {
+            $classGenerator->setExtendedClass($reflectionClass->getName());
+//        }
 
         // Prepare generators for the hooked methods
         $hookMethods = $this->getHookedMethods($reflectionClass);
         $hookMethodGenerators = [];
         foreach ($hookMethods as $method) {
-            $hookMethodGenerators[$method->getName()] = $this->createMethodGenerator($reflectionClass, $method);
+            $hookMethodGenerators[$method->getName()] = $this->createMethodGenerator($method);
         }
 
         $getHookMethodsGenerator = MethodGenerator::fromArray([
             'name' => '__construct',
             'parameters' => [
-                'parent'
+                'parent',
+                'stopwatch'
             ],
-            'body' => '$this->parent = $parent;'
+            'body' => '$this->parent = $parent;' . PHP_EOL . '$this->stopwatch = $stopwatch;'
         ]);
         ClassGeneratorUtils::addMethodIfNotFinal($reflectionClass, $classGenerator, $getHookMethodsGenerator);
 
@@ -59,6 +68,7 @@ class TraceableGenerator
         }
 
         $classGenerator->addProperty('parent', null, PropertyGenerator::FLAG_PRIVATE);
+        $classGenerator->addProperty('stopwatch', null, PropertyGenerator::FLAG_PRIVATE);
 
         // Generate the proxy file contents
         return [$proxyClassName, "<?php\n" . $classGenerator->generate()];
@@ -72,11 +82,11 @@ class TraceableGenerator
     {
         return array_filter(
             $class->getMethods(ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED),
-            function (ReflectionMethod $method) use ($class) {
+            function (ReflectionMethod $method) {
                 return !$method->isConstructor()
                     && !$method->isFinal()
                     && !$method->isStatic()
-                    && substr($method->getName(), 0, 2) !== '__';
+                    && 0 !== strpos($method->getName(), '__');
             }
         );
     }
@@ -84,8 +94,9 @@ class TraceableGenerator
     /**
      * @param ReflectionMethod $method
      * @return MethodGenerator
+     * @throws \ReflectionException
      */
-    protected function createMethodGenerator(ReflectionClass $class, ReflectionMethod $method)
+    protected function createMethodGenerator(ReflectionMethod $method)
     {
         $originalMethod = new MethodReflection(
             $method->getDeclaringClass()->getName(),
@@ -100,15 +111,15 @@ class TraceableGenerator
             $originalMethod->getParameters()
         );
 
-        $eventName = $class->getName() . '::' . $method->getName();
+        $eventName = $method->getDeclaringClass()->getName() . '::' . $method->getName();
 
         // Create the method
         $methodGenerator = MethodGenerator::fromReflection($originalMethod);
         $methodGenerator->setDocblock('@inheritdoc');
         $methodGenerator->setBody(
-            'Shopware()->Container()->get(\'frosh_profiler.stop_watch\')->start("' . $eventName . '");' . PHP_EOL .
+            '$this->stopwatch->start("' . $eventName . '");' . PHP_EOL .
             '$returnValue = $this->parent->' . $method->name . '(' . implode(', ', $params) .
-            ");\nShopware()->Container()->get('frosh_profiler.stop_watch')->stop(\"$eventName\");\n" . 'return $returnValue;'
+            ');' . PHP_EOL . '$this->stopwatch->stop("' . $eventName . '");' . PHP_EOL . 'return $returnValue;'
         );
 
         return $methodGenerator;

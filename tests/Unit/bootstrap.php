@@ -21,9 +21,12 @@
  * trademark license. Therefore any rights, title and interest in
  * our trademarks remain entirely with us.
  */
+
 use Shopware\Models\Shop\Shop;
 
 require __DIR__ . '/../../../../../autoload.php';
+
+$kernel = null;
 
 class TestKernel extends \Shopware\Kernel
 {
@@ -32,6 +35,7 @@ class TestKernel extends \Shopware\Kernel
      */
     public static function start()
     {
+        global $kernel;
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $kernel = new self('testing', true);
         $kernel->boot();
