@@ -23,9 +23,11 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 global $kernel;
 
-$loader = new Psr4ClassLoader();
-$loader->addPrefix('FroshProfilerProxy', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
-$loader->register();
+if (method_exists($kernel, 'getCacheDir')) {
+    $loader = new Psr4ClassLoader();
+    $loader->addPrefix('FroshProfilerProxy', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
+    $loader->register();
+}
 
 /**
  * Class FroshProfiler
