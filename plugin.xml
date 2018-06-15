@@ -3,11 +3,22 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Profiler</label>
     <label lang="en">Profiler</label>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
+    <changelog version="1.3.1">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Added trace option of services</li>
+                    <li>Added filter to events tab</li>
+                    <li>Fixed php module detection</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
     <changelog version="1.3.0">
         <changes lang="en">
             <![CDATA[

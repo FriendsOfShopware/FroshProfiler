@@ -10,7 +10,7 @@ Required PHP 7.0
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.2.1.zip`)
+* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.3.1.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version

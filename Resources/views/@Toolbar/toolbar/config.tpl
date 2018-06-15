@@ -1,7 +1,7 @@
-<div class="sf-toolbar-block sf-toolbar-block-config sf-toolbar-status-normal sf-toolbar-block-right">
+<div class="sf-toolbar-block sf-toolbar-block-config shopware-block sf-toolbar-status-normal sf-toolbar-block-right">
     <a href="{url controller=profiler action=detail id=$sProfilerID panel=config}">
         <div class="sf-toolbar-icon">
-            <span class="sf-toolbar-label">
+            <span class="sf-toolbar-label shopware-icon">
                 {fetchFile file="@Toolbar/_resources/svg/shopware.svg"}
             </span>
             <span class="sf-toolbar-value">{if $sProfiler.php.shopware_version == '___VERSION___'}Git Version{else}{$sProfiler.php.shopware_version}{/if}</span>
