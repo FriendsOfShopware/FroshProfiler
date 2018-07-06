@@ -40,6 +40,7 @@ before_script:
 
 script:
   - composer test
+  - composer test-unit
 
 after_success:
   - ./build.sh $TRAVIS_TAG
