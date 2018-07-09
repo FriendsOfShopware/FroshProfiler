@@ -4,7 +4,6 @@
 
 Profiling for Shopware  
 Required Minimum Shopware Version 5.2
-Required PHP 7.0
 
 # Installation
 
