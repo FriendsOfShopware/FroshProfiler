@@ -4,6 +4,7 @@ namespace FroshProfiler\Components\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class ProfilerCollectorCompilerPass.
@@ -20,7 +21,7 @@ class ProfilerCollectorCompilerPass implements CompilerPassInterface
         $collectorDefinition = $container->getDefinition('frosh_profiler.collector');
 
         foreach ($services as $id => $tags) {
-            $collectorDefinition->addMethodCall('addCollector', [$container->getDefinition($id)]);
+            $collectorDefinition->addMethodCall('addCollector', [new Reference($id)]);
         }
     }
 }
