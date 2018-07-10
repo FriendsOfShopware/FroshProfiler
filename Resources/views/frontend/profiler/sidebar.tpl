@@ -100,16 +100,6 @@
                 </span>
             </a>
         </li>
-        <li class="subrequest{if $sPanel == "subrequest"} selected{/if}">
-            <a href="{url controller=profiler action=detail id=$sId panel=subrequest}">
-                <span class="label{if $sDetail.subrequest|count == 0} disabled{/if}">
-                    <span class="icon">
-                        {fetchFile file="@Toolbar/_resources/svg/ajax.svg"}
-                    </span>
-                    <strong>Subrequest ({$sDetail.subrequest|count})</strong>
-                </span>
-            </a>
-        </li>
         <li class="swiftmailer{if $sPanel == "mailer"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=mailer}">
                 <span class="label{if $sDetail.mails|count == 0} disabled{/if}">

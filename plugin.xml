@@ -15,6 +15,9 @@
                     <li>Added trace option of services</li>
                     <li>Added filter to events tab</li>
                     <li>Fixed php module detection</li>
+                    <li>Fixed Logging decoration, thanks to @afroder</li>
+                    <li>Fixed Subrequest Collecting with async javascript</li>
+                    <li>Moved Subrequest Page to Request / Response</li>
                 </ul>
             ]]>
         </changes>

@@ -73,23 +73,6 @@
                 </tr>
                 </tbody>
             </table>
-            <h3>Cookies</h3>
-            <table class="">
-                <thead>
-                <tr>
-                    <th scope="col" class="key">Key</th>
-                    <th scope="col">Value</th>
-                </tr>
-                </thead>
-                <tbody>
-                {foreach from=$sDetail.request.cookies key=key item=value}
-                    <tr>
-                        <td>{$key}</td>
-                        <td>{$value}</td>
-                    </tr>
-                {/foreach}
-                </tbody>
-            </table>
 
             <h3>Server Parameters</h3>
             <table class="">
@@ -101,6 +84,31 @@
                 </thead>
                 <tbody>
                 {foreach from=$sDetail.server key=key item=value}
+                    <tr>
+                        <td>{$key}</td>
+                        <td>{$value}</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab">
+        <h3 class="tab-title">Cookies</h3>
+
+        <div class="tab-content">
+            <h3>Request Cookies</h3>
+
+            <table class="">
+                <thead>
+                <tr>
+                    <th scope="col" class="key">Header</th>
+                    <th scope="col">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach from=$sDetail.request.cookies key=key item=value}
                     <tr>
                         <td>{$key}</td>
                         <td>{$value}</td>
@@ -174,6 +182,36 @@
                     <tr>
                         <td>{$key}</td>
                         <td>{$value|@json_encode}</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab{if count($sDetail.subrequest) === 0} disabled{/if}">
+        <h3 class="tab-title">Sub Requests <span class="badge">{$sDetail.subrequest|count}</span></h3>
+
+        <div class="tab-content">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col" class="key">Url</th>
+                    <th scope="col">Controller</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Time</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach from=$sDetail.subrequest key=key item=sSubrequest}
+                    <tr>
+                        <td>{$sSubrequest.request.url}</td>
+                        <td>{$sSubrequest.request.controllerName|ucfirst}</td>
+                        <td>{$sSubrequest.request.actionName|ucfirst}</td>
+                        <td>
+                            <a href="{url controller=profiler action=detail id=$sId|cat:'|':$key}" class="btn">Open Subprofile</a>
+                        </td>
                     </tr>
                 {/foreach}
                 </tbody>

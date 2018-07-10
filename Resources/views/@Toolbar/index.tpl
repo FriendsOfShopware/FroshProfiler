@@ -35,14 +35,24 @@
     </a>
 </div>
 <script type="application/javascript">
-    if (window.CSRF) {
-        var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
+    function applyProfilerHeader() {
+        if (window.CSRF) {
+            var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
 
-        window.CSRF._ajaxBeforeSend = function (event, request) {
-            ajaxBeforeSend.apply(window.CSRF, arguments);
-            request.setRequestHeader('X-Profiler', '{$sProfilerID}');
-        };
+            window.CSRF._ajaxBeforeSend = function (event, request) {
+                ajaxBeforeSend.apply(window.CSRF, arguments);
+                request.setRequestHeader('X-Profiler', '{$sProfilerID}');
+            };
+        }
     }
+
+    applyProfilerHeader();
+
+    if (typeof document.asyncReady !== 'undefined') {
+        document.asyncReady(applyProfilerHeader);
+    }
+
+
     function closeToolbar()
     {
         document.querySelector('.sf-toolbarreset').remove();
