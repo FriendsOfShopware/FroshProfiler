@@ -93,6 +93,10 @@
             <tag name="profiler.collector"/>
         </service>
 
+        <service id="frosh_profiler.collectors.cart" class="FroshProfiler\Components\Collectors\CartCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
         <service id="frosh_profiler.config" class="Shopware\Components\Plugin\CachedConfigReader">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
             <argument type="string">FroshProfiler</argument>
