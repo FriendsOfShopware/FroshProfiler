@@ -55,8 +55,10 @@ class PHPCollector implements CollectorInterface
             'opcache' => extension_loaded('Zend OPcache') && ini_get('opcache.enable'),
             'httpcache' => $this->kernel->isHttpCacheEnabled(),
             'env' => $this->kernel->getEnvironment(),
-            'sapi' => php_sapi_name(),
+            'sapi' => PHP_SAPI,
             'shopware_version' => Shopware::VERSION,
+            'architecture' => PHP_INT_MAX === 2147483647 ? 32 : 64,
+            'timezone' => $this->kernel->getContainer()->getParameter('shopware.phpsettings.date.timezone')
         ]);
     }
 

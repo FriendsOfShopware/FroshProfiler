@@ -41,6 +41,16 @@
         </span>
         <span class="label">Xdebug</span>
     </div>
+
+    <div class="metric">
+        <span class="value">{$sDetail.php.architecture} <span class="unit">bits</span></span>
+        <span class="label">Architecture</span>
+    </div>
+
+    <div class="metric">
+        <span class="value">{$sDetail.php.timezone}</span>
+        <span class="label">Architecture</span>
+    </div>
 </div>
 
 <div class="metrics metrics-horizontal">
