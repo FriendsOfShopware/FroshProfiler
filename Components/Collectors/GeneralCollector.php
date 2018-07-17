@@ -40,7 +40,7 @@ class GeneralCollector implements CollectorInterface
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
-        $profile->setAttributes([
+        $attributes = [
             'response' => [
                 'httpResponse' => $controller->Response()->getHttpResponseCode(),
                 'headers' => $controller->Response()->getHeaders(),
@@ -55,19 +55,24 @@ class GeneralCollector implements CollectorInterface
                 'post' => $controller->Request()->getPost(),
                 'cookies' => $controller->Request()->getCookie(),
                 'uri' => $controller->Request()->getRequestUri(),
-                'url' => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $this->container->get('shop')->getHost() . $this->container->get('shop')->getBaseUrl() . $controller->Request()->getRequestUri(),
+                'url' => ($controller->Request()->isSecure() ? 'https' : 'http') . '://' . $controller->Request()->getHttpHost() . $controller->Request()->getRequestUri(),
                 'ip' => $controller->Request()->getClientIp(),
                 'time' => time(),
-            ],
-            'session' => [
-                'meta' => $this->container->get('dbal_connection')->fetchAssoc('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [$this->container->get('session')->get('sessionId')]),
-                'data' => $_SESSION['Shopware'],
             ],
             'logs' => $this->getLogs(),
             'server' => $_SERVER,
             'startTime' => STARTTIME,
             'bundles' => $this->getBundles(),
-        ]);
+        ];
+
+        if ($this->container->initialized('session')) {
+            $attributes['session'] = [
+                'meta' => $this->container->get('dbal_connection')->fetchAssoc('SELECT expiry,modified FROM s_core_sessions WHERE id = ?', [$this->container->get('session')->get('sessionId')]),
+                'data' => $_SESSION['Shopware'],
+            ];
+        }
+
+        $profile->setAttributes($attributes);
     }
 
     /**

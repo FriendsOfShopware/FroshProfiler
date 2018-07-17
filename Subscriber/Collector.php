@@ -53,8 +53,7 @@ class Collector implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
-            'Enlight_Controller_Action_PostDispatch_Widgets' => 'onPostDispatch',
+            'Enlight_Controller_Action_PostDispatch' => 'onPostDispatch',
             'Enlight_Controller_Front_DispatchLoopShutdown' => 'onDispatchLoopShutdown',
             'Enlight_Components_Mail_Send' => 'onSendMails',
         ];
@@ -138,6 +137,17 @@ class Collector implements SubscriberInterface
 
             $content = str_replace('</body>', $profileTemplate . '</body>', $content);
             $response->setBody($content);
+        }
+
+        // @todo: Cleanup
+        if ($this->profileController->Request()->getModuleName() === 'backend') {
+            $response->setHeader('X-Profiler-URL', Shopware()->Container()->get('router')->assemble([
+                'module' => 'frontend',
+                'controller' => 'profiler',
+                'action' => 'detail',
+                'id' => $this->profile->getId(),
+                'fullPath' => true
+            ]));
         }
     }
 

@@ -40,14 +40,16 @@ class UserCollector implements CollectorInterface
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
-        $result = [
-            'loggedin' => $this->container->get('session')->offsetGet('sUserId'),
-        ];
+        $result = [];
 
-        if (!empty($result['loggedin'])) {
-            $userData = $this->container->get('Modules')->Admin()->sGetUserData();
-            $result = array_merge($result, $userData);
-            $result['data'] = $userData;
+        if ($this->container->initialized('session')) {
+            $result['loggedin'] = $this->container->get('session')->offsetGet('sUserId');
+
+            if (!empty($result['loggedin'])) {
+                $userData = $this->container->get('Modules')->Admin()->sGetUserData();
+                $result = array_merge($result, $userData);
+                $result['data'] = $userData;
+            }
         }
 
         $encoders = [];
