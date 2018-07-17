@@ -67,11 +67,13 @@ class Collector implements SubscriberInterface
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
         $controllerLower = strtolower($controller->Request()->getControllerName());
+        $actionLower = strtolower($controller->Request()->getActionName());
 
         if (
             $controllerLower === 'profiler' ||
             $controllerLower === 'media' ||
             $controllerLower === 'csrftoken' ||
+            $actionLower === 'getloginstatus' ||
             strpos($controller->Request()->getRequestUri(), 'profiler') !== false ||
             $this->profile->getId() ||
             $controller->Request()->getCookie('disableProfile', false)
