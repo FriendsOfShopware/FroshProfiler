@@ -1,80 +1,11 @@
 <?php
 namespace FroshProfiler\Components;
 
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\LoggerInterface;
+use Shopware\Components\Logger as BaseLogger;
 
-class Logger implements LoggerInterface
+
+class Logger extends BaseLogger
 {
-    /**
-     * Detailed debug information
-     */
-    const DEBUG = 100;
-
-    /**
-     * Interesting events
-     *
-     * Examples: User logs in, SQL logs.
-     */
-    const INFO = 200;
-
-    /**
-     * Uncommon events
-     */
-    const NOTICE = 250;
-
-    /**
-     * Exceptional occurrences that are not errors
-     *
-     * Examples: Use of deprecated APIs, poor use of an API,
-     * undesirable things that are not necessarily wrong.
-     */
-    const WARNING = 300;
-
-    /**
-     * Runtime errors
-     */
-    const ERROR = 400;
-
-    /**
-     * Critical conditions
-     *
-     * Example: Application component unavailable, unexpected exception.
-     */
-    const CRITICAL = 500;
-
-    /**
-     * Action must be taken immediately
-     *
-     * Example: Entire website down, database unavailable, etc.
-     * This should trigger the SMS alerts and wake you up.
-     */
-    const ALERT = 550;
-
-    /**
-     * Urgent alert.
-     */
-    const EMERGENCY = 600;
-
-    /**
-     * @var string[]
-     */
-    private static $levels = [
-        self::DEBUG     => 'DEBUG',
-        self::INFO      => 'INFO',
-        self::NOTICE    => 'NOTICE',
-        self::WARNING   => 'WARNING',
-        self::ERROR     => 'ERROR',
-        self::CRITICAL  => 'CRITICAL',
-        self::ALERT     => 'ALERT',
-        self::EMERGENCY => 'EMERGENCY',
-    ];
-
-    /**
-     * @var LoggerInterface
-     */
-    private $originalLogger;
-
     /**
      * @var string
      */
@@ -86,14 +17,17 @@ class Logger implements LoggerInterface
     private $messages = ['DEBUG' => [], 'OTHER' => []];
 
     /**
-     * @param LoggerInterface $parentLogger
-     * @param string $channelName
+     * Logger constructor.
+     * @param string $name
+     * @param array $handlers
+     * @param array $processors
      */
-    public function __construct(LoggerInterface $parentLogger, $channelName)
+    public function __construct($name, $handlers = array(), $processors = array())
     {
-        $this->originalLogger = $parentLogger;
-        $this->channelName = ucfirst($channelName);
+        parent::__construct($name, $handlers, $processors);
+        $this->channelName = ucfirst($name);
     }
+
 
     /**
      * @return array
@@ -109,7 +43,7 @@ class Logger implements LoggerInterface
     public function emergency($message, array $context = [])
     {
         $this->storeMessage(self::EMERGENCY, $message, $context);
-        $this->originalLogger->emergency($message, $context);
+        parent::emergency($message, $context);
     }
 
     /**
@@ -118,7 +52,7 @@ class Logger implements LoggerInterface
     public function alert($message, array $context = [])
     {
         $this->storeMessage(self::ALERT, $message, $context);
-        $this->originalLogger->alert($message, $context);
+        parent::alert($message, $context);
     }
 
     /**
@@ -127,7 +61,7 @@ class Logger implements LoggerInterface
     public function critical($message, array $context = [])
     {
         $this->storeMessage(self::CRITICAL, $message, $context);
-        $this->originalLogger->critical($message, $context);
+        parent::critical($message, $context);
     }
 
     /**
@@ -136,7 +70,7 @@ class Logger implements LoggerInterface
     public function error($message, array $context = [])
     {
         $this->storeMessage(self::ERROR, $message, $context);
-        $this->originalLogger->error($message, $context);
+        parent::error($message, $context);
     }
 
     /**
@@ -145,7 +79,7 @@ class Logger implements LoggerInterface
     public function warning($message, array $context = [])
     {
         $this->storeMessage(self::WARNING, $message, $context);
-        $this->originalLogger->warning($message, $context);
+        parent::warning($message, $context);
     }
 
     /**
@@ -154,7 +88,7 @@ class Logger implements LoggerInterface
     public function notice($message, array $context = [])
     {
         $this->storeMessage(self::NOTICE, $message, $context);
-        $this->originalLogger->notice($message, $context);
+        parent::notice($message, $context);
     }
 
     /**
@@ -163,7 +97,7 @@ class Logger implements LoggerInterface
     public function info($message, array $context = [])
     {
         $this->storeMessage(self::INFO, $message, $context);
-        $this->originalLogger->info($message, $context);
+        parent::info($message, $context);
     }
 
     /**
@@ -172,7 +106,7 @@ class Logger implements LoggerInterface
     public function debug($message, array $context = [])
     {
         $this->storeMessage(self::DEBUG, $message, $context);
-        $this->originalLogger->debug($message, $context);
+        parent::debug($message, $context);
     }
 
     /**
@@ -181,7 +115,7 @@ class Logger implements LoggerInterface
     public function log($level, $message, array $context = [])
     {
         $this->storeMessage((int) $level, $message, $context);
-        $this->originalLogger->log($level, $message, $context);
+        parent::log($level, $message, $context);
     }
 
     /**
@@ -199,26 +133,5 @@ class Logger implements LoggerInterface
                 time(),
                 $this->channelName
             ];
-    }
-
-    /**
-     * Gets the name of the logging level.
-     * Copied from https://github.com/Seldaek/monolog/blob/master/src/Monolog/Logger.php
-     * Jordi Boggiano - j.boggiano@seld.be - http://twitter.com/seldaek
-     * MIT License at time of writing, i.e. https://github.com/Seldaek/monolog/commit/50de6999
-     *
-     * @throws \Psr\Log\InvalidArgumentException If level is not defined
-     */
-    private static function getLevelName($level)
-    {
-        if (!isset(static::$levels[$level])) {
-            throw
-                new InvalidArgumentException(
-                    'Level "'.$level.'" is not defined, use one of: ' .
-                    implode(', ', array_keys(static::$levels))
-                );
-        }
-
-        return static::$levels[$level];
     }
 }

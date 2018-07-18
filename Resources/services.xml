@@ -6,6 +6,7 @@
 
     <imports>
         <import resource="services/var_dump.xml"/>
+        <import resource="services/logger.xml"/>
     </imports>
 
     <parameters>
@@ -135,20 +136,6 @@
         </service>
 
         <service id="frosh_profiler.current.profile" class="FroshProfiler\Components\Struct\Profile"/>
-
-        <!-- Decorations -->
-        <service decorates="pluginlogger" id="frosh_profiler.decoration.pluginlogger" class="FroshProfiler\Components\Logger">
-            <argument type="service" id="frosh_profiler.decoration.pluginlogger.inner"/>
-            <argument type="string">Pluginlogger</argument>
-        </service>
-        <service decorates="corelogger" id="frosh_profiler.decoration.corelogger" class="FroshProfiler\Components\Logger">
-            <argument type="service" id="frosh_profiler.decoration.corelogger.inner"/>
-            <argument type="string">Corelogger</argument>
-        </service>
-        <service decorates="debuglogger" id="frosh_profiler.decoration.debuglogger" class="FroshProfiler\Components\Logger">
-            <argument type="service" id="frosh_profiler.decoration.debuglogger.inner"/>
-            <argument type="string">Debuglogger</argument>
-        </service>
 
         <service id="snippet_resource"
                  class="FroshProfiler\Components\Smarty\SnippetResource">
