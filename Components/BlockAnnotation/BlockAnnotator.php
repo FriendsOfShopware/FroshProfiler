@@ -52,6 +52,7 @@ class BlockAnnotator
         foreach ($this->blockSplitter->split($source) as $block) {
             if (in_array($block['name'], $this->blacklist) ||
                 strpos($block['name'], '/attributes') !== false ||
+                strpos($block['name'], '_attributes') !== false ||
                 strpos($block['name'], 'classes') !== false ||
                 strpos($block['name'], 'frontend_index_search_similar_results_') !== false) {
                 continue;
