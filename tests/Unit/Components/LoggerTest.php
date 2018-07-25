@@ -2,7 +2,6 @@
 
 use FroshProfiler\Components\Logger;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 
 class LoggerTest extends TestCase
 {
@@ -10,7 +9,6 @@ class LoggerTest extends TestCase
     {
         $logger =
             new Logger(
-                $this->createMock(LoggerInterface::class),
                 'someChannel'
             );
         $logger->debug('A message with level 100');
@@ -35,7 +33,6 @@ class LoggerTest extends TestCase
     {
         $logger =
             new Logger(
-                $this->createMock(LoggerInterface::class),
                 'someChannel'
             );
         $logger->info('A message with level 200');
@@ -56,33 +53,53 @@ class LoggerTest extends TestCase
         );
     }
 
-    public function testLogCallDelegatesToOriginal()
-    {
-        $mockDecorated = $this->createMock(LoggerInterface::class);
-        $mockDecorated->expects($this->once())->method('log')->with(250, 'message', ['context']);
-        $logger =
-            new Logger(
-                $mockDecorated,
-                'someChannel'
-            );
-        $logger->log(250, 'message', ['context']);
-    }
-
     /**
      * @param $level
      * @param $message
      * @dataProvider allLevelsDataProvider
      */
-    public function testEveryInterfaceBackedCallDelegatesToOriginal($level, $message)
+    public function testAllLogLevels($level, $message)
     {
-        $mockDecorated = $this->createMock(LoggerInterface::class);
-        $mockDecorated->expects($this->once())->method($level)->with($message);
         $logger =
             new Logger(
-                $mockDecorated,
                 'someChannel'
             );
         $logger->$level($message);
+
+        if ($level === 'debug') {
+            $this->assertEquals(
+                [
+                    'DEBUG' =>
+                        [[
+                            strtoupper($level),
+                            $message,
+                            [],
+                            time(),
+                            'SomeChannel'
+                        ]],
+                    'OTHER' => []
+                ],
+                $logger->getLoggedMessages()
+            );
+        } else {
+            $this->assertEquals(
+                [
+                    'DEBUG' => [],
+                    'OTHER' => [
+                        [
+                            strtoupper($level),
+                            $message,
+                            [],
+                            time(),
+                            'SomeChannel'
+                        ]
+                    ]
+                ],
+                $logger->getLoggedMessages()
+            );
+        }
+
+
     }
 
     public function allLevelsDataProvider()

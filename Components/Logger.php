@@ -1,6 +1,7 @@
 <?php
 namespace FroshProfiler\Components;
 
+use Monolog\Handler\HandlerInterface;
 use Shopware\Components\Logger as BaseLogger;
 
 
@@ -17,10 +18,9 @@ class Logger extends BaseLogger
     private $messages = ['DEBUG' => [], 'OTHER' => []];
 
     /**
-     * Logger constructor.
-     * @param string $name
-     * @param array $handlers
-     * @param array $processors
+     * @param string             $name       The logging channel
+     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc.
+     * @param callable[]         $processors Optional array of processors
      */
     public function __construct($name, $handlers = array(), $processors = array())
     {
