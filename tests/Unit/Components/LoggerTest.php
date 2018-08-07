@@ -15,15 +15,14 @@ class LoggerTest extends TestCase
 
         $this->assertEquals(
             [
-                'DEBUG' =>
-                    [[
+                'DEBUG' => [[
                         'DEBUG',
                         'A message with level 100',
                         [],
                         time(),
-                        'SomeChannel'
+                        'SomeChannel',
                     ]],
-                'OTHER' => []
+                'OTHER' => [],
             ],
             $logger->getLoggedMessages()
         );
@@ -40,14 +39,13 @@ class LoggerTest extends TestCase
         $this->assertEquals(
             [
                 'DEBUG' => [],
-                'OTHER' =>
-                    [[
+                'OTHER' => [[
                         'INFO',
                         'A message with level 200',
                         [],
                         time(),
-                        'SomeChannel'
-                    ]]
+                        'SomeChannel',
+                    ]],
             ],
             $logger->getLoggedMessages()
         );
@@ -69,15 +67,14 @@ class LoggerTest extends TestCase
         if ($level === 'debug') {
             $this->assertEquals(
                 [
-                    'DEBUG' =>
-                        [[
+                    'DEBUG' => [[
                             strtoupper($level),
                             $message,
                             [],
                             time(),
-                            'SomeChannel'
+                            'SomeChannel',
                         ]],
-                    'OTHER' => []
+                    'OTHER' => [],
                 ],
                 $logger->getLoggedMessages()
             );
@@ -91,15 +88,13 @@ class LoggerTest extends TestCase
                             $message,
                             [],
                             time(),
-                            'SomeChannel'
-                        ]
-                    ]
+                            'SomeChannel',
+                        ],
+                    ],
                 ],
                 $logger->getLoggedMessages()
             );
         }
-
-
     }
 
     public function allLevelsDataProvider()

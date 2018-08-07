@@ -82,6 +82,7 @@ class Profile implements JsonSerializable
 
     /**
      * A collection of dumped data, each being an assoc array with keys 'data', 'name', 'file', 'line', 'fileLink', 'fileExcerpt'.
+     *
      * @see \FroshProfiler\Components\Collectors\DumpCollector::dump
      *
      * @var array
@@ -226,6 +227,7 @@ class Profile implements JsonSerializable
 
     /**
      * @return array|mixed
+     *
      * @author Soner Sayakci <shyim@posteo.de>
      */
     public function jsonSerialize()

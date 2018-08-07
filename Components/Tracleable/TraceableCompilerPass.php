@@ -10,7 +10,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class TraceableCompilerPass
- * @package FroshProfiler\Components\Tracleable
  */
 class TraceableCompilerPass implements CompilerPassInterface
 {
@@ -27,11 +26,11 @@ class TraceableCompilerPass implements CompilerPassInterface
     private $ignoredServices = [
         'shopware_media.cache_optimizer_service',
         'shopware_search.variant_search',
-        'shopware_search_es.variant_search'
+        'shopware_search_es.variant_search',
     ];
 
     private $ignoredClasses = [
-        StrategyInterface::class
+        StrategyInterface::class,
     ];
 
     /**
@@ -89,7 +88,7 @@ class TraceableCompilerPass implements CompilerPassInterface
                 }
 
                 list($name, $code) = $this->generator->generateProxyClass($definition->getClass());
-                $namespacePath = explode("\\", $name);
+                $namespacePath = explode('\\', $name);
                 $fileName = array_pop($namespacePath);
                 $folderPath = implode($namespacePath, DIRECTORY_SEPARATOR);
                 $namespaceFolderPath = $directory . '/' . $folderPath;

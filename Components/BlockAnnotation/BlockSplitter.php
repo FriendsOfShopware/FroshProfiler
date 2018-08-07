@@ -32,12 +32,12 @@ class BlockSplitter
             $value = $match[0];
             $offset = $match[1];
             $name = $matches['name'][$key][0];
-            $isStart = -1 < $matches['name'][$key][1];
+            $isStart = $matches['name'][$key][1] > -1;
 
             if ($isStart) {
                 // iterate all currently open blocks and increase the child counter
                 foreach ($openStack as &$parentElement) {
-                    $parentElement['children'] += 1;
+                    ++$parentElement['children'];
                 }
                 // push the open block to the stack
                 $openStack[] = ['name' => $name, 'start' => $offset, 'startContent' => $offset + strlen($value), 'children' => 0];

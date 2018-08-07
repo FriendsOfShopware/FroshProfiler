@@ -5,8 +5,8 @@ namespace FroshProfiler\Components\Collectors;
 use Doctrine\DBAL\Logging\DebugStack;
 use Enlight_Components_Db_Adapter_Pdo_Mysql;
 use Enlight_Controller_Action;
-use Shopware\Components\Model\ModelManager;
 use FroshProfiler\Components\Struct\Profile;
+use Shopware\Components\Model\ModelManager;
 use Zend_Db_Profiler;
 
 /**

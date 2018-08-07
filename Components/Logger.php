@@ -1,9 +1,9 @@
 <?php
+
 namespace FroshProfiler\Components;
 
 use Monolog\Handler\HandlerInterface;
 use Shopware\Components\Logger as BaseLogger;
-
 
 class Logger extends BaseLogger
 {
@@ -19,15 +19,14 @@ class Logger extends BaseLogger
 
     /**
      * @param string             $name       The logging channel
-     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc.
+     * @param HandlerInterface[] $handlers   optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors Optional array of processors
      */
-    public function __construct($name, $handlers = array(), $processors = array())
+    public function __construct($name, $handlers = [], $processors = [])
     {
         parent::__construct($name, $handlers, $processors);
         $this->channelName = ucfirst($name);
     }
-
 
     /**
      * @return array
@@ -38,7 +37,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function emergency($message, array $context = [])
     {
@@ -47,7 +46,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function alert($message, array $context = [])
     {
@@ -56,7 +55,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function critical($message, array $context = [])
     {
@@ -65,7 +64,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function error($message, array $context = [])
     {
@@ -74,7 +73,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function warning($message, array $context = [])
     {
@@ -83,7 +82,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function notice($message, array $context = [])
     {
@@ -92,7 +91,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function info($message, array $context = [])
     {
@@ -101,7 +100,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function debug($message, array $context = [])
     {
@@ -110,7 +109,7 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function log($level, $message, array $context = [])
     {
@@ -119,9 +118,9 @@ class Logger extends BaseLogger
     }
 
     /**
-     * @param int $level
+     * @param int    $level
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     private function storeMessage($level, $message, array $context = [])
     {
@@ -131,7 +130,7 @@ class Logger extends BaseLogger
                 $message,
                 $context,
                 time(),
-                $this->channelName
+                $this->channelName,
             ];
     }
 }

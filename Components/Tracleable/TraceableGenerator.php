@@ -11,13 +11,13 @@ use ReflectionMethod;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Reflection\MethodReflection;
 
-
 class TraceableGenerator
 {
     /**
      * Returns proxy class name
      *
-     * @param  string $class
+     * @param string $class
+     *
      * @return string
      */
     public function getProxyClassName($class)
@@ -42,7 +42,7 @@ class TraceableGenerator
 //        if (\count($interfaces) === 1) {
 //            $classGenerator->setImplementedInterfaces([array_keys($interfaces)[0]]);
 //        } else {
-            $classGenerator->setExtendedClass($reflectionClass->getName());
+        $classGenerator->setExtendedClass($reflectionClass->getName());
 //        }
 
         // Prepare generators for the hooked methods
@@ -56,9 +56,9 @@ class TraceableGenerator
             'name' => '__construct',
             'parameters' => [
                 'parent',
-                'stopwatch'
+                'stopwatch',
             ],
-            'body' => '$this->parent = $parent;' . PHP_EOL . '$this->stopwatch = $stopwatch;'
+            'body' => '$this->parent = $parent;' . PHP_EOL . '$this->stopwatch = $stopwatch;',
         ]);
         ClassGeneratorUtils::addMethodIfNotFinal($reflectionClass, $classGenerator, $getHookMethodsGenerator);
 
@@ -76,6 +76,7 @@ class TraceableGenerator
 
     /**
      * @param ReflectionClass $class
+     *
      * @return ReflectionMethod[]
      */
     protected function getHookedMethods(ReflectionClass $class)
@@ -86,15 +87,17 @@ class TraceableGenerator
                 return !$method->isConstructor()
                     && !$method->isFinal()
                     && !$method->isStatic()
-                    && 0 !== strpos($method->getName(), '__');
+                    && strpos($method->getName(), '__') !== 0;
             }
         );
     }
 
     /**
      * @param ReflectionMethod $method
-     * @return MethodGenerator
+     *
      * @throws \ReflectionException
+     *
+     * @return MethodGenerator
      */
     protected function createMethodGenerator(ReflectionMethod $method)
     {
@@ -106,7 +109,7 @@ class TraceableGenerator
         // Prepare parameters for the hook manager
         $params = array_map(
             function ($parameter) {
-                return '$' . $parameter->getName() ;
+                return '$' . $parameter->getName();
             },
             $originalMethod->getParameters()
         );

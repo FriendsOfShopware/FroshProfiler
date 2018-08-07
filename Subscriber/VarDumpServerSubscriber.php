@@ -2,16 +2,14 @@
 
 namespace FroshProfiler\Subscriber;
 
-
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\ServerDumper;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class VarDumpServerSubscriber
+ *
  * @author Soner Sayakci <shyim@posteo.de>
  */
 class VarDumpServerSubscriber implements SubscriberInterface
@@ -23,7 +21,9 @@ class VarDumpServerSubscriber implements SubscriberInterface
 
     /**
      * VarDumpServerSubscriber constructor.
+     *
      * @param array $pluginConfig
+     *
      * @author Soner Sayakci <shyim@posteo.de>
      */
     public function __construct(array $pluginConfig)
@@ -33,6 +33,7 @@ class VarDumpServerSubscriber implements SubscriberInterface
 
     /**
      * @return array
+     *
      * @author Soner Sayakci <shyim@posteo.de>
      */
     public static function getSubscribedEvents()
@@ -44,6 +45,7 @@ class VarDumpServerSubscriber implements SubscriberInterface
 
     /**
      * @param Enlight_Event_EventArgs $args
+     *
      * @author Soner Sayakci <shyim@posteo.de>
      */
     public function initVarDumper(Enlight_Event_EventArgs $args)
@@ -56,7 +58,7 @@ class VarDumpServerSubscriber implements SubscriberInterface
         $cloner->setMaxItems(-1);
         $serverDumper = $args->get('subject')->get('var_dumper.server_dumper');
 
-        VarDumper::setHandler(function($var) use ($cloner, $serverDumper) {
+        VarDumper::setHandler(function ($var) use ($cloner, $serverDumper) {
             $data = $cloner->cloneVar($var);
             $serverDumper->dump($data);
         });

@@ -3,9 +3,9 @@
 namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
+use FroshProfiler\Components\Struct\Profile;
 use Shopware;
 use Shopware\Kernel;
-use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -58,7 +58,7 @@ class PHPCollector implements CollectorInterface
             'sapi' => PHP_SAPI,
             'shopware_version' => Shopware::VERSION,
             'architecture' => PHP_INT_MAX === 2147483647 ? 32 : 64,
-            'timezone' => $this->kernel->getContainer()->getParameter('shopware.phpsettings.date.timezone')
+            'timezone' => $this->kernel->getContainer()->getParameter('shopware.phpsettings.date.timezone'),
         ]);
     }
 

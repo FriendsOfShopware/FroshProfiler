@@ -6,8 +6,8 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Front;
 use Enlight_Event_EventArgs;
 use Enlight_Template_Manager;
-use Shopware_Components_Config;
 use FroshProfiler\Components\BlockAnnotation\BlockAnnotator;
+use Shopware_Components_Config;
 
 /**
  * Class BlockAnnotation

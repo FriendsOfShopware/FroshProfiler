@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace FroshProfiler\Components\Collectors;
 
@@ -17,8 +16,10 @@ class Request
 
     /**
      * @param string $header
-     * @return bool
+     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function hasHeader($header)
     {
@@ -27,8 +28,10 @@ class Request
 
     /**
      * @param $headerName
-     * @return false|string
+     *
      * @throws \Exception
+     *
+     * @return false|string
      */
     public function getHeader($headerName)
     {

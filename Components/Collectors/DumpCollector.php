@@ -19,8 +19,8 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -28,7 +28,7 @@ use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
  */
 class DumpCollector implements CollectorInterface, DataDumperInterface, \Serializable
 {
-    private $data = array();
+    private $data = [];
     private $stopwatch;
     private $fileLinkFormat;
     private $dataCount = 0;
@@ -46,15 +46,44 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
         $this->fileLinkFormat = $fileLinkFormat ?: ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
         $this->charset = $charset ?: ini_get('php.output_encoding') ?: ini_get('default_charset') ?: 'UTF-8';
         $this->dumper = $dumper;
-        $this->dumperIsInjected = null !== $dumper;
+        $this->dumperIsInjected = $dumper !== null;
 
         // All clones share these properties by reference:
-        $this->rootRefs = array(
+        $this->rootRefs = [
             &$this->data,
             &$this->dataCount,
             &$this->isCollected,
             &$this->clonesCount,
-        );
+        ];
+    }
+
+    public function __destruct()
+    {
+        if ($this->clonesCount-- === 0 && !$this->isCollected && $this->data) {
+            $this->clonesCount = 0;
+            $this->isCollected = true;
+
+            $h = headers_list();
+            $i = count($h);
+            array_unshift($h, 'Content-Type: ' . ini_get('default_mimetype'));
+            while (stripos($h[$i], 'Content-Type:') !== 0) {
+                --$i;
+            }
+
+            if (!\in_array(PHP_SAPI, ['cli', 'phpdbg'], true) && stripos($h[$i], 'html')) {
+                $this->dumper = new HtmlDumper('php://output', $this->charset);
+            } else {
+                $this->dumper = new CliDumper('php://output', $this->charset);
+            }
+
+            foreach ($this->data as $i => $dump) {
+                $this->data[$i] = null;
+                $this->doDump($dump['data'], $dump['name'], $dump['file'], $dump['line']);
+            }
+
+            $this->data = [];
+            $this->dataCount = 0;
+        }
     }
 
     public function __clone()
@@ -85,14 +114,14 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
 
         for ($i = 1; $i < 7; ++$i) {
             if (isset($trace[$i]['class'], $trace[$i]['function'])
-                && 'dump' === $trace[$i]['function']
-                && 'Symfony\Component\VarDumper\VarDumper' === $trace[$i]['class']
+                && $trace[$i]['function'] === 'dump'
+                && $trace[$i]['class'] === 'Symfony\Component\VarDumper\VarDumper'
             ) {
                 $file = $trace[$i]['file'];
                 $line = $trace[$i]['line'];
 
                 while (++$i < 7) {
-                    if (isset($trace[$i]['function'], $trace[$i]['file']) && empty($trace[$i]['class']) && 0 !== strpos($trace[$i]['function'], 'call_user_func')) {
+                    if (isset($trace[$i]['function'], $trace[$i]['file']) && empty($trace[$i]['class']) && strpos($trace[$i]['function'], 'call_user_func') !== 0) {
                         $file = $trace[$i]['file'];
                         $line = $trace[$i]['line'];
 
@@ -107,7 +136,7 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
             }
         }
 
-        if (false === $name) {
+        if ($name === false) {
             $name = str_replace('\\', '/', $file);
             $name = substr($name, strrpos($name, '/') + 1);
         }
@@ -123,7 +152,7 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
 
         $fileLink =
             $this->fileLinkFormat && is_file($file)
-                ? strtr($this->fileLinkFormat, array('%f' => $file, '%l' => $line))
+                ? strtr($this->fileLinkFormat, ['%f' => $file, '%l' => $line])
                 : false;
 
         $this->data[] = compact('data', 'name', 'file', 'line', 'fileLink', 'fileExcerpt');
@@ -154,12 +183,12 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
 
         // In all other conditions that remove the web debug toolbar, dumps are written on the output.
         if ($response->isRedirection()
-            || 'html' !== $request->getRequestFormat()
-            || false === strripos($response->getContent(), '</body>')
+            || $request->getRequestFormat() !== 'html'
+            || strripos($response->getContent(), '</body>') === false
             || $controller->Request()->getCookie('disableProfile', false)
-            || ($response->hasHeader('Content-Type') && false === strpos($response->getHeader('Content-Type'), 'html'))
+            || ($response->hasHeader('Content-Type') && strpos($response->getHeader('Content-Type'), 'html') === false)
         ) {
-            if ($response->hasHeader('Content-Type') && false !== strpos($response->getHeader('Content-Type'), 'html')) {
+            if ($response->hasHeader('Content-Type') && strpos($response->getHeader('Content-Type'), 'html') !== false) {
                 $this->dumper = new HtmlDumper('php://output', $this->charset);
             } else {
                 $this->dumper = new CliDumper('php://output', $this->charset);
@@ -172,7 +201,7 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
 
         $profile->setDump([
             'count' => $this->getDumpsCount(),
-            'html' => $this->getDumps('html')
+            'html' => $this->getDumps('html'),
         ]);
     }
 
@@ -185,7 +214,7 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
         $this->data[] = $this->fileLinkFormat;
         $this->data[] = $this->charset;
         $ser = serialize($this->data);
-        $this->data = array();
+        $this->data = [];
         $this->dataCount = 0;
         $this->isCollected = true;
         if (!$this->dumperIsInjected) {
@@ -213,12 +242,12 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
     {
         $data = fopen('php://memory', 'r+b');
 
-        if ('html' === $format) {
+        if ($format === 'html') {
             $dumper = new HtmlDumper($data, $this->charset);
         } else {
             throw new \InvalidArgumentException(sprintf('Invalid dump format: %s', $format));
         }
-        $dumps = array();
+        $dumps = [];
 
         foreach ($this->data as $dump) {
             if (method_exists($dump['data'], 'withMaxDepth')) {
@@ -241,33 +270,12 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
         return 'dump';
     }
 
-    public function __destruct()
+    /**
+     * @return string
+     */
+    public function getToolbarTemplate()
     {
-        if (0 === $this->clonesCount-- && !$this->isCollected && $this->data) {
-            $this->clonesCount = 0;
-            $this->isCollected = true;
-
-            $h = headers_list();
-            $i = count($h);
-            array_unshift($h, 'Content-Type: '.ini_get('default_mimetype'));
-            while (0 !== stripos($h[$i], 'Content-Type:')) {
-                --$i;
-            }
-
-            if (!\in_array(PHP_SAPI, array('cli', 'phpdbg'), true) && stripos($h[$i], 'html')) {
-                $this->dumper = new HtmlDumper('php://output', $this->charset);
-            } else {
-                $this->dumper = new CliDumper('php://output', $this->charset);
-            }
-
-            foreach ($this->data as $i => $dump) {
-                $this->data[$i] = null;
-                $this->doDump($dump['data'], $dump['name'], $dump['file'], $dump['line']);
-            }
-
-            $this->data = array();
-            $this->dataCount = 0;
-        }
+        return '@Toolbar/toolbar/dump.tpl';
     }
 
     private function doDump($data, $name, $file, $line)
@@ -280,17 +288,17 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
                         $name = strip_tags($this->style('', $name));
                         $file = strip_tags($this->style('', $file));
                         if ($fileLinkFormat) {
-                            $link = strtr(strip_tags($this->style('', $fileLinkFormat)), array('%f' => $file, '%l' => (int) $line));
-                            $name = sprintf('<a href="%s" title="%s">'.$s.'</a>', $link, $file, $name);
+                            $link = strtr(strip_tags($this->style('', $fileLinkFormat)), ['%f' => $file, '%l' => (int) $line]);
+                            $name = sprintf('<a href="%s" title="%s">' . $s . '</a>', $link, $file, $name);
                         } else {
-                            $name = sprintf('<abbr title="%s">'.$s.'</abbr>', $file, $name);
+                            $name = sprintf('<abbr title="%s">' . $s . '</abbr>', $file, $name);
                         }
                     } else {
                         $name = $this->style('meta', $name);
                     }
-                    $this->line = $name.' on line '.$this->style('meta', $line).':';
+                    $this->line = $name . ' on line ' . $this->style('meta', $line) . ':';
                 } else {
-                    $this->line = $this->style('meta', $name).' on line '.$this->style('meta', $line).':';
+                    $this->line = $this->style('meta', $name) . ' on line ' . $this->style('meta', $line) . ':';
                 }
                 $this->dumpLine(0);
             };
@@ -298,7 +306,7 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
             $contextDumper($name, $file, $line, $this->fileLinkFormat);
         } else {
             $cloner = new VarCloner();
-            $this->dumper->dump($cloner->cloneVar($name.' on line '.$line.':'));
+            $this->dumper->dump($cloner->cloneVar($name . ' on line ' . $line . ':'));
         }
         $this->dumper->dump($data);
     }
@@ -321,13 +329,5 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
         $dumper->dump($cloner->cloneVar($s));
 
         return substr(strip_tags($html), 1, -1);
-    }
-
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
-    {
-        return '@Toolbar/toolbar/dump.tpl';
     }
 }

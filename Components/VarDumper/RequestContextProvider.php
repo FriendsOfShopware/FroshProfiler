@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FroshProfiler\Components\VarDumper;
 
 use Enlight_Controller_Front;
@@ -8,6 +7,7 @@ use Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface;
 
 /**
  * Class RequestContextProvider
+ *
  * @author Soner Sayakci <shyim@posteo.de>
  */
 class RequestContextProvider implements ContextProviderInterface
@@ -19,7 +19,9 @@ class RequestContextProvider implements ContextProviderInterface
 
     /**
      * RequestContextProvider constructor.
+     *
      * @param Enlight_Controller_Front $front
+     *
      * @author Soner Sayakci <shyim@posteo.de>
      */
     public function __construct(Enlight_Controller_Front $front)
@@ -38,11 +40,11 @@ class RequestContextProvider implements ContextProviderInterface
             return null;
         }
 
-        return array(
+        return [
             'uri' => $request->getScheme() . '//' . $request->getHttpHost() . $request->getRequestUri(),
             'method' => $request->getMethod(),
             'controller' => $request->getControllerName(),
             'identifier' => spl_object_hash($request),
-        );
+        ];
     }
 }

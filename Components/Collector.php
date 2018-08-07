@@ -5,8 +5,6 @@ namespace FroshProfiler\Components;
 use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\DBAL\Connection;
 use Enlight_Controller_Action;
-use Enlight_Event_EventManager;
-use Monolog\Formatter\NormalizerFormatter;
 use FroshProfiler\Components\Collectors\CollectorInterface;
 use FroshProfiler\Components\Struct\Profile;
 
@@ -43,10 +41,10 @@ class Collector
     /**
      * Collector constructor.
      *
-     * @param CacheProvider              $cache
-     * @param Connection                 $connection
-     * @param Profile                    $profile
-     * @param array                      $pluginConfig
+     * @param CacheProvider $cache
+     * @param Connection    $connection
+     * @param Profile       $profile
+     * @param array         $pluginConfig
      */
     public function __construct(
         CacheProvider $cache,
@@ -138,7 +136,9 @@ class Collector
 
     /**
      * @param array $variables
+     *
      * @return array
+     *
      * @author Soner Sayakci <shyim@posteo.de>
      */
     private function normalizeArray(array $variables)

@@ -4,9 +4,7 @@ namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
-use FroshProfiler\Components\Collectors\DumpCollector;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\VarDumper\Cloner\ClonerInterface;
 use Symfony\Component\VarDumper\VarDumper;
 
 class VarDumpCollectorSubscriber implements SubscriberInterface

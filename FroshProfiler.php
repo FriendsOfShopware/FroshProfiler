@@ -3,17 +3,17 @@
 namespace FroshProfiler;
 
 use Doctrine\ORM\Tools\SchemaTool;
+use FroshProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
+use FroshProfiler\Components\CompilerPass\CustomCacheCompilerPass;
+use FroshProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
+use FroshProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use FroshProfiler\Components\Tracleable\TraceableCompilerPass;
+use FroshProfiler\Models\Profile;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware\Components\Plugin\Context\UpdateContext;
-use FroshProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
-use FroshProfiler\Components\CompilerPass\CustomCacheCompilerPass;
-use FroshProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
-use FroshProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
-use FroshProfiler\Models\Profile;
 use Symfony\Component\ClassLoader\Psr4ClassLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

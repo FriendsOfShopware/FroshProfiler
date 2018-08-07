@@ -20,7 +20,7 @@ class CustomEventManagerCompilerPass implements CompilerPassInterface
         $definition = $container->getDefinition('events');
         $definition->setClass(EventManager::class);
         $definition->addMethodCall('setStopWatch', [
-            new Reference('frosh_profiler.stop_watch')
+            new Reference('frosh_profiler.stop_watch'),
         ]);
     }
 }
