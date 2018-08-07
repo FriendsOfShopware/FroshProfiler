@@ -11,15 +11,15 @@
 
     <services>
         <service id="var_dumper.cli_dumper" class="Symfony\Component\VarDumper\Dumper\CliDumper">
-            <argument>%var_dump_server%</argument><!-- debug.dump_destination -->
+            <argument>null</argument>
             <argument>%kernel.charset%</argument>
-            <argument>0</argument> <!-- flags -->
+            <argument>0</argument>
         </service>
 
         <service id="var_dumper.html_dumper" class="Symfony\Component\VarDumper\Dumper\HtmlDumper">
-            <argument>%var_dump_server%</argument>
+            <argument>null</argument>
             <argument>%kernel.charset%</argument>
-            <argument>0</argument> <!-- flags -->
+            <argument>0</argument>
         </service>
 
         <service id="var_dumper.server_dumper" class="Symfony\Component\VarDumper\Dumper\ServerDumper">
@@ -71,7 +71,6 @@
 
         <service id="frosh_profiler.subscriber.var_dumper" class="FroshProfiler\Subscriber\VarDumpServerSubscriber">
             <argument type="service" id="frosh_profiler.config"/>
-            <argument type="service" id="var_dumper.server_dumper"/>
             <tag name="shopware.event_subscriber"/>
         </service>
     </services>
