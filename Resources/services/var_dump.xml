@@ -69,6 +69,14 @@
             <tag name="console.command" command="server:dump" />
         </service>
 
+        <service id="var_dumper.cloner" class="Symfony\Component\VarDumper\Cloner\VarCloner" />
+
+        <service id="frosh_profiler.subscriber.var_dump_collector_subscriber" class="FroshProfiler\Subscriber\VarDumpCollectorSubscriber">
+            <argument type="service" id="frosh_profiler.config"/>
+            <argument type="service" id="service_container"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
         <service id="frosh_profiler.subscriber.var_dumper" class="FroshProfiler\Subscriber\VarDumpServerSubscriber">
             <argument type="service" id="frosh_profiler.config"/>
             <tag name="shopware.event_subscriber"/>

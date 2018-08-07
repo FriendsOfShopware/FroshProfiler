@@ -81,6 +81,14 @@ class Profile implements JsonSerializable
     private $user = [];
 
     /**
+     * A collection of dumped data, each being an assoc array with keys 'data', 'name', 'file', 'line', 'fileLink', 'fileExcerpt'.
+     * @see \FroshProfiler\Components\Collectors\DumpCollector::dump
+     *
+     * @var array
+     */
+    private $dump = [];
+
+    /**
      * @param string $id
      */
     public function setId($id)
@@ -146,6 +154,14 @@ class Profile implements JsonSerializable
     public function setDbQueries(array $dbQueries)
     {
         $this->dbQueries = $dbQueries;
+    }
+
+    /**
+     * @param array $dump
+     */
+    public function setDump(array $dump)
+    {
+        $this->dump = $dump;
     }
 
     /**
@@ -218,6 +234,7 @@ class Profile implements JsonSerializable
             'template' => $this->template,
             'config' => $this->config,
             'db' => $this->dbQueries,
+            'dump' => $this->dump,
             'events' => $this->events,
             'php' => $this->php,
             'user' => $this->user,

@@ -73,6 +73,13 @@
             <tag name="profiler.collector"/>
         </service>
 
+        <service id="frosh_profiler.collectors.dump" class="FroshProfiler\Components\Collectors\DumpCollector" public="true">
+            <argument type="service" id="frosh_profiler.stop_watch"/>
+            <argument>null</argument>
+            <argument>%kernel.charset%</argument>
+            <tag name="profiler.collector"/>
+        </service>
+
         <service id="frosh_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector" public="false">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>

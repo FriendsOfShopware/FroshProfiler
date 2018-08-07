@@ -110,6 +110,16 @@
                 </span>
             </a>
         </li>
+        <li class="dump{if $sPanel == "dump"} selected{/if}">
+            <a href="{url controller=profiler action=detail id=$sId panel=dump}">
+                <span class="label{if $sDetail.dump.count == 0} disabled{/if}">
+                    <span class="icon">
+                        {fetchFile file="@Toolbar/_resources/svg/dump.svg"}
+                    </span>
+                    <strong>Debug ({$sDetail.dump.count})</strong>
+                </span>
+            </a>
+        </li>
         <li class="config{if $sPanel == "config"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=config}">
                 <span class="label">
