@@ -7,9 +7,6 @@
   "extra": {
     "installer-name": "FroshProfiler"
   },
-  "replace": {
-    "symfony/polyfill-mbstring": "~1.0"
-  },
   "require": {
     "php": ">=5.6",
     "jdorn/sql-formatter": "^1.2.17",
