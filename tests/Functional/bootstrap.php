@@ -23,6 +23,8 @@
  */
 use Shopware\Models\Shop\Shop;
 
+define('TESTS_RUNNING', true);
+
 require __DIR__ . '/../../../../../autoload.php';
 
 class TestKernel extends \Shopware\Kernel

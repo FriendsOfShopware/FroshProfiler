@@ -32,6 +32,10 @@ class DatabaseProfiler implements SubscriberInterface
         /** @var Container $subject */
         $subject = $args->getSubject();
 
+        if (!defined('TESTS_RUNNING') && PHP_SAPI === 'cli') {
+            return;
+        }
+
         $subject->get('db')->setProfiler(new Zend_Db_Profiler(true));
     }
 
@@ -42,6 +46,10 @@ class DatabaseProfiler implements SubscriberInterface
     {
         /** @var Container $subject */
         $subject = $args->getSubject();
+
+        if (!defined('TESTS_RUNNING') && PHP_SAPI === 'cli') {
+            return;
+        }
 
         define('STARTTIME', microtime(true));
 
