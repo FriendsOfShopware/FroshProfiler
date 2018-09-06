@@ -68,6 +68,7 @@ class Collector implements SubscriberInterface
         $controller = $args->getSubject();
         $controllerLower = strtolower($controller->Request()->getControllerName());
         $actionLower = strtolower($controller->Request()->getActionName());
+        $module = strtolower($controller->Request()->getModuleName());
 
         if (
             $controllerLower === 'profiler' ||
@@ -76,7 +77,8 @@ class Collector implements SubscriberInterface
             $actionLower === 'getloginstatus' ||
             strpos($controller->Request()->getRequestUri(), 'profiler') !== false ||
             $this->profile->getId() ||
-            $controller->Request()->getCookie('disableProfile', false)
+            $controller->Request()->getCookie('disableProfile', false) ||
+            !$this->pluginConfig['profilingBackend'] && $module === 'backend'
         ) {
             return;
         }
@@ -141,9 +143,8 @@ class Collector implements SubscriberInterface
             $response->setBody($content);
         }
 
-        // @todo: Cleanup
         if ($this->profileController->Request()->getModuleName() === 'backend') {
-            $response->setHeader('X-Profiler-URL', Shopware()->Container()->get('router')->assemble([
+            $response->setHeader('X-Profiler-URL', $this->profileController->get('router')->assemble([
                 'module' => 'frontend',
                 'controller' => 'profiler',
                 'action' => 'detail',

@@ -50,5 +50,11 @@
             <label>Enable var-dump server</label>
             <value>0</value>
         </element>
+        <element type="boolean">
+            <name>profilingBackend</name>
+            <label>Enable Profiling in Backend</label>
+            <value>0</value>
+            <description>You can open the profiled page using the URL in the X-Profiler-URL Header</description>
+        </element>
     </elements>
 </config>
