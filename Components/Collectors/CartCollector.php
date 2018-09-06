@@ -8,7 +8,6 @@ use FroshProfiler\Components\Struct\Tax;
 
 class CartCollector implements CollectorInterface
 {
-
     /**
      * @return string
      */
@@ -19,7 +18,7 @@ class CartCollector implements CollectorInterface
 
     /**
      * @param Enlight_Controller_Action $controller
-     * @param Profile $profile
+     * @param Profile                   $profile
      */
     public function collect(Enlight_Controller_Action $controller, Profile $profile)
     {
@@ -32,7 +31,7 @@ class CartCollector implements CollectorInterface
         $taxes = $this->sumItemsByTaxRate($cart['content']);
 
         $profile->setAttributes([
-            'taxes' => $taxes
+            'taxes' => $taxes,
         ]);
     }
 
@@ -47,6 +46,7 @@ class CartCollector implements CollectorInterface
     /**
      * @param array $items
      * @param float $total
+     *
      * @return array
      */
     private function sumItemsByTaxRate(array $items)
@@ -87,7 +87,6 @@ class CartCollector implements CollectorInterface
                 $sums[$key] = $taxPrice;
             }
         }
-
 
         foreach ($sums as $taxRate => &$sum) {
             $tax = new Tax();

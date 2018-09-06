@@ -149,7 +149,7 @@ class Collector implements SubscriberInterface
                 'controller' => 'profiler',
                 'action' => 'detail',
                 'id' => $this->profile->getId(),
-                'fullPath' => true
+                'fullPath' => true,
             ]));
         }
     }

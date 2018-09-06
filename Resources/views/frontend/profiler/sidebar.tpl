@@ -100,6 +100,16 @@
                 </span>
             </a>
         </li>
+        <li class="doctrine{if $sPanel == "cart"} selected{/if}">
+            <a href="{url controller=profiler action=detail id=$sId panel=cart}">
+                <span class="label">
+                    <span class="icon">
+                        {fetchFile file="@Toolbar/_resources/svg/cart.svg"}
+                    </span>
+                    <strong>Cart</strong>
+                </span>
+            </a>
+        </li>
         <li class="swiftmailer{if $sPanel == "mailer"} selected{/if}">
             <a href="{url controller=profiler action=detail id=$sId panel=mailer}">
                 <span class="label{if $sDetail.mails|count == 0} disabled{/if}">

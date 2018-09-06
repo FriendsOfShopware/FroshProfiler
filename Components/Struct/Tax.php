@@ -2,7 +2,6 @@
 
 namespace FroshProfiler\Components\Struct;
 
-
 class Tax
 {
     /**
@@ -30,11 +29,13 @@ class Tax
 
     /**
      * @param float $taxRate
+     *
      * @return Tax
      */
     public function setTaxRate($taxRate)
     {
         $this->taxRate = $taxRate;
+
         return $this;
     }
 
@@ -48,11 +49,13 @@ class Tax
 
     /**
      * @param float $sumOfCart
+     *
      * @return Tax
      */
     public function setSumOfCart($sumOfCart)
     {
         $this->sumOfCart = $sumOfCart;
+
         return $this;
     }
 
@@ -66,11 +69,13 @@ class Tax
 
     /**
      * @param float $proportionOfCart
+     *
      * @return Tax
      */
     public function setProportionOfCart($proportionOfCart)
     {
         $this->proportionOfCart = $proportionOfCart;
+
         return $this;
     }
 }
