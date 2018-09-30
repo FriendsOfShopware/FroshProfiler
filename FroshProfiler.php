@@ -78,7 +78,6 @@ class FroshProfiler extends Plugin
         parent::build($container);
 
         $container->addCompilerPass(new CustomEventManagerCompilerPass());
-        $container->addCompilerPass(new ProfilerCollectorCompilerPass());
         $container->addCompilerPass(new AddTemplatePluginDirCompilerPass());
         $container->addCompilerPass(new CustomCacheCompilerPass());
         $container->addCompilerPass(new TraceableCompilerPass());

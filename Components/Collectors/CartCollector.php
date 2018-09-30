@@ -36,7 +36,7 @@ class CartCollector implements CollectorInterface
     }
 
     /**
-     * @return string|void
+     * @return string
      */
     public function getToolbarTemplate()
     {

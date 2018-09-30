@@ -1,12 +1,14 @@
 <?php
 
+namespace FroshProfiler\Controller\Frontend;
+
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * Class Shopware_Controllers_Frontend_Profiler
  */
-class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
+class Profiler extends \Enlight_Controller_Action
 {
     /**
      * @var FilesystemCache
@@ -26,16 +28,16 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         if (!empty(trim($config['whitelistIP']))) {
             $isIPWhitelisted = in_array($this->get('front')->Request()->getClientIp(), explode("\n", $config['whitelistIP']), false);
             if (!$isIPWhitelisted) {
-                throw new Enlight_Controller_Exception(
+                throw new \Enlight_Controller_Exception(
                     'Controller "' . $this->Request()->getControllerName() . '" not found',
-                    Enlight_Controller_Exception::Controller_Dispatcher_Controller_Not_Found
+                    \Enlight_Controller_Exception::Controller_Dispatcher_Controller_Not_Found
                 );
             }
         }
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function indexAction()
     {
@@ -58,7 +60,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function detailAction()
     {
@@ -108,7 +110,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
         $mail = $detail['mails'][$this->Request()->getParam('mailId')];
 
         $this->View()->mode = $mode;
-        if ($mode instanceof Zend_Mime_Part) {
+        if ($mode instanceof \Zend_Mime_Part) {
             $this->View()->data = $mail[$mode]->getContent();
         } else {
             $this->View()->data = $mail[$mode];
@@ -124,7 +126,7 @@ class Shopware_Controllers_Frontend_Profiler extends Enlight_Controller_Action
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      *
      * @return QueryBuilder
      */

@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="frosh_profiler.collectors.general" class="FroshProfiler\Components\Collectors\GeneralCollector" public="false">
+            <argument type="service" id="service_container"/>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.php" class="FroshProfiler\Components\Collectors\PHPCollector" public="false">
+            <argument type="service" id="service_container"/>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.user" class="FroshProfiler\Components\Collectors\UserCollector" public="false">
+            <argument type="service" id="service_container"/>
+
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.smarty" class="FroshProfiler\Components\Collectors\SmartyCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.event" class="FroshProfiler\Components\Collectors\EventCollector" public="false">
+            <argument type="service" id="events"/>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.cache" class="FroshProfiler\Components\Collectors\CacheCollector" public="false">
+            <argument type="service" id="cache"/>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.db" class="FroshProfiler\Components\Collectors\DBCollector" public="false">
+            <argument type="service" id="db"/>
+            <argument type="service" id="models"/>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.dump" class="FroshProfiler\Components\Collectors\DumpCollector" public="true">
+            <argument type="service" id="frosh_profiler.stop_watch"/>
+            <argument>null</argument>
+            <argument>%kernel.charset%</argument>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector" public="false">
+            <argument type="service" id="service_container"/>
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.exception" class="FroshProfiler\Components\Collectors\ExceptionCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.forms" class="FroshProfiler\Components\Collectors\FormCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+
+        <service id="frosh_profiler.collectors.cart" class="FroshProfiler\Components\Collectors\CartCollector" public="false">
+            <tag name="profiler.collector"/>
+        </service>
+    </services>
+</container>

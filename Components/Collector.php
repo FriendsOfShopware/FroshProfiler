@@ -7,6 +7,7 @@ use Doctrine\DBAL\Connection;
 use Enlight_Controller_Action;
 use FroshProfiler\Components\Collectors\CollectorInterface;
 use FroshProfiler\Components\Struct\Profile;
+use IteratorAggregate;
 
 /**
  * Class Collector
@@ -41,29 +42,24 @@ class Collector
     /**
      * Collector constructor.
      *
+     * @param IteratorAggregate $collectors
      * @param CacheProvider $cache
-     * @param Connection    $connection
-     * @param Profile       $profile
-     * @param array         $pluginConfig
+     * @param Connection $connection
+     * @param Profile $profile
+     * @param array $pluginConfig
      */
     public function __construct(
+        IteratorAggregate $collectors,
         CacheProvider $cache,
         Connection $connection,
         Profile $profile,
         array $pluginConfig
     ) {
+        $this->collectors = iterator_to_array($collectors, false);
         $this->cache = $cache;
         $this->pluginConfig = $pluginConfig;
         $this->connection = $connection;
         $this->profile = $profile;
-    }
-
-    /**
-     * @param CollectorInterface $collector
-     */
-    public function addCollector(CollectorInterface $collector)
-    {
-        $this->collectors[] = $collector;
     }
 
     /**

@@ -4,17 +4,13 @@ namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager;
+use FroshProfiler\Controller\Frontend\Profiler;
 
 /**
  * Class ProfilerController
  */
 class ProfilerController implements SubscriberInterface
 {
-    /**
-     * @var string
-     */
-    private $pluginDir;
-
     /**
      * @var string
      */
@@ -26,16 +22,13 @@ class ProfilerController implements SubscriberInterface
     private $template;
 
     /**
-     * @param $pluginDir
      * @param $viewDir
      * @param Enlight_Template_Manager $template
      */
     public function __construct(
-        $pluginDir,
         $viewDir,
         Enlight_Template_Manager $template
     ) {
-        $this->pluginDir = $pluginDir;
         $this->viewDir = $viewDir;
         $this->template = $template;
     }
@@ -57,6 +50,6 @@ class ProfilerController implements SubscriberInterface
     {
         $this->template->addTemplateDir($this->viewDir);
 
-        return $this->pluginDir . '/Controllers/Frontend/Profiler.php';
+        return Profiler::class;
     }
 }

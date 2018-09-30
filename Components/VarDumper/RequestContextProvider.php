@@ -32,7 +32,7 @@ class RequestContextProvider implements ContextProviderInterface
     /**
      * @return array|null Context data or null if unable to provide any context
      */
-    public function getContext()
+    public function getContext(): ?array
     {
         $request = $this->front->Request();
 
