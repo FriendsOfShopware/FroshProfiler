@@ -54,7 +54,8 @@ class BlockAnnotator
                 strpos($block['name'], '/attributes') !== false ||
                 strpos($block['name'], '_attributes') !== false ||
                 strpos($block['name'], 'classes') !== false ||
-                strpos($block['name'], 'frontend_index_search_similar_results_') !== false) {
+                strpos($block['name'], 'frontend_index_search_similar_results_') !== false ||
+                (strpos($block['name'], 'dreisc_seo_') !== false && strpos($block['name'], '_frontend_index_header') !== false)) {
                 continue;
             }
 
