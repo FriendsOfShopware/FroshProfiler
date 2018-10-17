@@ -24,7 +24,7 @@ class CartCollector implements CollectorInterface
     {
         $cart = $controller->View()->getAssign('sBasket');
 
-        if (empty($cart)) {
+        if (empty($cart) || empty($cart['content'])) {
             return;
         }
 
