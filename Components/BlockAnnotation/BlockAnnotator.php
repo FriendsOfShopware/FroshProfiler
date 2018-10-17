@@ -51,10 +51,12 @@ class BlockAnnotator
     {
         foreach ($this->blockSplitter->split($source) as $block) {
             if (in_array($block['name'], $this->blacklist) ||
-                strpos($block['name'], '/attributes') !== false ||
-                strpos($block['name'], '_attributes') !== false ||
-                strpos($block['name'], 'classes') !== false ||
-                strpos($block['name'], 'frontend_index_search_similar_results_') !== false) {
+                $this->contains($block['name'], '/attributes') ||
+                $this->contains($block['name'], '_attributes') ||
+                $this->contains($block['name'], 'classes') ||
+                $this->endsWith($block['name'], '_data') ||
+                $this->startsWith($block['name'], 'frontend_index_search_similar_results_')
+            ) {
                 continue;
             }
 
@@ -66,7 +68,7 @@ class BlockAnnotator
                 $currentFile = $template->_current_file;
 
                 // smarty eval
-                if (strpos($templateResources[0], 'string:') === 0) {
+                if ($this->startsWith($templateResources[0], 'string:')) {
                     $templateResources = [];
                 }
 
@@ -85,5 +87,41 @@ class BlockAnnotator
         }
 
         return $source;
+    }
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function startsWith($haystack, $needle)
+    {
+        $length = \strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    private function endsWith($haystack, $needle)
+    {
+        $length = \strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (\substr($haystack, -$length) === $needle);
+    }
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    private function contains($haystack, $needle)
+    {
+        return \strpos($haystack, $needle) !== false;
     }
 }
