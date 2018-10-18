@@ -10,7 +10,7 @@ Required Minimum Shopware Version 5.2
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.3.4.zip`)
+* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.3.5.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version
