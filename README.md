@@ -4,15 +4,15 @@
 
 Profiling for Shopware
 
-Required Minimum Shopware Version 5.5 with PHP >= 7.1
+**Required Minimum Shopware Version 5.5 with PHP >= 7.1**
 
-For older Shopware Versions or PHP 5.6/PHP 7.0 use the version 1.3.4
+**For older Shopware Versions or PHP 5.6/PHP 7.0 use the version 1.3.6**
 
 # Installation
 
 ## Zip Installation package for the Shopware Plugin Manager
 
-* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.3.4.zip`)
+* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshProfiler/releases/latest/) (e.g. `FroshProfiler-1.3.6.zip`)
 * Upload and install plugin using Plugin Manager
 
 ## Git Version
