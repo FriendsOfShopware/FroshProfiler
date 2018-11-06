@@ -61,7 +61,7 @@ class GeneralCollector implements CollectorInterface
             ],
             'logs' => $this->getLogs(),
             'server' => $_SERVER,
-            'startTime' => STARTTIME,
+            'startTime' => $this->container->get('frosh_profiler.current.profile')->getStartTime(),
             'bundles' => $this->getBundles(),
         ];
 

@@ -13,7 +13,7 @@ class Profile implements JsonSerializable
     /**
      * @var
      */
-    private $id = null;
+    private $id;
 
     /**
      * @var int
@@ -79,6 +79,11 @@ class Profile implements JsonSerializable
      * @var array
      */
     private $user = [];
+
+    /**
+     * @var int
+     */
+    private $startTime = 0;
 
     /**
      * A collection of dumped data, each being an assoc array with keys 'data', 'name', 'file', 'line', 'fileLink', 'fileExcerpt'.
@@ -226,6 +231,22 @@ class Profile implements JsonSerializable
     }
 
     /**
+     * @return int
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * @param int $startTime
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+    }
+
+    /**
      * @return array|mixed
      *
      * @author Soner Sayakci <shyim@posteo.de>
@@ -245,6 +266,29 @@ class Profile implements JsonSerializable
         $result = array_merge($result, $this->attributes);
 
         return $result;
+    }
+
+    /**
+     * Resets the Profile
+     */
+    public function reset()
+    {
+        $this->id = null;
+        $this->templateCalls = 0;
+        $this->templatesRendered = [];
+        $this->templateBlockCalls = 0;
+        $this->templateRenderTime = 0;
+        $this->config = [];
+        $this->mails = [];
+        $this->dbQueries = [];
+        $this->events = [];
+        $this->exception = [];
+        $this->attributes = [];
+        $this->php = [];
+        $this->template = [];
+        $this->user = [];
+        $this->dump = [];
+        $this->startTime = 0;
     }
 
     /**

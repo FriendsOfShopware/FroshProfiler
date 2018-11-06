@@ -51,7 +51,7 @@ class DatabaseProfiler implements SubscriberInterface
             return;
         }
 
-        define('STARTTIME', microtime(true));
+        $subject->get('frosh_profiler.current.profile')->setStartTime(microtime(true));
 
         $logger = new DebugStack();
         $logger->enabled = true;

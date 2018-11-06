@@ -114,7 +114,7 @@ class Collector implements SubscriberInterface
 
         $profileData = $this->container->get('frosh_profiler.collector')->collectInformation($this->profileController);
         $profileData['response']['headers'] = $symfonyResponse->headers->all();
-        $profileData['profileTime'] = round(microtime(true) - STARTTIME, 3);
+        $profileData['profileTime'] = round(microtime(true) - $this->container->get('frosh_profiler.current.profile')->getStartTime(), 3);
 
         $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
 
