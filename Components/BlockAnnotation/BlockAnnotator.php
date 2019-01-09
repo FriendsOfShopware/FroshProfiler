@@ -24,6 +24,7 @@ class BlockAnnotator
         'frontend_robots_txt_sitemap_mobile',
         'frontend_index_body_attributes',
         'frontend_index_header_javascript_inline',
+        'frontend_listing_actions_class',
     ];
     /**
      * @var BlockSplitter
