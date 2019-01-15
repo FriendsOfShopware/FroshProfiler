@@ -27,6 +27,7 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
         $this->pluginConfig = Shopware()->Container()->get('frosh_profiler.config');
         $this->cache = Shopware()->Container()->get('frosh_profiler.cache');
         $this->connection = Shopware()->Container()->get('dbal_connection');
+        Shopware()->Container()->get('frosh_profiler.current.profile')->reset();
         $this->dispatch('/');
     }
 
@@ -45,7 +46,9 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
         $id = $this->View()->getAssign('sProfilerID');
 
         $this->assertTrue($this->cache->contains($id));
-        $this->assertTrue($this->connection->fetchColumn('SELECT 1 FROM s_plugin_profiler WHERE token = ?', [$id]) == 1);
+        $this->assertEquals($this->connection->fetchColumn('SELECT 1 FROM s_plugin_profiler WHERE token = ?', [$id]), 1);
+
+        $this->assertNotEmpty(Shopware()->Container()->get('frosh_profiler.current.profile')->getId());
     }
 
     public function testProfileContent()
