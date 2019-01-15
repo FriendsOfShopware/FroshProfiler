@@ -16,4 +16,4 @@ mkdir -p FroshProfiler
 git archive ${commit} | tar -x -C FroshProfiler
 composer install --no-dev -n -o -d FroshProfiler
 ( find ./FroshProfiler -type d -name ".git" && find ./FroshProfiler -name ".gitignore" && find ./FroshProfiler -name ".gitmodules" ) | xargs rm -r
-zip -r FroshProfiler-${commit}.zip FroshProfiler
+zip -x "*build.sh*" -x "*.MD" -r FroshProfiler-${commit}.zip FroshProfiler
