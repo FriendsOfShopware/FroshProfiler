@@ -44,6 +44,16 @@ script:
 
 after_success:
   - ./build.sh $TRAVIS_TAG
+  
+jobs:
+    include:
+    - stage: Store-Check
+      php: 7.3
+      install:
+      - ./build.sh
+      - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+      script:
+      - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/FroshProfiler*.zip
 
 deploy:
   - provider: releases
