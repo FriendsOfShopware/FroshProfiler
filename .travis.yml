@@ -44,16 +44,40 @@ script:
 
 after_success:
   - ./build.sh $TRAVIS_TAG
+
+stages:
+  - test
+  - Store-Check
+  - name: Store-Sync
+    if: branch = 1.3
+  - name: Store-Deploy
+    if: tag IS present
   
 jobs:
     include:
-    - stage: Store-Check
-      php: 7.3
-      install:
-      - ./build.sh
-      - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
-      script:
-      - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/FroshProfiler*.zip
+      - stage: Store-Check
+        php: 7.3
+        before_script: skip
+        install:
+        - ./build.sh
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+        script:
+        - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
+      - stage: Store-Sync
+        before_script: skip
+        php: 7.3
+        install:
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+        script:
+          - php frosh-plugin-upload.phar plugin:update ${TRAVIS_BUILD_DIR}/Resources/store
+      - stage: Store-Deploy
+        before_script: skip
+        php: 7.3
+        install:
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+        script:
+          - ./build.sh
+          - php frosh-plugin-upload.phar plugin:upload ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
 
 deploy:
   - provider: releases
@@ -64,13 +88,3 @@ deploy:
     file: FroshProfiler*.zip
     on:
       tags: true
-  - provider: script
-    script: php frosh-plugin-upload.phar plugin:upload ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}/FroshProfiler*.zip
-    skip_cleanup: true
-    on:
-      tags: true
-  - provider: script
-    script: php frosh-plugin-upload.phar plugin:update ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}/Resources/store
-    skip_cleanup: true
-    on:
-      branch: 1.3
