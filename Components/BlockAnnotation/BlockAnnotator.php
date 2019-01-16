@@ -24,6 +24,7 @@ class BlockAnnotator
         'frontend_robots_txt_sitemap_mobile',
         'frontend_index_body_attributes',
         'frontend_index_header_javascript_inline',
+        'frontend_listing_actions_class',
     ];
     /**
      * @var BlockSplitter
@@ -55,7 +56,8 @@ class BlockAnnotator
                 $this->contains($block['name'], '_attributes') ||
                 $this->contains($block['name'], 'classes') ||
                 $this->endsWith($block['name'], '_data') ||
-                $this->startsWith($block['name'], 'frontend_index_search_similar_results_')
+                $this->startsWith($block['name'], 'frontend_index_search_similar_results_') ||
+                ($this->contains($block['name'], 'dreisc_seo_') && $this->contains($block['name'], '_frontend_index_header'))
             ) {
                 continue;
             }
@@ -92,17 +94,20 @@ class BlockAnnotator
     /**
      * @param string $haystack
      * @param string $needle
+     *
      * @return bool
      */
-    function startsWith($haystack, $needle)
+    public function startsWith($haystack, $needle)
     {
         $length = \strlen($needle);
-        return (substr($haystack, 0, $length) === $needle);
+
+        return substr($haystack, 0, $length) === $needle;
     }
 
     /**
      * @param string $haystack
      * @param string $needle
+     *
      * @return bool
      */
     private function endsWith($haystack, $needle)
@@ -112,12 +117,13 @@ class BlockAnnotator
             return true;
         }
 
-        return (\substr($haystack, -$length) === $needle);
+        return \substr($haystack, -$length) === $needle;
     }
 
     /**
      * @param string $haystack
      * @param string $needle
+     *
      * @return bool
      */
     private function contains($haystack, $needle)
