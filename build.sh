@@ -9,12 +9,12 @@ if [ -z ${commit} ]; then
 fi
 
 # Remove old release
-rm -rf FroshProfiler FroshProfiler-*.zip
+rm -rf ${PLUGIN_NAME} ${PLUGIN_NAME}-*.zip
 
 # Build new release
-mkdir -p FroshProfiler
-git archive ${commit} | tar -x -C FroshProfiler
-composer install --no-dev -n -o -d FroshProfiler
-( find ./FroshProfiler -type d -name ".git" && find ./FroshProfiler -name ".gitignore" && find ./FroshProfiler -name ".gitmodules" ) | xargs rm -r
-rm -r ./FroshProfiler/vendor/shyim/var-dumper/Tests/
-zip -x "*build.sh*" -x "*.MD" -r FroshProfiler-${commit}.zip FroshProfiler
+mkdir -p ${PLUGIN_NAME}
+git archive ${commit} | tar -x -C ${PLUGIN_NAME}
+composer install --no-dev -n -o -d ${PLUGIN_NAME}
+( find ./${PLUGIN_NAME} -type d -name ".git" && find ./${PLUGIN_NAME} -name ".gitignore" && find ./${PLUGIN_NAME} -name ".gitmodules" ) | xargs rm -r
+rm -r ./${PLUGIN_NAME}/vendor/shyim/var-dumper/Tests/
+zip -x "*build.sh*" -x "*.MD" -r FroshProfiler-${commit}.zip ${PLUGIN_NAME}
