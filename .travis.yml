@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.0
   - 7.1
   - 7.2
 
@@ -15,7 +14,6 @@ env:
     - SHOPWARE_VERSION="5.2"
     - SHOPWARE_VERSION="5.3"
     - SHOPWARE_VERSION="5.4"
-    - SHOPWARE_VERSION="5.5"
   global:
     - PLUGIN_NAME=FroshProfiler
     - SHOPWARE_DIRECTORY="${HOME}/shopware"
