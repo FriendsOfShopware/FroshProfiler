@@ -5,24 +5,24 @@
         <div class="status {if $sDetail.response.httpResponse == 200 || $sDetail.response.httpResponse == 302}status-success{else}status-error{/if}">
             <div class="container">
                 <h2 class="break-long-words">
-                    <a href="{$sDetail.request.url}">{$sDetail.request.url}</a>
+                    <a href="{$sDetail.request.url}">{$sDetail.request.url|escape}</a>
                 </h2>
 
                 <dl class="metadata">
                     <dt>Method</dt>
-                    <dd>{$sDetail.request.httpMethod}</dd>
+                    <dd>{$sDetail.request.httpMethod|escape}</dd>
 
                     <dt>HTTP Status</dt>
-                    <dd>{$sDetail.response.httpResponse}</dd>
+                    <dd>{$sDetail.response.httpResponse|escape}</dd>
 
                     <dt>IP</dt>
-                    <dd>{$sDetail.request.ip}</dd>
+                    <dd>{$sDetail.request.ip|escape}</dd>
 
                     <dt>Profiled on</dt>
                     <dd>{$sDetail.request.time|date_format:"Y-m-d H:i:s"}</dd>
 
                     <dt>Token</dt>
-                    <dd>{$sId}</dd>
+                    <dd>{$sId|escape}</dd>
                 </dl>
             </div>
         </div>

@@ -15,15 +15,15 @@
                     {foreach from=$sDetail.logs.OTHER item=log}
                         <tr class="">
                             <td class="font-normal text-small">
-                                <span class="colored text-bold nowrap">{$log[0]}</span>
+                                <span class="colored text-bold nowrap">{$log[0]|escape}</span>
                                 <span class="text-muted nowrap newline">{$log[3]|date_format:"H:i:s"}</span>
                             </td>
 
-                            <td class="font-normal text-small text-bold nowrap">{$log[4]}</td>
+                            <td class="font-normal text-small text-bold nowrap">{$log[4]|escape}</td>
 
                             <td class="font-normal">
                                 {$log[1]}<br>
-                                Context: {$log[2]|@json_encode}
+                                Context: {$log[2]|@json_encode|escape}
                             </td>
                         </tr>
                     {/foreach}
@@ -48,11 +48,11 @@
                     {foreach from=$sDetail.logs.DEBUG item=log}
                         <tr class="">
                             <td class="font-normal text-small">
-                                <span class="colored text-bold nowrap">{$log[0]}</span>
+                                <span class="colored text-bold nowrap">{$log[0]|escape}</span>
                                 <span class="text-muted nowrap newline">{$log[3]|date_format:"H:i:s"}</span>
                             </td>
 
-                            <td class="font-normal text-small text-bold nowrap">{$log[4]}</td>
+                            <td class="font-normal text-small text-bold nowrap">{$log[4]|escape}</td>
 
                             <td class="font-normal">
                                 {$log[1]}<br>

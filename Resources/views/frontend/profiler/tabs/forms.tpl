@@ -68,7 +68,7 @@
                         {if $error.trace}
                             <span class="newline">Caused by:</span>
                             {foreach from=$error.trace item=stacked}
-                                {$stacked|dump}
+                                {$stacked|dump|escape}
                             {/foreach}
                         {else}
                             <em>Unknown.</em>
