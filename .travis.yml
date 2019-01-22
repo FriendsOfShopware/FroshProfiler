@@ -36,8 +36,6 @@ before_script:
   - cd ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
 
 script:
-  - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
-  - php frosh-plugin-upload.phar plugin:update ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}/Resources/store
   - composer test
   - composer test-unit
 
