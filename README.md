@@ -4,9 +4,12 @@
 
 Profiling for Shopware
 
-**Required Minimum Shopware Version 5.5 with PHP >= 7.1**
+| Version 	| Requirements               	| Availability                            	|
+|---------	|----------------------------	|-----------------------------------------	|
+| 1.3     	| Min. Shopware 5.2, PHP 5.6 	| Github & Community Store                	|
+| 1.4     	| Min. Shopware 5.5, PHP 7.1 	| Github (with 5.6 Release also in Store) 	|
 
-**For older Shopware Versions or PHP 5.6/PHP 7.0 use the version 1.3.6**
+**Please create Pull Requests to the lowest version**
 
 # Installation
 
