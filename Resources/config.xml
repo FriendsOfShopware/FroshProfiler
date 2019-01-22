@@ -5,16 +5,19 @@
         <element type="boolean">
             <name>frontendblocks</name>
             <label>Show smarty blocks as HTML comments on page source code</label>
+            <label lang="de">Smarty Blöcke als HTML Kommentare darstellen</label>
             <value>1</value>
         </element>
         <element type="boolean">
             <name>frontendblocksTemplate</name>
             <label>Show template file in html comment</label>
+            <label lang="de">Template Path in den Html Kommentaren anzeigen</label>
             <value>1</value>
         </element>
         <element type="textarea">
             <name>whitelistIP</name>
             <label>Whitelist for Toolbar</label>
+            <label lang="de">IP-Adressen Whitelist</label>
             <options>
                 <helpText>Multiple IPs with a line break</helpText>
             </options>
@@ -22,39 +25,48 @@
         <element type="boolean">
             <name>whitelistIPProfile</name>
             <label>Profile when Toolbar is disabled with IP Whitelist</label>
+            <label lang="de">Profilen auch wenn die IP Adresse beschränkt wurde</label>
             <value>1</value>
         </element>
         <element type="number">
             <name>maxProfiles</name>
             <label>Max amount profiles, which should be saved</label>
+            <label lang="de">Maximale Profiles die gespeichert werden sollen</label>
             <value>50</value>
             <description>You can disable it with 0 amount</description>
+            <description lang="de">Kann mit 0 deaktiviert werden</description>
         </element>
         <element type="number">
             <name>dumpDepth</name>
             <label>Depth of vardump in profiler detail</label>
+            <label lang="de">Maximale Tiefe von VarDumper</label>
             <value>20</value>
         </element>
         <element type="number">
             <name>dumpSize</name>
             <label>Maximum size of the vardump (-1 equals Unlimited)</label>
+            <label lang="de">Maximale Große von VarDumper (-1 gilt als Unlimited)</label>
             <value>2500</value>
         </element>
         <element type="boolean">
             <name>jsEvents</name>
             <label>Output Javascript events to console</label>
+            <label lang="de">Javascript Evenets in der Console ausgeben</label>
             <value>1</value>
         </element>
         <element type="boolean">
             <name>varDumpServer</name>
             <label>Enable var-dump server</label>
+            <label lang="de">VarDump Server aktivieren</label>
             <value>0</value>
         </element>
         <element type="boolean">
             <name>profilingBackend</name>
             <label>Enable Profiling in Backend</label>
+            <label lang="de">Profiling im Backend aktivieren</label>
             <value>0</value>
             <description>You can open the profiled page using the URL in the X-Profiler-URL Header</description>
+            <description lang="de">Du kannst die Seite anhand des X-Profiler-URL Headers öffnen</description>
         </element>
     </elements>
 </config>

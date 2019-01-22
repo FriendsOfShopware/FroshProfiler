@@ -3,17 +3,74 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Profiler</label>
     <label lang="en">Profiler</label>
-    <version>1.3.4</version>
+    <version>1.3.7</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
+    <compatibility minVersion="5.2.0" />
+    <changelog version="1.3.7">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Improved block comments for Dreischild Seo Plugin</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Block Kommentare verbessert für Dreischilds Seo Plugin</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.3.6">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>VarDumper improved</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Vardumper Support verbessert</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+    <changelog version="1.3.5">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Cart loading fix</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Warenkorb Laden behoben</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
     <changelog version="1.3.4">
         <changes lang="en">
             <![CDATA[
                 <ul>
                     <li>Show cart items in Profiler page</li>
                     <li>Added backend profiling</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Warenkorb Einträge werden in der Profiler Seite dargestellt</li>
+                    <li>Backend Profiling eingefügt</li>
                 </ul>
             ]]>
         </changes>
@@ -27,12 +84,27 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Die Datei 127.0.0.1:9912 wird nicht mehr im Root des Shop Ordners erstellt</li>
+                    <li>Gedumptes Inhalt wird nun in er Toolbar dargestellt <a href="https://github.com/afoeder">@afroder</a></li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.3.2">
         <changes lang="en">
             <![CDATA[
                 <ul>
                     <li>Decorate again the logger, because plugins dont use interfaces</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Der Logger wird nun wieder dekoriert</li>
                 </ul>
             ]]>
         </changes>
@@ -50,6 +122,17 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Services können nun getract werden</li>
+                    <li>Filters events tauchen nun auch in Event tab auf</li>
+                    <li>PHP Module detection korrigiert</li>
+                    <li>Logger decoration behoben @afroder</li>
+                    <li>Subrequest Bearbeitung behoben</li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.3.0">
         <changes lang="en">
@@ -64,6 +147,18 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Var-Dump Server hinzugefügt</li>
+                    <li>Data normalizer für Objekte verbessert</li>
+                    <li>Stopwatch Event eingefügt</li>
+                    <li>Profiling kann nun via Toolbar deaktiviert werden</li>
+                    <li>Erweitertes Javascript Event logging eingebaut, thanks to @dneustadt</li>
+                    <li>Whitespace Problem mit IP Begrenzung behoben, thanks to @JoshuaBehrens</li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.2.2">
         <changes lang="en">
@@ -72,6 +167,14 @@
                     <li>Add plugin icon for the plugin manager</li>
                     <li>Update name to a user friendly notation</li>
                     <li>Change order of changelog list items</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Plugin Icon hinzugefügt</li>
+                    <li>Plugin.xml Changelog korrigiert</li>
                 </ul>
             ]]>
         </changes>
@@ -84,12 +187,26 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Einheiten behoben in Query Zeit</li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.2.0">
         <changes lang="en">
             <![CDATA[
                 <ul>
                     <li>Profiler plugin is now part of Friends of Shopware group. Repository moved to https://github.com/FriendsOfShopware/FroshProfiler</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Der Profiler ist nun Teil von FriendsOfShopware </li>
                 </ul>
             ]]>
         </changes>
@@ -103,12 +220,27 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Template Namen Breite behoben, danke an larsbo <a href="https://github.com/shyim/shopware-profiler/issues/64">#64</a></li>
+                    <li>Profiler nun auch erreichbar ohne IP Whitelist <a href="https://github.com/shyim/shopware-profiler/issues/63">#63</a></li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.1.5">
         <changes lang="en">
             <![CDATA[
                 <ul>
                     <li>Fixed Fatal Error while Profiling Closure Event Listener</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Fatal Error bei Closure Events behoben</li>
                 </ul>
             ]]>
         </changes>
@@ -121,12 +253,26 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Javascript Event Logging eingefügt</li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.1.3">
         <changes lang="en">
             <![CDATA[
                 <ul>
                     <li>Added support for symfony forms collector</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Symfony Forms Collector hinzugefügt</li>
                 </ul>
             ]]>
         </changes>
@@ -139,6 +285,13 @@
                 </ul>
             ]]>
         </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                <li>Alle benutzen Snippets werden nun dargestellt auf der Seite</li>
+                </ul>
+            ]]>
+        </changes>
     </changelog>
     <changelog version="1.1.1">
         <changes lang="en">
@@ -148,73 +301,10 @@
                 </ul>
             ]]>
         </changes>
-    </changelog>
-    <changelog version="1.1.0">
-        <changes lang="en">
-            <![CDATA[
-                <h4>Performance Event Charts 🎉</h4>
-                <ul>
-                <li>Added event charts to show which events needs how long to execute</li>
-                <li>Added overview of cache read/write/delete and a hit/miss metric</li>
-                <li>Added new sidebar of security with all user informations and password encoders</li>
-                <li>Added overview of container parameters to "Configuration" tab</li>
-                <li>Added search form to developers.shopware.com</li>
-                </ul>
-            ]]>
-        </changes>
-    </changelog>
-    <changelog version="1.0.11">
-        <changes lang="en">
+        <changes lang="de">
             <![CDATA[
                 <ul>
-                <li>Plugin overwrites my xdebug.var_display_max_depth <a href="https://github.com/shyim/shopware-profiler/issues/45">#45</a></li>
-                </ul>
-            ]]>
-        </changes>
-    </changelog>
-    <changelog version="1.0.10">
-        <changes lang="en">
-            <![CDATA[
-                <ul>
-                <li>Template error with Shopware Premium Plugin "SwagFuzzy" <a href="https://github.com/shyim/shopware-profiler/issues/44">#44</a></li>
-                </ul>
-            ]]>
-        </changes>
-    </changelog>
-    <changelog version="1.0.9">
-        <changes lang="en">
-            <![CDATA[
-                <ul>
-                <li>Cache folder very big <a href="https://github.com/shyim/shopware-profiler/issues/30">#30</a></li>
-                <li>Profiler breaks controller auto-registration <a href="https://github.com/shyim/shopware-profiler/issues/38">#38</a></li>
-                <li>html comments in robots.txt <a href="https://github.com/shyim/shopware-profiler/issues/37">#37</a></li>
-                </ul>
-            ]]>
-        </changes>
-    </changelog>
-    <changelog version="1.0.8">
-        <changes lang="en">
-            <![CDATA[
-                <ul>
-                <li>Fixed usage on localhost <a href="https://github.com/shyim/shopware-profiler/issues/29">#29</a></li>
-                </ul>
-            ]]>
-        </changes>
-    </changelog>
-    <changelog version="1.0.7">
-        <changes lang="en">
-            <![CDATA[
-                <ul>
-                <li>Allow local development <a href="https://github.com/shyim/shopware-profiler/issues/29">#29</a></li>
-                </ul>
-            ]]>
-        </changes>
-    </changelog>
-    <changelog version="1.0.6">
-        <changes lang="en">
-            <![CDATA[
-                <ul>
-                <li>Performance optimization <a href="https://github.com/shyim/shopware-profiler/issues/27">#27</a></li>
+                <li>Shopware 5.3 kompatiblität</li>
                 </ul>
             ]]>
         </changes>
@@ -223,6 +313,12 @@
         <![CDATA[
             <b>Notice to used snippets</b>
             <p>Used snippets will be only displayed when no template cache is available. You can also disable template caching in our config.php see like <a href="https://developers.shopware.com/developers-guide/shopware-config/#template">https://developers.shopware.com/developers-guide/shopware-config/#template</a></p>
+        ]]>
+    </description>
+    <description lang="de">
+        <![CDATA[
+            <b>Snippet Darstellung im Frontend</b>
+            <p>Die Snippets im Frontend werden im Frontend nur dargestellt wenn kein Template Cache vorhanden ist</p>
         ]]>
     </description>
 </plugin>

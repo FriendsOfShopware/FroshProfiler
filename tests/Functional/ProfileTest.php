@@ -1,6 +1,5 @@
 <?php
 
-
 use Doctrine\Common\Cache\FilesystemCache;
 
 class ProfileTest extends Enlight_Components_Test_Controller_TestCase
