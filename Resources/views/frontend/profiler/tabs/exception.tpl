@@ -15,21 +15,21 @@
         <tbody>
             <tr>
                 <td>Message</td>
-                <td>{$sDetail.exception->getMessage()}</td>
+                <td>{$sDetail.exception->getMessage()|escape}</td>
             </tr>
             <tr>
                 <td>Code</td>
-                <td>{$sDetail.exception->getCode()}</td>
+                <td>{$sDetail.exception->getCode()|escape}</td>
             </tr>
             <tr>
                 <td>File</td>
-                <td>{$sDetail.exception->getFile()} Line: {$sDetail.exception->getLine()}</td>
+                <td>{$sDetail.exception->getFile()|escape} Line: {$sDetail.exception->getLine()|escape}</td>
             </tr>
             <tr>
                 <td>Traceback</td>
                 <td>
                     <pre>
-                        {$sDetail.exception->getTraceAsString()}
+                        {$sDetail.exception->getTraceAsString()|escape}
                     </pre>
                 </td>
             </tr>

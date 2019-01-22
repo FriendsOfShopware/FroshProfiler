@@ -20,8 +20,8 @@
                     <tbody>
                     {foreach from=$sDetail.request.get key=key item=value}
                         <tr>
-                            <td>{$key}</td>
-                            <td>{$value}</td>
+                            <td>{$key|escape}</td>
+                            <td>{$value|escape}</td>
                         </tr>
                     {/foreach}
                     </tbody>
@@ -45,8 +45,8 @@
                     <tbody>
                     {foreach from=$sDetail.request.post key=key item=value}
                         <tr>
-                            <td>{$key}</td>
-                            <td>{$value}</td>
+                            <td>{$key|escape}</td>
+                            <td>{$value|escape}</td>
                         </tr>
                     {/foreach}
                     </tbody>
@@ -69,7 +69,7 @@
                 </tr>
                 <tr>
                     <th>_route_params</th>
-                    <td>{$sDetail.request.params|@json_encode}</td>
+                    <td>{$sDetail.request.params|@json_encode|escape}</td>
                 </tr>
                 </tbody>
             </table>
@@ -85,8 +85,8 @@
                 <tbody>
                 {foreach from=$sDetail.server key=key item=value}
                     <tr>
-                        <td>{$key}</td>
-                        <td>{$value}</td>
+                        <td>{$key|escape}</td>
+                        <td>{$value|escape}</td>
                     </tr>
                 {/foreach}
                 </tbody>
@@ -110,8 +110,8 @@
                 <tbody>
                 {foreach from=$sDetail.request.cookies key=key item=value}
                     <tr>
-                        <td>{$key}</td>
-                        <td>{$value}</td>
+                        <td>{$key|escape}</td>
+                        <td>{$value|escape}</td>
                     </tr>
                 {/foreach}
                 </tbody>
@@ -135,8 +135,8 @@
                 <tbody>
                 {foreach from=$sDetail.response.headers key=key item=value}
                     <tr>
-                        <td>{$key}</td>
-                        <td>{$value|@implode:" "}</td>
+                        <td>{$key|escape}</td>
+                        <td>{$value|@implode:" "|escape}</td>
                     </tr>
                 {/foreach}
                 </tbody>
@@ -180,8 +180,8 @@
                 <tbody>
                 {foreach from=$sDetail.session.data key=key item=value}
                     <tr>
-                        <td>{$key}</td>
-                        <td>{$value|@json_encode}</td>
+                        <td>{$key|escape}</td>
+                        <td>{$value|@json_encode|escape}</td>
                     </tr>
                 {/foreach}
                 </tbody>
@@ -206,9 +206,9 @@
                 <tbody>
                 {foreach from=$sDetail.subrequest key=key item=sSubrequest}
                     <tr>
-                        <td>{$sSubrequest.request.url}</td>
-                        <td>{$sSubrequest.request.controllerName|ucfirst}</td>
-                        <td>{$sSubrequest.request.actionName|ucfirst}</td>
+                        <td>{$sSubrequest.request.url|escape}</td>
+                        <td>{$sSubrequest.request.controllerName|ucfirst|escape}</td>
+                        <td>{$sSubrequest.request.actionName|ucfirst|escape}</td>
                         <td>
                             <a href="{url controller=profiler action=detail id=$sId|cat:'|':$key}" class="btn">Open Subprofile</a>
                         </td>
