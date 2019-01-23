@@ -17,7 +17,7 @@ class JavascriptSubscriber implements SubscriberInterface
     private $pluginConfig;
 
     /**
-     * @var array
+     * @var string
      */
     private $viewDir;
 

@@ -15,7 +15,7 @@ class BlockSplitter
     /**
      * Split $template into smary blocks and return an array with info about all the blocks.
      *
-     * @param $template
+     * @param string $template
      *
      * @return array
      */
@@ -46,10 +46,10 @@ class BlockSplitter
                 $element = array_pop($openStack);
                 $element['endContent'] = $offset;
                 $element['end'] = $offset + strlen($value);
-                $element['content'] = $this->sliceString($template, $element['start'], $element['end']);
-                $element['contentOnly'] = $this->sliceString($template, $element['startContent'], $element['endContent']);
-                $element['beginBlock'] = $this->sliceString($template, $element['start'], $element['startContent']);
-                $element['endBlock'] = $this->sliceString($template, $element['endContent'], $element['end']);
+                $element['content'] = BlockSplitter::sliceString($template, $element['start'], $element['end']);
+                $element['contentOnly'] = BlockSplitter::sliceString($template, $element['startContent'], $element['endContent']);
+                $element['beginBlock'] = BlockSplitter::sliceString($template, $element['start'], $element['startContent']);
+                $element['endBlock'] = BlockSplitter::sliceString($template, $element['endContent'], $element['end']);
 
                 $closedStack[] = $element;
             }
@@ -64,24 +64,24 @@ class BlockSplitter
     /**
      * Will to a substr() - and automatically takes care of transforming the absolute $end to a relative $length.
      *
-     * @param $string
-     * @param $start
-     * @param $end
+     * @param string $string
+     * @param int    $start
+     * @param int    $end
      *
      * @return string
      */
-    private function sliceString($string, $start, $end)
+    private static function sliceString($string, $start, $end)
     {
         return substr($string, $start, $end - $start);
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param int $a
+     * @param int $b
      *
      * @return int
      */
-    private function sortByChildren($a, $b)
+    private static function sortByChildren($a, $b)
     {
         $a = $a['children'];
         $b = $b['children'];

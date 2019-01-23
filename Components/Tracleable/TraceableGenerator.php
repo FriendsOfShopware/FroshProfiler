@@ -36,14 +36,7 @@ class TraceableGenerator
         $proxyClassName = $this->getProxyClassName($class);
         $classGenerator = new ClassGenerator($proxyClassName);
 
-        $interfaces = $reflectionClass->getInterfaces();
-
-        // Shopware does not consider interfaces in many places
-//        if (\count($interfaces) === 1) {
-//            $classGenerator->setImplementedInterfaces([array_keys($interfaces)[0]]);
-//        } else {
         $classGenerator->setExtendedClass($reflectionClass->getName());
-//        }
 
         // Prepare generators for the hooked methods
         $hookMethods = $this->getHookedMethods($reflectionClass);
@@ -95,9 +88,8 @@ class TraceableGenerator
     /**
      * @param ReflectionMethod $method
      *
+     * @return \Zend\Code\Generator\MethodGenerator
      * @throws \ReflectionException
-     *
-     * @return MethodGenerator
      */
     protected function createMethodGenerator(ReflectionMethod $method)
     {

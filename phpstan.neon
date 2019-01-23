@@ -1,0 +1,28 @@
+parameters:
+    level: 3
+
+    autoload_directories:
+        - %currentWorkingDirectory%/../../../var/cache
+        - %currentWorkingDirectory%/../../../engine/Library
+        - %currentWorkingDirectory%
+    autoload_files:
+        - %currentWorkingDirectory%/../../../autoload.php
+
+    paths:
+        - %currentWorkingDirectory%
+    excludes_analyse:
+        - %currentWorkingDirectory%/Components/Smarty
+        - %currentWorkingDirectory%/vendor
+        - %currentWorkingDirectory%/tests/Unit/config.php
+        - %currentWorkingDirectory%/tests/Functional/config.php
+        - %currentWorkingDirectory%/Resources/smarty
+
+    ignoreErrors:
+        - '#apcu_#'
+        - '#ioncube_#'
+        - '#opcache_#'
+        - '#imagettftext#'
+        - '#class Redis#'
+        - '#Constant STARTTIME#'
+
+    reportUnmatchedIgnoredErrors: false

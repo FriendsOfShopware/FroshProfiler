@@ -36,7 +36,7 @@ class CartCollector implements CollectorInterface
     }
 
     /**
-     * @return string|void
+     * @return string
      */
     public function getToolbarTemplate()
     {
@@ -45,7 +45,6 @@ class CartCollector implements CollectorInterface
 
     /**
      * @param array $items
-     * @param float $total
      *
      * @return array
      */

@@ -30,7 +30,7 @@ class DBCollector implements CollectorInterface
     private $executedQuerys = [];
 
     /**
-     * @var int
+     * @var float
      */
     private $executeTime = 0;
 

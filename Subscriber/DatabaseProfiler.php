@@ -30,7 +30,7 @@ class DatabaseProfiler implements SubscriberInterface
     public function onInitZendConnection(\Enlight_Event_EventArgs $args)
     {
         /** @var Container $subject */
-        $subject = $args->getSubject();
+        $subject = $args->get('subject');
 
         if (!defined('TESTS_RUNNING') && PHP_SAPI === 'cli') {
             return;
@@ -45,7 +45,7 @@ class DatabaseProfiler implements SubscriberInterface
     public function onInitDoctrineModels(Enlight_Event_EventArgs $args)
     {
         /** @var Container $subject */
-        $subject = $args->getSubject();
+        $subject = $args->get('subject');
 
         if (!defined('TESTS_RUNNING') && PHP_SAPI === 'cli') {
             return;

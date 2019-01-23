@@ -26,8 +26,8 @@ class ProfilerController implements SubscriberInterface
     private $template;
 
     /**
-     * @param $pluginDir
-     * @param $viewDir
+     * @param string                   $pluginDir
+     * @param string                   $viewDir
      * @param Enlight_Template_Manager $template
      */
     public function __construct(

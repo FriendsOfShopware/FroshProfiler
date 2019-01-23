@@ -18,7 +18,7 @@ class SmartyProfiler implements SubscriberInterface
     /**
      * SmartyProfiler constructor.
      *
-     * @param $pluginDir
+     * @param string $pluginDir
      */
     public function __construct($pluginDir)
     {

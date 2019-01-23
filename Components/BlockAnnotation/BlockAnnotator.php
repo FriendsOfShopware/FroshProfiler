@@ -42,9 +42,9 @@ class BlockAnnotator
     }
 
     /**
-     * @param $source
-     * @param $template
-     * @param $pluginConfig
+     * @param string                    $source
+     * @param \Smarty_Internal_Template $template
+     * @param array                     $pluginConfig
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class BlockAnnotator
     private function endsWith($haystack, $needle)
     {
         $length = \strlen($needle);
-        if ($length == 0) {
+        if ($length === 0) {
             return true;
         }
 

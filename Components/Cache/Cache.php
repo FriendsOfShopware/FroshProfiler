@@ -41,11 +41,12 @@ class Cache extends Zend_Cache_Core
     public $delete = 0;
 
     /**
-     * @var int
+     * @var float
      */
     public $time = 0;
+
     /**
-     * @var int
+     * @var string
      */
     protected $_lastId;
 
@@ -140,7 +141,7 @@ class Cache extends Zend_Cache_Core
         } else {
             $result = $this->_backend->save($data, $id, $tags, $specificLifetime);
         }
-        if ($this->_options['ignore_user_abort']) {
+        if ($this->_options['ignore_user_abort'] && isset($abort) && $abort) {
             ignore_user_abort($abort);
         }
 

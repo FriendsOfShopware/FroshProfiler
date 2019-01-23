@@ -11,9 +11,9 @@ use JsonSerializable;
 class Profile implements JsonSerializable
 {
     /**
-     * @var
+     * @var string
      */
-    private $id = null;
+    private $id;
 
     /**
      * @var int
@@ -26,7 +26,7 @@ class Profile implements JsonSerializable
     private $templatesRendered = [];
 
     /**
-     * @var array
+     * @var int
      */
     private $templateBlockCalls = 0;
 
