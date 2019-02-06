@@ -45,6 +45,8 @@ after_success:
   - ./build.sh $TRAVIS_TAG
 
 stages:
+  - name: Sonarqube
+    if: branch = 1.3
   - test
   - name: Store-Check
     if: branch = 1.3
@@ -55,6 +57,19 @@ stages:
   
 jobs:
     include:
+      - stage: Sonarqube
+        language: java
+        dist: trusty
+        addons:
+          sonarcloud:
+            organization: friendsofshopware
+            token:
+              secure: "XFsTy0yoSXdc4IEJvHOf2nxqRV2YEWGfo05cRxpHUVCeVKtSvYi+Vxrl3pLHscPEcI8ytbHlEcJnCqtz3LcvWvsCLk1hjQip78hFHP05SdGGun+vC8/TSnfP2RPaJ11AH3QRxNgLE9T/uc15KJZSx7qVVFgV6CQi3IVfrhEZBYHq+FuuHOyuP2F2bnC10voXG622K1RBvuueSeaVQKFA3m4qeLAadbxhWLt84uP0yqIl/+3C4DHPBrto6MDtaW8Kae6rE+O8HjIosMSkKDSwbFAYFDtopnsf/nUjGI/bsmddXbNM2PVqhILMl9HAL6ZwdKXnbtA3tTslqjEPMyvQ4W7HvGNFlYjSfEa7z/RFSCPlD/ZQj6C7l0CrSwihMqws0LspsGqwpcan4z9lmgBZ/Fd7wd6UnmjoZ8qN7AkNteXNnOcf4CNZ/Cd/0NWFq32Cq+qKzmVYmHOActiEjYzPHFX/MFr8n5PtiJIZuXi+GsXyLZBO3j+JxV5SvpWJEQQ8605WPy1TOiyYXPxH88T+HRrZ3i4QUP9KTJTP44lrV21w8RPx//VXEEIblro2DSDxfstA2ey5/xkOYhSLwTe0qxRA2YhqMb9j5kaSh681o2se6vr3xtHoxg8P+5XnBn0FLqu0zkXN1yJIAqUkxps/KQiUqfrqqLiz78yv+Nm0soY="
+        script:
+          - sonar-scanner
+        cache:
+          directories:
+            - '$HOME/.sonar/cache'
       - stage: Store-Check
         php: 7.3
         before_script: skip
