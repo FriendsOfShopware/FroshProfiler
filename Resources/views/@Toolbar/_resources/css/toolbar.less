@@ -30,13 +30,18 @@
   box-shadow: 0 -1px 0px rgba(0, 0, 0, 0.2);
   color: #EEE;
   font: 11px Arial, sans-serif;
-  left: 0;
   margin: 0;
   padding: 0 36px 0 0;
-  position: fixed;
-  right: 0;
   text-align: left;
   z-index: 99999;
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+}
+.sf-toolbarreset:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .sf-toolbarreset abbr {
