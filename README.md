@@ -1,5 +1,7 @@
 # Profiling
 
+TEST
+
 [![Travis CI](https://api.travis-ci.org/FriendsOfShopware/FroshProfiler.svg?branch=master)](https://travis-ci.org/FriendsOfShopware/FroshProfiler)
 
 Profiling for Shopware
