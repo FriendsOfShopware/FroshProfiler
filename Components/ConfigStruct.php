@@ -4,7 +4,7 @@
 namespace FroshProfiler\Components;
 
 
-class ConfigStruct
+class ConfigStruct extends \Shopware\Components\Plugin\ConfigStruct
 {
-
+    public $frontendblocks;
 }

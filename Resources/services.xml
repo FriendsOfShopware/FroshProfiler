@@ -109,5 +109,9 @@
             <argument type="service" id="frosh_profiler.forms.data_collector"/>
             <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
         </service>
+
+        <service id="frosh_profiler.config_struct" class="FroshProfiler\Components\ConfigStruct">
+            <tag name="shopware.plugin_config" plugin="FroshProfiler"/>
+        </service>
     </services>
 </container>
