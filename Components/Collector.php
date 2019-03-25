@@ -88,6 +88,7 @@ class Collector
 
     public function saveCollectInformation($id, $information, $subrequets = false)
     {
+        dd($this->container->get('frosh_profiler.config_struct'));
         $information = $this->normalizeArray($information);
 
         if ($subrequets) {
