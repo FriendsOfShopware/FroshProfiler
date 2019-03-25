@@ -102,18 +102,11 @@ class Collector implements SubscriberInterface
             return;
         }
 
-        /** @var Enlight_Controller_Response_ResponseHttp $response */
+        /** @var Response $response */
         $response = $args->get('response');
 
-        if ($response instanceof Enlight_Controller_Response_ResponseHttp) {
-            /** @var Response $symfonyResponse */
-            $symfonyResponse = $this->container->get('kernel')->transformEnlightResponseToSymfonyResponse($response);
-        } else {
-            $symfonyResponse = new Response();
-        }
-
         $profileData = $this->container->get('frosh_profiler.collector')->collectInformation($this->profileController);
-        $profileData['response']['headers'] = $symfonyResponse->headers->all();
+        $profileData['response']['headers'] = $response->headers->all();
         $profileData['profileTime'] = round(microtime(true) - $this->container->get('frosh_profiler.current.profile')->getStartTime(), 3);
 
         $isIPWhitelisted = in_array($this->container->get('front')->Request()->getClientIp(), explode("\n", $this->pluginConfig['whitelistIP']));
@@ -137,14 +130,14 @@ class Collector implements SubscriberInterface
             $view->addTemplateDir($this->container->getParameter('frosh_profiler.plugin_dir') . '/Resources/views/');
             $profileTemplate = $view->fetch('@Toolbar/index.tpl');
 
-            $content = $response->getBody();
+            $content = $response->getContent();
 
             $content = str_replace('</body>', $profileTemplate . '</body>', $content);
-            $response->setBody($content);
+            $response->setContent($content);
         }
 
         if ($this->profileController->Request()->getModuleName() === 'backend') {
-            $response->setHeader('X-Profiler-URL', $this->profileController->get('router')->assemble([
+            $response->headers->set('x-profiler-url', $this->profileController->get('router')->assemble([
                 'module' => 'frontend',
                 'controller' => 'profiler',
                 'action' => 'detail',

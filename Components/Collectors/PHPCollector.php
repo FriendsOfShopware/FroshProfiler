@@ -19,12 +19,18 @@ class PHPCollector implements CollectorInterface
     private $kernel;
 
     /**
+     * @var string
+     */
+    private $version;
+
+    /**
      * PHPCollector constructor.
      *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
+        $this->version = $container->get('config')->get('version');
         $this->kernel = $container->get('kernel');
     }
 
@@ -56,7 +62,7 @@ class PHPCollector implements CollectorInterface
             'httpcache' => $this->kernel->isHttpCacheEnabled(),
             'env' => $this->kernel->getEnvironment(),
             'sapi' => PHP_SAPI,
-            'shopware_version' => Shopware::VERSION,
+            'shopware_version' => $this->version,
             'architecture' => PHP_INT_MAX === 2147483647 ? 32 : 64,
             'timezone' => $this->kernel->getContainer()->getParameter('shopware.phpsettings.date.timezone'),
         ]);
