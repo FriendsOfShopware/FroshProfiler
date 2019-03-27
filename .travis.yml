@@ -54,7 +54,7 @@ stages:
     if: branch = 1.3
   - name: Store-Deploy
     if: tag IS present
-  
+
 jobs:
     include:
       - stage: Sonarqube
@@ -75,21 +75,21 @@ jobs:
         before_script: skip
         install:
         - ./build.sh 1.3
-        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.0/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
         script:
         - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
       - stage: Store-Sync
         before_script: skip
         php: 7.3
         install:
-          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.0/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
         script:
           - php frosh-plugin-upload.phar plugin:update ${TRAVIS_BUILD_DIR}/Resources/store
       - stage: Store-Deploy
         before_script: skip
         php: 7.3
         install:
-          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.0/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
         script:
           - ./build.sh
           - php frosh-plugin-upload.phar plugin:upload ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
