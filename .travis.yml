@@ -1,5 +1,11 @@
 language: php
 
+addons:
+    apt:
+        packages:
+            - ant
+
+
 php:
   - 7.2
   - 7.3
@@ -44,12 +50,12 @@ after_success:
 
 stages:
   - name: Sonarqube
-    if: branch = 1.3
+    if: branch = master
   - test
   - name: Store-Check
-    if: branch = 1.3
+    if: branch = master
   - name: Store-Sync
-    if: branch = 1.3
+    if: branch = master
   - name: Store-Deploy
     if: tag IS present
 
