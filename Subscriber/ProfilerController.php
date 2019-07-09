@@ -4,7 +4,6 @@ namespace FroshProfiler\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager;
-use FroshProfiler\Controller\Frontend\Profiler;
 
 /**
  * Class ProfilerController
@@ -39,7 +38,7 @@ class ProfilerController implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Dispatcher_ControllerPath_Frontend_Profiler' => 'onProfilerController',
+            'Enlight_Controller_Action_PreDispatch_Frontend_Profiler' => 'onProfilerController',
         ];
     }
 
@@ -49,7 +48,5 @@ class ProfilerController implements SubscriberInterface
     public function onProfilerController()
     {
         $this->template->addTemplateDir($this->viewDir);
-
-        return Profiler::class;
     }
 }

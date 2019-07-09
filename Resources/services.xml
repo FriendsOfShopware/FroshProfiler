@@ -18,6 +18,10 @@
     </parameters>
 
     <services>
+        <service id="FroshProfiler\Controller\Frontend\Profiler">
+            <tag name="shopware.controller" module="frontend" controller="profiler"/>
+        </service>
+
         <service id="frosh_profiler.collector" class="FroshProfiler\Components\Collector">
             <argument type="tagged" tag="profiler.collector"/>
             <argument type="service" id="frosh_profiler.cache" />
