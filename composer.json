@@ -1,22 +1,29 @@
 {
-  "name": "frosh/shopware-profiler",
-  "keywords": ["shopware", "profiling", "plugin"],
-  "description": "Profiling for Shopware",
-  "license": "MIT",
-  "type": "shopware-plugin",
-  "extra": {
-    "installer-name": "FroshProfiler"
-  },
-  "require": {
-    "php": ">=7.1",
-    "jdorn/sql-formatter": "^1.2.17",
-    "composer/installers": "~1.0",
-    "symfony/stopwatch": "^4.1",
-    "psr/log": "^1.0",
-    "symfony/var-dumper": "^4.1"
-  },
-  "scripts": {
-    "test": "phpunit -c tests/ --colors=always",
-    "test-unit": "phpunit -c tests/phpunit_unit.xml --colors=always"
-  }
+    "name": "frosh/shopware-profiler",
+    "keywords": [
+        "shopware",
+        "profiling",
+        "plugin"
+    ],
+    "description": "Profiling for Shopware",
+    "license": "MIT",
+    "type": "shopware-plugin",
+    "extra": {
+        "installer-name": "FroshProfiler"
+    },
+    "require": {
+        "php": ">=7.2",
+        "jdorn/sql-formatter": "^1.2.17",
+        "composer/installers": "~1.0",
+        "symfony/stopwatch": "^4.1",
+        "psr/log": "^1.0",
+        "symfony/var-dumper": "^4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "scripts": {
+        "test": "phpunit -c tests/ --colors=always",
+        "test-unit": "phpunit -c tests/phpunit_unit.xml --colors=always"
+    }
 }

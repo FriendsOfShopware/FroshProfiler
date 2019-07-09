@@ -24,6 +24,7 @@
 
 define('TESTS_RUNNING', true);
 $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+$_SERVER['SERVER_REQUEST_METHOD'] = 'GET';
 
 $searchDirectory = dirname(dirname(__DIR__));
 while (true) {

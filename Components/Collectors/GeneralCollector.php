@@ -49,7 +49,7 @@ class GeneralCollector implements CollectorInterface
                 'moduleName' => $controller->Request()->getModuleName(),
                 'controllerName' => $controller->Request()->getControllerName(),
                 'actionName' => $controller->Request()->getActionName(),
-                'httpMethod' => $controller->Request()->getMethod(),
+                'httpMethod' => $controller->Request()->getRealMethod(),
                 'params' => $controller->Request()->getParams(),
                 'get' => $controller->Request()->getQuery(),
                 'post' => $controller->Request()->getPost(),
