@@ -72,7 +72,7 @@ class BlockAnnotation implements SubscriberInterface
      *
      * @param Enlight_Event_EventArgs $args
      *
-     * @return bool
+     * @return void
      */
     public function onPreDispatch(Enlight_Event_EventArgs $args)
     {
@@ -80,8 +80,8 @@ class BlockAnnotation implements SubscriberInterface
             return;
         }
 
-        /** @var $controller \Enlight_Controller_Action */
-        $controller = $args->getSubject();
+        /** @var \Enlight_Controller_Action $controller */
+        $controller = $args->get('subject');
         $view = $controller->View();
 
         // set own caching dirs
@@ -95,8 +95,8 @@ class BlockAnnotation implements SubscriberInterface
     /**
      * Smarty preFilter callback. Modify template and return.
      *
-     * @param $source
-     * @param $template
+     * @param string $source
+     * @param string $template
      *
      * @return mixed
      */
@@ -108,7 +108,7 @@ class BlockAnnotation implements SubscriberInterface
     /**
      * Set own template directory.
      *
-     * @param $templateManager
+     * @param Enlight_Template_Manager $templateManager
      */
     private function reconfigureTemplateDirs(Enlight_Template_Manager $templateManager)
     {

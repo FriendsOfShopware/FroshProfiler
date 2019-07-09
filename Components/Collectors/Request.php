@@ -27,7 +27,7 @@ class Request
     }
 
     /**
-     * @param $headerName
+     * @param string $headerName
      *
      * @throws \Exception
      *

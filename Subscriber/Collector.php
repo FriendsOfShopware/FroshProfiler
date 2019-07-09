@@ -65,7 +65,7 @@ class Collector implements SubscriberInterface
     public function onPostDispatch(Enlight_Event_EventArgs $args)
     {
         /** @var Enlight_Controller_Action $controller */
-        $controller = $args->getSubject();
+        $controller = $args->get('subject');
         $controllerLower = strtolower($controller->Request()->getControllerName());
         $actionLower = strtolower($controller->Request()->getActionName());
         $module = strtolower($controller->Request()->getModuleName());

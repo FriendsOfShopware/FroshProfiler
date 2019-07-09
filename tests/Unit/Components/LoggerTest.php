@@ -52,8 +52,8 @@ class LoggerTest extends TestCase
     }
 
     /**
-     * @param $level
-     * @param $message
+     * @param string $level
+     * @param string $message
      * @dataProvider allLevelsDataProvider
      */
     public function testAllLogLevels($level, $message)

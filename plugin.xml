@@ -3,12 +3,29 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Profiler</label>
     <label lang="en">Profiler</label>
-    <version>1.3.7</version>
+    <version>1.3.8</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
     <compatibility minVersion="5.2.0" />
+    <changelog version="1.3.8">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Added escapes to outputs, thanks to @hlohaus</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Escape zu den Ausgaben hinzugefügt, Danke an @hlohaus</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
+
     <changelog version="1.3.7">
         <changes lang="en">
             <![CDATA[
@@ -310,15 +327,9 @@
         </changes>
     </changelog>
     <description>
-        <![CDATA[
-            <b>Notice to used snippets</b>
-            <p>Used snippets will be only displayed when no template cache is available. You can also disable template caching in our config.php see like <a href="https://developers.shopware.com/developers-guide/shopware-config/#template">https://developers.shopware.com/developers-guide/shopware-config/#template</a></p>
-        ]]>
+        The Profiler shows many informations like Timing of Events, Template Variables and much more in a simple Toolbar
     </description>
     <description lang="de">
-        <![CDATA[
-            <b>Snippet Darstellung im Frontend</b>
-            <p>Die Snippets im Frontend werden im Frontend nur dargestellt wenn kein Template Cache vorhanden ist</p>
-        ]]>
+        Der Profiler zeigt viele Informationen wie Zeiten von Events, Template Variabeln und vieles mehr in einer Toolbar
     </description>
 </plugin>

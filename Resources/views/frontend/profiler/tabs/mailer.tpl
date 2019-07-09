@@ -12,9 +12,9 @@
     <tbody>
     {foreach from=$sDetail.mails key=id item=data}
         <tr>
-            <td>{$data.from}</td>
-            <td>{$data.to|dump}</td>
-            <td>{$data.subject}</td>
+            <td>{$data.from|escape}</td>
+            <td>{$data.to|dump|escape}</td>
+            <td>{$data.subject|escape}</td>
             <td>
                 <a class="btn btn-window" href="{url action=mail mode=bodyHtml id=$sId mailId=$id}">Show Html Mail</a>
                 <a class="btn btn-window" href="{url action=mail mode=bodyPlain id=$sId mailId=$id}">Show Plain Mail</a>

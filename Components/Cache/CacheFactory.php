@@ -25,8 +25,8 @@ class CacheFactory
     }
 
     /**
-     * @param $backend
-     * @param $backendOptions
+     * @param string $backend
+     * @param array  $backendOptions
      *
      * @return \Zend_Cache_Backend
      */

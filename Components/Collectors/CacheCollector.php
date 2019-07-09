@@ -55,7 +55,7 @@ class CacheCollector implements CollectorInterface
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function getToolbarTemplate()
     {

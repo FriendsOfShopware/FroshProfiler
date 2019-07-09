@@ -53,9 +53,9 @@ class CacheSubscriber implements SubscriberInterface
     public function onPostDispatchBackendPerformance(Enlight_Event_EventArgs $args)
     {
         /** @var Shopware_Controllers_Backend_Performance $subject */
-        $subject = $args->getSubject();
+        $subject = $args->get('subject');
 
-        if ($subject->Request()->getActionName() == 'load') {
+        if ($subject->Request()->getActionName() === 'load') {
             $subject->View()->addTemplateDir($this->templateDir);
             $subject->View()->extendsTemplate('backend/FroshProfiler/performance/view/tabs/cache/form.js');
         }
@@ -67,7 +67,7 @@ class CacheSubscriber implements SubscriberInterface
     public function onPostDispatchBackendCache(Enlight_Event_EventArgs $args)
     {
         /** @var Shopware_Controllers_Backend_Cache $subject */
-        $subject = $args->getSubject();
+        $subject = $args->get('subject');
 
         if ($subject->Request()->getActionName() == 'getInfo') {
             $data = $subject->View()->getAssign('data');
@@ -92,7 +92,7 @@ class CacheSubscriber implements SubscriberInterface
     /**
      * Clear directory contents
      *
-     * @param $dir
+     * @param string $dir
      */
     private function clearDirectory($dir)
     {

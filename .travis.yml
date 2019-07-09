@@ -1,8 +1,8 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
+  - 7.3
 
 sudo: false
 
@@ -11,7 +11,7 @@ services:
 
 env:
   matrix:
-    - SHOPWARE_VERSION="5.5"
+    - SHOPWARE_VERSION="5.6"
   global:
     - PLUGIN_NAME=FroshProfiler
     - SHOPWARE_DIRECTORY="${HOME}/shopware"
@@ -42,12 +42,62 @@ script:
 after_success:
   - ./build.sh $TRAVIS_TAG
 
+stages:
+  - name: Sonarqube
+    if: branch = 1.3
+  - test
+  - name: Store-Check
+    if: branch = 1.3
+  - name: Store-Sync
+    if: branch = 1.3
+  - name: Store-Deploy
+    if: tag IS present
+
+jobs:
+    include:
+      - stage: Sonarqube
+        language: java
+        dist: trusty
+        addons:
+          sonarcloud:
+            organization: friendsofshopware
+            token:
+              secure: "XFsTy0yoSXdc4IEJvHOf2nxqRV2YEWGfo05cRxpHUVCeVKtSvYi+Vxrl3pLHscPEcI8ytbHlEcJnCqtz3LcvWvsCLk1hjQip78hFHP05SdGGun+vC8/TSnfP2RPaJ11AH3QRxNgLE9T/uc15KJZSx7qVVFgV6CQi3IVfrhEZBYHq+FuuHOyuP2F2bnC10voXG622K1RBvuueSeaVQKFA3m4qeLAadbxhWLt84uP0yqIl/+3C4DHPBrto6MDtaW8Kae6rE+O8HjIosMSkKDSwbFAYFDtopnsf/nUjGI/bsmddXbNM2PVqhILMl9HAL6ZwdKXnbtA3tTslqjEPMyvQ4W7HvGNFlYjSfEa7z/RFSCPlD/ZQj6C7l0CrSwihMqws0LspsGqwpcan4z9lmgBZ/Fd7wd6UnmjoZ8qN7AkNteXNnOcf4CNZ/Cd/0NWFq32Cq+qKzmVYmHOActiEjYzPHFX/MFr8n5PtiJIZuXi+GsXyLZBO3j+JxV5SvpWJEQQ8605WPy1TOiyYXPxH88T+HRrZ3i4QUP9KTJTP44lrV21w8RPx//VXEEIblro2DSDxfstA2ey5/xkOYhSLwTe0qxRA2YhqMb9j5kaSh681o2se6vr3xtHoxg8P+5XnBn0FLqu0zkXN1yJIAqUkxps/KQiUqfrqqLiz78yv+Nm0soY="
+        script:
+          - sonar-scanner
+        cache:
+          directories:
+            - '$HOME/.sonar/cache'
+      - stage: Store-Check
+        php: 7.3
+        before_script: skip
+        install:
+        - ./build.sh 1.3
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+        script:
+        - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
+      - stage: Store-Sync
+        before_script: skip
+        php: 7.3
+        install:
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+        script:
+          - php frosh-plugin-upload.phar plugin:update ${TRAVIS_BUILD_DIR}/Resources/store
+      - stage: Store-Deploy
+        before_script: skip
+        php: 7.3
+        install:
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.1.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+        script:
+          - ./build.sh
+          - php frosh-plugin-upload.phar plugin:upload ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
+
 deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: MeucPO3N0fd0DNM12uYUEkwkDkMl58fCFI3t0T9k+z/34GkypQ6qOEfx8ZFAwKtpUpQC+iTvqsIMhRhEoQlI7AtTvIgETIhWIVwtT+TPf+N0BlRr0UhxN0IXdra2d7TrRPxWIYXW5CYdWkptu4kf1fpT+hvKMwUbcJsbRY6DOnPnxRDTeo2VcYzRhpM+44dQXz9UoD1/2GQBXOXieSZb2g4YGnBumVTxt4yR8omiQCuE7S0DXmI9HIDtjSbzREUdxkuO3hpA2t7QX1K5L0OJfJWjttH27jeg9snSijVWuesaIgdIyWUMtt7I2W4CbrH7wh97n/iTx4tyARF12jLqc5qw1jFw9mIwP/dVaM8+CbjhT7+Y937E2bEYnoqJkgaXvJan92SqfnsyOwE2k/LX8TASxpx1QrYPab0kI/xjoBol+TLDxTlx7ruWNStve0CDARfaaL/GK8FJxHPB/e7xIkR4gWBR2Rm4tHP61t8/Wczv7Jgp+Vx19vU2M6lG8Wi8zrj3xTF60v3zOMwJ/9IGcHR6G9zSdj1TMTkqL69+ZzY+KbLTKr3/zxwUZdOMTyN+PgLT/pSy5Sr4287/xD+La5MfFGU2tNntv8JTlg8qO+mCGLW8Cg/DWOtURL9R3AC5hjibr1QD7gHUxmeAQTDExSbuhrMr0VU+cV4EL0uInYI=
-  file_glob: true
-  file: FroshProfiler*.zip
-  on:
-    tags: true
+  - provider: releases
+    skip_cleanup: true
+    api_key:
+      secure: MeucPO3N0fd0DNM12uYUEkwkDkMl58fCFI3t0T9k+z/34GkypQ6qOEfx8ZFAwKtpUpQC+iTvqsIMhRhEoQlI7AtTvIgETIhWIVwtT+TPf+N0BlRr0UhxN0IXdra2d7TrRPxWIYXW5CYdWkptu4kf1fpT+hvKMwUbcJsbRY6DOnPnxRDTeo2VcYzRhpM+44dQXz9UoD1/2GQBXOXieSZb2g4YGnBumVTxt4yR8omiQCuE7S0DXmI9HIDtjSbzREUdxkuO3hpA2t7QX1K5L0OJfJWjttH27jeg9snSijVWuesaIgdIyWUMtt7I2W4CbrH7wh97n/iTx4tyARF12jLqc5qw1jFw9mIwP/dVaM8+CbjhT7+Y937E2bEYnoqJkgaXvJan92SqfnsyOwE2k/LX8TASxpx1QrYPab0kI/xjoBol+TLDxTlx7ruWNStve0CDARfaaL/GK8FJxHPB/e7xIkR4gWBR2Rm4tHP61t8/Wczv7Jgp+Vx19vU2M6lG8Wi8zrj3xTF60v3zOMwJ/9IGcHR6G9zSdj1TMTkqL69+ZzY+KbLTKr3/zxwUZdOMTyN+PgLT/pSy5Sr4287/xD+La5MfFGU2tNntv8JTlg8qO+mCGLW8Cg/DWOtURL9R3AC5hjibr1QD7gHUxmeAQTDExSbuhrMr0VU+cV4EL0uInYI=
+    file_glob: true
+    file: FroshProfiler*.zip
+    on:
+      tags: true

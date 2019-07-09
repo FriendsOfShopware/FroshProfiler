@@ -25,10 +25,10 @@ class FormCollector implements CollectorInterface
     }
 
     /**
-     * @return void
+     * @return bool
      */
     public function getToolbarTemplate()
     {
-        return;
+        return false;
     }
 }

@@ -15,7 +15,7 @@
     </div>
 
     <div class="metric">
-        <span class="value">{$sDetail.php.env}</span>
+        <span class="value">{$sDetail.php.env|escape}</span>
         <span class="label">Environment</span>
     </div>
 </div>
@@ -111,9 +111,9 @@
                         <th scope="row" class="font-normal">{$key}</th>
                         <td class="font-normal">
                             {if is_array($value)}
-                                {$value|dump}
+                                {$value|dump|escape}
                             {else}
-                                {$value}
+                                {$value|escape}
                             {/if}
                         </td>
                     </tr>

@@ -4,6 +4,7 @@ namespace FroshProfiler\Controller\Frontend;
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Zend_Mime_Part;
 
 /**
  * Class Shopware_Controllers_Frontend_Profiler
@@ -42,13 +43,13 @@ class Profiler extends \Enlight_Controller_Action
     public function indexAction()
     {
         $query = $this->buildListQuery();
-        $this->View()->params = $this->Request()->getParams();
+        $this->View()->assign('params', $this->Request()->getParams());
 
-        $this->View()->sIndex = $query->execute()->fetchAll();
+        $this->View()->assign('sIndex', $query->execute()->fetchAll());
 
         // "Latest button"
-        if ($this->Request()->getParam('limit') == 1) {
-            $index = current($this->View()->sIndex);
+        if ((int) $this->Request()->getParam('limit') === 1) {
+            $index = current($this->View()->getAssign('sIndex'));
 
             if (!empty($index)) {
                 $this->redirect([
@@ -91,10 +92,10 @@ class Profiler extends \Enlight_Controller_Action
         ];
         $detail = $this->filterDetail($detail, $eventFilter);
 
-        $this->View()->eventFilter = $eventFilter;
-        $this->View()->sId = $this->Request()->get('id');
-        $this->View()->sDetail = $detail;
-        $this->View()->sPanel = $this->Request()->getParam('panel', 'request');
+        $this->View()->assign('eventFilter', $eventFilter);
+        $this->View()->assign('sId', $this->Request()->get('id'));
+        $this->View()->assign('sDetail', $detail);
+        $this->View()->assign('sPanel', $this->Request()->getParam('panel', 'request'));
     }
 
     public function phpAction()
@@ -109,11 +110,11 @@ class Profiler extends \Enlight_Controller_Action
         $detail = $this->cache->fetch($this->Request()->get('id'));
         $mail = $detail['mails'][$this->Request()->getParam('mailId')];
 
-        $this->View()->mode = $mode;
-        if ($mode instanceof \Zend_Mime_Part) {
-            $this->View()->data = $mail[$mode]->getContent();
+        $this->View()->assign('mode', $mode);
+        if ($mode instanceof Zend_Mime_Part) {
+            $this->View()->assign('data', $mail[$mode]->getContent());
         } else {
-            $this->View()->data = $mail[$mode];
+            $this->View()->assign('data', $mail[$mode]);
         }
     }
 

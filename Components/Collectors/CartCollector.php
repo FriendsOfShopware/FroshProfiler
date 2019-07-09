@@ -45,7 +45,6 @@ class CartCollector implements CollectorInterface
 
     /**
      * @param array $items
-     * @param float $total
      *
      * @return array
      */
