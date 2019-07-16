@@ -21,17 +21,14 @@ class VarDumpCollectorSubscriber implements SubscriberInterface
         $this->container = $container;
     }
 
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Bootstrap_AfterInitResource_models' => 'initVarDumper',
         ];
     }
 
-    public function initVarDumper(Enlight_Event_EventArgs $args)
+    public function initVarDumper(): void
     {
         if (!empty($this->pluginConfig['varDumpServer'])) {
             return;

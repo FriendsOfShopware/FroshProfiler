@@ -4,13 +4,9 @@ namespace FroshProfiler\Components\Collectors;
 
 use Enlight_Controller_Action;
 use FroshProfiler\Components\Struct\Profile;
-use Shopware;
 use Shopware\Kernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Class PHPCollector
- */
 class PHPCollector implements CollectorInterface
 {
     /**
@@ -23,32 +19,21 @@ class PHPCollector implements CollectorInterface
      */
     private $version;
 
-    /**
-     * PHPCollector constructor.
-     *
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->version = $container->get('config')->get('version');
-        $this->kernel = $container->get('kernel');
+
+        /** @var Kernel $kernel */
+        $kernel = $container->get('kernel');
+        $this->kernel = $kernel;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'PHP';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     *
-     * @return array
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $profile->setPhp([
             'memory_limit' => ini_get('memory_limit'),
@@ -68,10 +53,7 @@ class PHPCollector implements CollectorInterface
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/php.tpl';
     }

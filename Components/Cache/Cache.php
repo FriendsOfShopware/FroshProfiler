@@ -136,11 +136,7 @@ class Cache extends Zend_Cache_Core
         if ($this->_options['ignore_user_abort']) {
             $abort = ignore_user_abort(true);
         }
-        if (($this->_extendedBackend) && ($this->_backendCapabilities['priority'])) {
-            $result = $this->_backend->save($data, $id, $tags, $specificLifetime, $priority);
-        } else {
-            $result = $this->_backend->save($data, $id, $tags, $specificLifetime);
-        }
+        $result = $this->_backend->save($data, $id, $tags, $specificLifetime);
         if ($this->_options['ignore_user_abort'] && isset($abort) && $abort) {
             ignore_user_abort($abort);
         }

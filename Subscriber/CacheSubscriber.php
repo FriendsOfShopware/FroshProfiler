@@ -47,10 +47,7 @@ class CacheSubscriber implements SubscriberInterface
         ];
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onPostDispatchBackendPerformance(Enlight_Event_EventArgs $args)
+    public function onPostDispatchBackendPerformance(Enlight_Event_EventArgs $args): void
     {
         /** @var Shopware_Controllers_Backend_Performance $subject */
         $subject = $args->get('subject');
@@ -61,10 +58,7 @@ class CacheSubscriber implements SubscriberInterface
         }
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onPostDispatchBackendCache(Enlight_Event_EventArgs $args)
+    public function onPostDispatchBackendCache(Enlight_Event_EventArgs $args): void
     {
         /** @var Shopware_Controllers_Backend_Cache $subject */
         $subject = $args->get('subject');
@@ -89,12 +83,7 @@ class CacheSubscriber implements SubscriberInterface
         }
     }
 
-    /**
-     * Clear directory contents
-     *
-     * @param string $dir
-     */
-    private function clearDirectory($dir)
+    private function clearDirectory(string $dir): void
     {
         if (!file_exists($dir)) {
             return;

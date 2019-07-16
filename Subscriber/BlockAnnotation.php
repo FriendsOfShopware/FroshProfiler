@@ -34,12 +34,6 @@ class BlockAnnotation implements SubscriberInterface
      */
     private $templateDirConfigured = false;
 
-    /**
-     * @param Shopware_Components_Config $config
-     * @param array                      $pluginConfig
-     * @param BlockAnnotator             $blockAnnotator
-     * @param Enlight_Controller_Front   $front
-     */
     public function __construct(
         Shopware_Components_Config $config,
         array $pluginConfig,
@@ -56,10 +50,7 @@ class BlockAnnotation implements SubscriberInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Controller_Action_PreDispatch_Frontend' => 'onPreDispatch',
@@ -67,14 +58,7 @@ class BlockAnnotation implements SubscriberInterface
         ];
     }
 
-    /**
-     * PreDispatch callback for widget and frontend requests.
-     *
-     * @param Enlight_Event_EventArgs $args
-     *
-     * @return void
-     */
-    public function onPreDispatch(Enlight_Event_EventArgs $args)
+    public function onPreDispatch(Enlight_Event_EventArgs $args): void
     {
         if (!$this->pluginConfig['frontendblocks']) {
             return;
@@ -92,25 +76,12 @@ class BlockAnnotation implements SubscriberInterface
         $view->Engine()->registerFilter('pre', [$this, 'preFilter']);
     }
 
-    /**
-     * Smarty preFilter callback. Modify template and return.
-     *
-     * @param string $source
-     * @param string $template
-     *
-     * @return mixed
-     */
-    public function preFilter($source, $template)
+    public function preFilter(string $source, \Smarty_Internal_Template $template): string
     {
         return $this->blockAnnotator->annotate($source, $template, $this->pluginConfig);
     }
 
-    /**
-     * Set own template directory.
-     *
-     * @param Enlight_Template_Manager $templateManager
-     */
-    private function reconfigureTemplateDirs(Enlight_Template_Manager $templateManager)
+    private function reconfigureTemplateDirs(Enlight_Template_Manager $templateManager): void
     {
         if (!$this->templateDirConfigured) {
             $compileDir = $templateManager->getCompileDir() . 'blocks/';

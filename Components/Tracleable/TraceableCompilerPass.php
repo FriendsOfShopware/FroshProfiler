@@ -8,9 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- * Class TraceableCompilerPass
- */
 class TraceableCompilerPass implements CompilerPassInterface
 {
     private $traceableServices = [
@@ -38,17 +35,11 @@ class TraceableCompilerPass implements CompilerPassInterface
      */
     private $generator;
 
-    /**
-     * TraceableCompilerPass constructor.
-     */
     public function __construct()
     {
         $this->generator = new TraceableGenerator();
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasParameter('shopware.traceable')) {

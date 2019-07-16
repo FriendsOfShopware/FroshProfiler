@@ -4,14 +4,7 @@ namespace FroshProfiler\Components\Cache;
 
 class CacheFactory
 {
-    /**
-     * @param string $backend
-     * @param array  $frontendOptions
-     * @param array  $backendOptions
-     *
-     * @return \Zend_Cache_Core
-     */
-    public function factory($backend, $frontendOptions = [], $backendOptions = [])
+    public function factory(string $backend, array $frontendOptions = [], array $backendOptions = []): \Zend_Cache_Core
     {
         $backend = $this->createBackend($backend, $backendOptions);
         $cacheCore = $this->createCacheCore($frontendOptions);
@@ -24,13 +17,7 @@ class CacheFactory
         return $cacheCore;
     }
 
-    /**
-     * @param string $backend
-     * @param array  $backendOptions
-     *
-     * @return \Zend_Cache_Backend
-     */
-    private function createBackend($backend, $backendOptions)
+    private function createBackend(string $backend, array $backendOptions): \Zend_Cache_Backend
     {
         if (strtolower($backend) === 'auto') {
             $backend = $this->createAutomaticBackend($backendOptions);
@@ -45,12 +32,7 @@ class CacheFactory
         return $backend;
     }
 
-    /**
-     * @param array $backendOptions
-     *
-     * @return \Zend_Cache_Backend
-     */
-    private function createAutomaticBackend($backendOptions = [])
+    private function createAutomaticBackend(array $backendOptions = []): \Zend_Cache_Backend
     {
         if ($this->isApcuAvailable()) {
             $backend = new \Zend_Cache_Backend_Apcu($backendOptions);
@@ -61,10 +43,7 @@ class CacheFactory
         return $backend;
     }
 
-    /**
-     * @return bool
-     */
-    private function isApcuAvailable()
+    private function isApcuAvailable(): bool
     {
         if (PHP_SAPI === 'cli') {
             return false;
@@ -73,12 +52,7 @@ class CacheFactory
         return extension_loaded('apcu');
     }
 
-    /**
-     * @param array $frontendOptions
-     *
-     * @return Cache
-     */
-    private function createCacheCore($frontendOptions = [])
+    private function createCacheCore(array $frontendOptions = []): Cache
     {
         $frontend = new Cache($frontendOptions);
 

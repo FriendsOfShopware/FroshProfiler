@@ -13,10 +13,7 @@ use Zend_Db_Profiler;
  */
 class DatabaseProfiler implements SubscriberInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
            'Enlight_Bootstrap_AfterInitResource_models' => 'onInitDoctrineModels',
@@ -24,10 +21,7 @@ class DatabaseProfiler implements SubscriberInterface
         ];
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onInitZendConnection(\Enlight_Event_EventArgs $args)
+    public function onInitZendConnection(\Enlight_Event_EventArgs $args): void
     {
         /** @var Container $subject */
         $subject = $args->get('subject');

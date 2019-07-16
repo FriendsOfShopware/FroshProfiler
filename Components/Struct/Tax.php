@@ -19,60 +19,36 @@ class Tax
      */
     private $proportionOfCart;
 
-    /**
-     * @return float
-     */
-    public function getTaxRate()
+    public function getTaxRate(): float
     {
         return $this->taxRate;
     }
 
-    /**
-     * @param float $taxRate
-     *
-     * @return Tax
-     */
-    public function setTaxRate($taxRate)
+    public function setTaxRate(float $taxRate): self
     {
         $this->taxRate = $taxRate;
 
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getSumOfCart()
+    public function getSumOfCart(): float
     {
         return $this->sumOfCart;
     }
 
-    /**
-     * @param float $sumOfCart
-     *
-     * @return Tax
-     */
-    public function setSumOfCart($sumOfCart)
+    public function setSumOfCart(float $sumOfCart): self
     {
         $this->sumOfCart = $sumOfCart;
 
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getProportionOfCart()
+    public function getProportionOfCart(): float
     {
         return $this->proportionOfCart;
     }
 
-    /**
-     * @param float $proportionOfCart
-     *
-     * @return Tax
-     */
-    public function setProportionOfCart($proportionOfCart)
+    public function setProportionOfCart(float $proportionOfCart): self
     {
         $this->proportionOfCart = $proportionOfCart;
 

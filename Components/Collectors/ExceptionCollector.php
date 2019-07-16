@@ -10,19 +10,12 @@ use FroshProfiler\Components\Struct\Profile;
  */
 class ExceptionCollector implements CollectorInterface
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'exception';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $error = $controller->Request()->getParam('error_handler');
 
@@ -31,7 +24,8 @@ class ExceptionCollector implements CollectorInterface
         }
     }
 
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
+        return null;
     }
 }

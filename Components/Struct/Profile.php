@@ -11,7 +11,7 @@ use JsonSerializable;
 class Profile implements JsonSerializable
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $id;
 
@@ -56,7 +56,7 @@ class Profile implements JsonSerializable
     private $events;
 
     /**
-     * @var Exception
+     * @var \Throwable|null
      */
     private $exception;
 
@@ -94,39 +94,27 @@ class Profile implements JsonSerializable
      */
     private $dump = [];
 
-    /**
-     * @param string $id
-     */
-    public function setId($id)
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function increaseTemplateBlockCalls()
+    public function increaseTemplateBlockCalls(): void
     {
         ++$this->templateBlockCalls;
     }
 
-    /**
-     * @param float $time
-     */
-    public function setRenderTime($time)
+    public function setRenderTime(float $time): void
     {
         $this->templateRenderTime = $time;
     }
 
-    /**
-     * @param string $path
-     */
-    public function addTemplateCall($path)
+    public function addTemplateCall(string $path): void
     {
         ++$this->templateCalls;
         $path = $this->normalizePath($path);
@@ -138,66 +126,42 @@ class Profile implements JsonSerializable
         }
     }
 
-    /**
-     * @param array $mail
-     */
-    public function addMail(array $mail)
+    public function addMail(array $mail): void
     {
         $this->mails[] = $mail;
     }
 
-    /**
-     * @param array $config
-     */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
-    /**
-     * @param array $dbQueries
-     */
-    public function setDbQueries(array $dbQueries)
+    public function setDbQueries(array $dbQueries): void
     {
         $this->dbQueries = $dbQueries;
     }
 
-    /**
-     * @param array $dump
-     */
-    public function setDump(array $dump)
+    public function setDump(array $dump): void
     {
         $this->dump = $dump;
     }
 
-    /**
-     * @param array $events
-     */
-    public function setEvents(array $events)
+    public function setEvents(array $events): void
     {
         $this->events = $events;
     }
 
-    /**
-     * @param Exception $exception
-     */
-    public function setException($exception)
+    public function setException(\Throwable $exception): void
     {
         $this->exception = $exception;
     }
 
-    /**
-     * @param array $php
-     */
-    public function setPhp($php)
+    public function setPhp(array $php): void
     {
         $this->php = $php;
     }
 
-    /**
-     * @param array $template
-     */
-    public function setTemplate($template)
+    public function setTemplate(array $template): void
     {
         $this->template = $template;
         $this->template['renderedTemplates'] = $this->templatesRendered;
@@ -206,52 +170,32 @@ class Profile implements JsonSerializable
         $this->template['renderTime'] = $this->templateRenderTime;
     }
 
-    /**
-     * @param array $user
-     */
-    public function setUser(array $user)
+    public function setUser(array $user): void
     {
         $this->user = $user;
     }
 
-    /**
-     * @return array
-     */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * @param array $attributes
-     */
-    public function setAttributes(array $attributes)
+    public function setAttributes(array $attributes): void
     {
         $this->attributes = $attributes + $this->attributes;
     }
 
-    /**
-     * @return int
-     */
-    public function getStartTime()
+    public function getStartTime(): int
     {
         return $this->startTime;
     }
 
-    /**
-     * @param int $startTime
-     */
-    public function setStartTime($startTime)
+    public function setStartTime(int $startTime): void
     {
         $this->startTime = $startTime;
     }
 
-    /**
-     * @return array|mixed
-     *
-     * @author Soner Sayakci <shyim@posteo.de>
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $result = [
             'template' => $this->template,
@@ -271,7 +215,7 @@ class Profile implements JsonSerializable
     /**
      * Resets the Profile
      */
-    public function reset()
+    public function reset(): void
     {
         $this->id = null;
         $this->templateCalls = 0;
@@ -282,7 +226,7 @@ class Profile implements JsonSerializable
         $this->mails = [];
         $this->dbQueries = [];
         $this->events = [];
-        $this->exception = [];
+        $this->exception = null;
         $this->attributes = [];
         $this->php = [];
         $this->template = [];
@@ -291,12 +235,7 @@ class Profile implements JsonSerializable
         $this->startTime = 0;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool|string
-     */
-    private function normalizePath($path)
+    private function normalizePath(string $path): string
     {
         if (strpos($path, 'frontend') !== false) {
             $pos = strpos($path, 'frontend');

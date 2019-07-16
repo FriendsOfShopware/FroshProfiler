@@ -164,31 +164,24 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
         }
     }
 
-    public function collect(\Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(\Enlight_Controller_Action $controller, Profile $profile): void
     {
-        $request =
-            new Request(
-                $controller->Request()
-            );
+        $request = $controller->Request();
+        $response = $controller->Response();
 
         // Sub-requests and programmatic calls stay in the collected profile.
-        if ($this->dumper || $request->isXmlHttpRequest() || $request->hasHeader('Origin')) {
+        if ($this->dumper || $request->isXmlHttpRequest() || $request->headers->has('Origin')) {
             return;
         }
-
-        $response =
-            new Response(
-                $controller->Response()
-            );
 
         // In all other conditions that remove the web debug toolbar, dumps are written on the output.
         if ($response->isRedirection()
             || $request->getRequestFormat() !== 'html'
             || strripos($response->getContent(), '</body>') === false
             || $controller->Request()->getCookie('disableProfile', false)
-            || ($response->hasHeader('Content-Type') && strpos($response->getHeader('Content-Type'), 'html') === false)
+            || ($response->headers->has('Content-Type') && strpos($response->headers->get('Content-Type'), 'html') === false)
         ) {
-            if ($response->hasHeader('Content-Type') && strpos($response->getHeader('Content-Type'), 'html') !== false) {
+            if ($response->headers->has('Content-Type') && strpos($response->headers->get('Content-Type'), 'html') !== false) {
                 $this->dumper = new HtmlDumper('php://output', $this->charset);
             } else {
                 $this->dumper = new CliDumper('php://output', $this->charset);
@@ -265,15 +258,12 @@ class DumpCollector implements CollectorInterface, DataDumperInterface, \Seriali
         return $dumps;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'dump';
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/dump.tpl';
     }

@@ -9,9 +9,6 @@ use FroshProfiler\Components\Struct\Profile;
 use Shopware\Components\Model\ModelManager;
 use Zend_Db_Profiler;
 
-/**
- * Class DBCollector
- */
 class DBCollector implements CollectorInterface
 {
     /**
@@ -43,22 +40,18 @@ class DBCollector implements CollectorInterface
     public function __construct(Enlight_Components_Db_Adapter_Pdo_Mysql $db, ModelManager $modelManager)
     {
         $this->zendProfiler = $db->getProfiler();
-        $this->doctrineProfiler = $modelManager->getConfiguration()->getSQLLogger();
+
+        /** @var DebugStack $sqlLogger */
+        $sqlLogger = $modelManager->getConfiguration()->getSQLLogger();
+        $this->doctrineProfiler = $sqlLogger;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Database';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $totalQueriesZend = $this->zendProfiler->getTotalNumQueries();
         $totalQueriesDoctrine = count($this->doctrineProfiler->queries);
@@ -73,15 +66,12 @@ class DBCollector implements CollectorInterface
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/db.tpl';
     }
 
-    private function getAllQuerys()
+    private function getAllQuerys(): void
     {
         foreach ($this->doctrineProfiler->queries as $query) {
             $this->executedQuerys[] = [

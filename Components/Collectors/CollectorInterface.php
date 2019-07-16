@@ -5,24 +5,11 @@ namespace FroshProfiler\Components\Collectors;
 use Enlight_Controller_Action;
 use FroshProfiler\Components\Struct\Profile;
 
-/**
- * Interface CollectorInterface
- */
 interface CollectorInterface
 {
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile);
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void;
 
-    /**
-     * @return string|void
-     */
-    public function getToolbarTemplate();
+    public function getToolbarTemplate(): ?string;
 }

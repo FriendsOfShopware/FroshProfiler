@@ -90,10 +90,6 @@
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="frosh_profiler.subscriber.ppm" class="FroshProfiler\Subscriber\PPMSubscriber">
-            <tag name="shopware.event_subscriber"/>
-        </service>
-
         <service id="frosh_profiler.current.profile" class="FroshProfiler\Components\Struct\Profile"/>
 
         <service id="snippet_resource"

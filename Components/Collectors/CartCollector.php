@@ -8,19 +8,12 @@ use FroshProfiler\Components\Struct\Tax;
 
 class CartCollector implements CollectorInterface
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Cart';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $cart = $controller->View()->getAssign('sBasket');
 
@@ -35,20 +28,12 @@ class CartCollector implements CollectorInterface
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): string
     {
         return '@Toolbar/toolbar/cart.tpl';
     }
 
-    /**
-     * @param array $items
-     *
-     * @return array
-     */
-    private function sumItemsByTaxRate(array $items)
+    private function sumItemsByTaxRate(array $items): array
     {
         $sums = [];
         $total = 0;
@@ -98,7 +83,7 @@ class CartCollector implements CollectorInterface
         return $sums;
     }
 
-    private function makeNumeric($num)
+    private function makeNumeric($num): float
     {
         return (float) str_replace(',', '.', $num);
     }

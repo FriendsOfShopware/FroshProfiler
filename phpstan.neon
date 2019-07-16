@@ -24,5 +24,8 @@ parameters:
         - '#imagettftext#'
         - '#class Redis#'
         - '#Constant STARTTIME#'
+        - '#_current_file#'
+        - '#Zend_Cache_Core::save#'
+        - '#DumpCollector#'
 
     reportUnmatchedIgnoredErrors: false

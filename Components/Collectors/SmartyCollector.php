@@ -6,24 +6,14 @@ use Enlight_Controller_Action;
 use Enlight_Exception;
 use FroshProfiler\Components\Struct\Profile;
 
-/**
- * Class SmartyCollector
- */
 class SmartyCollector implements CollectorInterface
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Smarty';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $smarty = $controller->View()->Engine();
         $assigns = $controller->View()->getAssign();
@@ -46,10 +36,7 @@ class SmartyCollector implements CollectorInterface
         $profile->setTemplate($result);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/smarty.tpl';
     }

@@ -21,36 +21,20 @@ class JavascriptSubscriber implements SubscriberInterface
      */
     private $viewDir;
 
-    /**
-     * JavascriptSubscriber constructor.
-     *
-     * @param array  $pluginConfig
-     * @param string $viewDir
-     */
-    public function __construct(array $pluginConfig, $viewDir)
+    public function __construct(array $pluginConfig, string $viewDir)
     {
         $this->pluginConfig = $pluginConfig;
         $this->viewDir = $viewDir;
     }
 
-    /**
-     * {@inheritdoc]
-     *
-     * @return array
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Theme_Compiler_Collect_Plugin_Javascript' => 'onCollectJavascriptFiles',
         ];
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     *
-     * @return ArrayCollection
-     */
-    public function onCollectJavascriptFiles(Enlight_Event_EventArgs $args)
+    public function onCollectJavascriptFiles(): ArrayCollection
     {
         $collection = new ArrayCollection();
 

@@ -164,7 +164,10 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $eventName
+     * @param array|callable $listener
+     * @param int $priority
+     * @return \Enlight_Event_EventManager
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
@@ -220,9 +223,9 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $event
-     * @param $value
-     * @param null $eventArgs
+     * @param string $event
+     * @param mixed $value
+     * @param Enlight_Event_EventArgs|null $eventArgs
      *
      * @return mixed
      */
@@ -256,11 +259,11 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $argument
+     * @param mixed $argument
      *
      * @return string
      */
-    private function dump($argument)
+    private function dump($argument): string
     {
         $value = Debug::dump($argument, 2, true, false);
         if ($this->xdebugInstalled) {
@@ -271,8 +274,8 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $event
-     * @param null $eventArgs
+     * @param string $event
+     * @param Enlight_Event_EventArgs|null $eventArgs
      *
      * @return Enlight_Event_EventArgs|null
      */
@@ -304,12 +307,9 @@ class EventManager extends ContainerAwareEventManager
     }
 
     /**
-     * @param $event
-     * @param null $eventArgs
-     *
-     * @return Enlight_Event_EventArgs|null
+     * @param mixed $eventArgs
      */
-    private function parentNotifyUntil($event, $eventArgs = null)
+    private function parentNotifyUntil(string $event, $eventArgs = null): ?Enlight_Event_EventArgs
     {
         if (!$this->hasListeners($event)) {
             return null;
@@ -377,8 +377,13 @@ class EventManager extends ContainerAwareEventManager
         if ($listener instanceof Enlight_Event_Handler_Default) {
             if ($lis instanceof Closure) {
                 $eventName = $event . '|Closure::Closure';
-            } else {
-                $eventName = $event . '|' . get_class($lis[0]) . '::' . $lis[1];
+            } elseif (is_array($lis)) {
+                /** @var object $classObj */
+                $classObj = $lis[0];
+                /** @var string $classMethod */
+                $classMethod = $lis[1];
+
+                $eventName = $event . '|' . get_class($classObj) . '::' . $classMethod;
             }
         } elseif ($listener instanceof Enlight_Event_Handler_Plugin) {
             $eventName = $event . '|' . get_class($listener->Plugin()) . '::' . $lis;

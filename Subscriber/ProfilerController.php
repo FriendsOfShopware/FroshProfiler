@@ -20,32 +20,22 @@ class ProfilerController implements SubscriberInterface
      */
     private $template;
 
-    /**
-     * @param $viewDir
-     * @param Enlight_Template_Manager $template
-     */
     public function __construct(
-        $viewDir,
+        string $viewDir,
         Enlight_Template_Manager $template
     ) {
         $this->viewDir = $viewDir;
         $this->template = $template;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Controller_Action_PreDispatch_Frontend_Profiler' => 'onProfilerController',
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function onProfilerController()
+    public function onProfilerController(): void
     {
         $this->template->addTemplateDir($this->viewDir);
     }

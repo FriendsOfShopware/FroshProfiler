@@ -15,30 +15,19 @@ class SmartyProfiler implements SubscriberInterface
      */
     private $pluginDir;
 
-    /**
-     * SmartyProfiler constructor.
-     *
-     * @param string $pluginDir
-     */
-    public function __construct($pluginDir)
+    public function __construct(string $pluginDir)
     {
         $this->pluginDir = $pluginDir;
     }
 
-    /**
-     * {@inheritdoc]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Bootstrap_InitResource_template' => 'onInitTemplate',
         ];
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onInitTemplate(Enlight_Event_EventArgs $args)
+    public function onInitTemplate(): void
     {
         if (!empty($_SERVER['REQUEST_URI'])) {
             if (strpos($_SERVER['REQUEST_URI'], '/backend') === false && strpos($_SERVER['REQUEST_URI'], '/api') === false && strpos($_SERVER['REQUEST_URI'], 'Profiler') === false) {

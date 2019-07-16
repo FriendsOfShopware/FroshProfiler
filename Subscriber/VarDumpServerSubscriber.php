@@ -19,36 +19,19 @@ class VarDumpServerSubscriber implements SubscriberInterface
      */
     private $pluginConfig;
 
-    /**
-     * VarDumpServerSubscriber constructor.
-     *
-     * @param array $pluginConfig
-     *
-     * @author Soner Sayakci <shyim@posteo.de>
-     */
     public function __construct(array $pluginConfig)
     {
         $this->pluginConfig = $pluginConfig;
     }
 
-    /**
-     * @return array
-     *
-     * @author Soner Sayakci <shyim@posteo.de>
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Bootstrap_AfterInitResource_models' => 'initVarDumper',
         ];
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     *
-     * @author Soner Sayakci <shyim@posteo.de>
-     */
-    public function initVarDumper(Enlight_Event_EventArgs $args)
+    public function initVarDumper(Enlight_Event_EventArgs $args): void
     {
         if (empty($this->pluginConfig['varDumpServer'])) {
             return;

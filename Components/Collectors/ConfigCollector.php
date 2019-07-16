@@ -6,9 +6,6 @@ use Enlight_Controller_Action;
 use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\Container;
 
-/**
- * Class ConfigCollector
- */
 class ConfigCollector implements CollectorInterface
 {
     /**
@@ -16,29 +13,17 @@ class ConfigCollector implements CollectorInterface
      */
     private $container;
 
-    /**
-     * ConfigCollector constructor.
-     *
-     * @param Container $container
-     */
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Config';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $config = $this->container->getParameterBag()->all();
 
@@ -51,10 +36,7 @@ class ConfigCollector implements CollectorInterface
         $profile->setConfig($config);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/config.tpl';
     }

@@ -32,24 +32,12 @@ class BlockAnnotator
      */
     private $blockSplitter;
 
-    /**
-     * BlockAnnotator constructor.
-     *
-     * @param BlockSplitter $blockSplitter
-     */
     public function __construct(BlockSplitter $blockSplitter)
     {
         $this->blockSplitter = $blockSplitter;
     }
 
-    /**
-     * @param string                    $source
-     * @param \Smarty_Internal_Template $template
-     * @param array                     $pluginConfig
-     *
-     * @return string
-     */
-    public function annotate($source, $template, $pluginConfig)
+    public function annotate(string $source, \Smarty_Internal_Template $template, array $pluginConfig): string
     {
         foreach ($this->blockSplitter->split($source) as $block) {
             if (in_array($block['name'], $this->blacklist) ||
@@ -92,23 +80,13 @@ class BlockAnnotator
         return $source;
     }
 
-    /**
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
-     */
-    function startsWith($haystack, $needle)
+    function startsWith(string $haystack, string $needle): bool
     {
         $length = \strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    /**
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
-     */
-    private function endsWith($haystack, $needle)
+    private function endsWith(string $haystack, string $needle): bool
     {
         $length = \strlen($needle);
         if ($length === 0) {
@@ -118,12 +96,7 @@ class BlockAnnotator
         return (\substr($haystack, -$length) === $needle);
     }
 
-    /**
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
-     */
-    private function contains($haystack, $needle)
+    private function contains(string $haystack, string $needle): bool
     {
         return \strpos($haystack, $needle) !== false;
     }

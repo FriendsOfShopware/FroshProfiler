@@ -6,9 +6,6 @@ use Enlight_Controller_Action;
 use FroshProfiler\Components\Cache\Cache;
 use FroshProfiler\Components\Struct\Profile;
 
-/**
- * Class CacheCollector
- */
 class CacheCollector implements CollectorInterface
 {
     /**
@@ -16,29 +13,17 @@ class CacheCollector implements CollectorInterface
      */
     private $cache;
 
-    /**
-     * CacheCollector constructor.
-     *
-     * @param Cache $cache
-     */
     public function __construct(Cache $cache)
     {
         $this->cache = $cache;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Cache';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $profile->setAttributes([
             'cache' => [
@@ -54,10 +39,7 @@ class CacheCollector implements CollectorInterface
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): string
     {
         return '@Toolbar/toolbar/cache.tpl';
     }

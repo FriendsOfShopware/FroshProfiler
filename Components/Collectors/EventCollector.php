@@ -7,36 +7,21 @@ use FroshProfiler\Components\Event\EventManager;
 use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
-/**
- * Class EventCollector
- */
 class EventCollector implements CollectorInterface
 {
     private $eventManager;
 
-    /**
-     * EventCollector constructor.
-     *
-     * @param EventManager $eventManager
-     */
     public function __construct(EventManager $eventManager)
     {
         $this->eventManager = $eventManager;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Events';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $eventsTimes = [];
 
@@ -91,10 +76,7 @@ class EventCollector implements CollectorInterface
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/events.tpl';
     }

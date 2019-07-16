@@ -47,10 +47,7 @@ class Collector implements SubscriberInterface
         $this->pluginConfig = $pluginConfig;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Controller_Action_PostDispatch' => 'onPostDispatch',
@@ -59,10 +56,7 @@ class Collector implements SubscriberInterface
         ];
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onPostDispatch(Enlight_Event_EventArgs $args)
+    public function onPostDispatch(Enlight_Event_EventArgs $args): void
     {
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->get('subject');
@@ -93,10 +87,7 @@ class Collector implements SubscriberInterface
         $this->profileController = $controller;
     }
 
-    /**
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onDispatchLoopShutdown(Enlight_Event_EventArgs $args)
+    public function onDispatchLoopShutdown(Enlight_Event_EventArgs $args): void
     {
         if ($this->profile->getId() === null || !$this->container->has('front')) {
             return;
@@ -147,12 +138,7 @@ class Collector implements SubscriberInterface
         }
     }
 
-    /**
-     * Collect mails.
-     *
-     * @param Enlight_Event_EventArgs $args
-     */
-    public function onSendMails(Enlight_Event_EventArgs $args)
+    public function onSendMails(Enlight_Event_EventArgs $args): void
     {
         /** @var \Enlight_Components_Mail $mail */
         $mail = $args->get('mail');

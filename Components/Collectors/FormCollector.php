@@ -10,25 +10,18 @@ class FormCollector implements CollectorInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'Forms';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $profile->setAttributes(['forms' => $controller->get('frosh_profiler.forms.data_collector')->getData()]);
     }
 
-    /**
-     * @return bool
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
-        return false;
+        return null;
     }
 }

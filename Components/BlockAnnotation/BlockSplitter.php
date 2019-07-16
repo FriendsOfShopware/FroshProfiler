@@ -12,14 +12,7 @@ class BlockSplitter
     const BLOCK_START = '(?P<open>{\s*block\s*name\s*=\s*["\']?(?P<name>.+?)["\']?\s*})';
     const BLOCK_END = '(?P<close>{/block})';
 
-    /**
-     * Split $template into smary blocks and return an array with info about all the blocks.
-     *
-     * @param string $template
-     *
-     * @return array
-     */
-    public function split($template)
+    public function split(string $template): array
     {
         $matches = [];
         preg_match_all('#' . self::BLOCK_START . '|' . self::BLOCK_END . '#', $template, $matches, PREG_OFFSET_CAPTURE);
@@ -61,27 +54,12 @@ class BlockSplitter
         return $closedStack;
     }
 
-    /**
-     * Will to a substr() - and automatically takes care of transforming the absolute $end to a relative $length.
-     *
-     * @param string $string
-     * @param int    $start
-     * @param int    $end
-     *
-     * @return string
-     */
-    private static function sliceString($string, $start, $end)
+    private static function sliceString(string $string, int $start, int $end): string
     {
         return substr($string, $start, $end - $start);
     }
 
-    /**
-     * @param int $a
-     * @param int $b
-     *
-     * @return int
-     */
-    private static function sortByChildren($a, $b)
+    private static function sortByChildren(array $a, array $b): int
     {
         $a = $a['children'];
         $b = $b['children'];

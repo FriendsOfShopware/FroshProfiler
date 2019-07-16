@@ -6,9 +6,6 @@ use Enlight_Controller_Action;
 use FroshProfiler\Components\Struct\Profile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Class GeneralCollector
- */
 class GeneralCollector implements CollectorInterface
 {
     /**
@@ -16,29 +13,17 @@ class GeneralCollector implements CollectorInterface
      */
     private $container;
 
-    /**
-     * GeneralCollector constructor.
-     *
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'General';
     }
 
-    /**
-     * @param Enlight_Controller_Action $controller
-     * @param Profile                   $profile
-     */
-    public function collect(Enlight_Controller_Action $controller, Profile $profile)
+    public function collect(Enlight_Controller_Action $controller, Profile $profile): void
     {
         $attributes = [
             'response' => [
@@ -75,18 +60,12 @@ class GeneralCollector implements CollectorInterface
         $profile->setAttributes($attributes);
     }
 
-    /**
-     * @return string
-     */
-    public function getToolbarTemplate()
+    public function getToolbarTemplate(): ?string
     {
         return '@Toolbar/toolbar/general.tpl';
     }
 
-    /**
-     * @return array
-     */
-    public function getLogs()
+    public function getLogs(): array
     {
         $logs = [];
 
