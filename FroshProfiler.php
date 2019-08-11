@@ -26,13 +26,6 @@ if (method_exists($kernel, 'getCacheDir')) {
     $loader->addPsr4('FroshProfilerProxy\\', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
 }
 
-$loader->addClassMap([
-    'Smarty_Internal_Compile_Block' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_compile_block.php',
-    'Smarty_Internal_Resource_Extends' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_resource_extends.php',
-    'Smarty_Internal_Resource_File' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_resource_file.php',
-    'Smarty_Internal_TemplateBase' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_templatebase.php',
-]);
-
 /**
  * Class FroshProfiler
  */
