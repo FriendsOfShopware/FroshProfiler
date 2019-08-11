@@ -64,6 +64,8 @@ jobs:
       - stage: Sonarqube
         language: java
         dist: trusty
+        before_script: skip
+        install: skip
         addons:
           sonarcloud:
             organization: friendsofshopware
