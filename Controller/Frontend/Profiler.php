@@ -60,12 +60,8 @@ class Profiler extends \Enlight_Controller_Action
         }
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function detailAction()
+    public function detailAction(string $id, int $showContainerEvents = 0, string $search = null, bool $raw = false)
     {
-        $id = $this->Request()->get('id');
         $subrequest = null;
 
         if (strpos($id, '|') !== false) {
@@ -87,8 +83,8 @@ class Profiler extends \Enlight_Controller_Action
         }
 
         $eventFilter = [
-            'showContainerEvents' => $this->Request()->getParam('showContainerEvents', 0),
-            'search' => $this->Request()->getParam('search'),
+            'showContainerEvents' => $showContainerEvents,
+            'search' => $search,
         ];
         $detail = $this->filterDetail($detail, $eventFilter);
 
@@ -96,6 +92,12 @@ class Profiler extends \Enlight_Controller_Action
         $this->View()->assign('sId', $this->Request()->get('id'));
         $this->View()->assign('sDetail', $detail);
         $this->View()->assign('sPanel', $this->Request()->getParam('panel', 'request'));
+
+        if ($raw) {
+            $this->Front()->Plugins()->ViewRenderer()->setNoRender();
+            $this->Response()->headers->set('Content-Type', 'application/json');
+            $this->Response()->setContent(json_encode($detail));
+        }
     }
 
     public function phpAction()

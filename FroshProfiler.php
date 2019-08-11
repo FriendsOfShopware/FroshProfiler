@@ -6,7 +6,6 @@ use Doctrine\ORM\Tools\SchemaTool;
 use FroshProfiler\Components\CompilerPass\AddTemplatePluginDirCompilerPass;
 use FroshProfiler\Components\CompilerPass\CustomCacheCompilerPass;
 use FroshProfiler\Components\CompilerPass\CustomEventManagerCompilerPass;
-use FroshProfiler\Components\CompilerPass\ProfilerCollectorCompilerPass;
 use FroshProfiler\Components\Tracleable\TraceableCompilerPass;
 use FroshProfiler\Models\Profile;
 use Shopware\Components\Plugin;
@@ -14,20 +13,25 @@ use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware\Components\Plugin\Context\UpdateContext;
-use Symfony\Component\ClassLoader\Psr4ClassLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-global $kernel;
+/** @var \Composer\Autoload\ClassLoader $loader */
+global $kernel, $loader;
 
 if (method_exists($kernel, 'getCacheDir')) {
-    $loader = new Psr4ClassLoader();
-    $loader->addPrefix('FroshProfilerProxy', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
-    $loader->register();
+    $loader->addPsr4('FroshProfilerProxy\\', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
 }
+
+$loader->addClassMap([
+    'Smarty_Internal_Compile_Block' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_compile_block.php',
+    'Smarty_Internal_Resource_Extends' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_resource_extends.php',
+    'Smarty_Internal_Resource_File' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_resource_file.php',
+    'Smarty_Internal_TemplateBase' => __DIR__ . '/Components/Smarty/sysplugins/smarty_internal_templatebase.php',
+]);
 
 /**
  * Class FroshProfiler
