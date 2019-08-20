@@ -43,7 +43,7 @@ class RequestContextProvider implements ContextProviderInterface
         return [
             'uri' => $request->getScheme() . '//' . $request->getHttpHost() . $request->getRequestUri(),
             'method' => $request->getMethod(),
-            'controller' => $request->getControllerName(),
+            'controllerName' => $request->getControllerName(),
             'identifier' => spl_object_hash($request),
         ];
     }

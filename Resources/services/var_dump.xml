@@ -51,21 +51,6 @@
 
         <service id="var_dumper.command.server_dump" class="Symfony\Component\VarDumper\Command\ServerDumpCommand">
             <argument type="service" id="var_dumper.dump_server" />
-            <argument type="collection">
-                <argument type="service" key="cli">
-                    <service class="Symfony\Component\VarDumper\Command\Descriptor\CliDescriptor">
-                        <argument type="service" id="var_dumper.cli_dumper" />
-                    </service>
-                </argument>
-                <argument type="service" key="html">
-                    <service class="Symfony\Component\VarDumper\Command\Descriptor\HtmlDescriptor">
-                        <argument type="service" id="var_dumper.html_dumper" />
-                    </service>
-                </argument>
-            </argument>
-            <call method="setName">
-                <argument type="string">server:dump</argument>
-            </call>
             <tag name="console.command" command="server:dump" />
         </service>
 

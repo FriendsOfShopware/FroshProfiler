@@ -5,6 +5,7 @@ namespace FroshProfiler\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\ServerDumper;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
@@ -39,6 +40,8 @@ class VarDumpServerSubscriber implements SubscriberInterface
 
         $cloner = new VarCloner();
         $cloner->setMaxItems(-1);
+
+        /** @var ServerDumper $serverDumper */
         $serverDumper = $args->get('subject')->get('var_dumper.server_dumper');
 
         VarDumper::setHandler(function ($var) use ($cloner, $serverDumper) {
