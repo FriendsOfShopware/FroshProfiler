@@ -1,8 +1,9 @@
 <?php
 
 use Doctrine\Common\Cache\FilesystemCache;
+use Frosh\ClassicPhpunitBridge\Test\ControllerTest;
 
-class ProfileTest extends Enlight_Components_Test_Controller_TestCase
+class ProfileTest extends ControllerTest
 {
     /**
      * @var FilesystemCache
@@ -19,7 +20,7 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
      */
     private $connection;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -30,7 +31,7 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
         $this->dispatch('/');
     }
 
-    public function testSmartyVariables()
+    public function testSmartyVariables(): void
     {
         $templateAssigns = $this->View()->getAssign();
 
@@ -40,7 +41,7 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
         $this->assertArrayHasKey('sProfilerCollectors', $templateAssigns);
     }
 
-    public function testProfileSaved()
+    public function testProfileSaved(): void
     {
         $id = $this->View()->getAssign('sProfilerID');
 
@@ -50,7 +51,7 @@ class ProfileTest extends Enlight_Components_Test_Controller_TestCase
         $this->assertNotEmpty(Shopware()->Container()->get('frosh_profiler.current.profile')->getId());
     }
 
-    public function testProfileContent()
+    public function testProfileContent(): void
     {
         $id = $this->View()->getAssign('sProfilerID');
         $profile = $this->cache->fetch($id);

@@ -1,2 +1,3 @@
 /ProfilerCache/*
 /vendor
+.phpunit.result.cache

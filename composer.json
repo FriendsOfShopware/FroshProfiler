@@ -20,7 +20,8 @@
         "psr/log": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~8.0",
+        "frosh/shopware-classic-phpunit-bridge": "dev-master"
     },
     "scripts": {
         "test": "phpunit -c tests/ --colors=always",

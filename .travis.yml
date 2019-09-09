@@ -39,6 +39,7 @@ before_script:
   - php ${HOME}/shopware/bin/console sw:plugin:refresh
   - php ${HOME}/shopware/bin/console sw:plugin:install ${PLUGIN_NAME}
   - php ${HOME}/shopware/bin/console sw:plugin:activate ${PLUGIN_NAME}
+  - composer install -o --no-dev
   - cd ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
 
 script:
