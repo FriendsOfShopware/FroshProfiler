@@ -1,6 +1,8 @@
 # Profiling
 
 [![Travis CI](https://api.travis-ci.org/FriendsOfShopware/FroshProfiler.svg?branch=master)](https://travis-ci.org/FriendsOfShopware/FroshProfiler)
+[![Download @ Community Store](https://img.shields.io/badge/endpoint.svg?url=https://api.friendsofshopware.de/FroshProfiler)](https://store.shopware.com/en/frosh14879865239f/profiler.html)
+
 
 Profiling for Shopware
 
