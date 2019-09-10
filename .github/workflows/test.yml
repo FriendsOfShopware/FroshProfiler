@@ -1,0 +1,36 @@
+name: CI
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Setup Shopware
+                uses: FriendsOfShopware/action-shopware@master
+                with:
+                    php-version: 7.3
+                    shopware-version: 5.6
+            -   name: Run a multi-line script
+                run: |
+                    pwd
+                    ls -la
+                    ls -la shopware/
+            -   uses: actions/checkout@v1
+                with:
+                    path: 'shopware/custom/plugins/FroshProfiler'
+            -   name: Composer install
+                run: composer install
+            -   name: Run a multi-line script
+                run: |
+                    pwd
+                    ls -la ..
+                    ls -la ../..
+                    ls -la ../../..
+                    ls -la ../../../..
+                    ls -la ../../../../..
+                    ls -la ../../../../../..
+            -   name: Run PHPUnit Unit Tests
+                run: composer test-unit
+            -   name: Run PHPUnit Functional Tests
+                run: composer test
