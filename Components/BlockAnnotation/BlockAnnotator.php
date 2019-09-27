@@ -46,7 +46,8 @@ class BlockAnnotator
                 $this->contains($block['name'], 'classes') ||
                 $this->endsWith($block['name'], '_data') ||
                 $this->startsWith($block['name'], 'frontend_index_search_similar_results_') ||
-                $this->contains($block['name'], 'dreisc_seo_') && $this->contains($block['name'], '_frontend_index_header')
+                ($this->contains($block['name'], 'dreisc_seo_') && $this->contains($block['name'], '_frontend_index_header')) ||
+                ($this->startsWith($block['name'], 'b2b_') && $this->endsWith($block['name'], '_class'))
             ) {
                 continue;
             }
