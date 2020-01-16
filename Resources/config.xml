@@ -51,7 +51,7 @@
         <element type="boolean">
             <name>jsEvents</name>
             <label>Output Javascript events to console</label>
-            <label lang="de">Javascript Evenets in der Console ausgeben</label>
+            <label lang="de">Javascript Events in der Console ausgeben</label>
             <value>1</value>
         </element>
         <element type="boolean">
