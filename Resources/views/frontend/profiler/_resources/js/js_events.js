@@ -87,10 +87,10 @@
             var argsArray = args[1];
 
             if (type === 'publish' && args) {
-                console.log("(%s)%s %s [arguments: %O]", type, indents, eventName, argsArray);
+                console.debug("(%s)%s %s [arguments: %O]", type, indents, eventName, argsArray);
             }
             else {
-                console.log("(%s)%s %s", type, indents, eventName);
+                console.debug("(%s)%s %s", type, indents, eventName);
             }
         },
 
@@ -99,10 +99,10 @@
                 viewports = args[2];
 
             if (type === 'addPlugin' && viewports) {
-                console.log("(%s)%s %s [element: %o, viewports: %O]", type, indents, pluginName, element, viewports);
+                console.debug("(%s)%s %s [element: %o, viewports: %O]", type, indents, pluginName, element, viewports);
             }
             else {
-                console.log("(%s)%s %s [element: %o]", type, indents, pluginName, element);
+                console.debug("(%s)%s %s [element: %o]", type, indents, pluginName, element);
             }
         },
 
@@ -110,7 +110,7 @@
             var previousState = args[0],
                 currentState = args[1];
 
-            console.log("(%s)%s %c[previousState: %s, currentState: %s]", type, indents, 'font-weight:bold', previousState, currentState);
+            console.debug("(%s)%s %c[previousState: %s, currentState: %s]", type, indents, 'font-weight:bold', previousState, currentState);
         },
 
         logInits: function (type, pluginName, indents, args) {
@@ -119,10 +119,10 @@
                 plugin = element.data('plugin_' + pluginName);
 
             if (plugin) {
-                console.log("(%s)%s %s [selector: %o, events: %O]", type, indents, pluginName, selector, plugin._events);
+                console.debug("(%s)%s %s [selector: %o, events: %O]", type, indents, pluginName, selector, plugin._events);
             }
             else {
-                console.log("(%s)%s %s [selector: %o]", type, indents, pluginName, selector);
+                console.debug("(%s)%s %s [selector: %o]", type, indents, pluginName, selector);
             }
         },
 
