@@ -267,7 +267,7 @@ class EventManager extends ContainerAwareEventManager
     {
         $value = Debug::dump($argument, 2, true, false);
         if ($this->xdebugInstalled) {
-            ini_set('xdebug.var_display_max_depth', $this->xdebugDepth);
+            ini_set('xdebug.var_display_max_depth', (string) $this->xdebugDepth);
         }
 
         return $value;
