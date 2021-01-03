@@ -5,37 +5,38 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="frosh_profiler.collectors.general" class="FroshProfiler\Components\Collectors\GeneralCollector" public="false">
+        <defaults public="true"/>
+        <service id="frosh_profiler.collectors.general" class="FroshProfiler\Components\Collectors\GeneralCollector">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.php" class="FroshProfiler\Components\Collectors\PHPCollector" public="false">
+        <service id="frosh_profiler.collectors.php" class="FroshProfiler\Components\Collectors\PHPCollector">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.user" class="FroshProfiler\Components\Collectors\UserCollector" public="false">
+        <service id="frosh_profiler.collectors.user" class="FroshProfiler\Components\Collectors\UserCollector">
             <argument type="service" id="service_container"/>
 
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.smarty" class="FroshProfiler\Components\Collectors\SmartyCollector" public="false">
+        <service id="frosh_profiler.collectors.smarty" class="FroshProfiler\Components\Collectors\SmartyCollector">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.event" class="FroshProfiler\Components\Collectors\EventCollector" public="false">
+        <service id="frosh_profiler.collectors.event" class="FroshProfiler\Components\Collectors\EventCollector">
             <argument type="service" id="events"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.cache" class="FroshProfiler\Components\Collectors\CacheCollector" public="false">
+        <service id="frosh_profiler.collectors.cache" class="FroshProfiler\Components\Collectors\CacheCollector">
             <argument type="service" id="cache"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.db" class="FroshProfiler\Components\Collectors\DBCollector" public="false">
+        <service id="frosh_profiler.collectors.db" class="FroshProfiler\Components\Collectors\DBCollector">
             <argument type="service" id="db"/>
             <argument type="service" id="models"/>
             <tag name="profiler.collector"/>
@@ -48,20 +49,20 @@
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector" public="false">
+        <service id="frosh_profiler.collectors.config" class="FroshProfiler\Components\Collectors\ConfigCollector">
             <argument type="service" id="service_container"/>
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.exception" class="FroshProfiler\Components\Collectors\ExceptionCollector" public="false">
+        <service id="frosh_profiler.collectors.exception" class="FroshProfiler\Components\Collectors\ExceptionCollector">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.forms" class="FroshProfiler\Components\Collectors\FormCollector" public="false">
+        <service id="frosh_profiler.collectors.forms" class="FroshProfiler\Components\Collectors\FormCollector">
             <tag name="profiler.collector"/>
         </service>
 
-        <service id="frosh_profiler.collectors.cart" class="FroshProfiler\Components\Collectors\CartCollector" public="false">
+        <service id="frosh_profiler.collectors.cart" class="FroshProfiler\Components\Collectors\CartCollector">
             <tag name="profiler.collector"/>
         </service>
     </services>

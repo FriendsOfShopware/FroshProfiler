@@ -9,32 +9,30 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class VarDumpCollectorSubscriber implements SubscriberInterface
 {
-    /** @var array */
-    private $pluginConfig;
-
     /** @var ContainerInterface */
     private $container;
 
-    public function __construct(array $pluginConfig, ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
-        $this->pluginConfig = $pluginConfig;
         $this->container = $container;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            'Enlight_Bootstrap_AfterInitResource_models' => 'initVarDumper',
+            'Enlight_Bootstrap_AfterInitResource_front' => 'initVarDumper',
         ];
     }
 
     public function initVarDumper(): void
     {
-        if (!empty($this->pluginConfig['varDumpServer'])) {
+        $container = $this->container;
+        $pluginConfig = $container->get('frosh_profiler.config');
+
+        if (!empty($pluginConfig['varDumpServer'])) {
             return;
         }
 
-        $container = $this->container;
 
         // This code is here to lazy load the dump stack. This default
         // configuration is overridden in CLI mode on 'console.command' event.

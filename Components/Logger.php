@@ -39,7 +39,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function emergency($message, array $context = [])
+    public function emergency($message, array $context = []): void
     {
         $this->storeMessage(self::EMERGENCY, $message, $context);
         parent::emergency($message, $context);
@@ -48,7 +48,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function alert($message, array $context = [])
+    public function alert($message, array $context = []): void
     {
         $this->storeMessage(self::ALERT, $message, $context);
         parent::alert($message, $context);
@@ -57,7 +57,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function critical($message, array $context = [])
+    public function critical($message, array $context = []): void
     {
         $this->storeMessage(self::CRITICAL, $message, $context);
         parent::critical($message, $context);
@@ -66,7 +66,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function error($message, array $context = [])
+    public function error($message, array $context = []): void
     {
         $this->storeMessage(self::ERROR, $message, $context);
         parent::error($message, $context);
@@ -75,7 +75,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function warning($message, array $context = [])
+    public function warning($message, array $context = []): void
     {
         $this->storeMessage(self::WARNING, $message, $context);
         parent::warning($message, $context);
@@ -84,7 +84,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function notice($message, array $context = [])
+    public function notice($message, array $context = []): void
     {
         $this->storeMessage(self::NOTICE, $message, $context);
         parent::notice($message, $context);
@@ -93,7 +93,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function info($message, array $context = [])
+    public function info($message, array $context = []): void
     {
         $this->storeMessage(self::INFO, $message, $context);
         parent::info($message, $context);
@@ -102,7 +102,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function debug($message, array $context = [])
+    public function debug($message, array $context = []): void
     {
         $this->storeMessage(self::DEBUG, $message, $context);
         parent::debug($message, $context);
@@ -111,7 +111,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $this->storeMessage((int) $level, $message, $context);
         parent::log($level, $message, $context);

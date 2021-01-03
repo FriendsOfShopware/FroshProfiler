@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <defaults public="true"/>
         <service id="corelogger" class="FroshProfiler\Components\Logger">
             <argument>core</argument>
             <call method="pushHandler">

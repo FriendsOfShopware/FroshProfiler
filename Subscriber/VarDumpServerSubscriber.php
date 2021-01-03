@@ -28,7 +28,7 @@ class VarDumpServerSubscriber implements SubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'Enlight_Bootstrap_AfterInitResource_models' => 'initVarDumper',
+            'Enlight_Bootstrap_AfterInitResource_front' => 'initVarDumper',
         ];
     }
 

@@ -83,21 +83,21 @@ jobs:
         before_script: skip
         install:
         - ./build.sh master
-        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.2.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.8/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
         script:
         - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
       - stage: Store-Sync
         before_script: skip
         php: 7.3
         install:
-          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.2.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.8/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
         script:
           - php frosh-plugin-upload.phar plugin:update ${TRAVIS_BUILD_DIR}
       - stage: Store-Deploy
         before_script: skip
         php: 7.3
         install:
-          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.2.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+          - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.8/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
         script:
           - ./build.sh
           - php frosh-plugin-upload.phar plugin:upload ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
