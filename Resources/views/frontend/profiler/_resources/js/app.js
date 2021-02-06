@@ -358,7 +358,8 @@ Sfjs = (function() {
 
                 for (j = 0; j < tabNavigation.length; j++) {
                     tabId = tabNavigation[j].getAttribute('data-tab-id');
-                    document.getElementById(tabId).querySelector('.tab-title').className = 'hidden';
+                    var tabTitle = document.getElementById(tabId).querySelector('.tab-title');
+                    if (tabTitle) tabTitle.className = 'hidden';
 
                     if (hasClass(tabNavigation[j], 'active')) {
                         document.getElementById(tabId).className = 'block';
