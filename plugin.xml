@@ -9,7 +9,7 @@
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
     <compatibility minVersion="5.6.0" />
-    <changelog version="1.4.3">
+    <changelog version="1.4.4">
         <changes lang="en">
             <![CDATA[
                 <ul>
