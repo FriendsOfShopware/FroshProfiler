@@ -3,12 +3,28 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Profiler</label>
     <label lang="en">Profiler</label>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
     <compatibility minVersion="5.6.0" />
+    <changelog version="1.4.3">
+        <changes lang="en">
+            <![CDATA[
+                <ul>
+                    <li>Improve Shopware 5.7.0 support</li>
+                </ul>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+                <ul>
+                    <li>Improve Shopware 5.7.0 support</li>
+                </ul>
+            ]]>
+        </changes>
+    </changelog>
     <changelog version="1.4.3">
         <changes lang="en">
             <![CDATA[

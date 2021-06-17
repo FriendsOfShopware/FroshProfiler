@@ -21,7 +21,11 @@
                     {foreach from=$sDetail.request.get key=key item=value}
                         <tr>
                             <td>{$key|escape}</td>
-                            <td>{$value|escape}</td>
+                            {if is_array($value)}
+                                <td>{$value|dump|escape}</td>
+                            {else}
+                                <td>{$value|escape}</td>
+                            {/if}
                         </tr>
                     {/foreach}
                     </tbody>
@@ -46,7 +50,11 @@
                     {foreach from=$sDetail.request.post key=key item=value}
                         <tr>
                             <td>{$key|escape}</td>
-                            <td>{$value|escape}</td>
+                            {if is_array($value)}
+                                <td>{$value|dump|escape}</td>
+                            {else}
+                                <td>{$value|escape}</td>
+                            {/if}
                         </tr>
                     {/foreach}
                     </tbody>
@@ -86,7 +94,11 @@
                 {foreach from=$sDetail.server key=key item=value}
                     <tr>
                         <td>{$key|escape}</td>
-                        <td>{$value|escape}</td>
+                        {if is_array($value)}
+                            <td>{$value|dump|escape}</td>
+                        {else}
+                            <td>{$value|escape}</td>
+                        {/if}
                     </tr>
                 {/foreach}
                 </tbody>
@@ -136,7 +148,13 @@
                 {foreach from=$sDetail.response.headers key=key item=value}
                     <tr>
                         <td>{$key|escape}</td>
-                        <td>{$value|@implode:" "|escape}</td>
+                        {if is_string($value)}
+                            <td>{$value|escape}</td>
+                        {elseif $value === null}
+                            <td></td>
+                        {elseif is_array($value)}
+                            <td>{" "|@implode:$value|escape}</td>
+                        {/if}
                     </tr>
                 {/foreach}
                 </tbody>

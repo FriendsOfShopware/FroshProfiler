@@ -89,6 +89,7 @@ class Collector
     public function saveCollectInformation($id, $information, $subrequets = false)
     {
         $information = $this->normalizeArray($information);
+        $information['subrequest'] = [];
 
         if ($subrequets) {
             $data = $this->cache->fetch($id);
