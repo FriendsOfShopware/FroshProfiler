@@ -26,6 +26,7 @@ class BlockAnnotator
         'frontend_index_header_javascript_inline',
         'frontend_listing_actions_class',
         'frontend_detail_index_configurator_set_configuration',
+        'frontend_detail_index_product_set_configuration',
     ];
     /**
      * @var BlockSplitter
