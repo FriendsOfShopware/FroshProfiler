@@ -407,9 +407,9 @@
         </changes>
     </changelog>
     <description>
-        The Profiler shows many informations like Timing of Events, Template Variables and much more in a simple Toolbar
+        The Profiler shows informations like Timing of Events, Template Variables and more in a simple Toolbar. Furthermore all template blocks are printed in the rendered HTML as comment.
     </description>
     <description lang="de">
-        Der Profiler zeigt viele Informationen wie Zeiten von Events, Template Variabeln und vieles mehr in einer Toolbar
+        Der Profiler zeigt viele Informationen wie Zeiten von Events, Template Variabeln und vieles mehr in einer Toolbar. Auch werden alle Template Blöcke im HTML als Kommentare ausgegeben.
     </description>
 </plugin>
