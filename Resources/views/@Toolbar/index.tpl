@@ -39,8 +39,13 @@
         if (window.CSRF) {
             var ajaxBeforeSend = window.CSRF._ajaxBeforeSend;
 
-            window.CSRF._ajaxBeforeSend = function (event, request) {
+            window.CSRF._ajaxBeforeSend = function (event, request, settings) {
                 ajaxBeforeSend.apply(window.CSRF, arguments);
+
+                if (Object.prototype.hasOwnProperty.call(settings, 'ignoreCSRFHeader') || settings.ignoreCSRFHeader === true || !window.CSRF.isLocalLink(settings.url)) {
+                    return;
+                }
+
                 request.setRequestHeader('X-Profiler', '{$sProfilerID}');
             };
         }
