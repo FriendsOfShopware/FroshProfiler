@@ -22,7 +22,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 /** @var \Composer\Autoload\ClassLoader $loader */
 global $kernel, $loader;
 
-if (method_exists($kernel, 'getCacheDir')) {
+if ($kernel !== null && method_exists($kernel, 'getCacheDir')) {
     $loader->addPsr4('FroshProfilerProxy\\', dirname($kernel->getCacheDir()) . '/tracer/FroshProfilerProxy/');
 }
 
