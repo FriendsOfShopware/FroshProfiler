@@ -190,7 +190,7 @@ class Profile implements JsonSerializable
         return $this->startTime;
     }
 
-    public function setStartTime(int $startTime): void
+    public function setStartTime(float $startTime): void
     {
         $this->startTime = $startTime;
     }
