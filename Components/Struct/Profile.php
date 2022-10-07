@@ -81,7 +81,7 @@ class Profile implements JsonSerializable
     private $user = [];
 
     /**
-     * @var int
+     * @var float
      */
     private $startTime = 0;
 
@@ -185,12 +185,12 @@ class Profile implements JsonSerializable
         $this->attributes = $attributes + $this->attributes;
     }
 
-    public function getStartTime(): int
+    public function getStartTime(): float
     {
         return $this->startTime;
     }
 
-    public function setStartTime(int $startTime): void
+    public function setStartTime(int $startTime): float
     {
         $this->startTime = $startTime;
     }
