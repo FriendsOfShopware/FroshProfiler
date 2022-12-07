@@ -22,8 +22,10 @@
         </div>
         <div class="sf-toolbar-info-piece">
             <b>Cache hits</b>
-            <span>{$sProfiler.cache.hit} / {$sProfiler.cache.read} ({(($sProfiler.cache.hit / $sProfiler.cache.read) * 100)|number_format:0}%)</span>
-        </div>
+            {if $sProfiler.cache.hit > 0 || $sProfiler.cache.read >0 }
+                <span>{$sProfiler.cache.hit} / {$sProfiler.cache.read} ({(($sProfiler.cache.hit / $sProfiler.cache.read) * 100)|number_format:0}%)</span>
+            {/if}
+            </div>
         <div class="sf-toolbar-info-piece">
             <b>Cache writes</b>
             <span>{$sProfiler.cache.write}</span>
